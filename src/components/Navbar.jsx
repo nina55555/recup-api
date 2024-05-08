@@ -3,7 +3,7 @@
 export default function Navbar() {
     return (
       <div className='navbar'>
-      <h1>Je suis la fabuleuse Navbar</h1></div>
+      <h1 className="contour"> Je suis la fabuleuse Navbar</h1></div>
       /*
       <div>
         

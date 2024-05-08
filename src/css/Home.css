@@ -1,12 +1,14 @@
+
+
 .home{
-    background-color: gray;
-    padding: 20px;
+    /*background-color: rgb(193, 197, 138);*/
+    text-align: center;
+    background-color: rgb(160, 161, 156);
+    border: 1px solid rgb(188, 238, 130);
+    margin: 10px;
 }
 
-.h1{
-    color: #240449;
-}
-
-.technoAdd{
-    background-color: darksalmon;
+form{
+    
+    background-color: rgb(160, 161, 156);
 }

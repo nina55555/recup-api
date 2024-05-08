@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Navbar from './components/Navbar'
+import Video from './components/Video'
 import Home from './pages/Home'
 import Collection from './pages/Collection'
 import About from './pages/About'
@@ -54,10 +55,15 @@ function App() {
   return (
     <div className='App'>
       <Navbar />
-      <h1>je suis le tout puissant App</h1>
+     
       <RouterProvider router={router} />
+     
     </div>
   )
 }
 
-export default App
+export default App 
+
+/*<h1 className='contour'>je suis le tout puissant App</h1>
+<Video />
+*/

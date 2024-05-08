@@ -1,6 +1,11 @@
+
+
+
 .navbar{
-    background-color: cornflowerblue;
-    padding: 20px;
+    text-align: center;
+    background-color: rgb(1, 2, 5);
+    padding: 2px;
+    margin: 10px;
 }
 
 h1{
