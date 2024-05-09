@@ -14,13 +14,21 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import ErrorPage from './pages/ErrorPage'
 import Book from './pages/Book'
+import Welcome from './pages/Welcome';
 
 
 
 
 const router = createBrowserRouter([
+ 
+      {
+
+      path: "/",
+    element: <Welcome />,
+      },
+   
   {
-    path: "/",
+    path: "/home",
     element: <Home />,
   },
 
@@ -54,8 +62,6 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className='App'>
-      <Navbar />
-     
       <RouterProvider router={router} />
      
     </div>

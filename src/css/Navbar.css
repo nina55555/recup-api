@@ -11,3 +11,17 @@
 h1{
     color: #5f5b5b;
 }
+
+.navbox{
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.logoimg{
+    width: 75px;
+    margin: 0;
+    padding: 0;
+    border-radius: 35px;
+}

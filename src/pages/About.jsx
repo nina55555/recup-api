@@ -1,7 +1,15 @@
 
+
+import Navbar from "../components/Navbar"
+
 export default function About() {
     return (
-      <h1>Je m'appelle About page</h1>
+        <div>
+            
+            <Navbar />      
+            <h1>Je m'appelle About page</h1>
+
+        </div>
     )
     
   }

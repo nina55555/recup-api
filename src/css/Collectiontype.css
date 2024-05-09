@@ -1,0 +1,16 @@
+
+.chooseco{
+    background-color: rgb(10, 10, 10);
+
+    margin: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chooseco a{
+    background-color: rgb(10, 10, 10);
+    /*color: antiquewhite;*/
+    color: rgb(159, 204, 76);
+
+}

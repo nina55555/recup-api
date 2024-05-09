@@ -1,0 +1,58 @@
+
+
+.mainbox{
+    width: auto;
+    height: 100%;
+    background-color: aqua;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.textbox{
+    background-color: rgb(58, 57, 57);
+  
+    width: 100%; 
+     /*
+    height: 100%;
+    */
+    /*margin: 10px;*/
+    padding: 50px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
+.welcometext{
+
+    width: auto;
+    height: 15vh;
+    margin: 0px;
+    padding: 25px 5px 5px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.marbres{
+    background-color: chocolate;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+}
+
+.marbres img{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
