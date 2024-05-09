@@ -26,7 +26,14 @@ const router = createBrowserRouter([
       path: "/",
     element: <Welcome />,
       },
-   
+      {
+        path: "/recup-api/",
+        element: <Welcome />,
+      },
+      {
+        path: "/recup-api/home",
+        element: <Home />,
+      },
   {
     path: "/home",
     element: <Home />,
