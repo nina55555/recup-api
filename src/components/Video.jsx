@@ -9,6 +9,7 @@ function Video () {
 
     return (
         <div className='boxVideo'>
+            <p>Vous l'avez fait !</p>
             <div className='videoShow'>
             <video src={videoShow} autoPlay muted loop/>
         </div>

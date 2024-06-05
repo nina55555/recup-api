@@ -30,10 +30,7 @@ const router = createBrowserRouter([
         path: "/recup-api/",
         element: <Welcome />,
       },
-      {
-        path: "/recup-api/home",
-        element: <Home />,
-      },
+      
   {
     path: "/home",
     element: <Home />,
@@ -70,7 +67,7 @@ function App() {
   return (
     <div className='App'>
       <RouterProvider router={router} />
-     
+    
     </div>
   )
 }
