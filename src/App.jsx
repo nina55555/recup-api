@@ -1,4 +1,8 @@
 
+//
+import React, {useState} from "react";
+import { QueryClient,QueryClientProvider } from "react-query";
+
 
 import { Route, Routes ,RouterProvider} from "react-router-dom";
 import './css/App.css'
@@ -15,14 +19,25 @@ import Contact from "./pages/Contact";
 
 
 
+//
+const queryClient = new QueryClient()
+
 
 
 
 function App() {
+
+
+
   return ( 
+
+    //
+    <QueryClientProvider client= {queryClient}>
+
+
   
   <div className='App'>      
-<Navbar/>
+    <Navbar/>
 
     
     <Routes>
@@ -40,6 +55,9 @@ function App() {
     </Routes>
 
   </div>
+
+  </QueryClientProvider>
+
   )
 }
 
