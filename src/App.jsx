@@ -1,3 +1,67 @@
+
+
+import { Route, Routes ,RouterProvider} from "react-router-dom";
+import './css/App.css'
+import Welcome from "./pages/Welcome";
+import  Navbar  from "./components/Navbar";
+//import Home  from "./components/pages/Home";
+import Home from "./pages/Home";
+//import  About  from "./components/pages/About";
+import About from "./pages/About";
+//import  Services  from './components/pages/Services';
+import Book from "./pages/Book";
+import Collection from "./pages/Collection";
+import Contact from "./pages/Contact";
+
+
+
+
+
+
+function App() {
+  return ( 
+  
+  <div className='App'>      
+<Navbar/>
+
+    
+    <Routes>
+      <Route path="/" element={<Welcome/>} />
+
+      <Route path="/home" element={<Home/>} />
+
+      <Route path="/collection" element={<Collection/>} />
+      <Route path="/book" element={<Book/>} />
+      <Route path="/about" element={<About/>} />
+
+      <Route path="/contact" element={<Contact/>} />
+
+      
+    </Routes>
+
+  </div>
+  )
+}
+
+export default App
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//premiere version
+
+/*
 import { useState } from 'react'
 import './css/App.css'
 import {
@@ -74,6 +138,4 @@ function App() {
 
 export default App 
 
-/*<h1 className='contour'>je suis le tout puissant App</h1>
-<Video />
 */

@@ -6,7 +6,7 @@ export default function About() {
     return (
         <div>
             
-            <Navbar />      
+            { /*  <Navbar />       */}
             <h1>Je m'appelle About page</h1>
 
         </div>
