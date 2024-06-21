@@ -12,7 +12,8 @@ export default function Home() {
     return (
         <div className="home">
             {/* <Navbar />  */}
-           <Video />
+           <Video />           
+            <button className='btn-decouvrez'>Decouvrez la collection</button>
            <Presentation />
         </div>
     )
