@@ -27,6 +27,8 @@ const queryClient = new QueryClient()
 
 function App() {
 
+  const [page, setPage] = useState('');
+
 
 
   return ( 
@@ -37,7 +39,8 @@ function App() {
 
   
   <div className='App'>      
-    <Navbar/>
+    <Navbar setPage= {setPage}/>
+    {page === 'enchere' ? <Enchere /> : " "}
 
     
     <Routes>

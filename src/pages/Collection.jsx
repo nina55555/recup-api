@@ -1,16 +1,20 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import { useQuery} from 'react-query';
-import '../css/Cards.css'
+import '../css/Cards.css';
 
 
 const Collection = () => {
 
+
+
+
+
     const {data, isError, isLoading} = useQuery ('model', () => {
     //return axios.get ('http://localhost:3002/collection-test/');
-    return axios.get (' http://localhost:5979/runways/');
-    //return axios.get (' http://localhost:5000/defilons/');   
+    //return axios.get (' http://localhost:5979/runways/');
+    return axios.get (' http://localhost:5978/defilons/');   
 
 
 
@@ -23,6 +27,9 @@ const Collection = () => {
                 {/*item.imageUrl*/} 
                 {/*item.title*/}
                 {/*item.author*/} 
+                <button >Acheter ce model</button>
+             
+
                <img src={item.imageUrl} alt= "photo model"/>
               {/*   <img src={item.imgUrl} alt= "photo model"/>   */}
 
