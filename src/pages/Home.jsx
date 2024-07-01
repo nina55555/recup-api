@@ -1,11 +1,13 @@
 
 /*import videoShow from '../assets/cindy.mp4'*/
 
+import { Link } from 'react-router-dom'
 import videoShow from '../assets/cindyB.mp4'
 import Navbar from '../components/Navbar'
 import Presentation from '../components/Presentation'
 import Video from '../components/Video'
 import '../css/Home.css'
+import Enchere from './Enchere'
 
 
 export default function Home() {
@@ -13,7 +15,8 @@ export default function Home() {
         <div className="home">
             {/* <Navbar />  */}
            <Video />           
-            <button className='btn-decouvrez'>Decouvrez la collection</button>
+            <button className='btn-decouvrez'><a href='/Collection' >Decouvrez la collection</a></button>
+           
            <Presentation />
         </div>
     )

@@ -20,9 +20,8 @@
   /*width: 95%;*/
   margin: 10px;
   /*padding: 20px;*/
-  border: 2px solid black;
+  /*border: 2px solid black;*/
   border-radius: 5px;
-  text-align: center;
   background-color: rgb(160, 161, 156);
   display: flex;
   flex-direction: column;

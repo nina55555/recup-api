@@ -6,15 +6,15 @@
 
 body{
 
-    margin: 10px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     height: 100%;
-    width: 100%;
     display: flex;
     justify-content: center;
 }
 
 html{
+    margin: 0;
     padding: 0;
     display: flex;
     margin: 10px;
@@ -24,25 +24,20 @@ html{
 .App{
     background-color: blue;
     height: 100%;
-    width: 100%;
+    width: 100vw;
     margin: 0px;
-    padding: 0px;
     display: flex;
 }
 
 
-
-.home{
-    /*background-color: rgb(193, 197, 138);*/
-    height: 100vh;
-    width: 100vw;
+.show{
+    background-color: aqua;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    background-color: rgb(160, 161, 156);
-    border: 1px solid rgb(188, 238, 130);
-
-}
-
-form{
+    width: 100%;
+    height: 100vh;
     
-    background-color: rgb(160, 161, 156);
 }

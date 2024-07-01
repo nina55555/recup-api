@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import { QueryClient,QueryClientProvider } from "react-query";
 
 
-import { Route, Routes ,RouterProvider} from "react-router-dom";
+import { Route, Routes ,RouterProvider, Link} from "react-router-dom";
 import './css/App.css'
 import Welcome from "./pages/Welcome";
 import  Navbar  from "./components/Navbar";
@@ -16,6 +16,17 @@ import About from "./pages/About";
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
 import Contact from "./pages/Contact";
+
+import Enchere from "./pages/Enchere";
+import HomeSuper from "./pages/HomeSuper";
+import ErrorPage from "./pages/ErrorPage";
+import SingleProduct from "./pages/SingleProduct";
+
+
+
+
+
+
 
 
 
@@ -38,10 +49,21 @@ function App() {
 
 
   
-  <div className='App'>      
+  <div className='App'>    
+    {/* 
     <Navbar setPage= {setPage}/>
     {page === 'enchere' ? <Enchere /> : " "}
+    */}
+   
+     
+    <Navbar/>
 
+{/*
+  <Link to='/SingleProduct/1' >prod1</Link>
+    <Link to='/SingleProduct/2' >prod2</Link>
+*/}
+    
+    
     
     <Routes>
       <Route path="/" element={<Welcome/>} />
@@ -53,6 +75,11 @@ function App() {
       <Route path="/about" element={<About/>} />
 
       <Route path="/contact" element={<Contact/>} />
+      {/*<Route path="/enchere" element={<Enchere/>} /> */}
+      <Route path="/SingleProduct/" element={<SingleProduct/>} />
+
+      <Route path="/SingleProduct/:id" element={<SingleProduct/>} />
+
 
       
     </Routes>
