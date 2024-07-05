@@ -3,9 +3,9 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { useQuery} from 'react-query';
 import '../css/Cards.css';
-import { Link, useParams} from 'react-router-dom';
+import { Link, NavLink, useParams} from 'react-router-dom';
 import Enchere from './Enchere';
-import SingleProduct from './SingleProduct.jsx';
+import SingleProduct from './Product.jsx';
 import Countdown from '../components/Countdown.jsx';
 import '../css/Collection.css'
 
@@ -16,7 +16,6 @@ const Collection = () => {
 
     //
     const {id} = useParams();
-    console.log({id} )
 
 
 /*
@@ -40,17 +39,18 @@ const Collection = () => {
     })
 
         return (
-            <> 
-            <Countdown/>
 
             <div className="show">
 
                 {data?.data.map((product) =>{
-                return <div className= 'card' key={product.id} >
-                    {/*item.imageUrl*/} 
+                return (
+                    <div className= 'card' key={product.id} >
+                    {/*product.imageUrl*/}
                     {/*product.title*/}
                     {/*item.author*/} 
-                    
+                    {/*<img src={product.imgUrl} alt= "photo model"/>  */}
+                    <img src={product.imageUrl} />
+
                             {/*
                             <button ><a href='/Enchere' >Acheter ce model</a></button>
                             */}
@@ -66,22 +66,44 @@ const Collection = () => {
                             
                             {/*<Link to={`/SingleProduct/${id} `} >ouvre moi stp</Link> */}
                             
-                
+                            
+                            {/*
                             <button ><a href='/SingleProduct/:id' >Acheter ce model</a></button>
+                            */}
+                            
+                                <NavLink to={`/product/${product.id} `} >
+                                buy now
+                                </NavLink>
+                            
+                            
+
 
                             {/*
-                            <Link to='/SingleProduct/:product.id' >prod</Link>
+                            <Link to='/SingleProduct/:product.id' >prod
+                            <img src={product.imageUrl} alt= "photo model"/>
+                            <product product={product} />
+                            </Link> 
+                            */}
+                            
+                           
+                            {/*
+                            <Link to={'/SingleProduct/${product.id}' }>prod
+                            <product product={product} />
+                            </Link>
+
                             */}
 
-                    <img src={product.imageUrl} alt= "photo model"/>
+
                     {/*   <img src={item.imgUrl} alt= "photo model"/>   */}
 
                     {/*  <video src ={item.videoUrl} ></video>   */}
                 </div>
+                )
+                
                 })}
             </div>
             
-            </>
+            
         );
     };
 export default Collection;

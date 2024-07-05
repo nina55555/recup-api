@@ -3,7 +3,7 @@
 .mainbox{
     width: auto;
     height: 100%;
-    background-color: aqua;
+    /*background-color: aqua;*/
     margin: 0px;
     padding: 0px;
     display: flex;
@@ -41,13 +41,13 @@
 
 
 .marbres{
-    background-color: chocolate;
+    /*background-color: chocolate;*/
     width: 100%;
     height: auto;
     justify-content: center;
     margin: 0;
     padding: 0;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .marbres img{

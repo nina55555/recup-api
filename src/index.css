@@ -1,13 +1,13 @@
 
 
 body{
-  background-color: rgb(122, 165, 42);
+  /*background-color: rgb(122, 165, 42);*/
  
   justify-content: center;
 }
 
 *{
-  background-color: blueviolet;
+  /*background-color: blueviolet;*/
   /*padding: 10px;*/
   margin: 0px;
 }

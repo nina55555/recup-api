@@ -51,9 +51,9 @@ function Countdown() {
 
   return (
      
-     <section className="timer-container">
+     <div className="timer-container">
 
-      <section className='timer'>
+      <div className='timer'>
 
         <div className='text'>
           <p>countdown to a really special date, you will see</p> 
@@ -81,9 +81,9 @@ function Countdown() {
             <div className='type'><p>Seconds</p></div> 
         </div>
 
-      </section>
+      </div>
 
-     </section>
+     </div>
   );
 }
 

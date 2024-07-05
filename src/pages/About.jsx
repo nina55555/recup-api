@@ -1,13 +1,15 @@
 
 
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar";
+import '../css/About.css'
+
 
 export default function About() {
     return (
-        <div>
+        <div className="container">
             
             { /*  <Navbar />       */}
-            <h1>Je m'appelle About page</h1>
+            <h2>Je m'appelle About page</h2>
 
         </div>
     )

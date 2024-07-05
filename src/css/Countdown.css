@@ -1,5 +1,7 @@
 
 
+
+
 .timer-container{
     background-color: grey;
     width: 100%;
@@ -12,6 +14,7 @@
   .timer{
     background-color: rgb(117, 117, 92);
     width: 80%;
+    height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,6 +30,7 @@
   
   .line{
     /*background-color: purple;*/
+    
     width: 70vw;
     margin: 5px;
     padding: 5px;

@@ -1,6 +1,8 @@
 
 //
 import React, {useState} from "react";
+import ReactDom from 'react-dom';
+
 import { QueryClient,QueryClientProvider } from "react-query";
 
 
@@ -20,7 +22,8 @@ import Contact from "./pages/Contact";
 import Enchere from "./pages/Enchere";
 import HomeSuper from "./pages/HomeSuper";
 import ErrorPage from "./pages/ErrorPage";
-import SingleProduct from "./pages/SingleProduct";
+import SingleProduct from "./pages/Product";
+import Product from "./pages/Product";
 
 
 
@@ -76,9 +79,11 @@ function App() {
 
       <Route path="/contact" element={<Contact/>} />
       {/*<Route path="/enchere" element={<Enchere/>} /> */}
-      <Route path="/SingleProduct/" element={<SingleProduct/>} />
 
-      <Route path="/SingleProduct/:id" element={<SingleProduct/>} />
+      //test mardi
+      {/*<Route path="/SingleProduct/" element={<SingleProduct/>} />*/}
+
+      <Route path="/Product/:id" element={<Product/>} />
 
 
       

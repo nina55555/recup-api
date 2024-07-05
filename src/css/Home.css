@@ -22,7 +22,7 @@ html{
 }
 
 .App{
-    background-color: blue;
+    /*background-color: blue;*/
     height: 100%;
     width: 100%;
     margin: 0px;
@@ -37,7 +37,7 @@ html{
     height: 100vh;
     width: 100vw;
     text-align: center;
-    background-color: rgb(160, 161, 156);
+    background-color: rgb(253, 253, 253);
     border: 1px solid rgb(188, 238, 130);
 
 }
@@ -45,4 +45,13 @@ html{
 form{
     
     background-color: rgb(160, 161, 156);
+}
+
+
+.videoShow{
+    background-color: rgb(180, 182, 182);
+}
+
+button{
+    background-color: chartreuse;
 }
