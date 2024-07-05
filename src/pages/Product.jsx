@@ -3,7 +3,10 @@
 
 //page test
 import React, {useState, useEffect} from 'react';
-import { useParams } from 'react-router';
+
+import { useParams } from 'react-router-dom';
+
+import { useQuery } from 'react-query';
 
 //import { useParams } from 'react-router-dom';
 import Collection from './Collection';
@@ -13,6 +16,9 @@ import Collection from './Collection';
 
 const Product = () => { 
     const {id} = useParams();
+
+
+    
     const [product, setProduct] = useState ([]);
     const [loading, setLoading]= useState(false);
 
@@ -20,7 +26,7 @@ const Product = () => {
         const getProduct = async () => {
             setLoading (true);
             //find solution id undefined bad request
-                    const response = await fetch (`http://localhost:5978/defilons/${id}`);
+                    const response = await fetch ('http://localhost:5978/defilons');
             setProduct(await response.json());
         setLoading(false);        
     }
@@ -35,9 +41,10 @@ const Product = () => {
    const product = Collection.find((product) => product.id === id);
    console.log (product)
    //const {imageUrl, title} = product
+*/
+    
 
-    */
-
+   
    const Loading = () => {
     return(
         <>
@@ -46,7 +53,17 @@ const Product = () => {
     )
    }
 
+
+
    const ShowProduct = () => {
+
+    /*
+    const product = Collection.find((product) => product.id === id);
+    console.log (product)
+    //const {imageUrl, title} = product
+
+    */
+   
     return(
         <div className="show-product">
          <img src={product.imageUrl} alt= "photo model" />
@@ -68,7 +85,9 @@ const Product = () => {
                 {/*<div>this is single product {id} </div> */}
 
                 <div className="row">
+
                     {loading ? <Loading/> : <ShowProduct/> }
+                    
                 </div>
 
             </div>
