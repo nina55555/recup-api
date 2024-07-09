@@ -8,6 +8,7 @@ import Enchere from './Enchere';
 import SingleProduct from './Product.jsx';
 import Countdown from '../components/Countdown.jsx';
 import '../css/Collection.css'
+import { FaInstagram } from 'react-icons/fa';
 
 
 
