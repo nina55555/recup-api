@@ -1,56 +1,36 @@
 
-//
+
 import React, {useState} from "react";
 import ReactDom from 'react-dom';
-
 import { QueryClient,QueryClientProvider } from "react-query";
-
-
 import { Route, Routes ,RouterProvider, Link} from "react-router-dom";
 import './css/App.css'
 import Welcome from "./pages/Welcome";
 import  Navbar  from "./components/Navbar";
-//import Home  from "./components/pages/Home";
 import Home from "./pages/Home";
-//import  About  from "./components/pages/About";
 import About from "./pages/About";
-//import  Services  from './components/pages/Services';
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
 import Contact from "./pages/Contact";
-
 import Enchere from "./pages/Enchere";
 import HomeSuper from "./pages/HomeSuper";
 import ErrorPage from "./pages/ErrorPage";
 import SingleProduct from "./pages/Product";
 import Product from "./pages/Product";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
 
 
 
-
-
-
-
-
-
-//
 const queryClient = new QueryClient()
 
 
-
-
 function App() {
-
   const [page, setPage] = useState('');
 
-
-
   return ( 
-
     //
     <QueryClientProvider client= {queryClient}>
-
-
   
   <div className='App'>    
     {/* 
@@ -58,33 +38,19 @@ function App() {
     {page === 'enchere' ? <Enchere /> : " "}
     */}
    
-     
     <Navbar/>
-
-{/*
-  <Link to='/SingleProduct/1' >prod1</Link>
-    <Link to='/SingleProduct/2' >prod2</Link>
-*/}
-    
-    
     
     <Routes>
       <Route path="/" element={<Welcome/>} />
-
+      <Route path="/signup" element={<Signup/>} />
+      <Route path="/signin" element={<Signin/>} />
       <Route path="/home" element={<Home/>} />
-
       <Route path="/collection" element={<Collection/>} />
       <Route path="/book" element={<Book/>} />
       <Route path="/about" element={<About/>} />
-
       <Route path="/contact" element={<Contact/>} />
       {/*<Route path="/enchere" element={<Enchere/>} /> */}
-
-      //test mardi
-      {/*<Route path="/SingleProduct/" element={<SingleProduct/>} />*/}
-
       <Route path="/Product/:id" element={<Product/>} />
-
 
       
     </Routes>
@@ -92,7 +58,6 @@ function App() {
   </div>
 
   </QueryClientProvider>
-
   )
 }
 
