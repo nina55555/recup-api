@@ -1,14 +1,19 @@
 
-
+.bigBox{
+    /*background-color: blueviolet;*/
+    padding: 10px;
+    height: 80vh;
+}
 
 
 .timer-container{
     background-color: grey;
     width: 100%;
-    height: auto;
+    height: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 15px;
   }
   
   .timer{

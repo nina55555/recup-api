@@ -10,6 +10,13 @@ import { useQuery } from 'react-query';
 
 //import { useParams } from 'react-router-dom';
 import Collection from './Collection';
+import Countdown from '../components/Countdown';
+import Enchere from '../components/Enchere.jsx';
+import '../css/Product.css';
+
+
+
+
 
 
 
@@ -53,8 +60,6 @@ const Product = () => {
     )
    }
 
-
-
    const ShowProduct = () => {
 
     /*
@@ -63,37 +68,32 @@ const Product = () => {
     //const {imageUrl, title} = product
 
     */
-   
-    return(
-        <div className="show-product">
-         <img src={product.imageUrl} alt= "photo model" />
 
-         </div>
-    )
-      
-         
-      
+    return(
+        <div className="bigBox">
+            < Countdown/>
+            <div className="show-product">
+                <img src={product.imageUrl} alt= "photo model" />
+            </div>
+        </div>
+        
+    )    
    }
 
    
-    return (
 
-       
+
+    return (
             <div className='container'>
                 {/*<img src={product.imageUrl.id} alt= "photo model"/> */}
                 {/*<h4>{id} </h4>*/}
                 {/*<div>this is single product {id} </div> */}
 
                 <div className="row">
-
                     {loading ? <Loading/> : <ShowProduct/> }
-                    
+                    <Enchere/>
                 </div>
-
-            </div>
-        
-       
-        
+            </div> 
     );
 
 
