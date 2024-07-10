@@ -2,22 +2,24 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { useQuery} from 'react-query';
-import '../css/Cards.css';
 import { Link, NavLink, useParams} from 'react-router-dom';
-import Enchere from './Enchere';
-import SingleProduct from './Product.jsx';
-import Countdown from '../components/Countdown.jsx';
+
+//import { FaInstagram } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+
+import '../css/Cards.css';
 import '../css/Collection.css'
-import { FaInstagram } from 'react-icons/fa';
+
+
 
 
 
 
 const Collection = () => {
-
-    //
     const {id} = useParams();
-
 
 /*
    const handleClick = (e) =>{
@@ -35,13 +37,11 @@ const Collection = () => {
     //return axios.get ('http://localhost:3002/collection-test/');
     //return axios.get (' http://localhost:5979/runways/');
     return axios.get (' http://localhost:5978/defilons/');  
-
-
     })
 
         return (
-
-            <div className="show">
+            <div className="bigBox">
+                <div className="show">
 
                 {data?.data.map((product) =>{
                 return (
@@ -51,7 +51,6 @@ const Collection = () => {
                     {/*item.author*/} 
                     {/*<img src={product.imgUrl} alt= "photo model"/>  */}
                     <img src={product.imageUrl} />
-
                             {/*
                             <button ><a href='/Enchere' >Acheter ce model</a></button>
                             */}
@@ -75,10 +74,6 @@ const Collection = () => {
                                 <NavLink to={`/product/${product.id} `} >
                                 buy now
                                 </NavLink>
-                            
-                            
-
-
                             {/*
                             <Link to='/SingleProduct/:product.id' >prod
                             <img src={product.imageUrl} alt= "photo model"/>
@@ -102,8 +97,25 @@ const Collection = () => {
                 )
                 
                 })}
+               
+
+            </div> 
+            <div className="icons">
+                    <div className="text-icon">
+                        <p>Follow us and be part of the adventure </p>
+                    </div>   
+                        {/*<FaInstagram className='icon insta' />*/} 
+                    <div className="icon-items">
+                        <ul>
+                            <li><a><FontAwesomeIcon icon={faInstagram} /></a></li>
+                            <li><a><FontAwesomeIcon icon={faFacebook} /></a></li>
+                            <li><a><FontAwesomeIcon icon={faEnvelope} /></a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             
+
             
         );
     };

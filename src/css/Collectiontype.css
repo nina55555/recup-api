@@ -1,16 +1,41 @@
 
+
+
+.bigBox{
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+    height: 55px;
+}
 .chooseco{
-    background-color: rgb(10, 10, 10);
+    background-color: rgb(165, 165, 163);
 
     margin: 5px;
     padding: 15px;
     display: flex;
     justify-content: space-between;
+    border-radius: 5px;
+    width: 40%;
 }
 
 .chooseco a{
-    background-color: rgb(10, 10, 10);
+    /*background-color: rgb(10, 10, 10);*/
     /*color: antiquewhite;*/
-    color: rgb(159, 204, 76);
+    background-color: rgb(10, 10, 10);
+    width: 100% ;
 
+}
+
+.classic-btn{
+    /*color: rgb(159, 204, 76);*/
+    color: aliceblue;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.super-btn{
+    /*color: rgb(124, 16, 226);*/
+    color: aliceblue;
+    padding: 5px;
+    text-decoration: none;
 }

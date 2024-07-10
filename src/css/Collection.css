@@ -4,6 +4,8 @@
     padding: 0;
 }
 
+
+
 body{
 
     margin: 0;
@@ -13,6 +15,8 @@ body{
     justify-content: center;
 }
 
+
+
 html{
     margin: 0;
     padding: 0;
@@ -20,6 +24,8 @@ html{
     margin: 10px;
     height: 95%;
 }
+
+
 
 .App{
     background-color: rgb(250, 250, 253);
@@ -30,25 +36,84 @@ html{
 }
 
 
+
+.card{
+    background-color: blueviolet;
+    padding: 5px;
+    width: 165px;
+    height: 175px;
+}
+
+
+.card img{
+    width: 155px;
+    height: 155px;
+}
+
+.bigBox{
+    background-color: aliceblue;
+    width: 100%;
+    height: 88vh;
+}
+
+
 .show{
     /*background-color: aqua;*/
+    /*background-color: brown;*/
+    /*couleur ok*/
+    background-color: rgb(243, 241, 241);
 
-
-
-    
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
+    height: 85%;
+   
+}
+
+
+
+
+.icons{
+    /*background-color: aqua;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 15%;
+
+}
+                    
+.text-icon {
+    background-color: rgba(111, 9, 207, 0.185);
     width: 100%;
-    
-    height: 88vh;
-    
+    height: 35px;
+    padding-top: 3px;
+    /*height: 15%;*/
+
+}
+                    
+.icon-items{
+    /*background-color: chartreuse;*/
+    /*background-color: aliceblue;*/
+    background-color: rgb(184, 190, 166);
+
+    width: 100%;
+    height: auto;
+    /*height: 30%;*/
+    /*align-self: center;*/
+    justify-content: center;
 
 }
 
 
-.insta-icon{
-    width: 25px;
+li{
+    list-style-type: none;
 }
+
+
+
+
+

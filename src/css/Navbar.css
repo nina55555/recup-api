@@ -1,66 +1,60 @@
 
 
 
-.navbar{
-    text-align: center;
-    background-color: rgb(1, 2, 5);
-    padding: 2px;
-    margin: 10px;
-}
-
-h1{
-    color: #5f5b5b;
-}
-
-.navbox{
-    width: auto;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.logoimg{
-    width: 75px;
-    margin: 0;
-    padding: 0;
-    border-radius: 35px;
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.active{
-    background-color: pink;
+/**/
+.bigBox-nav{
+    background-color: chartreuse;
+    width: 100%;
+    height:85px;
+    /*overflow: hidden;*/
+    position: absolute;
+    top: 0px;
 }
+
 
 nav{
-    display: flex;
-    padding: 0px 5px;
-    justify-content: space-between;
-    align-items: center;
+
     background-color: black;
     position: sticky;
+    display: flex;      
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    /*position: relative;*/
+    flex-direction: row;
+    justify-content: center;
+    /*justify-content: flex-end;*/
+    text-align: center;
+    /*
+    padding: 0px 5px;
     top: 0;
+    */
 }
 
+
+.lilBox{
+    /*background-color: coral;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    /*width: 90%;*/
+    height:90%;
+}
+
+
 .title{
-    font-size: 55px;
+    font-size: 40px;
     background-color: rgb(167, 168, 167);
-    margin: 5px;
+    margin: 5px auto;
     padding: 5px;
     font-weight: bold;
     text-decoration: none;
@@ -69,36 +63,71 @@ nav{
 }
 
 
-nav ul{
-    background-color: azure;
-    display: flex;
-    margin-right: 75px;
+h1{
+    color: #5f5b5b;
 }
 
-nav ul li {
-    list-style: none;
+
+nav ul{
+    /*background-color: azure;*/
+    /*border: 1px solid black;*/
+    display: flex;
+    /*flex-wrap: wrap;*/
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around; 
+    text-align: center;
+    margin: 0px auto;
+
+    height: 100%;
+    width: 30%;
+    position: absolute;
+    right: 0px;
 }
+
+
+nav ul li {
+    /*background-color: rgb(241, 208, 115);*/
+    list-style: none;
+    position: relative;
+    left: -20px;
+    
+}
+
+
 
 nav ul li a{
     display: block;
     text-decoration: none;
-    color: black;
+    color: rgb(253, 250, 250);
     margin: 1px;
-    padding: 3px;
+    /*padding: 3px;*/
+    /*padding: 7px;*/
+    padding: 14px;
 }
 
 
 nav ul li a:not(.active):hover{
-    background-color: rgb(226, 122, 252);
+   /* background-color: rgb(226, 122, 252);*/
+   background-color: rgb(79, 14, 139);
+    border-radius: 2px;
+    /*padding: 7px;*/
+    padding: 14px;
     /*height: 100%;*/
 }
 
+/*
+nav ul li a:hover{
+    font-size: 13px;
+ }
+*/
 
 nav .burger{
     display: none;
     position: absolute;
     top: 3.5vh;
-    right: 5px;
+    right: 15px;
     flex-direction: column;
     justify-content: space-between;
     background-color: rgb(3, 3, 3);
@@ -108,21 +137,40 @@ nav .burger{
 }
 
 nav .burger span {
-    background-color: pink;
+    /*background-color: pink;*/
+    /*background-color: rgb(118, 27, 141);*/
+    background-color: rgb(228, 228, 228);
+
+    
     width: 100%;
     height: 3px;
 }
 
 
 
-@media (max-width: 500px){
+
+
+
+
+
+
+
+
+/* media queries*/
+
+
+@media (max-width: 850px){
+
     nav .burger{
         display: flex;
     }
+
     nav ul{
+        background-color: rgba(66, 3, 68, 0.63);
         display: none;
         flex-direction: column;
         width: 100%;
+        height: 25vh;
         position: absolute;
         top: 100%;
         left: 0px;
@@ -131,15 +179,23 @@ nav .burger span {
 
     nav ul.open{
         display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
     nav ul li{
+        /*background-color: cornflowerblue;*/
         width: 100%;
         /*text-align: center;*/
+        
+
+
     }
     nav ul li a{
         margin: 0px;
-        padding: 25px;
+        padding: 8px;
+        font-size: 15px;
     }
 
     nav ul li a.clicked{
@@ -148,4 +204,66 @@ nav .burger span {
 
    
 }
+
+
+/*min 980px */
+@media (min-width:850px ) ,(max-width:950px) {
+
+    .title{
+        font-size: 25px;
+    }
+
+
+    /*
+    ul{
+        /*background-color: rgb(255, 0, 191);
+       
+        
+    }
+    */
+
+
+    ul li {
+        /*background-color: #5f5b5b;*/
+        padding: 0px;
+        
+        /*
+    position: relative;
+    left: -30px;
     
+    */
+    }
+    
+    ul li a{
+        /*background-color: olivedrab;*/
+        font-size:12px ;
+ 
+}
+}
+
+
+
+/* de 500px a 1100*/
+@media (min-width:950px ){
+
+    .title{
+        font-size: 25px;
+    }
+
+    ul{
+        margin-right: 105px;
+        
+        /*background-color: rgb(61, 59, 42);*/
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+    
+
+    }
+
+    
+    ul li a{
+    font-size:12px ;}
+
+
+}
