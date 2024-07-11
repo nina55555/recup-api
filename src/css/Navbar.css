@@ -1,51 +1,66 @@
 
 
 
+/**/
+
+
 *{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 
-/**/
 .bigBox-nav{
     background-color: chartreuse;
+    min-width: 100vw;
+    max-width: 100vw;
+    height: 85px;    
+    
+    position: absolute;
+
+    /*
     width: 100%;
     height:85px;
-    /*overflow: hidden;*/
+    /*overflow: hidden;
     position: absolute;
     top: 0px;
+    */
 }
 
 
 nav{
 
     background-color: black;
-    position: sticky;
+    /*position: sticky;*/
+
     display: flex;      
     align-items: center;
+    /*justify-content: center;*/
     width: 100%;
     height: 100%;
     margin: 0px;
-    /*position: relative;*/
+
+    /*position: relative;
     flex-direction: row;
     justify-content: center;
-    /*justify-content: flex-end;*/
+    /*justify-content: flex-end;
     text-align: center;
-    /*
-    padding: 0px 5px;
-    top: 0;
-    */
+    /*padding: 0px 5px;
+    top: 0;*/
+    
 }
 
 
 .lilBox{
-    /*background-color: coral;*/
+    background-color: coral;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 10%;
+
+    margin: 0 auto;
+
     /*width: 90%;*/
     height:90%;
 }
@@ -68,11 +83,33 @@ h1{
 }
 
 
-nav ul{
-    /*background-color: azure;*/
-    /*border: 1px solid black;*/
+.lilBox-nav {
+    background-color: deeppink;
+    width: 40%;
+    height: 35px;
+
     display: flex;
-    /*flex-wrap: wrap;*/
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul{
+    background-color: azure;
+    display: flex;
+    /*justify-content: center;*/
+    justify-content: space-around;
+    align-items: center;
+    /*position: relative;*/
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    
+
+
+    /*
+    /*border: 1px solid black;
+    display: flex;
+    /*flex-wrap: wrap;
 
     flex-direction: row;
     align-items: center;
@@ -84,14 +121,17 @@ nav ul{
     width: 30%;
     position: absolute;
     right: 0px;
+    */
 }
 
 
 nav ul li {
-    /*background-color: rgb(241, 208, 115);*/
+    background-color: rgb(241, 208, 115);
     list-style: none;
     position: relative;
     left: -20px;
+    
+    /*width: 75px;*/
     
 }
 
@@ -100,21 +140,24 @@ nav ul li {
 nav ul li a{
     display: block;
     text-decoration: none;
+    /*background-color: blue;*/
     color: rgb(253, 250, 250);
     margin: 1px;
     /*padding: 3px;*/
-    /*padding: 7px;*/
-    padding: 14px;
+    /*padding: 7px;
+    padding: 14px;*/
 }
 
 
 nav ul li a:not(.active):hover{
-   /* background-color: rgb(226, 122, 252);*/
+   /*background-color: rgb(226, 122, 252);*/
    background-color: rgb(79, 14, 139);
     border-radius: 2px;
-    /*padding: 7px;*/
+    color: black;
+    /*padding: 7px;
     padding: 14px;
-    /*height: 100%;*/
+    /*height: 100%;
+    */
 }
 
 /*
@@ -123,16 +166,25 @@ nav ul li a:hover{
  }
 */
 
+
+
+
+
+
+
+/*******/
+/* a check pour portable*/
+
 nav .burger{
     display: none;
     position: absolute;
-    top: 3.5vh;
+    /*top: 3.5vh;*/
     right: 15px;
     flex-direction: column;
     justify-content: space-between;
     background-color: rgb(3, 3, 3);
     width: 30px;
-    height: 35px;
+    height: 30px;
     /*border: 1px solid red;*/
 }
 
@@ -150,6 +202,22 @@ nav .burger span {
 
 
 
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -161,8 +229,60 @@ nav .burger span {
 
 @media (max-width: 850px){
 
+    
+    .lilBox{
+        background-color: coral;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*width: 30%;*/
+        width: 10%;
+
+        margin: 0 auto;
+
+        /*width: 90%;*/
+        height:90%;
+    }
+
+
+    .title{
+        font-size: 40px;
+        background-color: rgb(167, 168, 167);
+        margin: 5px auto;
+        padding: 5px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 55px;
+        color: white;
+    }
+
+
+    h1{
+        color: #5f5b5b;
+    }
+
+
+    .lilBox-nav {
+        /*background-color: black;*/
+        background-color: rgba(66, 3, 68, 0.63);
+        
+        flex-direction: column;
+        width: 100%;
+        /*height: 25vh;*/
+        height: 100%;
+        position: absolute;
+        /*top: 100%;*/
+        left: 0px;
+        text-align: center;
+    }
+
+
+
     nav .burger{
         display: flex;
+        background-color: transparent;
+
+        /*top: -60px;*/
     }
 
     nav ul{
@@ -207,11 +327,36 @@ nav .burger span {
 
 
 /*min 980px */
+
 @media (min-width:850px ) ,(max-width:950px) {
+
+    
+    .lilBox{
+        background-color: coral;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*width: 30%;*/
+        width: 10%;
+
+        margin: 0 auto;
+
+        /*width: 90%;*/
+        height:90%;
+    }
 
     .title{
         font-size: 25px;
     }
+
+
+
+    
+
+
+
+
+
 
 
     /*
@@ -230,8 +375,9 @@ nav .burger span {
         /*
     position: relative;
     left: -30px;
-    
     */
+    
+    
     }
     
     ul li a{
@@ -239,11 +385,17 @@ nav .burger span {
         font-size:12px ;
  
 }
+
+
+
+
+
 }
 
-
+/*
 
 /* de 500px a 1100*/
+/*
 @media (min-width:950px ){
 
     .title{
@@ -253,7 +405,7 @@ nav .burger span {
     ul{
         margin-right: 105px;
         
-        /*background-color: rgb(61, 59, 42);*/
+        /*background-color: rgb(61, 59, 42);
         display: flex;
         flex-direction: column;
         width: 70%;
@@ -267,3 +419,4 @@ nav .burger span {
 
 
 }
+*/

@@ -27,6 +27,7 @@ export default function Navbar() {
             <div className="lilBox">
                 <Link to='/' className='title'>IT V</Link>
             </div>
+            <div className="lilBox-nav">
                 <ul className={menuOpen? 'open': ''}>
                     <li>
                         <NavLink to='/home' className={menuClicked? 'clicked': ''} onClick={handleMenuClicked} >Home</NavLink>
@@ -56,6 +57,8 @@ export default function Navbar() {
                     <span></span>
                 */} 
                 </div>
+            </div>
+                
             
             
             

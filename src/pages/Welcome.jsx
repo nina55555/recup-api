@@ -6,8 +6,8 @@ import '../css/Welcome.css'
 const Welcome = () => {
     return (
         <div className='mainbox'>
-            <div className='marbres' >
-<img src='src/assets/Capture marbre 2.PNG'></img>
+            {/*<div className='marbres' >
+                <img src='src/assets/Capture marbre 2.PNG'></img>
             </div>
             <div className='textbox'>
                 <div className='welcometext'>
@@ -16,9 +16,8 @@ const Welcome = () => {
                 <Collectiontype />
             </div>
             <div className='marbres'>
-            <img src='src/assets/Capture marbre 2.PNG'></img>
- 
-            </div>
+                <img src='src/assets/Capture marbre 2.PNG'></img>
+            </div>*/}
         </div>
     );
 };
