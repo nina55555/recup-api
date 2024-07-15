@@ -6,22 +6,22 @@ import '../css/Welcome.css'
 
 const Welcome = () => {
     return (
-        <div className='mainBox'>
+        <div className='mainBox-welcome'>
             <div className='marbreG' >
                 <img src='src/assets/Capture marbre 2.PNG'></img>
             </div>
             
-            {/*<div className='textbox'>
+            <div className='textbox'>
                 <div className='welcometext'>
-                */}
+                
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, enim reprehenderit. Alias saepe voluptatem iusto quisquam ipsum dolorem laudantium odit!
-                {/*</div >*/}
+                </div >
                 <Collectiontype />
-            {/*</div>*/}
-            {/*<div className='marbreD'>
+            </div>
+            <div className='marbreD'>
                 <img src='src/assets/Capture marbre 2.PNG'></img>
             </div>
-            */}
+            
         </div>
     );
 };

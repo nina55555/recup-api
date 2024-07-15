@@ -6,8 +6,10 @@
     padding: 0;
 }
 
-.mainBox{
+.mainBox-welcome{
     background-color: rgb(107, 109, 99);
+
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,32 +18,117 @@
     min-width: 100vw;
     max-width: 100vw;
     margin: 200 auto 0 auto;
+
+
+    
     /*
     height: 80%;
     position: relative;
-    top: 100px;
-    */
+    /*top: 100px;*/
+    
 
+    /*
     min-height: 30%;
     max-height: 80%;
+    */
+    min-height: 100%;
+    max-height: 100%;
+    
     /*padding-top: 30%;*/
 
     /*position: absolute;*/
     /*z-index: 0;*/
+
+
+
 }
 
+
 .marbreG{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /*background-color: darkcyan;*/
 
+    
+    padding: 0px;
+    /*width: 100%;*/
+   
     width: 100%;
-    height: 100%;
+    height: 100%; 
     position: relative;
+    
     top: 50%;
     left: -50%;
 
     /*z-index: 1;*/
 
+    transition: 3s;
+    
+
 }
+.mainBox-welcome:hover .marbreG{
+    /*width: 0%;*/
+    transform: translateX(-40%);
+}
+
+
+
+/*
+.marbresG img{
+
+}
+*/
+
+
+
+.marbreD{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background-color: darkcyan;*/
+
+    
+    padding: 0px;
+    /*width: 100%;*/
+   
+    width: 100%;
+    height: 100%; 
+    position: relative;
+    
+    top: 50%;
+    left: 50%;
+
+    /*z-index: 1;*/
+
+    transition: 3s;
+    
+
+}
+.mainBox-welcome:hover .marbreD{
+    /*width: 0%;*/
+    transform: translateX(40%);
+}
+
+
+
+
+
+
+
+/*
+.marbreG::after{
+    content: '';
+    background-color: chartreuse;
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    transition: 1s;
+}
+*/
+
 
 /*
 .marbreD{
