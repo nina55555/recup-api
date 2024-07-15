@@ -11,16 +11,17 @@
 
 
     display: flex;
-    flex-direction: column;
+    
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
     min-width: 100vw;
     max-width: 100vw;
     margin: 200 auto 0 auto;
+/*
 
 
-    
     /*
     height: 80%;
     position: relative;
@@ -50,6 +51,7 @@
     justify-content: center;
     align-items: center;
     /*background-color: darkcyan;*/
+    border: 10px solid rgba(172, 255, 47, 0.61);
 
     
     padding: 0px;
@@ -60,9 +62,9 @@
     position: relative;
     
     top: 50%;
-    left: -50%;
+    left: 17vw;
 
-    /*z-index: 1;*/
+    z-index: 2;
 
     transition: 3s;
     
@@ -70,7 +72,7 @@
 }
 .mainBox-welcome:hover .marbreG{
     /*width: 0%;*/
-    transform: translateX(-40%);
+    transform: translateX(-100%);
 }
 
 
@@ -89,6 +91,7 @@
     justify-content: center;
     align-items: center;
     /*background-color: darkcyan;*/
+    border: 10px solid rgba(172, 255, 47, 0.692);
 
     
     padding: 0px;
@@ -99,9 +102,9 @@
     position: relative;
     
     top: 50%;
-    left: 50%;
+    left: -17vw;
 
-    /*z-index: 1;*/
+    z-index: 3;
 
     transition: 3s;
     
@@ -109,7 +112,7 @@
 }
 .mainBox-welcome:hover .marbreD{
     /*width: 0%;*/
-    transform: translateX(40%);
+    transform: translateX(100%);
 }
 
 
@@ -138,3 +141,32 @@
     z-index: 2;
 
 }*/
+
+.textbox{
+    background-color: rgb(167, 156, 10);
+    z-index: 0;
+    /*width: auto;*/
+    width: 100%;
+    /*height: 155px;*/
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 3s;
+    
+
+
+}
+
+
+.mainBox-welcome:hover .marbreD{
+    /*width: 0%;*/
+    transform: scale(20%);
+
+
+}
+.welcometext{
+    background-color: coral;
+    z-index: 1;
+}
