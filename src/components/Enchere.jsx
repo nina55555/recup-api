@@ -60,8 +60,8 @@ function Enchere() {
             .sort((a, b) => (a < b ? 1 : -1))
             .map((somme,i) => (
               <li key={i}>
-                {somme}
-                <button onClick={() => handleDelete(somme)}>X</button>
+                <p>Pseudo: à encherit le: 25/07/85 à: 9:00:00 {somme} $ note.......................................... O   O   O   <button onClick={() => handleDelete(somme)}>X</button></p>
+                
               </li>
             ))}
         </ul>

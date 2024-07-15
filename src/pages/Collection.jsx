@@ -40,7 +40,7 @@ const Collection = () => {
     })
 
         return (
-            <div className="bigBox">
+            <div className="mainBox">
                 <div className="show">
 
                 {data?.data.map((product) =>{

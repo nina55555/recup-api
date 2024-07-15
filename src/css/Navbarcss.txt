@@ -33,11 +33,8 @@
     
 }
 
-
-
 .lilNav-box0{
     background-color: cornflowerblue;
-    width: 50%;
 
     margin-right: auto;
     
@@ -56,12 +53,12 @@
     
     display: flex;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
     align-content: center;
     
     margin: 0px auto;
     /*entre 845 et 1500*/
-    width: 15%;
+    width: 30%;
 
     /*a partir de 1500px 
     min-width: 60vw;
@@ -73,8 +70,8 @@
 
 .title{
     background-color: aliceblue;
-    width: 90%;
-    height: 90%;
+    width: 85px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,9 +82,7 @@
 .lilNav-box2{
     /*background-color: darkorchid;*/
 
-    width: 50%;
     margin-left: auto;
-    padding: 5px;
     /*
     justify-self: flex-end;
     align-self: center;
@@ -113,21 +108,13 @@
     /*position: relative;*/
     width: 100%;
     height: 100%;
-    padding-left: 5px;
-    padding-right: 5px;
     /*margin: 0px auto;*/
 }
 
 
 .lilNav-box2 ul li {
-    /*background-color: rgb(241, 208, 115);*/
+    background-color: rgb(241, 208, 115);
     list-style: none;
-    padding: 7px;
-    margin: 2px;
-    /*width: auto;*/
-    /*width: 100%;*/
-
-    /*
     position: relative;
     left: -20px;
     height: 40px;
@@ -138,19 +125,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    */
 }
 
 
 .lilNav-box2 ul li a{
     text-decoration: none;
-    /*width: 100%;*/
     /*background-color: blue;*/
     /*color: rgb(253, 250, 250);*/
     color: rgb(14, 10, 10);
 
     /*padding: 8px;*/
-    padding:6px;
+    padding:9px;
     font-size: 14px;
     /*padding: 3px;*/
 }
@@ -227,6 +212,8 @@
 
 
 
+
+
 /*** a partir de max 845 la nav burger***/
 
 
@@ -236,18 +223,13 @@
 
 @media (max-width: 845px){
 
-    .mainBox-nav{
-        background-color: rgb(1, 54, 37);
-        display: flex;
-        width: 100%;
-        height: 80px;
-    }
+    
 
     .lilNav-box0{
         background-color: cornflowerblue;
         justify-self: flex-start;
         align-self: center;
-        width: 50%;
+        width: 40%;
     }
     
 
@@ -258,7 +240,7 @@
         justify-content: center;
         align-items: center;
         /*width: 30%;*/
-        width: 15%;
+        width: 30%;
         margin: 0 auto;
         height:90%;
     }
@@ -286,44 +268,35 @@
 */
 
     .lilBurger-box3{
-
-        
         display: flex;
         background-color: transparent;
         /*top: -60px;*/
         top: 35px;
-        
     }
 
-
+    /*.lilBox-nav {*/
+/*
     .lilNav-box2{ 
-        /*background-color: black;*/
-        /*background-color: rgba(180, 98, 228, 0.63);*/
-        background-color: #370d6db9;
-
-        /*flex-direction: column;*/
-        width: 50%;
-        /*height: 25vh;*/
-        /*height: 100%;*/
+        /*background-color: black;
+        background-color: rgba(223, 98, 228, 0.63);
+        flex-direction: column;
+        width: 100%;
+        /*height: 25vh;
         height: 100%;
-        padding: 5px;
-        
-        /*position: absolute;*/
-        /*top: 100%;*/
+        position: absolute;
+        /*top: 100%;
         left: 0px;
         text-align: center;
     }
-
+*/
 
 
     .lilNav-box2 ul{
-        /*background-color: rgba(10, 9, 10, 0.966);*/
-        background-color: rgba(137, 43, 226, 0.801);
+        background-color: rgba(10, 9, 10, 0.966);
         display: none;
         flex-direction: column;
         width: 100%;
         height: 25vh;
-        padding: 5px;
         position: absolute;
         top: 100px;
         left: 0px;
@@ -333,41 +306,27 @@
     }
 
     .lilNav-box2 ul.open{
-        /*background-color: rgba(127, 255, 212, 0.603);*/
-        padding: 5px;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        top: 80px;
-        z-index: 1;
     }
 
     .lilNav-box2 ul li{
         background-color: rgb(29, 124, 141);
-        display: flex;
-        justify-content: center;
-        align-items: center;
         width: 100%;
-        padding: 0px;
         /*text-align: center;*/
     }
 
-
-
-
     .lilNav-box2 ul li a:not(.active):hover{
         background-color: #370d6db9;
-        width: 100%;
     }
-
 
 
 
 
     .lilNav-box2 ul li a{
-        background-color: #5f5b5b;
-        margin: 0px auto;
+        margin: 0px;
         padding: 8px;
         width: 100%;
         font-size: 15px;
@@ -381,3 +340,58 @@
 }
 
 
+
+
+
+
+
+
+
+/**************************************/
+/**************************************/
+/************MEDIAQUERIES**************/
+
+
+        /*entre 845 et 1500*/
+
+
+@media (min-width: 900px), (max-width: 1100px) {
+    
+.lilTitle-box1{
+    background-color: rgb(113, 131, 130);
+    justify-self: center;
+    align-self: center;
+    
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    align-content: center;
+    
+    margin: 0px auto;
+    /*entre 845 et 1500*/
+    /*width: 35%;*/
+    min-width: 35%;
+    max-width: 45;
+
+}
+
+}
+
+
+
+
+/**************************************/
+/**************************************/
+/************MEDIAQUERIES**************/
+
+        /*apres 1500*/
+
+@media (min-width: 1100px){
+
+.lilTitle-box1{
+    background-color: blueviolet;
+    min-width: 45vw;
+    max-width: 70vw;
+}
+
+}

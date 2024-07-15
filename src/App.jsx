@@ -12,13 +12,14 @@ import About from "./pages/About";
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
 import Contact from "./pages/Contact";
-import Enchere from "./pages/Enchere";
+/*import Enchere from "./pages/Enchere";*/
 import HomeSuper from "./pages/HomeSuper";
 import ErrorPage from "./pages/ErrorPage";
 import SingleProduct from "./pages/Product";
 import Product from "./pages/Product";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import Test from "./pages/Test";
 
 
 
@@ -51,6 +52,8 @@ function App() {
       <Route path="/contact" element={<Contact/>} />
       {/*<Route path="/enchere" element={<Enchere/>} /> */}
       <Route path="/Product/:id" element={<Product/>} />
+      <Route path="/Test" element={<Test/>} />
+
 
       
     </Routes>

@@ -61,14 +61,11 @@ const Product = () => {
    }
 
    const ShowProduct = () => {
-
     /*
     const product = Collection.find((product) => product.id === id);
     console.log (product)
     //const {imageUrl, title} = product
-
     */
-
     return(
         <div className="bigBox">
             < Countdown/>
@@ -76,28 +73,22 @@ const Product = () => {
                 <img src={product.imageUrl} alt= "photo model" />
             </div>
         </div>
-        
     )    
    }
 
+
    
-
-
     return (
-            <div className='container'>
+            <div className='mainBox'>
                 {/*<img src={product.imageUrl.id} alt= "photo model"/> */}
                 {/*<h4>{id} </h4>*/}
                 {/*<div>this is single product {id} </div> */}
-
                 <div className="row">
                     {loading ? <Loading/> : <ShowProduct/> }
-                    <Enchere/>
+                    {/*<Enchere/>*/}
                 </div>
             </div> 
     );
-
-
-
 };
 
 export default Product;

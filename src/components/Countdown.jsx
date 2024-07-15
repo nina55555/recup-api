@@ -56,7 +56,7 @@ function Countdown() {
       <div className='timer'>
 
         <div className='text'>
-          <p>countdown to a really special date, you will see</p> 
+          <p>countdown to a really special date, enter your bid you will see</p> 
         </div>
 
         <div className='line'>

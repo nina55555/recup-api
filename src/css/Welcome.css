@@ -1,196 +1,53 @@
 
 
 
-
-
 *{
     margin: 0;
     padding: 0;
-
-    box-sizing: border-box;
 }
 
-
-/*
-body{
-
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-html{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    margin: 10px;
-    height: 95%;
-}
-
-.App{
-    background-color: rgb(250, 250, 253);
-    height: 100%;
-    width: 100vw;
-    margin: 0px;
-    display: flex;
-}
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-.mainbox{
+.mainBox{
     background-color: rgb(107, 109, 99);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     min-width: 100vw;
     max-width: 100vw;
-
-
+    margin: 200 auto 0 auto;
     /*
-    width: auto;
-    height: 100%;
-    
-    margin: 0px;
-    padding: 0px;
-    display: flex;
-    justify-content: center;
+    height: 80%;
+    position: relative;
+    top: 100px;
     */
+
+    min-height: 30%;
+    max-height: 80%;
+    /*padding-top: 30%;*/
+
+    /*position: absolute;*/
+    /*z-index: 0;*/
 }
 
+.marbreG{
+    /*background-color: darkcyan;*/
 
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 50%;
+    left: -50%;
 
+    /*z-index: 1;*/
 
-
-
+}
 
 /*
-.textbox{
-    background-color: rgb(58, 57, 57);
-  
-    width: 100%; 
-     /*
-    height: 100%;
-    */
-    /*margin: 10px;
-    padding: 50px ;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
-
-.welcometext{
-
-    color: rgb(13, 17, 10);
-    width: auto;
-    height: 45vh;
-    margin: 0px;
-    padding: 25px 5px 5px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-
-}
-
-
-.marbres{
-    /*background-color: chocolate;
+.marbreD{
     width: 100%;
-    height: auto;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    object-fit: contain;
-}
+    position: relative;
+    right: -50%;
+    z-index: 2;
 
-.marbres img{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    object-fit: cover;
-}
-
-
-
-
-
-@media screen and (max-width: 700px) {
-    
-.mainbox{
-    width: 100vw;
-    height: 100%;
-    /*background-color: aqua;
-    margin: 0px;
-    padding: 0px;
-    display: flex;
-    justify-content: center;
-}
-
-
-.textbox{
-    background-color: rgb(58, 57, 57);
-  
-    width: 100%; 
-     /*
-    height: 100%;
-    */
-    /*margin: 10px;
-    padding: 0px ;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
-
-.welcometext{
-
-    width: 100%;
-    height: 45vh;
-    margin: 0px;
-    padding: 25px 5px 5px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-
-}
-
-
-
-
-.marbres{
-    /*background-color: chocolate;
-    width: 50%;
-    height: auto;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    /*object-fit: cover;
-}
-
-.marbres img{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    object-fit: cover;
-}
-
-
-
-}
-
-*/
+}*/

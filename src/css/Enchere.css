@@ -4,6 +4,25 @@
     /*background-color: blueviolet;*/
     background-color: aliceblue;
     width: auto;
+
+    /**/
+    /*
+    min-height: 55px;
+    max-height: 250px;
+    */
+    /**/
+    /*height: 160px;*//**/
+
+    min-height: 30%;
+    max-height: 100%;
+    /*
     height: 285px;
-    padding: 0px;
+    */
+
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

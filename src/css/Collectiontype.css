@@ -1,11 +1,23 @@
 
 
 
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
 .bigBox{
     background-color: blue;
     display: flex;
     flex-direction: row;
-    height: 55px;
+   
+    height: 20px;
+
+
+    position: relative;
+    top: 30px;
 }
 .chooseco{
     background-color: rgb(165, 165, 163);
@@ -16,6 +28,11 @@
     justify-content: space-between;
     border-radius: 5px;
     width: 40%;
+
+    /*height: 100px;*/
+
+    min-height: 30%;
+    max-height: 80%;
 }
 
 .chooseco a{

@@ -1,0 +1,325 @@
+
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+/*
+    box-sizing: border-box;
+    */
+}
+
+
+/*
+body{
+
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+html{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    margin: 10px;
+    height: 95%;
+}
+
+.App{
+    background-color: rgb(250, 250, 253);
+    height: 100%;
+    width: 100vw;
+    margin: 0px;
+    display: flex;
+}
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+.mainbox{
+    background-color: rgb(107, 109, 99);
+    /*
+    min-width: 100vw;
+    max-width: 100vw;
+
+*/
+/******/
+display: flex;
+    
+
+/*
+justify-items: flex-start;
+align-items: flex-start;
+*/
+
+justify-items: center;
+align-items: center;
+
+min-width: 100vw;
+max-width: 100vw;
+
+/*****/
+
+/*
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    
+    justify-items: center;
+    align-items: center;
+
+*/
+
+    /*
+    width: auto;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;*/
+    justify-content: center;
+    
+    height: 85%;
+    position: absolute;
+    top: 100px;
+}
+
+
+.textbox{
+    background-color: rgb(58, 57, 57);
+    /*width: 100%; 
+     /*
+    height: 100%;
+    
+    /*margin: 10px;*/
+    /*padding: 50px ;
+    display: flex;
+    flex-direction: column;
+   */ 
+    align-items: center;
+    z-index: 0;
+
+
+/**/
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*align-items: center;*/
+    align-content: center;
+    text-align: center;
+    
+    margin: 0px auto;
+    /*entre 845 et 1500*/
+   /* width: 30%;*/
+
+    /*a partir de 1500px 
+    min-width: 60vw;
+    max-width: 60vw;
+    */
+    height:55%;
+    /*
+    min-width: 60vw;
+    max-width: 60vw;
+    */
+    /*
+    display: none;
+    */
+    padding: 25px;
+
+    
+
+    
+}
+
+
+.welcometext{
+
+    color: rgb(13, 17, 10);
+    width: auto;
+    
+    height: 100vh;
+    margin: 0px auto;
+    
+    /*padding: 25px 5px 5px;*/
+
+    
+    justify-self: center;
+    align-self: center;
+    
+    
+
+    display: flex;
+    text-align: center;
+    /*align-items: center;*/
+    align-items: end;
+
+    justify-content: center;
+    
+
+}
+
+
+.marbreG{
+    /*
+    background-color: chocolate;
+    /*width: 1000px;
+    width: 100%;
+    /*height: auto;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+    position: relative;
+    /*top: 12vh;
+
+    top: 0px;
+    bottom: 0px;
+    left: 25%;
+    z-index: 1;
+*/
+
+
+    /*******/
+    background-color: cornflowerblue;
+    
+    justify-self: flex-start;
+    align-self: center;
+    width: 100%;
+    z-index: 1;
+
+    height: 100%;
+    position: relative;
+    top: 0px;
+    right: -200px;
+
+    /*******/
+
+
+
+
+}
+
+
+.marbreD{
+    /*
+    /*background-color: chocolate;
+    width: 1000px;
+    /*height: auto;
+    height: 50%;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+    z-index: 1;
+*/
+
+    /******/
+    background-color: cornflowerblue;
+    
+    justify-self: flex-start;
+    align-self: center;
+    width: 100%;
+
+    height: 100%;
+    position: relative;
+    top: 0px;
+    left: -200px;
+
+    /******/
+}
+
+.marbres img{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+}
+
+
+
+
+
+@media screen and (max-width: 700px) {
+    
+.mainbox{
+    width: 100vw;
+    height: 100%;
+    /*background-color: aqua;*/
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.textbox{
+    background-color: rgb(58, 57, 57);
+  
+    width: 100%; 
+     /*
+    height: 100%;
+    */
+    /*margin: 10px;*/
+    padding: 0px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
+.welcometext{
+
+    width: 100%;
+    height: 45vh;
+    margin: 0px;
+    padding: 25px 5px 5px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+
+
+.marbres{
+    /*background-color: chocolate;*/
+    width: 50%;
+    height: auto;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    /*object-fit: cover;*/
+}
+
+.marbres img{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+}
+
+
+
+}
+
