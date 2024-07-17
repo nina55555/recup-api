@@ -41,17 +41,19 @@
     /*z-index: 0;*/
 
 
+   
+
 
 }
 
 
 .marbreG{
-
     display: flex;
+    /*display: none;*/
     justify-content: center;
     align-items: center;
     /*background-color: darkcyan;*/
-    border: 10px solid rgba(172, 255, 47, 0.61);
+    /*border: 10px solid rgba(172, 255, 47, 0.61);*/
 
     
     padding: 0px;
@@ -92,12 +94,13 @@
     align-items: center;
     /*background-color: darkcyan;*/
     border: 10px solid rgba(172, 255, 47, 0.692);
-
+    /*background: linear-gradient(to right, rgba(90, 128, 0, 0.247), green );*/
     
+    /*padding: 0px;*/
     padding: 0px;
     /*width: 100%;*/
    
-    width: 100%;
+    width: 90%;
     height: 100%; 
     position: relative;
     
@@ -107,6 +110,7 @@
     z-index: 3;
 
     transition: 3s;
+    
     
 
 }
@@ -143,7 +147,11 @@
 }*/
 
 .textbox{
-    background-color: rgb(167, 156, 10);
+    /*background-color: rgb(167, 156, 10);*/
+    /*background-color: black;*/
+    background-color: rgb(247, 252, 252);
+    margin: 15px;
+    padding: 35px;
     z-index: 0;
     /*width: auto;*/
     width: 100%;
@@ -153,7 +161,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: 3s;
+    transition: 7s;
     
 
 
@@ -163,10 +171,23 @@
 .mainBox-welcome:hover .marbreD{
     /*width: 0%;*/
     transform: scale(20%);
-
-
 }
+
+
+
+/*
+.mainBox-welcome:hover .welcometext{
+    /*width: 0%;
+    transform: scale(150%);
+}
+*/
+
+
+
 .welcometext{
-    background-color: coral;
+    /*background-color: coral;*/
+    background-color: rgb(255, 255, 255);
     z-index: 1;
+    color: rgb(8, 6, 6);
+    font-size: 20px;
 }

@@ -7,17 +7,19 @@ import Navbar from '../components/Navbar';
 import Presentation from '../components/Presentation';
 import Video from '../components/Video';
 import '../css/Home.css';
+import Presentationboxes from '../components/Presentationboxes';
 /*import Enchere from './Enchere'*/
 
 
 export default function Home() {
     return (
-        <div className="mainBox">
+        <div className="mainbox">
             {/* <Navbar />  */}
            <Video />           
             <button className='btn-decouvrez'><a href='/Collection' >Decouvrez la collection</a></button>
            
            <Presentation />
+           <Presentationboxes />
         </div>
     )
     

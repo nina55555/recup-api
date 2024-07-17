@@ -3,12 +3,12 @@ import '../css/Collectiontype.css'
 
 const Collectiontype = () => {
     return (
-        <div className="bigBox">
+        <div className='big-box'>
            
-            <div className='chooseco-choosecoG'>
+            <div className='chooseco-g'>
                 <a className='classic-btn' href="Home">Collection classic</a>
             </div>
-            <div className="chooseco-choosecoD">
+            <div className="chooseco-d">
                 <a className='super-btn' href="HomeSuper">Collection super</a>
             </div> 
            

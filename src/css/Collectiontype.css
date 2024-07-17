@@ -8,19 +8,30 @@
 }
 
 
-.bigBox{
-    background-color: blue;
+.big-box{
+    background-color: rgb(226, 227, 228);
+
+    margin: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
    
-    height: 20px;
+    height: 75px;
+    width: 100%;
+    /*width: auto;*/
 
 
     position: relative;
     top: 30px;
 }
+
+
+/*
+
 .chooseco{
-    background-color: rgb(165, 165, 163);
+    background-color: rgb(165, 163, 165);
 
     margin: 5px;
     padding: 15px;
@@ -29,30 +40,59 @@
     border-radius: 5px;
     width: 40%;
 
-    /*height: 100px;*/
+    /*height: 100px;
 
     min-height: 30%;
     max-height: 80%;
 }
 
+
+*/
+
+
+
+/*
 .chooseco a{
     /*background-color: rgb(10, 10, 10);*/
-    /*color: antiquewhite;*/
+    /*color: antiquewhite;
     background-color: rgb(10, 10, 10);
     width: 100% ;
 
 }
+*/
+
+
+.chooseco-g{
+    background-color: rgb(245, 241, 241);
+    padding: 5px;
+    margin: 5px;
+    width: 50%;
+}
+
+
+.chooseco-d{
+    
+    background-color: brown;
+    padding: 5px;
+    margin: 5px;
+    width: 50%;
+}
+
+
 
 .classic-btn{
     /*color: rgb(159, 204, 76);*/
-    color: aliceblue;
+    background-color: rgba(127, 255, 212, 0.007);
+    color: rgb(11, 13, 14);
     padding: 5px;
     text-decoration: none;
 }
 
 .super-btn{
     /*color: rgb(124, 16, 226);*/
-    color: aliceblue;
+    background-color: rgba(127, 255, 212, 0.007);
+
+    color: rgb(2, 3, 3);
     padding: 5px;
     text-decoration: none;
 }
