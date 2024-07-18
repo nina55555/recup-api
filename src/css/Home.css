@@ -80,7 +80,7 @@ html{
     max-height: 80%;
     */
 
-    min-height: 100%;
+    min-height: 30%;
     max-height: 100%;
     /*padding-top: 30%;*/
 
@@ -92,26 +92,65 @@ html{
 /**/
 
 
-
+/*
 form{
     
     background-color: rgb(160, 161, 156);
 }
-
+*/
 
 .videoShow{
-    background-color: rgb(180, 182, 182);
+    /*background-color: rgb(180, 182, 182);*/
+    background-color: transparent;
 }
+
+
+
+.btn-decouvrez{
+    border-radius: 5px;
+}
+
+
 
 button{
     /*background-color: chartreuse;*/
-    background-color: rgba(111, 9, 207, 0.993);
-    padding: 5px;
-
-
+    background-color: rgba(244, 244, 245, 0.993);
+    padding: 3px;
 }
 
+
+
 button a{
+    background-color: brown;
     color: black;
     text-decoration: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****************************/
+/****************************/
+
+/********MEDIAQUERIES*******/
+
+/******FROM 0 TO 850PX*******/

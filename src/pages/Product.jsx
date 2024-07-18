@@ -67,7 +67,7 @@ const Product = () => {
     //const {imageUrl, title} = product
     */
     return(
-        <div className="bigBox">
+        <div className="big--box">
             < Countdown/>
             <div className="show-product">
                 <img src={product.imageUrl} alt= "photo model" />
@@ -79,13 +79,13 @@ const Product = () => {
 
    
     return (
-            <div className='mainBox'>
+            <div className='main--box'>
                 {/*<img src={product.imageUrl.id} alt= "photo model"/> */}
                 {/*<h4>{id} </h4>*/}
                 {/*<div>this is single product {id} </div> */}
                 <div className="row">
                     {loading ? <Loading/> : <ShowProduct/> }
-                    {/*<Enchere/>*/}
+                    <Enchere/>
                 </div>
             </div> 
     );

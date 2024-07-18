@@ -9,7 +9,8 @@ export default function About() {
         <div className="container">
             
             { /*  <Navbar />       */}
-            <h2>Je m'appelle About page</h2>
+            <h2>Je m'appelle About page </h2>
+            <p>Apres etre passée par la chambre syndicale de la couture parisienne et avoir travailler en Chine, cette styliste au parcours atypique et semé d'embuches decidait de mettre en place un concept efficace qui lui tenait a coeur au travers de son art mixant d'autres passions comme la le le de et l'e</p>
 
         </div>
     )

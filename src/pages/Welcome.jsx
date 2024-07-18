@@ -14,7 +14,7 @@ const Welcome = () => {
             <div className='textbox'>
                 <div className='welcometext'>
                 
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, enim reprehenderit. Alias saepe voluptatem iusto quisquam ipsum dolorem laudantium odit!
+                    Si vous etes arrivé jusqu'à cette page c'est sans doute parce que nous avons constaté v... entrons ensemble dans cette a....Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, enim reprehenderit. Alias saepe voluptatem iusto quisquam ipsum dolorem laudantium odit!
                 </div >
                 <Collectiontype />
             </div>

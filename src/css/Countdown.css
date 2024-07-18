@@ -1,5 +1,5 @@
 
-.bigBox{
+.big-box-count{
     /*background-color: blueviolet;*/
     padding: 10px;
     height: 80vh;
@@ -37,10 +37,12 @@
     /*background-color: purple;*/
     
     width: 70vw;
+    height: 35px;
     margin: 5px;
     padding: 5px;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: row;
   }
   
@@ -50,7 +52,7 @@
   
   
   .box{
-     height: 15px;
+     height: 35px;
      font-size: 22px;
     /*background-color: rgb(88, 172, 4);*/
     /*border: 1px solid black;*/
@@ -66,7 +68,7 @@
   
   .type{
     /*background-color: aqua;*/
-    height: 15px;
+    height: 35px;
     /*border: 1px solid black;*/
     display: flex;
     flex-direction: row;

@@ -343,6 +343,9 @@
         z-index: 1;
     }
 
+    /*mouseclick*/
+
+
     .lilNav-box2 ul li{
         background-color: rgb(29, 124, 141);
         display: flex;
