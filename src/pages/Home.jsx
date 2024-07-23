@@ -4,11 +4,8 @@
 import { Link } from 'react-router-dom';
 import videoShow from '../assets/cindyB.mp4';
 import Navbar from '../components/Navbar';
-import Presentation from '../components/Presentation';
 import Video from '../components/Video';
 import '../css/Home.css';
-import Presentationboxes from '../components/Presentationboxes';
-/*import Enchere from './Enchere'*/
 
 
 export default function Home() {
@@ -18,8 +15,29 @@ export default function Home() {
            <Video />           
             <button className='btn-decouvrez'><a href='/Collection' >Decouvrez la collection</a></button>
            
-           <Presentation />
-           <Presentationboxes />
+            <div className='presentation'> 
+            <h2>Presentation</h2>
+            <p>Pourrez vous ...Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, maxime omnis, illo, obcaecati asperiores quo voluptatum numquam ipsam consectetur quidem nesciunt consequatur! Commodi, ratione tempora.</p>
+        </div>
+           {/*<Presentation />*/}
+           <div className='boxx-container'>
+            <div className="boxa">
+                <p>H</p>
+                {/* v.. acco...*/}
+                {/*votre H..*/}
+            </div>
+            <div className="boxb">
+            <p>D</p>
+            {/*notre D...*/}
+
+            </div>
+            <div className="boxc">
+            <p>I</p>
+            {/* votre I...*/}
+
+            </div>
+        </div>
+           {/*<Presentationboxes />*/}
         </div>
     )
     

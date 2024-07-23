@@ -2,9 +2,8 @@
 
 .boxes-container{
     background-color: blue;
-    padding: 5px;
     width: 100%;
-    height: 100%;
+    height: 10%;
     
     /*
     min-width: 100vw;
@@ -21,8 +20,8 @@
 
 .box1{
     background-color: aquamarine;
-    width: 205px;
-    height: 205px;
+    width: 155px;
+    height: 155px;
     
 }
 
@@ -31,16 +30,16 @@
 
 .box2{
     background-color: aquamarine;
-    width: 205px;
-    height: 205px;
+    width: 155px;
+    height: 155px;
 }
 
 
 .box3{
     
     background-color: aquamarine;
-    width: 205px;
-    height: 205px;
+    width: 155px;
+    height: 155px;
 }
 
 
