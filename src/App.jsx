@@ -19,7 +19,6 @@ import SingleProduct from "./pages/Product";
 import Product from "./pages/Product";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import Test from "./pages/Test";
 
 
 
@@ -52,7 +51,7 @@ function App() {
       <Route path="/contact" element={<Contact/>} />
       {/*<Route path="/enchere" element={<Enchere/>} /> */}
       <Route path="/Product/:id" element={<Product/>} />
-      <Route path="/Test" element={<Test/>} />
+
 
 
       
@@ -65,6 +64,7 @@ function App() {
 }
 
 export default App
+
 
 
 

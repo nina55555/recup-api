@@ -12,134 +12,77 @@
 
 
 
-/*
 
-body{
-  background-color: rgb(42, 95, 165);
- 
-  display: flex;
-  /*align-items: center;*/
-  /*justify-content: center;
-  width: 100vw;
-  padding: 10px;
-}
-
-
-
-/*test jeudi
 
 *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
-/*
-body{
-
-  width: 100vw;
-
-  height: 80vh;
-}
-
-
-
-#root{
-  background-color: chocolate;
-
-  width: 100vw;
-  /*height: 80vh;
-
-  height: 100vh;
+  padding: 0px;
+  margin: 0px;
+  background-color: rgb(109, 109, 247);
 }
 
 
 
 html{
-  background-color: black;
-  margin: 0;
-  padding: 5;
-  display: flex;
+  background-color: darkmagenta;
   
-  /*margin: 10px;
-  /*height: 95%;
+  width: 100%;
+  height: 100%;
   
-  margin: 0px;
-  height: 100vh;
-
-}
-
-*/
-.App{
   /*
-  background-color: rgb(4, 63, 35);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90%;
-  width: 90%;
-  padding: 5px;
+  min-width: 100vw;
+  max-width: 100vw;
+
+  min-height: 100vh;
+  max-height: 100vh;
   */
+  
+  
+}
+
+
+
+body{
+  background-color: aquamarine;
+  
   width: 100%;
   height: 100%;
   
-  /*
-  height: 100%;
+  
+}
+
+
+#root{
+  background-color: brown;
+  
   width: 100%;
-  margin: 0px;
-*/
-/*
+  height: 100%;
+  
+  min-width: 100vw;
+  max-width: 100vw;
 
-min-width: 100vw;
-    max-width: 100vw;
+  min-height: 100vh;
+  max-height: 100vh;
 
-    min-height: 100vh;
-    max-height: 100vh;
-*/
-
-  /*
-  display: flex;*/
 }
 
 
 
 
 
-/*fin test jeudi*/
 
 
 
 
-/*
+
+
+
+
+/*****/
 
 .App{
-
   
-    background-color: rgb(205, 206, 206);
-    height: 100%;
-    width: 100%;
-  
-
-
-
-  /*width: 95%;
-  margin: 10px;
-  /*padding: 20px;*/
-  /*border: 2px solid black;
-  border-radius: 5px;
-  text-align: center;
-  background-color: rgb(160, 161, 156);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
- 
+  width: 100%;
+  height: 100%;
 }
 
 
-.contour{
-  text-align: center;
-  background-color: rgb(1, 2, 5);
-  margin: 10px;
-}
-*/

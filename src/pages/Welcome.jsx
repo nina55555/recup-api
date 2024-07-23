@@ -16,7 +16,7 @@ const Welcome = () => {
                         <div className='textbox'>
                             <div className='welcometext'>
                             
-                                Si vous etes arrivé jusqu'à cette page c'est sans doute parce que nous avons constaté v... entrons ensemble dans cette a....Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, enim reprehenderit. Alias saepe voluptatem iusto quisquam ipsum dolorem laudantium odit!
+                                Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme, entrons ensemble dans cette aventure
                             </div >
                             <Collectiontype />
                         </div>
