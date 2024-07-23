@@ -10,17 +10,17 @@
 
 .big-box{
     background-color: rgb(226, 227, 228);
-    margin: 10px;
+    margin:  auto;
     padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 75px;
-    width: 100%;
+    width: 80%;
     /*width: auto;*/
     position: relative;
-    top: 30px;
+    top: 5px;
 }
 
 
