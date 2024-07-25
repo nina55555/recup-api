@@ -128,7 +128,7 @@
 
 
 .videoShow{
-    background-color: rgb(105, 119, 80);
+    /*background-color: rgb(105, 119, 80);*/
     width: 70%;
     height: auto;
     margin: 0px auto;
@@ -183,6 +183,11 @@
     text-decoration: none;
     color: black;
     background-color: transparent;
+}
+
+
+.btn-decouvrez:hover {
+    background-color: rgb(6, 179, 107);
 }
 
 
@@ -256,7 +261,7 @@
 
 
 .boxa{
-    background-color: aquamarine; 
+    /*background-color: aquamarine; */
     /*width: 155px;*/
     /*height: 155px;*/
     /*height: 20%;*/
@@ -296,7 +301,7 @@
 
 
 .boxb{
-    background-color: aquamarine;
+    /*background-color: aquamarine;*/
     /*width: 155px;*/
     /*height: 155px;*/
     /*height: auto;*/
@@ -329,7 +334,7 @@
 
 
 .boxc{
-    background-color: aquamarine;
+    /*background-color: aquamarine;*/
     /*width: 155px;*/
     /*height: 155px;*/
     /*height: auto;*/
