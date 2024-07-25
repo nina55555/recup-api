@@ -8,6 +8,10 @@ export default function Contact() {
         <div className="container">
             {/*  <Navbar />      */}
          <h2>Je m'appelle Contact page</h2>
+         <br/>
+         <div className="contact-form">
+            Contact form:
+         </div>
 
         </div>
     );

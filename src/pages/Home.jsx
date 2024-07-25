@@ -10,7 +10,7 @@ import '../css/Home.css';
 
 export default function Home() {
     return (
-        <div className="mainbox">
+        <div className="containerHome">
             {/* <Navbar />  */}
             <div className="img1">
             <img src="src/assets/Capturelogo.PNG" alt="logo" />
@@ -24,7 +24,10 @@ export default function Home() {
 
            </div>
  
-            <button className='btn-decouvrez'><a href='/Collection' >Decouvrez la collection</a></button>
+            <button className='btn-decouvrez'>
+                <a href='/Collection' >Decouvrez la collection
+                </a>
+            </button>
            
             <div className='presentation'> 
             <h2>Presentation</h2>

@@ -1,7 +1,9 @@
 
 
 .mainBox-nav{
-    background-color: aquamarine;
+    /*background-color: aquamarine;*/
+    background-color: rgb(3, 4, 5);
+
     display: flex;
     width: 100%;
     height: 80px;
@@ -36,7 +38,9 @@
 
 
 .lilNav-box0{
-    background-color: cornflowerblue;
+    /*background-color: cornflowerblue;*/
+    background-color: rgb(3, 4, 5);
+
     width: 50%;
 
     margin-right: auto;
@@ -50,7 +54,10 @@
 
 
 .lilTitle-box1{
-    background-color: rgb(42, 168, 162);
+    /*background-color: rgb(42, 168, 162);*/
+    background-color: rgb(3, 4, 5);
+    /*linear degradé*/
+
     justify-self: center;
     align-self: center;
     
@@ -84,6 +91,7 @@
 
 .lilNav-box2{
     /*background-color: darkorchid;*/
+    background-color: rgb(3, 4, 5);
 
     width: 50%;
     margin-left: auto;
@@ -106,7 +114,9 @@
 
 
 .lilNav-box2 ul{
-    background-color: azure;
+    /*background-color: azure;*/
+    background-color: rgb(42, 43, 44);
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,9 +131,16 @@
 
 .lilNav-box2 ul li {
     /*background-color: rgb(241, 208, 115);*/
+    /*background-color: rgb(154, 167, 138);*/
+    background-color: rgb(214, 217, 219);
+
+    /*background-color: rgb(3, 4, 5);*/
+
+
     list-style: none;
     padding: 7px;
-    margin: 2px;
+    /*margin: 2px;*/
+    margin: 0px;
     /*width: auto;*/
     /*width: 100%;*/
 
@@ -152,6 +169,8 @@
     /*padding: 8px;*/
     padding:6px;
     font-size: 14px;
+    font-weight: bold;
+    font-family:Arial, Helvetica, sans-serif ;
     /*padding: 3px;*/
 }
 
@@ -171,7 +190,7 @@
     /*background-color: rgb(226, 122, 252);*/
     /*background-color: rgb(150, 144, 155);*/
      border-radius: 2px;
-     color: rgb(248, 244, 244);
+     color: rgb(83, 133, 139);
      width: 100%;
  }
 

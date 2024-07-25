@@ -5,8 +5,12 @@
 @import './Video.css';
 @import './Collection.css';
 @import './Book.css';
+
 @import './Contact.css';
 @import './About.css';
+@import './Signin.css';
+@import './Signup.css';
+@import './Product.css';
 
 
 
@@ -17,70 +21,53 @@
 *{
   padding: 0px;
   margin: 0px;
-  background-color: rgb(109, 109, 247);
+  /*background-color: rgb(109, 109, 247);*/
+  background-color: aliceblue;
+  /*background-image: url(src/assets/Capture-marbre2.PNG);*/
 }
 
 
 
 html{
-  background-color: darkmagenta;
-  
+  /*background-color: darkmagenta;*/
   width: 100%;
   height: 100%;
-  
   /*
   min-width: 100vw;
   max-width: 100vw;
-
   min-height: 100vh;
   max-height: 100vh;
   */
-  
-  
 }
 
 
 
 body{
-  background-color: aquamarine;
-  
+  /*background-color: aquamarine;*/
   width: 100%;
   height: 100%;
-  
-  
 }
 
 
 
 
-
 #root{
-  background-color: brown;
+  /*background-color: brown;*/
   /*
   width: 100%;
   height: 100%;
 */
   min-width: 100vw;
   max-width: 100vw;
-
   min-height: 100vh;
   max-height: 100vh;
-
 }
-
-
-
-
-
-
-
 
 
 
 /*****/
 
 .App{
-  
   width: 100%;
   height: 100%;
 }
