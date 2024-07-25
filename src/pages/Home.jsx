@@ -12,9 +12,7 @@ export default function Home() {
     return (
         <div className="containerHome">
             {/* <Navbar />  */}
-            <div className="img1">
-            <img src="src/assets/Capturelogo.PNG" alt="logo" />
-            </div>
+        
             <div className="img3">
             <img src="src/assets/Capturelogo.PNG" alt="logo" />
             </div>
@@ -35,19 +33,26 @@ export default function Home() {
         </div>
            <div className='boxx-container'>
             <div className="boxa">
+                <div className="box1">
                 <p>H</p>
                 {/* v.. acco...*/}
-                {/*votre H..*/}
+                {/*votre H..*/}                
+                <img src="src/assets/Capture-marbre2.PNG" alt="pic" />
+                </div>
             </div>
             <div className="boxb">
-            <p>D</p>
-            {/*notre D...*/}
-
+            <div className="box2">
+                <p>D</p>
+                {/*notre D...*/}
+                <img src="src/assets/Capture-marbre2.PNG" alt="pic" />
+                </div>
             </div>
             <div className="boxc">
-            <p>I</p>
-            {/* votre I...*/}
-
+                <div className="box3">
+                <p>I</p>
+                {/* votre I...*/}
+                <img src="src/assets/Capture-marbre2.PNG" alt="pic" />
+                </div>
             </div>
         </div>
         </div>

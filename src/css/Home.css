@@ -21,7 +21,6 @@
 
 
 
-
 .containerHome{
     background-color: rgb(241, 241, 241);
     /*
@@ -30,37 +29,34 @@
     align-items: center;
     text-align: center;
     */
-
     width: 100%;
     height: 100vh;
-
-    flex-direction: column;
     
-    position: absolute;
+    
+    
+    
+    
+    /**********************ATTENTION A CA***********/
+    /**********************PADDING BOTTOM************/
+    padding-bottom: 80px;
+    /*********************ATTENTION A CA **********/
+
+
+
+
+
+    /*flex-direction: column;*/
+    /*position: absolute;*/
     display: grid;
+    grid-template-rows: 25% 25% 12.5% 12.5% 25%;
     grid-template-columns: 33% 33% 33%;
-
-
 }
 
 
-
-.img1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 155px;
-    height: 155px;
-    z-index: 15;
-    border-radius: 50px;
-    position: relative;
-    top:-30px;
-    border: 1px solid red;
-
-}
 
 
 .img2{
+/*
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,11 +68,17 @@
     top:-285px;
     left: -525px;
     border: 1px solid red;
-
+*/
+     /*v->*/
+     grid-row: 1/3;
+     grid-column: 1/2;
 }
 
 
+
+
 .img3{
+    /*
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,21 +89,35 @@
     position: relative;
     top: 55px;
     left: 505px;
+    */
     transform: rotateY(180deg);
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 
+     /*v->*/
+     grid-row: 1/3;
+     grid-column: 3/4;
 }
+
 
 
 
 .boxVideo{
     background-color: black;
+    /*
     position: relative;
     width: 90%;
     height: 38%;
     top: -85px;
-    border: 1px solid red;
+    */
+    /*border: 1px solid red;*/
+    /*v->*/
+    grid-row: 1/3;
+    grid-column: 1/4;
+    width: 100%;
+    height: 90%;
 } 
+
+
 
 .boxVideo p{
     font-size: 20px;
@@ -110,12 +126,16 @@
 
 
 
+
 .videoShow{
     background-color: rgb(105, 119, 80);
     width: 70%;
     height: auto;
-    margin: 5px auto;
+    margin: 0px auto;
     padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -125,6 +145,7 @@
     width: auto;
     /*width: 90%;*/
     height: 90%;
+    margin:0 auto;
 }
 
 
@@ -133,21 +154,30 @@
 .btn-decouvrez{
     background-color: aliceblue;
     border-radius: 5px;
-    width: 25%;
-    height: 70px;
+    /*
     padding: 5px;
     margin: 5px;
+    */
+    /*
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     top: -75px;
+    */
+     /*v->*/    
+     height: 55px;
+    width: 25%;
+    margin: 0 auto ;
+
+     grid-row: 3/4;
+     grid-column: 1/4;
 }
 
 
 
 .btn-decouvrez a{
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
@@ -159,15 +189,25 @@
 
 
 .presentation{
-    background-color: cadetblue;
+    /*background-color: cadetblue;*/
+    background-color: rgba(21, 22, 20, 0.418);
+    /*
     width: 80%;
     height: 55px;
     position: relative;
     top: -60px;
-    border: 1px solid red;
+    */
+    /*border: 1px solid red;*/
 
+     /*v->*/
+     grid-row: 4/5;
+     grid-column: 1/4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
 }
-
 
 
 
@@ -181,16 +221,17 @@
 
 .presentation p{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 
 
 
 .boxx-container{
-    background-color: blue;
+    background-color: rgb(21, 22, 18);
+    /*
     width: 90%;
-    /*height:25%;*/
+    /*height:25%;
     height: auto;
     position: relative;
     bottom: 50px;
@@ -198,23 +239,57 @@
     min-width: 100vw;
     max-width: 100vw;
     min-height: 100%;
-    min-height: 100%;
+    /*min-height: 100%;
     */
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid red;
-
+    /*padding: 15px;*/
+    margin:10px ;
+    /*border: 1px solid red;*/
+     /*v->*/
+     grid-row: 5/6;
+     grid-column: 1/4;
 }
 
 
 
 
 .boxa{
-    background-color: aquamarine;
-    width: 155px;
+    background-color: aquamarine; 
+    /*width: 155px;*/
     /*height: 155px;*/
-    height: auto;
+    /*height: 20%;*/
+    /*height: auto;*/
+     grid-row: 5/6;
+     grid-column: 1/2;
+    width: 100%;
+    height: 90%;
+    margin: 15px;
+}
+
+
+
+.box1{
+    /*background-color: rgb(105, 119, 80);*/
+    width: 90%;
+    height: 80%;
+
+    object-fit: cover;
+    margin: 15px auto;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+
+.box1 p{
+    width: 100%;
+    text-align: center;
 }
 
 
@@ -222,20 +297,66 @@
 
 .boxb{
     background-color: aquamarine;
-    width: 155px;
+    /*width: 155px;*/
     /*height: 155px;*/
-    height: auto;
+    /*height: auto;*/
+    width: 100%;
+    height: 90%;
+    margin: 15px;
+}
+
+
+
+.box2{
+    /*background-color: rgb(105, 119, 80);*/
+    width: 90%;
+    height: 80%;
+    margin: 15px auto;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.box2 p{
+    width: 100%;
+    text-align: center;
 }
 
 
 
 
 .boxc{
-    
     background-color: aquamarine;
-    width: 155px;
+    /*width: 155px;*/
     /*height: 155px;*/
-    height: auto;
+    /*height: auto;*/
+    width: 100%;
+    height: 90%;
+    margin: 15px;
+}
+
+
+
+.box3{
+    /*background-color: rgb(105, 119, 80);*/
+    width: 90%;
+    height: 80%;
+    margin: 15px auto;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+.box3 p{
+    width: 100%;
+    text-align: center;
 }
 
 
@@ -244,6 +365,10 @@
 
 
 
+
+
+/***************************/
+/***************************/
 
 
 

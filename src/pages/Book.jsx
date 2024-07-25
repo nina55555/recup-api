@@ -12,7 +12,7 @@ export default function Book() {
         <h2>Je m'appelle Book page</h2>
         <br/>
         <br/>
-        <p>We are new .. <br/> Content coming soon... Stay tuned ! </p>
+        <p>We are new born.. <br/> Content coming soon... Stay tuned ! </p>
 
         </div>
       </>
