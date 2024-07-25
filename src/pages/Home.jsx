@@ -12,14 +12,24 @@ export default function Home() {
     return (
         <div className="mainbox">
             {/* <Navbar />  */}
-           <Video />           
+            <div className="img1">
+            <img src="src/assets/Capturelogo.PNG" alt="logo" />
+            </div>
+            <div className="img3">
+            <img src="src/assets/Capturelogo.PNG" alt="logo" />
+            </div>
+           <Video /> 
+           <div className="img2">
+           <img src="src/assets/Capturelogo.PNG" alt="logo" />
+
+           </div>
+ 
             <button className='btn-decouvrez'><a href='/Collection' >Decouvrez la collection</a></button>
            
             <div className='presentation'> 
             <h2>Presentation</h2>
             <p>Pourrez vous ...Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, maxime omnis, illo, obcaecati asperiores quo voluptatum numquam ipsam consectetur quidem nesciunt consequatur! Commodi, ratione tempora.</p>
         </div>
-           {/*<Presentation />*/}
            <div className='boxx-container'>
             <div className="boxa">
                 <p>H</p>
@@ -37,7 +47,6 @@ export default function Home() {
 
             </div>
         </div>
-           {/*<Presentationboxes />*/}
         </div>
     )
     

@@ -45,6 +45,67 @@
 
 
 
+
+/*
+.mainbox img{
+    width: 115px;
+    height: 105px;
+    z-index: 10;
+    position: relative;
+    top: 150px;
+    left: 555px;
+    border-radius: 50%;
+    transform: rotateY(180deg);
+
+}
+*/
+
+
+.img1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 155px;
+    height: 155px;
+    z-index: 15;
+    border-radius: 50px;
+    position: relative;
+    top:-30px;
+}
+
+
+.img2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 155px;
+    height: 155px;
+    z-index: 15;
+    border-radius: 50px;
+    position: relative;
+    top:-285px;
+    left: -525px;
+
+}
+
+
+.img3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 155px;
+    height: 155px;
+    z-index: 15;
+    border-radius: 50px;
+    position: relative;
+    top: 55px;
+    left: 505px;
+    transform: rotateY(180deg);
+
+}
+
+
+
 .boxVideo{
     background-color: black;
     position: relative;
@@ -149,7 +210,8 @@
 .boxx-container{
     background-color: blue;
     width: 90%;
-    height:25%;
+    /*height:25%;*/
+    height: auto;
     position: relative;
     bottom: 50px;
     
@@ -169,7 +231,8 @@
 .boxa{
     background-color: aquamarine;
     width: 155px;
-    height: 155px;
+    /*height: 155px;*/
+    height: auto;
     
 }
 
@@ -179,7 +242,8 @@
 .boxb{
     background-color: aquamarine;
     width: 155px;
-    height: 155px;
+       /*height: 155px;*/
+       height: auto;
 }
 
 
@@ -187,7 +251,8 @@
     
     background-color: aquamarine;
     width: 155px;
-    height: 155px;
+       /*height: 155px;*/
+       height: auto;
 }
 
 

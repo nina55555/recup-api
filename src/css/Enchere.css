@@ -1,5 +1,21 @@
 
 
+
+
+.main--box{
+    background-color: thistle;
+    width: 100%;
+    height: 55%;
+    position: absolute;
+}
+
+.big--box{
+    background-color: aqua;
+    width: 90%;
+    height: 80%;
+}
+
+
 .bigTable{
     /*background-color: blueviolet;*/
     background-color: aliceblue;
@@ -28,3 +44,20 @@
     position: absolute;
     top: 520px;
 }
+
+
+.show-product{
+    background-color: coral;
+    width: 50%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.show-product img{
+    width: 90%;
+    height: 90%;
+}
+

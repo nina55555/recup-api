@@ -54,10 +54,14 @@ function Enchere() {
           />
           <button>ok</button>
         </form>
-        <h1>acheteurs:</h1>
+        <h1>Most recent bids :</h1>
         <ul>
           {sommes
-            .sort((a, b) => (a < b ? 1 : -1))
+
+            .sort ((b, a) => (b && b.length > 5555 && a ? 1 : ' '))
+            //sort.direction ==="ASC"
+            .sort ((a,b) => (b - a) )
+
             .map((somme,i) => (
               <li key={i}>
                 <p>Pseudo: à encherit le: 25/07/85 à: 9:00:00 {somme} $ note.......................................... O   O   O   <button onClick={() => handleDelete(somme)}>X</button></p>

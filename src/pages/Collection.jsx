@@ -12,6 +12,12 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import "../css/Cards.css";
 import "../css/Collection.css";
 
+/*
+import "../css/Product.css";
+import Product from '../pages/Product';
+*/
+
+
 const Collection = () => {
   const { id } = useParams();
 
@@ -66,6 +72,11 @@ const Collection = () => {
                             */}
 
               <NavLink to={`/product/${product.id} `}>buy now</NavLink>
+              {/* <NavLink to={`/product/${product._id} `}>buy now</NavLink> */}
+
+
+
+
               {/*
                             <Link to='/SingleProduct/:product.id' >prod
                             <img src={product.imageUrl} alt= "photo model"/>
