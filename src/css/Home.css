@@ -48,8 +48,10 @@
     /*flex-direction: column;*/
     /*position: absolute;*/
     display: grid;
-    grid-template-rows: 25% 25% 12.5% 12.5% 25%;
-    grid-template-columns: 33% 33% 33%;
+    /*grid-template-rows:  16.66% 16.66% 16.66%   12.5% 12.5% 25%;*/
+    grid-template-rows: /*25% 25%*/ 12.5% 25% 12.5%   12.5% 12.5% 25%;
+
+    grid-template-columns: 33.33% 33.33% 33.33%;
 }
 
 
@@ -70,11 +72,46 @@
     border: 1px solid red;
 */
      /*v->*/
-     grid-row: 1/3;
+     grid-row: 2/3;
      grid-column: 1/2;
+
+     
+     
+     /*position: relative;*/
+        /*height: 70%;   */  
+  
+        /*
+     width: 100%;
+     height: 60%;
+     /*margin: auto;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+     top: 90px;
+     left:0px;
+     */
+
+     /*
+     margin-top: 125px;
+     /*width: 310px;
+     width: 95%;    
+
+*/
+/*margin: 95px 70px auto;*/
+display: none;
 }
 
 
+
+
+
+/*
+.img2 img{
+    /*object-fit: cover;
+}
+
+*/
 
 
 .img3{
@@ -96,6 +133,7 @@
      /*v->*/
      grid-row: 1/3;
      grid-column: 3/4;
+     display: none;
 }
 
 
@@ -111,17 +149,26 @@
     */
     /*border: 1px solid red;*/
     /*v->*/
-    grid-row: 1/3;
+    /*grid-row: 1/3;*/
+
+    grid-row: 1/4;
     grid-column: 1/4;
     width: 100%;
+
     height: 90%;
+    /*margin: 10px auto 0;*/
+    /*margin: 0 auto;*/
+    text-align: center;
 } 
 
 
 
 .boxVideo p{
     font-size: 20px;
-    padding-bottom:20px;
+    padding-bottom:0px;
+    /*margin: 0 auto*/
+    margin: 0 auto;
+    color: brown;
 }
 
 
@@ -129,23 +176,51 @@
 
 .videoShow{
     /*background-color: rgb(105, 119, 80);*/
-    width: 70%;
+   /* width: 100%;
     height: auto;
     margin: 0px auto;
     padding: 1px;
     display: flex;
     justify-content: center;
     align-items: center;
+*/
+    
+    grid-row: 2/3;
+    grid-column: 2/3;
+    
+    width: 33.33%;
+    height: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*position: relative;
+    top: -50px;
+    */
+    background-color: black;
 }
 
 
 
 
 .videoShow video{
+    /*
     width: auto;
-    /*width: 90%;*/
+    /*width: 90%;
     height: 90%;
     margin:0 auto;
+    */
+
+    /*
+    grid-row: 1/2;
+    grid-column: 1/4;
+
+    */
+    width: 90%;
+    height: 80%;
+    object-fit: cover;
+    
+    
 }
 
 
@@ -166,18 +241,19 @@
     top: -75px;
     */
      /*v->*/    
-     height: 55px;
+     height: 45px;
     width: 25%;
-    margin: 0 auto ;
+    margin: 18px auto ;
 
      grid-row: 3/4;
      grid-column: 1/4;
+     z-index: 5;
 }
 
 
 
 .btn-decouvrez a{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
@@ -187,7 +263,9 @@
 
 
 .btn-decouvrez:hover {
-    background-color: rgb(6, 179, 107);
+    /*background-color: rgb(6, 179, 107);*/
+    background-color: rgb(120, 185, 100)
+
 }
 
 
@@ -205,20 +283,21 @@
     /*border: 1px solid red;*/
 
      /*v->*/
-     grid-row: 4/5;
-     grid-column: 1/4;
+     grid-row: 4/6;
+     grid-column: 1/5;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0px;
+    padding: 5px;
 }
 
 
 
 .presentation h2{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 17px;
+    margin-top: 33px;
 }
 
 
@@ -226,7 +305,8 @@
 
 .presentation p{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 
@@ -253,7 +333,9 @@
     margin:10px ;
     /*border: 1px solid red;*/
      /*v->*/
-     grid-row: 5/6;
+     /*grid-row: 5/6;*/
+     grid-row: 6/7;
+
      grid-column: 1/4;
 }
 
