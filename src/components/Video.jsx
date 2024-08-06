@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 /*import videoShow from '../assets/cindyB.mp4'*/
-import videoShow from '../assets/vidDefile.mp4'
+import videoShow from '../assets/videoDefile.mp4'
 
 
 
