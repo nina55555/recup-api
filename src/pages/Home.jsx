@@ -37,21 +37,21 @@ export default function Home() {
                 <p>H</p>
                 {/* v.. acco...*/}
                 {/*votre H..*/}                
-                <img src="src/assets/Capture-marbre2.PNG" alt="pic" />
+                <img src="src/assets/Capturelogo.PNG" alt="pic" />
                 </div>
             </div>
             <div className="boxb">
             <div className="box2">
                 <p>D</p>
                 {/*notre D...*/}
-                <img src="src/assets/Capture-marbre2.PNG" alt="pic" />
+                <img src="src/assets/react.svg" alt="pic" />
                 </div>
             </div>
             <div className="boxc">
                 <div className="box3">
                 <p>I</p>
                 {/* votre I...*/}
-                <img src="src/assets/Capture-marbre2.PNG" alt="pic" />
+                <img src="src/assets/Capturelogo.PNG" alt="pic" />
                 </div>
             </div>
         </div>

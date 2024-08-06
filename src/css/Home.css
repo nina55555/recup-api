@@ -22,7 +22,9 @@
 
 
 .containerHome{
-    background-color: rgb(241, 241, 241);
+    /*background-color: rgb(241, 241, 241);*/
+    /*background-color: rgb(211, 208, 208);*/
+
     /*
     display: flex;
     justify-content: center;
@@ -140,7 +142,7 @@ display: none;
 
 
 .boxVideo{
-    background-color: black;
+    background-color: rgb(17, 17, 17);
     /*
     position: relative;
     width: 90%;
@@ -153,22 +155,31 @@ display: none;
 
     grid-row: 1/4;
     grid-column: 1/4;
-    width: 100%;
+    width: 90%;
 
     height: 90%;
     /*margin: 10px auto 0;*/
     /*margin: 0 auto;*/
     text-align: center;
+    border-radius: 4px;
+    /*margin-top: 3px;*/
+    margin: 25px auto;
 } 
 
 
 
 .boxVideo p{
-    font-size: 20px;
-    padding-bottom:0px;
+    font-size: 14px;
     /*margin: 0 auto*/
-    margin: 0 auto;
-    color: brown;
+    margin: 25px auto 8px;
+    width: 50%;
+    height: 17px;
+    /*border: 1px solid white;*/
+    /*color: brown;*/
+    /*color: rgb(29, 28, 28);*/
+    color: rgb(192, 191, 191);
+    background-color: transparent;
+
 }
 
 
@@ -188,7 +199,11 @@ display: none;
     grid-row: 2/3;
     grid-column: 2/3;
     
-    width: 33.33%;
+    /*width: 73.33%;*/
+    /*width: 33.33%;*/
+
+    width: 43.33%;
+
     height: 80%;
     margin: 0 auto;
     display: flex;
@@ -198,6 +213,7 @@ display: none;
     top: -50px;
     */
     background-color: black;
+
 }
 
 
@@ -229,6 +245,7 @@ display: none;
 .btn-decouvrez{
     background-color: aliceblue;
     border-radius: 5px;
+    box-shadow: 5px 5px 10px;
     /*
     padding: 5px;
     margin: 5px;
@@ -241,30 +258,40 @@ display: none;
     top: -75px;
     */
      /*v->*/    
-     height: 45px;
-    width: 25%;
-    margin: 18px auto ;
+     height: 33px;
+    width: 23%;
+    margin: 0px auto ;
 
-     grid-row: 3/4;
+     grid-row: 4/5;
      grid-column: 1/4;
      z-index: 5;
+     display: flex;
+     text-align: center;
+     justify-content: center;
+
+     text-wrap: wrap;
 }
 
 
 
 .btn-decouvrez a{
+    /*margin: 0 auto;*/
     font-size: 16px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     color: black;
     background-color: transparent;
+    padding: 3px;
 }
 
 
 .btn-decouvrez:hover {
     /*background-color: rgb(6, 179, 107);*/
-    background-color: rgb(120, 185, 100)
+    /*background-color: rgb(120, 185, 100);*/
+    /*background-color: rgba(167, 209, 132, 0.973);*/
+    background-color: rgb(146, 182, 81);
+
 
 }
 
@@ -283,21 +310,26 @@ display: none;
     /*border: 1px solid red;*/
 
      /*v->*/
-     grid-row: 4/6;
+     grid-row: 5/6;
      grid-column: 1/5;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding: 5px;
+    border-radius: 2px;
+    height: 100%;
 }
 
 
 
 .presentation h2{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    margin-top: 33px;
+    font-size: 15px;
+    margin-top: 5px;
+    height: 50%;
+    background-color: transparent;
 }
 
 
@@ -305,8 +337,11 @@ display: none;
 
 .presentation p{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 5px;
+    background-color: transparent;
+    height: 80%;
+
 }
 
 
@@ -353,6 +388,7 @@ display: none;
     width: 100%;
     height: 90%;
     margin: 15px;
+    /*padding: 3px;*/
 }
 
 
@@ -360,25 +396,41 @@ display: none;
 .box1{
     /*background-color: rgb(105, 119, 80);*/
     width: 90%;
-    height: 80%;
-
+    height: 90%;
     object-fit: cover;
-    margin: 15px auto;
-    padding: 1px;
+    /*margin: 15px auto;*/
+    margin: 3px auto;
+    /*padding: 1px;*/
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    /*background-color: rgb(138, 165, 42);*/
+    background-image: url(src/assets/Capture-marbre2.PNG);
 }
 
 
 
 
 .box1 p{
+    margin: 3px auto;
     width: 100%;
+    height: 25px;
     text-align: center;
+    border: 1px solid black;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+
+.box1 img{
+    width: 90%;
+    height: 60%;
+    object-fit: contain;
+
+}
 
 
 
@@ -397,22 +449,37 @@ display: none;
 .box2{
     /*background-color: rgb(105, 119, 80);*/
     width: 90%;
-    height: 80%;
-    margin: 15px auto;
-    padding: 1px;
+    height: 90%;
+    margin: 3px auto;
+    /*padding: 1px;*/
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    /*background-color: rgb(138, 165, 42);*/
+        background-image: url(src/assets/Capture-marbre2.PNG);
+
 }
 
 
 .box2 p{
     width: 100%;
+    height: 25px;
+    margin: 3px auto;
     text-align: center;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
+.box2 img{
+    width: 90%;
+    height: 60%;
+    object-fit: contain;
+
+}
 
 
 .boxc{
@@ -430,24 +497,40 @@ display: none;
 .box3{
     /*background-color: rgb(105, 119, 80);*/
     width: 90%;
-    height: 80%;
-    margin: 15px auto;
-    padding: 1px;
+    height: 90%;
+    margin: 3px auto;
+    /*padding: 1px;*/
     display: flex;
-    justify-content: center;
+    justify-content: center;    
+    text-align: center;
     align-items: center;
     flex-direction: column;
+    /*background-color: rgb(138, 165, 42);*/
+    background-image: url(src/assets/Capture-marbre2.PNG);
+
 }
 
 
 
 .box3 p{
     width: 100%;
+    height: 25px;
+    margin: 3px auto;
     text-align: center;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 
+.box3 img{
+    width: 90%;
+    height: 60%;
+    object-fit: contain;
 
+}
 
 
 

@@ -13,7 +13,7 @@ html{
 }
 
 body{
-  background-color: rgb(42, 95, 165);
+  /*background-color: rgb(42, 95, 165);*/
  
   display: flex;
   align-items: center;

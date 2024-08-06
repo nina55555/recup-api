@@ -65,6 +65,8 @@
     grid-row: 1/4;
     grid-column: 1/4;
     background-color: rgb(247, 252, 252);
+    /*border: 1px solid black;*/
+    box-shadow: 10px 20px 20px ;
     /*margin: 15px;
     padding: 35px;*/
     z-index: 1;
@@ -72,7 +74,7 @@
     width: 100%;
     border-radius: 5px;
     /*height: auto;*/
-    height:50%;
+    height:100%;
     margin: 0 auto;
     /*display: none;*/
     padding: 15px;
@@ -97,13 +99,17 @@
     /*z-index: 1;*/
     color: rgb(8, 6, 6);
     font-size: 17px;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     width: 90%;
-    height: 60%;
+    height: 100%;
     margin: 5px auto;
     /*animation: transitionScalet 2s;*/
 }
 
-
+.welcometext p{
+    height: 10%;
+}
 
 .marbreG{
     /*display: flex;*/

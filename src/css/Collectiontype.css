@@ -19,10 +19,10 @@
     justify-content: space-between;
     align-items: center;
     height: 75px;
-    width: 80%;
+    width: 100%;
     /*width: auto;*/
     position: relative;
-    top: 5px;
+    top: 45px;
 }
 
 
@@ -31,7 +31,13 @@
     background-color: rgb(245, 241, 241);
     padding: 5px;
     margin: 5px;
-    width: 50%;
+    width: 45%;
+    
+}
+
+
+.chooseco-g:hover{
+    box-shadow: 5px 5px 5px;
 }
 
 
@@ -39,9 +45,13 @@
     background-color: brown;
     padding: 5px;
     margin: 5px;
-    width: 50%;
+    width: 45%;
 }
 
+
+.chooseco-d:hover{
+    box-shadow: 5px 5px 5px;
+}
 
 
 .classic-btn{

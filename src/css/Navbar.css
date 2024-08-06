@@ -177,7 +177,10 @@
 
 .lilNav-box2 ul li a:not(.active):hover{
    /*background-color: rgb(226, 122, 252);*/
-   background-color: rgb(79, 14, 139);
+   /*background-color: rgb(79, 14, 139);*/
+   /*background-color: rgb(88, 54, 121);*/
+   background-color: rgb(107, 73, 139);
+
     border-radius: 2px;
     color: black;
     width: 100%;
@@ -190,7 +193,9 @@
     /*background-color: rgb(226, 122, 252);*/
     /*background-color: rgb(150, 144, 155);*/
      border-radius: 2px;
-     color: rgb(83, 133, 139);
+     /*color: rgb(83, 133, 139);*/
+     color: rgb(145, 161, 163);
+  
      width: 100%;
  }
 

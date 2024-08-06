@@ -53,6 +53,7 @@ const Collection = () => {
               {/*item.author*/}
               {/*<img src={product.imgUrl} alt= "photo model"/>  */}
               <img src={product.imageUrl} />
+
               {/*
                             <button ><a href='/Enchere' >Acheter ce model</a></button>
                             */}
