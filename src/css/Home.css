@@ -425,12 +425,21 @@ display: none;
 }
 
 
+
+
 .box1 img{
     width: 90%;
     height: 60%;
     object-fit: contain;
 
 }
+
+.box1 img:hover{
+    width: 100vw;
+    height: 100vh;
+}
+
+
 
 
 
@@ -480,6 +489,13 @@ display: none;
     object-fit: contain;
 
 }
+
+
+.box2 img:hover{
+    width: 100vw;
+    height: 100vh;
+}
+
 
 
 .boxc{
@@ -532,6 +548,11 @@ display: none;
 
 }
 
+
+.box3 img:hover{
+    width: 100vw;
+    height: 100vh;
+}
 
 
 
