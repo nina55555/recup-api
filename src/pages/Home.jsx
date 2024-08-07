@@ -29,7 +29,7 @@ export default function Home() {
            
             <div className='presentation'> 
             <h2>Presentation</h2>
-            <p>Pourrez vous ...Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, maxime omnis, illo, obcaecati asperiores quo voluptatum numquam ipsam consectetur quidem nesciunt consequatur! Commodi, ratione tempora.</p>
+            <p>Pourrez vous ... Chez It V nous n'aimons pas la mode  no... d.. l.  m.... Nous nous specialisons dans le vet.. d ... a.. h... i... Ra..... n... v... h* lors d n... en...... et n... en fe.... d. l'.....*une br.... d'..... * u..  oe.... br....*  presente s..  v... mod.. //qui acc.... de gr... ch... au tr... d.  n... ass//</p>
         </div>
            <div className='boxx-container'>
             <div className="boxa">
