@@ -8,9 +8,9 @@
 }
 
 
-.big-box{
+.bigg-box{
     background-color: rgb(226, 227, 228);
-    margin:  auto;
+    margin:   auto;
     padding: 10px;
     display: flex;
 
@@ -18,11 +18,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 75px;
+    height: 65px;
     width: 100%;
     /*width: auto;*/
     position: relative;
-    top: 45px;
+    top: 25px;
 }
 
 

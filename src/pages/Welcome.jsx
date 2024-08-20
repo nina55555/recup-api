@@ -8,13 +8,13 @@ const Welcome = () => {
     return (
         <div className="containBox">
 
-            <div className='mainBox-welcome'>
+            <div className='mainBoxx-welcome'>
                         <div className='marbreG' >
                             {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
                         </div>
                         
                         <div className='textbox'>
-                            <div className='welcometext'>
+                            <div className='welcometextt'>
                                 WELCOME
                                     <br/>
                                     <br/>

@@ -3,7 +3,7 @@ import '../css/Collectiontype.css'
 
 const Collectiontype = () => {
     return (
-        <div className='big-box'>
+        <div className='bigg-box'>
            
             <div className='chooseco-g'>
                 {/*<a className='classic-btn' href="Home">Collection classic</a>*/}

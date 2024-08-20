@@ -7,7 +7,7 @@ const Signup = () => {
     <div className="containBoxo">
       <div className="box-signup">
         <div className="textbox">
-          <div className="welcometext">
+          <div className="welcome-text">
             <h3>sign up</h3>
             <br />
             <p>
@@ -33,6 +33,7 @@ const Signup = () => {
                     
                     <br/>
                         
+                        <p>L"experience commence maintenant !</p>
                         <button className='btn'><a href='/' >sign up</a></button>
           </form>
         </div>

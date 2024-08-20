@@ -11,7 +11,7 @@
 
 
 .containBox{
-    background-color: darksalmon;
+    /*background-color: darksalmon;*/
     padding: 0px;
     width: 100vw;
     height: 100vh;
@@ -24,8 +24,11 @@
 
 
 
-.mainBox-welcome{
-    background-color: rgb(107, 109, 99);
+.mainBoxx-welcome{
+    /*background-color: rgb(107, 109, 99);*/
+    background-color: rgb(255, 255, 253);
+
+
     /*display: flex;*/
     display: grid;
     grid-template-rows: 100%;
@@ -93,22 +96,26 @@
 
 
 
-.welcometext{
+.welcometextt{
     /*background-color: coral;*/
     background-color: rgb(255, 255, 255);
     /*z-index: 1;*/
     color: rgb(8, 6, 6);
-    font-size: 17px;
+    font-size: 14px;
     font-weight: bold;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     width: 90%;
-    height: 100%;
-    margin: 5px auto;
+    height: 70%;
+    margin: 0px auto;
     /*animation: transitionScalet 2s;*/
 }
 
-.welcometext p{
-    height: 10%;
+.welcometextt p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    height: 15%;
 }
 
 .marbreG{
@@ -195,6 +202,58 @@
         grid-column: 1/2;
         display: none;
     }
+}
+
+*/
+
+
+
+
+
+
+
+
+@media (max-width:750px)  {
+
+
+    
+.welcometextt{
+
+
+    margin: 0px auto;
+    padding: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    font-size: 12px;
+}
+
+.welcometextt p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    font-size: 15px;
+}
+
+}
+
+
+
+/*
+@media (min-width:750px)  {
+
+    
+.textbox{
+}
+
+}
+*/
+
+/*
+@media (min-width:1020px)  {
+
 }
 
 */

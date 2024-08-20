@@ -10,7 +10,7 @@
 
 
 .containBoxo{
-    background-color: aquamarine;
+    background-color: rgb(191, 194, 193);
     width: 90%;
     height: 80vh;
     display: flex;
@@ -20,8 +20,19 @@
     margin: 5px auto;
 }
 
+.welcome-text h3{
+    color: black;
+    height: 35px;
+}
+
+.welcome-text{
+    color: rgb(42, 165, 69);
+}
+
+
 .form-control{
-    background-color: pink;
+    /*background-color: rgba(76, 8, 131, 0.623);*/
+    background-color: rgba(78, 72, 83, 0.582);
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -31,6 +42,12 @@
 
 }
 
+
+input:hover {
+
+    font-weight: bolder;
+}
+
 .box-signup{
     background-color: darksalmon;
     height: auto;
@@ -38,9 +55,20 @@
 }
 
 
+.btn{
+    background-color: rgb(61, 211, 81);
+    
+}
 
 
+.btn a{
+    
 
+    text-decoration: none;
+    background-color: rgb(61, 211, 81);
+    color: black;
+
+}
 
 
 
