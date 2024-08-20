@@ -22,7 +22,7 @@ export default function Home() {
 
            </div>
  
-            <button className='btn-decouvrez'>
+            <button className='btn-decouvrezz'>
                 <a href='/Collection' >Decouvrez la collection
                 </a>
             </button>
@@ -37,21 +37,22 @@ export default function Home() {
                 <p>H</p>
                 {/* v.. acco...*/}
                 {/*votre H..*/}                
-                <img src="src/assets/Capturelogo.PNG" alt="pic" />
+                <img src="src/assets/livre.jpg" alt="pic" />
                 </div>
             </div>
             <div className="boxb">
             <div className="box2">
                 <p>D</p>
                 {/*notre D...*/}
-                <img src="src/assets/react.svg" alt="pic" />
+                <img src="src/assets/pic-bro.jpg" alt="pic" />
                 </div>
             </div>
             <div className="boxc">
                 <div className="box3">
                 <p>I</p>
                 {/* votre I...*/}
-                <img src="src/assets/Capturelogo.PNG" alt="pic" />
+                {/* <img src="src/assets/Capturelogo.PNG" alt="pic" />   */}
+                <h2>NOTRE MISSION</h2>
                 </div>
             </div>
         </div>

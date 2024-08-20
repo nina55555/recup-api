@@ -33,7 +33,7 @@ const Signup = () => {
                     
                     <br/>
                         
-                        <p>L"experience commence maintenant !</p>
+                        <p>The experience begins now !</p>
                         <button className='btn'><a href='/' >sign up</a></button>
           </form>
         </div>

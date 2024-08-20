@@ -44,7 +44,8 @@ export default function Navbar() {
           </li>
           <li>
             <NavLink
-              to="collection"
+              /*  to="collection"  */
+              to="Signup" 
               className={menuClicked ? "clicked" : ""}
               onClick={handleMenuClicked}
             >
@@ -53,7 +54,9 @@ export default function Navbar() {
           </li>
           <li>
             <NavLink
-              to="/Book"
+              /*  to="/Book"  */
+              to="Signup" 
+
               className={menuClicked ? "clicked" : ""}
               onClick={handleMenuClicked}
             >
@@ -62,7 +65,9 @@ export default function Navbar() {
           </li>
           <li>
             <NavLink
-              to="About"
+              /*  to="About"  */
+              to="Signup" 
+
               className={menuClicked ? "clicked" : ""}
               onClick={handleMenuClicked}
             >
@@ -71,7 +76,9 @@ export default function Navbar() {
           </li>
           <li>
             <NavLink
-              to="Contact"
+              /*  to="Contact"  */
+              to="Signup" 
+
               className={menuClicked ? "clicked" : ""}
               onClick={handleMenuClicked}
             >

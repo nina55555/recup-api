@@ -11,7 +11,7 @@ const Collectiontype = () => {
 
             </div>
             <div className="chooseco-d">
-                <a className='super-btn' href="HomeSuper">Collection super</a>
+                <a className='super-btn' href="Signup">Collection super</a>
             </div> 
            
             

@@ -142,7 +142,10 @@ display: none;
 
 
 .boxVideo{
-    background-color: rgb(17, 17, 17);
+    /*background-color: rgb(17, 17, 17);  ****/
+    border: 1px solid black;
+
+
     /*
     position: relative;
     width: 90%;
@@ -186,6 +189,7 @@ display: none;
 
 
 .videoShow{
+
     /*background-color: rgb(105, 119, 80);*/
    /* width: 100%;
     height: auto;
@@ -213,7 +217,7 @@ display: none;
     top: -50px;
     */
     /*background-color: black;*/
-    background-color: rgb(17, 17, 17);
+    /*background-color: rgb(17, 17, 17);   ***/
 
 
 
@@ -246,8 +250,8 @@ display: none;
 
 
 
-.btn-decouvrez{
-    background-color: aliceblue;
+.btn-decouvrezz{
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
     box-shadow: 5px 5px 10px;
     /*
@@ -263,10 +267,10 @@ display: none;
     */
      /*v->*/    
      height: 33px;
-    width: 23%;
-    margin: 85px auto ;
+    width: 25%;
+    margin: 105px auto ;
 
-     grid-row: 4/5;
+     grid-row: 3/4;
      grid-column: 1/4;
      z-index: 5;
      display: flex;
@@ -279,10 +283,9 @@ display: none;
 
 
 
-.btn-decouvrez a{
+.btn-decouvrezz a{
     /*margin: 0 auto;*/
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     color: black;
@@ -291,7 +294,7 @@ display: none;
 }
 
 
-.btn-decouvrez:hover {
+.btn-decouvrezz:hover {
     /*background-color: rgb(6, 179, 107);*/
     /*background-color: rgb(120, 185, 100);*/
     /*background-color: rgba(167, 209, 132, 0.973);*/
@@ -373,13 +376,14 @@ display: none;
     justify-content: space-around;
     align-items: center;
     /*padding: 15px;*/
-    margin:10px ;
+    margin:10px auto;
     /*border: 1px solid red;*/
      /*v->*/
      /*grid-row: 5/6;*/
      grid-row: 6/7;
 
      grid-column: 1/4;
+     width: 100%;
 }
 
 
@@ -403,11 +407,11 @@ display: none;
 
 .box1{
     /*background-color: rgb(105, 119, 80);*/
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     /*margin: 15px auto;*/
-    margin: 3px auto;
+    margin: 0px auto;
     /*padding: 1px;*/
     display: flex;
     justify-content: center;
@@ -421,9 +425,10 @@ display: none;
 
 
 .box1 p{
-    margin: 3px auto;
-    width: 100%;
-    height: 25px;
+    margin: 7px auto;
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
     text-align: center;
     border: 1px solid black;
     
@@ -436,7 +441,8 @@ display: none;
 
 
 .box1 img{
-    width: 90%;
+    /*width: 90%;*/
+    width: auto;
     height: 60%;
     object-fit: contain;
 
@@ -465,9 +471,9 @@ display: none;
 
 .box2{
     /*background-color: rgb(105, 119, 80);*/
-    width: 90%;
-    height: 90%;
-    margin: 3px auto;
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
     /*padding: 1px;*/
     display: flex;
     justify-content: center;
@@ -480,9 +486,11 @@ display: none;
 
 
 .box2 p{
-    width: 100%;
-    height: 25px;
-    margin: 3px auto;
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+
+    margin: 7px auto;
     text-align: center;
     border: 1px solid black;
     display: flex;
@@ -492,7 +500,8 @@ display: none;
 
 
 .box2 img{
-    width: 90%;
+    /*width: 90%;*/
+    width: auto;
     height: 60%;
     object-fit: contain;
 
@@ -520,9 +529,9 @@ display: none;
 
 .box3{
     /*background-color: rgb(105, 119, 80);*/
-    width: 90%;
-    height: 90%;
-    margin: 3px auto;
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
     /*padding: 1px;*/
     display: flex;
     justify-content: center;    
@@ -537,9 +546,11 @@ display: none;
 
 
 .box3 p{
-    width: 100%;
-    height: 25px;
-    margin: 3px auto;
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+
+    margin: 7px auto;
     text-align: center;
     border: 1px solid black;
     display: flex;
@@ -549,6 +560,27 @@ display: none;
 }
 
 
+
+.box3 h2{
+    /*width: 90%;*/
+    width: auto;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    /*object-fit: contain;*/
+
+}
+
+
+
+.box3 h2:hover{
+    width: 100vw;
+    height: 100vh;
+}
+
+/*
 .box3 img{
     width: 90%;
     height: 60%;
@@ -562,7 +594,7 @@ display: none;
     height: 100vh;
 }
 
-
+*/
 
 
 
@@ -604,13 +636,13 @@ display: none;
 
 
 
-.btn-decouvrez{
+.btn-decouvrezz{
     background-color: aliceblue;
     border-radius: 5px;
     box-shadow: 5px 5px 10px;
-     height: 33px;
-    width: 75%;
-    margin: 10px auto ;
+     height: 30px;
+    width: 50%;
+    margin: 3px auto ;
 
      grid-row: 4/5;
      grid-column: 1/4;
@@ -624,6 +656,11 @@ display: none;
 }
 
 
+
+.btn-decouvrezz a{
+    font-size: 12px;
+}
+
 .presentation{
      grid-row: 4/6;
      grid-column: 1/5;
@@ -633,7 +670,7 @@ display: none;
     align-items: center;
     text-align: center;
     padding: 0px 0px 0px;
-    margin-top: 38px;
+    margin-top: 40px;
 
     border-radius: 2px;
     height: 100%;
@@ -642,9 +679,9 @@ display: none;
 
 .presentation h2{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     /*margin-top: 5px;*/
-    padding-bottom: 10px;
+    padding-bottom: 3px;
     /*height: 50%;*/
     background-color: transparent;
 }
@@ -654,7 +691,7 @@ display: none;
 
 .presentation p{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
+    font-size: 10px;
     /*margin-top: 5px;*/
     background-color: transparent;
     /*height: 80%;*/
@@ -724,7 +761,7 @@ display: none;
     
     
     
-    .btn-decouvrez{
+    .btn-decouvrezz{
         background-color: aliceblue;
         border-radius: 5px;
         box-shadow: 5px 5px 10px;
@@ -733,7 +770,7 @@ display: none;
         margin: 10px auto ;
     
          grid-row: 4/5;
-         grid-column: 1/4;
+         grid-column: 2/3;
          z-index: 5;
          display: flex;
          text-align: center;
@@ -744,11 +781,11 @@ display: none;
     }
     
 
-
-    .btn-decouvrez a{
+/*
+    .btn-decouvrezz a{
         font-size: 22px;
     }
-
+*/
 
     .presentation{
          grid-row: 4/6;
@@ -794,7 +831,7 @@ display: none;
 @media (min-width:1020px)  {
 
 
-    .btn-decouvrez{
+    .btn-decouvrezz{
         background-color: aliceblue;
         border-radius: 5px;
         box-shadow: 5px 5px 10px;
@@ -803,7 +840,7 @@ display: none;
         margin: 10px auto ;
     
          grid-row: 4/5;
-         grid-column: 1/4;
+         grid-column: 2/3;
          z-index: 5;
          display: flex;
          text-align: center;
@@ -814,11 +851,12 @@ display: none;
     }
     
 
-
-    .btn-decouvrez a{
+/*
+    .btn-decouvrezz a{
         font-size: 20px;
     }
 
+*/
 
     .presentation{
          grid-row: 4/6;

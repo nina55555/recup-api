@@ -19,7 +19,7 @@ const Welcome = () => {
                                     <br/>
                                     <br/>
 
-                                Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre personne et votre charisme.
+                                Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme.
                                 <br/>
                                 Entrons ensemble dans cette aventure stylistique.
                                 <br/>
