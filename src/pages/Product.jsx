@@ -33,7 +33,7 @@ const Product = () => {
         const getProduct = async () => {
             setLoading (true);
             //find solution id undefined bad request
-                    const response = await fetch ('http://localhost:5978/defilons');
+                    const response = await fetch ('http://localhost:5978/defilons/'+id);
             setProduct(await response.json());
         setLoading(false);        
     }

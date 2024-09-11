@@ -47,7 +47,7 @@ const Collection = () => {
       <div className="show">
         {data?.data.map((product) => {
           return (
-            <div className="card" key={product.id}>
+            <div className="card" key={product._id}>
               {/*product.imageUrl*/}
               {/*product.title*/}
               {/*item.author*/}
@@ -72,7 +72,7 @@ const Collection = () => {
                             <button ><a href='/SingleProduct/:id' >Acheter ce model</a></button>
                             */}
 
-              <NavLink to={`/product/${product.id} `}>buy now</NavLink>
+              <NavLink to={`/product/${product._id} `}>buy now</NavLink>
               {/* <NavLink to={`/product/${product._id} `}>buy now</NavLink> */}
 
 

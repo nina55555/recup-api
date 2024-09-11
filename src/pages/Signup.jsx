@@ -1,8 +1,49 @@
-import React from "react";
+
+import React, { useState } from 'react';
+
+import '../firebaseConfig';
+import { getFirestore, addDoc, collection } from "firebase/firestore";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../css/Signup.css";
 
 const Signup = () => {
+
+/*to get emails before lunch*/
+
+
+
+
+
+const [inputValue1, setInputValue1] = useState('');
+const [inputValue2, setInputValue2] = useState('');
+const [inputValue3, setInputValue3] = useState('');
+
+
+
+const db = getFirestore();
+
+const saveInFirestore = async () => {
+  const docRef = await addDoc (collection (db, "firebase-getting-email"), {
+      name: inputValue1,
+      email: inputValue2,
+      phone: inputValue3,
+
+
+    });
+  alert('doc written in firebase');
+  setInputValue1(''),
+  setInputValue2(''),
+  setInputValue3('')
+
+};
+
+
+
+
+
+
+
+
   return (
     <div className="containBoxo">
       <div className="box-signup">
@@ -16,25 +57,44 @@ const Signup = () => {
             </p>
           </div>
 
-          <form action="submit">
+          <form  /*action="submit"  */>
 
             
                         <label htmlFor='name' >name</label>
-                        <input type='text' placeholder='enter your name' className='form-control input-form'/>
+                        <input type='text' placeholder='enter your name' className='form-control input-form'
+
+                        id="name"
+                        value={inputValue1}
+                        onChange={(e) => setInputValue1(e.target.value) }
+                        />
+
                         <br/>
 
                         
-                        <label htmlFor='phone' >phone</label>
-                        <input type='number' placeholder='enter your phone' className='form-control input-form'/>
-                        <br/>
-
                         <label htmlFor='email' >email</label>
-                        <input type='email' placeholder='enter your email' className='form-control input-form'/>
+                        <input type='email' placeholder='enter your email' className='form-control input-form'
+                        id="email"
+                        value={inputValue2}
+                        onChange={(e) => setInputValue2(e.target.value) }
+                        />
                     
                     <br/>
+
+
+                        <label htmlFor='phone' >phone</label>
+                        <input type='number' placeholder='enter your phone' className='form-control input-form'
+                        id="phone"
+                        value={inputValue3}
+                        onChange={(e) => setInputValue3(e.target.value) }
+                        />
+                        <br/>
+
                         
                         <p>The experience begins now !</p>
-                        <button className='btn'><a href='/' >sign up</a></button>
+
+                        <button  className='btn' onClick={saveInFirestore}>Save</button>
+
+                        {  /*<button><a href='/' >sign up</a></button>  */}
           </form>
         </div>
       </div>
