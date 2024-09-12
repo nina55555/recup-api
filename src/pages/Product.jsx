@@ -69,11 +69,17 @@ const Product = () => {
     return(
         <div className="big--box">
             < Countdown/>
-            <div className="show-product">
+            <div className="images--box">
+                    
+                <img className='paint' src="/src/assets/wallpaint.jpg" alt="wallpaint" />
+                
+                <div className="show-product">
                 <img src={product.imageUrl} alt= "photo model" />
                 {/* <img src={product._id.imageUrl} alt= "photo model" /> */}
+                </div>
 
             </div>
+            
         </div>
     )    
    }
@@ -82,6 +88,7 @@ const Product = () => {
    
     return (
             <div className='main--box'>
+                
                 {/*<img src={product.imageUrl.id} alt= "photo model"/> */}
                 {/*<h4>{id} </h4>*/}
                 {/*<div>this is single product {id} </div> */}

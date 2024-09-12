@@ -13,14 +13,18 @@ export default function Home() {
         <div className="containerHome">
             {/* <Navbar />  */}
         
-            <div className="img3">
+        {/*
+        <div className="img3">
             <img src="src/assets/Capturelogo.PNG" alt="logo" />
             </div>
-           <Video /> 
+
            <div className="img2">
            <img src="src/assets/Capturelogo.PNG" alt="logo" />
 
            </div>
+        */}
+            
+           <Video /> 
  
             <button className='btn-decouvrezz'>
                 <a href='/Signup' >Decouvrez la collection
@@ -31,31 +35,32 @@ export default function Home() {
             <h2>Presentation</h2>
             <p>Pourrez vous ... Chez It V {/*nous ne nous occupons pas de la mode. */} Nous nous specialisons dans le vet.. d ... a.. h... i... Ra..... n... v... h* lors d n... en...... et n... en fe.... d. l'.....*une br.... d'..... * u..  oe.... br....*  presente s..  v... mod.. //qui acc.... de gr... ch... au tr... d.  n... ass//</p>
         </div>
+
+        {/*
+      
            <div className='boxx-container'>
             <div className="boxa">
                 <div className="box1">
-                <p>H</p>
-                {/* v.. acco...*/}
-                {/*votre H..*/}                
+                <p>H</p>              
                 <img src="src/assets/livre.jpg" alt="pic" />
                 </div>
             </div>
             <div className="boxb">
             <div className="box2">
                 <p>D</p>
-                {/*notre D...*/}
                 <img src="src/assets/pic-bro.jpg" alt="pic" />
                 </div>
             </div>
             <div className="boxc">
                 <div className="box3">
                 <p>I</p>
-                {/* votre I...*/}
-                {/* <img src="src/assets/Capturelogo.PNG" alt="pic" />   */}
-                <h2>NOTRE MISSION</h2>
+                <h2>NOTRE MISSION <i class="fa-solid fa-heart"></i> </h2>
                 </div>
-            </div>
+            </div>  
+            
         </div>
+*/}
+
         </div>
     )
     

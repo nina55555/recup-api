@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
+import Conc from "./pages/Conc";
 import Contact from "./pages/Contact";
 /*import Enchere from "./pages/Enchere";*/
 import HomeSuper from "./pages/HomeSuper";
@@ -49,6 +50,8 @@ function App() {
       <Route path="/book" element={<Book/>} />
       <Route path="/about" element={<About/>} />
       <Route path="/contact" element={<Contact/>} />
+      <Route path= "/conc" element={<Conc/>} />
+
       {/*<Route path="/enchere" element={<Enchere/>} /> */}
       
       <Route path="/Product/:id" element={<Product/>} />
