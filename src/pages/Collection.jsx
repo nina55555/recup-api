@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link, NavLink, useParams } from "react-router-dom";
@@ -12,6 +12,21 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import "../css/Cards.css";
 import "../css/Collection.css";
 
+
+
+
+
+
+
+
+
+//import { useParams } from 'react-router-dom';
+
+
+
+
+
+
 /*
 import "../css/Product.css";
 import Product from '../pages/Product';
@@ -19,6 +34,18 @@ import Product from '../pages/Product';
 
 
 const Collection = () => {
+
+
+
+
+
+
+
+
+
+
+
+
   const { id } = useParams();
 
   /*
@@ -37,14 +64,34 @@ const Collection = () => {
     //return axios.get ('http://localhost:3002/collection-test/');
     //return axios.get (' http://localhost:5979/runways/');
     return axios.get(" http://localhost:5978/defilons/");
-  });
+  }
+
+);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
   
   return (
     <div className="mainBox">
-      <div className="show">
+      <div className="big--pic">
+
+
+
+
+        <img className="picmarque" src="/src/assets/ohlogo.jpg" alt="bigPic" />
+        <div className="show">
         {data?.data.map((product) => {
           return (
             <div className="card" key={product._id}>
@@ -98,7 +145,11 @@ const Collection = () => {
             </div>
           );
         })}
+        
       </div>
+
+      </div>
+      
       <div className="icons">
         <div className="text-icon">
           <p>Follow us and be part of the adventure </p>
