@@ -12,7 +12,9 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import "../css/Cards.css";
 import "../css/Collection.css";
 
-
+import ReactPlayer from 'react-player';
+/*import videoShow from '../assets/cindyB.mp4'*/
+import videoShow from '../assets/videoDefile.mp4'
 
 
 
@@ -90,7 +92,15 @@ const Collection = () => {
 
 
 
-        <img className="picmarque" src="/src/assets/ohlogo.jpg" alt="bigPic" />
+        {/*<img className="picmarque" src="/src/assets/ohlogo.jpg" alt="bigPic" />*/}
+        <div className="videodudef">
+          <video src={videoShow} autoPlay muted loop/>
+          <div className="ticket">
+            <h3>Voir la salle d'enchere</h3>
+          </div>
+        </div>
+        
+
         <div className="show">
         {data?.data.map((product) => {
           return (

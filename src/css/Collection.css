@@ -55,6 +55,43 @@ body{
 }
 
 
+.videodudef{
+    /*background-color: mediumslateblue;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+
+
+
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+
+
+.ticket{
+    background-color: black;
+    width: 125px;
+    height: 125px;
+    left: -755px;
+    position: relative;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.ticket h3{
+    color: aliceblue;
+    background-color: black;
+    font-size: 18px;
+}
+
 .picmarque{
     background-color: darkslategray;
 
