@@ -12,42 +12,18 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import "../css/Cards.css";
 import "../css/Collection.css";
 
-import ReactPlayer from 'react-player';
+import ReactPlayer from "react-player";
 /*import videoShow from '../assets/cindyB.mp4'*/
-import videoShow from '../assets/videoDefile.mp4'
-
-
-
-
-
-
+import videoShow from "../assets/videoDefile.mp4";
 
 //import { useParams } from 'react-router-dom';
-
-
-
-
-
 
 /*
 import "../css/Product.css";
 import Product from '../pages/Product';
 */
 
-
 const Collection = () => {
-
-
-
-
-
-
-
-
-
-
-
-
   const { id } = useParams();
 
   /*
@@ -66,9 +42,7 @@ const Collection = () => {
     //return axios.get ('http://localhost:3002/collection-test/');
     //return axios.get (' http://localhost:5979/runways/');
     return axios.get(" http://localhost:5978/defilons/");
-  }
-
-);
+  });
 
 
 
@@ -77,89 +51,66 @@ const Collection = () => {
 
 
 
-
-
-
-
-
-
-
-  
   return (
     <div className="mainBox">
-      <div className="big--pic">
+      <div className="videodudef">
 
 
+<div className="box-big-defile">
+
+        {data?.data.map((product) => {
+          return (
+
+            <>
+              <div className="big-defile" key={product._id}>
+                {/*{`/product/${product._id} `}*/}
+                <img src={product.imageUrl} />
+              </div>
+
+            </>
+          );
+        })}
+
+</div>
 
 
         {/*<img className="picmarque" src="/src/assets/ohlogo.jpg" alt="bigPic" />*/}
-        <div className="videodudef">
-          <video src={videoShow} autoPlay muted loop/>
+
+        <video src={videoShow} autoPlay muted loop />
+        <div className="big--ticket">
           <div className="ticket">
             <h3>Voir la salle d'enchere</h3>
           </div>
         </div>
-        
+      </div>
 
-        <div className="show">
+      <div className="show-cards">
+
         {data?.data.map((product) => {
           return (
-            <div className="card" key={product._id}>
-              {/*product.imageUrl*/}
-              {/*product.title*/}
-              {/*item.author*/}
-              {/*<img src={product.imgUrl} alt= "photo model"/>  */}
-              <img src={product.imageUrl} />
-
-              {/*
-                            <button ><a href='/Enchere' >Acheter ce model</a></button>
-                            */}
-
-              {/*
-                            <Link to={`/SingleProduct `} >more infos</Link>
-                            */}
-
-              {/*
-                            <button onClick={() => handleClick() } >click to open</button>
-                            */}
-
-              {/*<Link to={`/SingleProduct/${id} `} >ouvre moi stp</Link> */}
-
-              {/*
-                            <button ><a href='/SingleProduct/:id' >Acheter ce model</a></button>
-                            */}
-
-              <NavLink to={`/product/${product._id} `}>buy now</NavLink>
-              {/* <NavLink to={`/product/${product._id} `}>buy now</NavLink> */}
 
 
+            <>
+              
+
+              <div className="card" key={product._id}>
+                <img src={product.imageUrl} />
+
+                <NavLink to={`/product/${product._id} `}>buy now</NavLink>
+               
+              </div>
+            </>
 
 
-              {/*
-                            <Link to='/SingleProduct/:product.id' >prod
-                            <img src={product.imageUrl} alt= "photo model"/>
-                            <product product={product} />
-                            </Link> 
-                            */}
-
-              {/*
-                            <Link to={'/SingleProduct/${product.id}' }>prod
-                            <product product={product} />
-                            </Link>
-
-                            */}
-
-              {/*   <img src={item.imgUrl} alt= "photo model"/>   */}
-
-              {/*  <video src ={item.videoUrl} ></video>   */}
-            </div>
           );
         })}
-        
-      </div>
+
 
       </div>
-      
+
+
+
+
       <div className="icons">
         <div className="text-icon">
           <p>Follow us and be part of the adventure </p>
@@ -185,6 +136,9 @@ const Collection = () => {
           </ul>
         </div>
       </div>
+
+
+
     </div>
   );
 };
