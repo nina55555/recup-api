@@ -5,12 +5,16 @@ import ReactDom from 'react-dom';
 import { QueryClient,QueryClientProvider } from "react-query";
 import { Route, Routes ,RouterProvider, Link} from "react-router-dom";
 import './css/App.css'
+
+import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore";
+
 import Welcome from "./pages/Welcome";
 import  Navbar  from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
+
 import Conc from "./pages/Conc";
 import Contact from "./pages/Contact";
 /*import Enchere from "./pages/Enchere";*/
@@ -20,6 +24,7 @@ import SingleProduct from "./pages/Product";
 import Product from "./pages/Product";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+/*import CollectionShow from "./pages/CollectionShow"*/
 
 
 
@@ -28,6 +33,12 @@ const queryClient = new QueryClient()
 
 function App() {
   const [page, setPage] = useState('');
+
+
+  
+
+
+
 
   return ( 
     //
@@ -47,6 +58,11 @@ function App() {
       <Route path="/signin" element={<Signin/>} />
       <Route path="/home" element={<Home/>} />
       <Route path="/collection" element={<Collection/>} />
+
+      {/*<Route path="/collectionShow" element={<CollectionShow/>} />*/}
+      {/*<Route path="/collectionShow/:id" element={<CollectionShow/>} />*/}
+
+
       <Route path="/book" element={<Book/>} />
       <Route path="/about" element={<About/>} />
       <Route path="/contact" element={<Contact/>} />

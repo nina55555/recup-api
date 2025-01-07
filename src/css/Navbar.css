@@ -191,7 +191,7 @@
 
     /*padding: 8px;*/
     padding:6px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     font-family:Arial, Helvetica, sans-serif ;
     /*padding: 3px;*/
@@ -281,7 +281,9 @@
 
 
 
-@media (max-width: 845px){
+/*@media (max-width: 854px){*/
+@media (max-width: 1020px){
+
 
     .mainBox-nav{
         /*background-color: rgb(7, 10, 9);*/
@@ -427,7 +429,7 @@
         margin: 0px auto;
         padding: 8px;
         width: 100%;
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .lilNav-box2 ul li a.clicked{

@@ -11,8 +11,15 @@ body{
 }
 
 .mainBox{
+
+    /*logo background*/
 background-image: url(src/assets/ohlogo.jpg);
-    /*background-color: rgb(107, 109, 99);*/
+    background-size: 100%;
+    /*background-position: center;*/
+    background-position: center top;
+    background-repeat: no-repeat;
+
+/*background-color: rgb(107, 109, 99);*/
     /*overflow: scroll;*/
 
 /*pour page collection caroussel*
@@ -20,18 +27,17 @@ background-image: url(src/assets/ohlogo.jpg);
 /**/
 
 
-/*
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-*/
+
 
 
 width: 100vw;
-height: 100vh;
-
+/*height: 100vh;*/
+min-height: 100vh;
 
 /*
     min-height: 50%;
@@ -40,41 +46,132 @@ height: 100vh;
     margin: 8px auto;
     padding: 8px;
 */
-
     /*margin: 5px auto 0 auto;*/
     /*position: absolute;*/
 
-    
-    display: grid;
-    /*grid-template-rows:  16.66% 16.66% 16.66%   12.5% 12.5% 25%;*/
-    grid-template-rows: /*25% 25%*/ 33.3% 33.3% 33.3%;
 
+    /*
+    display: grid;
+    grid-template-rows:  33.3% 33.3% 33.3%;
     grid-template-columns: 33.33% 33.33% 33.33%;
+    */
+    /*grid-template-rows:  16.66% 16.66% 16.66%   12.5% 12.5% 25%;*/
+
+
+
 }
 
+
+
+/*videos defilés et son contenu  
+peut etre que j'en ai plus besoin si j'agrandi l'img?
+*/
 
 .videodudef{
     background-color: goldenrod;
     width: 100%;
-    height: 90%;
-    padding: 5px;
+
+    height:100%;
+    /*margin: 20px auto;*/
+    /*padding: 5px;*/
     grid-row: 1/4;
     grid-column: 1/4;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    margin: 0 auto;
 }
 
 
-
+/*
 .videodudef video{
     object-fit: fill;
-    /*object-fit: contain;*/
     height: 100%;
     width: 100%;
 }
+*/
 
+
+.box-big-defile{
+    border: 1px solid green;
+    /*background-color: blueviolet;*/
+    width: 98%;
+    height: 90vh;
+    /*overflow: hidden;*/
+
+
+
+    /*
+    position: absolute;
+    top: 0px;
+    */
+
+
+    position: relative;
+    top: -40px;
+
+    
+
+}
+
+
+.big-defile{
+    background-color: lightgrey;
+    width: 100%;
+
+    /*height: 90%;*/
+    height: 81%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:14%;
+
+}
+
+
+
+
+
+
+.big-defile img{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    object-fit: cover;/*bien dimensionner les img et videos avant de les entrer  */
+    top: 0px;
+    left: 0px;
+    /*opacity: 0.8;*/
+    inset: 0 0 0 0;
+    margin: 5px auto;
+    
+
+}
+
+
+
+.testons{
+    width:100%;
+    height: 100%;
+    border: 3px solid red;
+    position: absolute;
+    z-index: 50;
+}
+
+/*
+.big-defile img:nth-child(){
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0px;
+    left: 0px;
+
+    inset: 0 0 0 0;
+}
+*/
 
  .big--ticket{
     background-color: rgba(39, 36, 58, 0.295);
@@ -94,7 +191,6 @@ height: 100vh;
 }
 
 
-
 .ticket{
     background-color: rgba(0, 0, 0, 0.705);
     /*width: 125px;*/
@@ -108,15 +204,13 @@ height: 100vh;
     align-items: center;
     text-align: center;
     text-wrap: wrap;
-    z-index: 50;
+    z-index: 500;
 }
-
 
 
 .ticket h3{
     color: aliceblue;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: rgba(0, 0, 0, 0.705);
-
     font-size: 17px;
 }
 
@@ -124,17 +218,33 @@ height: 100vh;
 
 
 
+
+/*
+.parent {
+    width: 100%;
+    height:100%;
+    position :absolute;
+    top:0px;
+    background-color: grey;
+}
+*/
+
+/* thumbnails  */
+
 .show-cards{
-    background-color: rgb(133, 136, 130);
+    /*background-color: rgb(133, 136, 130);*/
+    background-color: transparent;
     grid-row: 2/4;
     grid-column: 2/4;
-    width: 30%;
-    height: 25vh;
+    /*width: 30%;*/
+    width: max-content;
+    height: 39vh;
     /*position: relative;*/
-    padding-left: 35px;
+    padding-left: 15px;
     position: absolute;
-    top: 70%;
+    top: 60%;
     /*left: 59%;*/
+    left: 40%;
     right: 2%;
     z-index: 50;
     border-radius: 4px;
@@ -145,22 +255,196 @@ height: 100vh;
 
 
 
+
+/* pour animation de l'image creer l'effet au click
+*/
+.show-cards.nextt .card:nth-child(1) img{
+    width: 250px;
+    height: 220px;
+    position: absolute;
+    left: 50%;
+    bottom : 50px;
+    animation: showImage 0.5s linear 1 forwards;
+    
+}
+
+@keyframes showImage{
+    to{
+        width: 100%;
+        height: 100%;
+        left:0;
+        border-radius: 0;
+
+    }
+}
+
+
+
+.card:nth-child(1){ /* ou le (2) pour voir l'effet */
+    z-index:1;
+    border: 3px solid red;
+}
+
+
+
+
 .card{
-    background-color: darksalmon;
+    /*background-color: darksalmon;*/
+    /*
     margin: 0px auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 150px;
+    gap: 55px;
     position: relative;
+    */
+
+    
+    width: 155px;
+    height: 190px;
+    /*
+    width: auto;
+    height: auto;
+*/
+    margin: 8px;
+    flex-shrink: 0;
+    position: relative;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.card:active{
+   box-shadow: 10px 12px 15px rgba(27, 26, 26, 0.863);
+    width: 200px;
+    height: 220px; 
 }
 
 
 
 .card img{
+    /*
     width: auto;
     height: 50px;
+    */
+
+    width: 155px;
+    height: 185px;
+    object-fit: cover;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.big-defile > .active:last-of-type{
+    width:80%;
+    height:80%;
+    z-index:40;
+    margin: 0 auto;
+    position: absolute;
+    object-fit:fill;
+
+}
+*/
+
+
+
+/*
+
+.big-defile > .active:last-of-type{
+    width:80%;
+    height:80%;
+    z-index:40;
+    margin: 0 auto;
+    position: absolute;
+    object-fit:fill;
+
+}
+*/
+
+/*changer dimension de l'image class active dans la .card*/
+
+
+
+
+.big-defile > .card:last-of-type{
+    width:0%;/*5000px*/  /*97%*/
+    height:0%;
+    z-index:40;
+    /*margin: 0 auto; */
+    position: absolute;
+    object-fit:fill;
+    border: 5px solid pink;
+    animation: showBig 1s linear 1 forwards
+    
+    
+}
+
+@keyframes showBig{
+    0%{
+        width: 0%;
+        height: 0%;
+
+    }
+    to 50%{
+        width: 90%;
+        height: 90%;
+
+    }
+    100%{
+        width: 100%;
+        height: 100%;
+
+    }
+}
+
+
+
+
+.big-defile > .card:last-of-type .active{
+    width:97%;/*500px*/
+    height:97%;
+    z-index:40;
+    position: relative;
+    object-fit:fill;
+    border: 3px solid purple;
+
+}
+
+
+
+.changing-class{
+    border: 2px solid yellow;
+}
+
+
+
+.big-defile:active{
+    border: 20px solid green;
+}
+
+
+
+/*attribuer aux clicks leurs propres valeurs d'index d'images et pousser les cards vers la fin au fur et a mesure*/
+
+
+
+
+
 
 
 
@@ -185,27 +469,130 @@ height: 100vh;
 }
 
 
-.box-big-defile{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 400;
-    object-fit: fill;
-    opacity: 0.2;
+
+.arrows{
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width:80px;
+
+
+}
+    
+.arrows button{
+    background-color: rgba(34, 34, 34, 0.521);
+    border-radius: 50px;
+    border : 1px solid red;
+    width: 100px;
+    height: 40px;
+    transition: 1s;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrows button svg{
+    width:70%;
+    height:70%;
+    margin :0px auto;
+    border-radius: 50%;
 }
 
 
+.arrows button:hover{
+    background-color: rgba(238, 228, 228, 0.877);
+}
 
-.big-defile{
+
 /*
-width: 100%;
-height: 100%;
-*/
-object-fit: fill;
+.large{
+    padding: 1rem;
+    border: 3px solid green;
 
-}
 
+    /*
+    position:absolute;
+    width:500px;
+    height:300px;
+    top :0px;
+    left:0px;
+    z-index:1000;
 
     
+} 
+
+*/
+
+
+/*
+.card ::.large{
+    .arrows button{
+        border: 2px solid green;
+    }
+}
+*/
+
+/*
+
+.next:hover ~ .prev button{
+    width: 150px;
+          }
+
+
+          .next: hover + .card{
+            border-radius:50px;
+          }
+*/
+
+
+
+/*
+
+.large{
+    padding: 1rem;
+ & img{
+    border: 3px solid green;
+}  
+} 
+*/
+
+/*
+.large ~ img{
+    border: 2px solid blue;
+}
+*/
+
+.icons{
+    border:1px solid black;
+    width: 98%;
+    height: 40px;
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+    bottom : 1px;
+    z-index:100;
+    font-size:13px;
+}
+
+.icon-items{
+  
+display : flex;
+flex-direction: row; 
+justify-content: center;
+
+}
+
+
+
+.icon-items ul{
+  
+    display : flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    }
+
+    .icon-items ul li{
+  margin: 0px 10px ;
+        }

@@ -7,6 +7,7 @@ const Collectiontype = () => {
            
             <div className='chooseco-g'>
                 {/*<a className='classic-btn' href="Home">Collection classic</a>*/}
+                
                 <a className='classic-btn' href="collection">Collection classic</a>
 
             </div>
