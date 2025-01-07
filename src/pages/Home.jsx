@@ -32,7 +32,7 @@ export default function Home() {
             </button>
            
             <div className='presentation'> 
-            <h2>Presentation</h2>
+            <h2>Presentation.</h2>
             <p>Pourrez vous ... Chez It V {/*nous ne nous occupons pas de la mode. */} Nous nous specialisons dans le vet.. d ... a.. h... i... Ra..... n... v... h* lors d n... en...... et n... en fe.... d. l'.....*une br.... d'..... * u..  oe.... br....*  presente s..  v... mod.. //qui acc.... de gr... ch... au tr... d.  n... ass//</p>
         </div>
 
