@@ -117,7 +117,7 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
 
 
 .big-defile{
-    background-color: lightgrey;
+    /*background-color: lightgrey;*/
     width: 100%;
 
     /*height: 90%;*/
@@ -174,7 +174,7 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
 */
 
  .big--ticket{
-    background-color: rgba(39, 36, 58, 0.295);
+    background-color: rgba(39, 36, 58, 0,293);
     width: 20%;
     height: 40%;
     display: flex;
@@ -192,7 +192,7 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
 
 
 .ticket{
-    background-color: rgba(0, 0, 0, 0.705);
+    background-color: rgba(0, 0, 0, 0.220);
     /*width: 125px;*/
     width: 90%;
     height: 85px;
@@ -205,13 +205,29 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
     text-align: center;
     text-wrap: wrap;
     z-index: 500;
+    transition: 1s;
+
+}
+
+.ticket:hover {
+    background-color: rgba(238, 228, 228, 0.877);
+
+    .ticket h3{
+        color: black
+    }
+}
+
+
+
+.ticket:hover.ticket h3{
+        color: black;
+        background: transparent;
 }
 
 
 .ticket h3{
     color: aliceblue;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: rgba(0, 0, 0, 0.705);
-    font-size: 17px;
+    font-size: 23.5px;
 }
 
 

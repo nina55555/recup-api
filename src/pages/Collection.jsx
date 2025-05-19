@@ -133,7 +133,9 @@ const Collection = ({ product, handleClickLarge }) => {
                   {/* <--mettre ici toutes url de defilé */}
 
                           <img src={product.imageUrl}  />
+
                           {/*<img src={product.videoUrl} />{" "}*/}
+
                           {/*<video src={videoShow} autoPlay muted loop />*/}
 
                   <div className="big--ticket">
@@ -183,12 +185,16 @@ const Collection = ({ product, handleClickLarge }) => {
               <div className="card" key={product._id}>
                 <img
                   src={product.imageUrl}
+                  
+
                   className=" changing-class active "
                   onClick={() => handleClickLarge(product._id)}
                   /*className=" changing-class active" onClick={()=>handleClickLarge(product.imageUrl._id) }
                    */
                 />
 
+
+                
                 {/* 
                       <NavLink to={`/product/${product._id} `}>buy now</NavLink>
                   */}
