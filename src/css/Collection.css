@@ -16,18 +16,18 @@ body{
 .mainBox{
 
     /*logo background*/
-background-image: url(src/assets/ohlogo.jpg);
+    background-image: url(src/assets/ohlogo.jpg);
     background-size: 100%;
     /*background-position: center;*/
     background-position: center top;
     background-repeat: no-repeat;
 
-/*background-color: rgb(107, 109, 99);*/
+    /*background-color: rgb(107, 109, 99);*/
     /*overflow: scroll;*/
 
-/*pour page collection caroussel*
+    /*pour page collection caroussel*
     background-image: url(src/assets/def.mp4);
-/**/
+    /**/
 
 
     display: flex;

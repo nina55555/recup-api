@@ -3,8 +3,10 @@
 .mainBox-nav{
     /*background-color: aquamarine;*/
     /*background-color: rgb(3, 4, 5);*/
-    background: linear-gradient(to left, black, #444444, black);
 
+    /*navbar logo color change*/
+    /*background: linear-gradient(to left, black, #444444, black);
+    */
 
     display: flex;
     width: 100%;
@@ -42,8 +44,10 @@
 .lilNav-box0{
     /*background-color: cornflowerblue;*/
     /*background-color: rgb(3, 4, 5);*/
-    background: linear-gradient(to right, black, #444444);
-
+    
+    /* first navbar box color change*/
+    /*background: linear-gradient(to right, black, #444444);
+    */
     width: 50%;
 
     margin-right: auto;
@@ -112,8 +116,9 @@
     /*background-color: darkorchid;*/
     /*background-color: rgb(3, 4, 5);*/
     
-    background: linear-gradient(to left, black, #444444);
-
+    /*navbar box 2contouring color change*/
+    /*background: linear-gradient(to left, black, #444444);
+    */
     width: 50%;
     margin-left: auto;
     padding: 5px;
@@ -138,8 +143,9 @@
     /*background-color: azure;*/
     /*background-color: rgb(42, 43, 44);*/
     
-    background: linear-gradient(to left, black, #444444);
-
+    /* navbar box 2 color change*/
+    /*background: linear-gradient(to left, black, #444444);
+    */
     display: flex;
     justify-content: center;
     align-items: center;
