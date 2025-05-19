@@ -109,7 +109,7 @@ const Collection = ({ product, handleClickLarge }) => {
                         next.addEventListener('click', enlarge);
                         function enlarge(){
                           let cardn = document.querySelectorAll('.card') /*ou(.active)*/
-                          document.querySelector('.big-defile').appendChild(cardn[1]);
+                          document.querySelector('.big-defile').appendChild(cardn[1]); /*le crochet et l'index c'est le probleme a regler*/
                          
                         }
 

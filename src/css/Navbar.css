@@ -88,14 +88,14 @@
 
 
 .title{
-    background-color: aliceblue;
+    background-color: white;
     width: 90%;
     height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
+    font-size: 25px;
     text-decoration: none;
     color: black;
     /*font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

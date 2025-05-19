@@ -28,7 +28,7 @@ export default function Navbar() {
       <div className="lilTitle-box1">
         <Link to="/" className="title">
           IT V
-          <img src="src/assets/logoseul.png" />
+          {/*<img src="src/assets/logoseul.png" />*/}
         </Link>
       </div>
       <div className="lilNav-box2">

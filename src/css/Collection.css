@@ -1,4 +1,7 @@
 
+/*au chargement de la page mettre une photo ou  laisser le background a 90% au debut et le mettre a 0% au click sur un arrow ou au deplacement de la souris ou apres 5sec de chargement de la page en affichage transition lente  ou apres 5 sec faire le meme effet que si on avait clické sur une fleche automatiquement*/
+
+
 *{
     margin: 0;
     padding: 0;
@@ -138,8 +141,8 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
 
 .big-defile img{
     position: absolute;
-    width: 90%;
-    height: 90%;
+    width: 0%; /* 90% ou mettre en invisible quand l'autre image vient dessus*/
+    height: 0%; /* 90% ou mettre en invisible """ */
     object-fit: cover;/*bien dimensionner les img et videos avant de les entrer  */
     top: 0px;
     left: 0px;
@@ -211,6 +214,7 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
 
 .ticket:hover {
     background-color: rgba(238, 228, 228, 0.877);
+    cursor: pointer;
 
     .ticket h3{
         color: black
@@ -316,9 +320,9 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
     position: relative;
     */
 
-    
-    width: 155px;
-    height: 190px;
+
+    width: 145px;
+    height: 180px;
     /*
     width: auto;
     height: auto;
@@ -347,15 +351,37 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
     height: 50px;
     */
 
-    width: 155px;
-    height: 185px;
+    width: 135px;
+    height: 155px;
     object-fit: cover;
+    
+
+
 }
 
 
 
+.card img:hover{
+    width: 160px;
+    height:190px;
+    border:3px solid black;
+
+    .card{
+        box-shadow: 10px 12px 15px rgba(27, 26, 26, 0.863);
+        border: 5px solid black;
+    }
 
 
+}
+
+
+
+.card:hover {
+        box-shadow: 3px 3px 5px rgba(27, 26, 26, 0.863);
+        /*border: 5px solid black;*/
+    
+
+}
 
 
 
@@ -444,7 +470,7 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
 
 
 .changing-class{
-    border: 2px solid yellow;
+    border: 2px solid transparent;
 }
 
 
