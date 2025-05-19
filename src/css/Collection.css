@@ -491,29 +491,30 @@ peut etre que j'en ai plus besoin si j'agrandi l'img?
     display: flex;
     justify-content: center;
     align-items:center;
-    width:80px;
+    width:180px;
 
 
 }
     
 .arrows button{
-    background-color: rgba(34, 34, 34, 0.521);
+    background-color: rgba(34, 34, 34, 0.921);
     border-radius: 50px;
-    border : 1px solid red;
-    width: 100px;
-    height: 40px;
+    border : 3px solid white;
+    width: 180px;
+    height: 60px;
     transition: 1s;
-    margin: 0px auto;
+    margin: 5px ;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .arrows button svg{
-    width:70%;
-    height:70%;
+    width:60%;
+    height:60%;
     margin :0px auto;
     border-radius: 50%;
+    color: red;
 }
 
 
