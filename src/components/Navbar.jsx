@@ -47,8 +47,8 @@ export default function Navbar() {
           <li>
             <NavLink
               /*  to="collection"  */
-              /*to="Signup"*/
-              to= "New"
+              to="Signup"
+              /*to= "Old"*/
 
               className={menuClicked ? "clicked" : ""}
               onClick={handleMenuClicked}

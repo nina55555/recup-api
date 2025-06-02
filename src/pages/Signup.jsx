@@ -1,143 +1,244 @@
 
 import React, { useState } from 'react';
-
 import '../firebaseConfig';
 import { getFirestore, addDoc, collection } from "firebase/firestore";
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../css/Signup.css";
+import '../css/Signup.css';
 
-const Signup = () => {
+/*** */
+/* import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+/*** */
 
-
-
-
-
-
-const [inputValueA, setInputValueA] = useState('');
-const [inputValueB, setInputValueB] = useState('');
-const [inputValueC, setInputValueC] = useState('');
+function App () {
 
 
-
-const db = getFirestore();
-
-const saveInFirestore = async () => {
-  const docRef = await addDoc (collection (db, "got-email-user"), {
-
-  /*const docRef = await addDoc (collection (db, "firebase-get-contacts"), {*/
-  
-      name: inputValueA,
-      email: inputValueB,
-      phone: inputValueC,
-
-
-    });
-  alert('doc written in firebase');
-  setInputValueA(''),
-  setInputValueB(''),
-  setInputValueC('')
-
-};
+  const [inputValue1, setInputValue1] = useState('');
+  const [inputValue2, setInputValue2] = useState('');
+  const [inputValue3, setInputValue3] = useState('');
 
 
 
+  const db = getFirestore();
+
+  const saveInFirestore = async () => {
+    const docRef = await addDoc (collection (db, "manage-luv-users-infos"), {
+        name: inputValue1,
+        email: inputValue2,
+        phone: inputValue3,
+
+
+      });
+    alert('doc written in firebase');
+    setInputValue1(''),
+    setInputValue2(''),
+    setInputValue3('')
+
+  };
 
 
 
+return (
 
 
-  return (
-    <div className="containBoxo">
-      <div className="box-signup">
-        <div className="textbox">
-          <div className="welcome-text">
-            <h3>sign up</h3>
-            <br />
-            <p>
-              it's not a waist of time,
-              <br /> we gonna take care of you{" "}
-            </p>
-          </div>
+  /*** */
 
-          <form  /*action="submit"  */>
-
-            
-                        <label htmlFor='name' >name</label>
-                        <input type='text' placeholder='enter your name' className='form-control input-form'
-
-                        id="name"
-                        value={inputValueA}
-                        onChange={(e) => setInputValueA(e.target.value) }
-                        />
-
-                        <br/>
-
-                        
-                        <label htmlFor='email' >email</label>
-                        <input type='email' placeholder='enter your email' className='form-control input-form'
-                        id="email"
-                        value={inputValueB}
-                        onChange={(e) => setInputValueB(e.target.value) }
-                        />
-                    
-                    <br/>
-
-
-                        <label htmlFor='phone' >phone</label>
-                        <input type='number' placeholder='enter your phone' className='form-control input-form'
-                        id="phone"
-                        value={inputValueC}
-                        onChange={(e) => setInputValueC(e.target.value) }
-                        />
-                        <br/>
-
-                        
-                        <p>The experience begins now !</p>
-
-                        <button  className='btn' onClick={saveInFirestore}>Save</button>
-
-                        {  /*<button><a href='/' >sign up</a></button>  */}
-          </form>
-        </div>
+  <div className="containBoxo">
+  <div className="box-signup">
+    <div className="textbox">
+      <div className="welcome-text">
+        <h3>sign up</h3>
+        <br />
+        <p>
+          it's not a waist of time,
+          <br /> we gonna take care of you{" "}
+        </p>
       </div>
 
-      {/*
-            
-           <div className='box-signup'>
-           
-                <div className="sign-text">
-                    <h3>sign up</h3>
-                    <br/> 
-                    <p>it's not a waist of time,
-                    <br/> we gonna take care of you </p>
-                </div>
-               <div>
-                <form>
-                        <label htmlFor='name' >name</label>
-                        <input type='text' placeholder='enter your name' className='form-control input-form'/>
+      
+
+        
+                    <label htmlFor='name' >name</label>
+                    <input type='text' placeholder='enter your name' className='form-control input-form'
+
+                    id="name"
+                    value={inputValue1}
+                    onChange={(e) => setInputValue1(e.target.value) }
+                    />
 
                     <br/>
-                        <label htmlFor='lastname' >lastname</label>
-                        <input type='text' placeholder='enter your lastname' className='form-control input-form'/>
-                    <br/>
-                        <label htmlFor='email' >email</label>
-                        <input type='email' placeholder='enter your email' className='form-control input-form'/>
+
                     
-                    <br/>
-                        <label htmlFor='passeword' >passeword</label>
-                        <input type='passeword' placeholder='choose passeword' className='form-control input-form'/>
-                    <br/>
-                        <label htmlFor='passeword' >passeword</label>
-                        <input type='passeword' placeholder='confirm passeword' className='form-control input-form'/>
+                    <label htmlFor='email' >email</label>
+                    <input type='email' placeholder='enter your email' className='form-control input-form'
+                    id="email"
+                    value={inputValue2}
+                    onChange={(e) => setInputValue2(e.target.value) }
+                    />
+                
+                <br/>
 
-                        <button className='btn'><a href='/home' >sign up</a></button>
-                </form>
-                </div> 
-       
-         </div>
-         */}
+
+                    <label htmlFor='phone' >phone</label>
+                    <input type='number' placeholder='enter your phone' className='form-control input-form'
+                    id="phone"
+                    value={inputValue3}
+                    onChange={(e) => setInputValue3(e.target.value) }
+                    />
+                    <br/>
+
+                    
+                    <p>The experience begins now !</p>
+
+                    <button  className='btn' onClick={saveInFirestore}>Save</button>
+
+                    {  /*<button><a href='/' >sign up</a></button>  */}
+      
     </div>
-  );
-};
+  </div>
 
-export default Signup;
+  {/*
+        
+       <div className='box-signup'>
+       
+            <div className="sign-text">
+                <h3>sign up</h3>
+                <br/> 
+                <p>it's not a waist of time,
+                <br/> we gonna take care of you </p>
+            </div>
+           <div>
+            <form>
+                    <label htmlFor='name' >name</label>
+                    <input type='text' placeholder='enter your name' className='form-control input-form'/>
+
+                <br/>
+                    <label htmlFor='lastname' >lastname</label>
+                    <input type='text' placeholder='enter your lastname' className='form-control input-form'/>
+                <br/>
+                    <label htmlFor='email' >email</label>
+                    <input type='email' placeholder='enter your email' className='form-control input-form'/>
+                
+                <br/>
+                    <label htmlFor='passeword' >passeword</label>
+                    <input type='passeword' placeholder='choose passeword' className='form-control input-form'/>
+                <br/>
+                    <label htmlFor='passeword' >passeword</label>
+                    <input type='passeword' placeholder='confirm passeword' className='form-control input-form'/>
+
+                    <button className='btn'><a href='/home' >sign up</a></button>
+            </form>
+            </div> 
+   
+     </div>
+     */}
+</div>
+
+
+
+  /*** */
+
+
+
+
+
+
+
+);
+      
+}
+
+
+
+
+
+
+
+export default App;
+
+
+
+
+
+
+/*
+
+  useEffect(() => {
+    img && uploadFile(img, "imgUrl");
+  }, [img]);
+
+
+
+
+  const uploadFile = (file, fileType) => {
+    const storage = getStorage(app);
+    const folder = fileType === "imgUrl" ? "images/" : "videos/";
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, folder + fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+  }
+
+
+
+   // Listen for state changes, errors, and completion of the upload.
+   uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      const progress =
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      fileType === "imgUrl"
+        ? setImgPerc(Math.round(progress))
+        : setVideoPerc(Math.round(progress));
+      switch (snapshot.state) {
+        case "paused":
+          console.log("Upload is paused");
+          break;
+        case "running":
+          console.log("Upload is running");
+          break;
+        default:
+          break;
+      }
+    },
+      (error) => {
+        console.log(error);
+        switch (error.code) {
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            console.log(error);
+            break;
+          case "storage/canceled":
+            // User canceled the upload
+            break;
+          case "storage/unknown":
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+          default:
+            break;
+        }
+      },
+    () => {
+            // Upload completed successfully, now we can get the download URL
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log('DownloadURL - ', downloadURL);
+              setInputs((prev) => {
+                return {
+                  ...prev,
+                  [fileType]: downloadURL,
+                };
+              });
+            });
+          }
+  );
+
+
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        await axios.post(`http://localhost:5979/runways/`, { ...inputs });
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+*/

@@ -24,7 +24,7 @@ import SingleProduct from "./pages/Product";
 import Product from "./pages/Product";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import New from "./pages/New";
+/*import New from "./pages/New";*/
 /*import CollectionShow from "./pages/CollectionShow"*/
 
 
@@ -59,7 +59,7 @@ function App() {
       <Route path="/signin" element={<Signin/>} />
       <Route path="/home" element={<Home/>} />
       <Route path="/collection" element={<Collection/>} />
-      <Route path="/new" element={<New/>} />
+      {/*<Route path="/new" element={<New/>} />*/}
 
 
 
