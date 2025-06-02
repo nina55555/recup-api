@@ -27,8 +27,10 @@ export default function Navbar() {
       </div>
       <div className="lilTitle-box1">
         <Link to="/" className="title">
-          IT V
-          {/*<img src="src/assets/logoseul.png" />*/}
+          {/*IT V*/}
+          <img src="src/assets/logoseul.png" />
+
+          {/*??? trouver logo et ecriture logo*/}
         </Link>
       </div>
       <div className="lilNav-box2">
@@ -45,7 +47,9 @@ export default function Navbar() {
           <li>
             <NavLink
               /*  to="collection"  */
-              to="Signup" 
+              /*to="Signup"*/
+              to= "New"
+
               className={menuClicked ? "clicked" : ""}
               onClick={handleMenuClicked}
             >

@@ -8,32 +8,34 @@ import "../css/Signup.css";
 
 const Signup = () => {
 
-/*to get emails before lunch*/
 
 
 
 
 
-const [inputValue1, setInputValue1] = useState('');
-const [inputValue2, setInputValue2] = useState('');
-const [inputValue3, setInputValue3] = useState('');
+const [inputValueA, setInputValueA] = useState('');
+const [inputValueB, setInputValueB] = useState('');
+const [inputValueC, setInputValueC] = useState('');
 
 
 
 const db = getFirestore();
 
 const saveInFirestore = async () => {
-  const docRef = await addDoc (collection (db, "firebase-getting-email"), {
-      name: inputValue1,
-      email: inputValue2,
-      phone: inputValue3,
+  const docRef = await addDoc (collection (db, "got-email-user"), {
+
+  /*const docRef = await addDoc (collection (db, "firebase-get-contacts"), {*/
+  
+      name: inputValueA,
+      email: inputValueB,
+      phone: inputValueC,
 
 
     });
   alert('doc written in firebase');
-  setInputValue1(''),
-  setInputValue2(''),
-  setInputValue3('')
+  setInputValueA(''),
+  setInputValueB(''),
+  setInputValueC('')
 
 };
 
@@ -64,8 +66,8 @@ const saveInFirestore = async () => {
                         <input type='text' placeholder='enter your name' className='form-control input-form'
 
                         id="name"
-                        value={inputValue1}
-                        onChange={(e) => setInputValue1(e.target.value) }
+                        value={inputValueA}
+                        onChange={(e) => setInputValueA(e.target.value) }
                         />
 
                         <br/>
@@ -74,8 +76,8 @@ const saveInFirestore = async () => {
                         <label htmlFor='email' >email</label>
                         <input type='email' placeholder='enter your email' className='form-control input-form'
                         id="email"
-                        value={inputValue2}
-                        onChange={(e) => setInputValue2(e.target.value) }
+                        value={inputValueB}
+                        onChange={(e) => setInputValueB(e.target.value) }
                         />
                     
                     <br/>
@@ -84,8 +86,8 @@ const saveInFirestore = async () => {
                         <label htmlFor='phone' >phone</label>
                         <input type='number' placeholder='enter your phone' className='form-control input-form'
                         id="phone"
-                        value={inputValue3}
-                        onChange={(e) => setInputValue3(e.target.value) }
+                        value={inputValueC}
+                        onChange={(e) => setInputValueC(e.target.value) }
                         />
                         <br/>
 

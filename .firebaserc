@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "fir-emails-3f8c3"
+    "default": "firebase-getting-email"
+
   }
 }

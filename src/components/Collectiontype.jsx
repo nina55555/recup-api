@@ -12,7 +12,7 @@ const Collectiontype = () => {
 
             </div>
             <div className="chooseco-d">
-                <a className='super-btn' href="Signup">Collection super</a>
+                <a className='super-btn' href="new">Collection super</a>
             </div> 
            
             
