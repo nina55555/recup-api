@@ -45,7 +45,7 @@ return (
   <div className="box-signup">
     <div className="textbox">
       <div className="welcome-text">
-        <h3>sign up</h3>
+        <h3>SIGN UP</h3>
         <br />
         <p>
           it's not a waist of time,
@@ -56,7 +56,7 @@ return (
       
 
         
-                    <label htmlFor='name' >name</label>
+                    <label htmlFor='name' >NAME :</label>
                     <input type='text' placeholder='enter your name' className='form-control input-form'
 
                     id="name"
@@ -67,7 +67,7 @@ return (
                     <br/>
 
                     
-                    <label htmlFor='email' >email</label>
+                    <label htmlFor='email' >EMAIL: </label>
                     <input type='email' placeholder='enter your email' className='form-control input-form'
                     id="email"
                     value={inputValue2}
@@ -77,7 +77,7 @@ return (
                 <br/>
 
 
-                    <label htmlFor='phone' >phone</label>
+                    <label htmlFor='phone' >PHONE:</label>
                     <input type='number' placeholder='enter your phone' className='form-control input-form'
                     id="phone"
                     value={inputValue3}

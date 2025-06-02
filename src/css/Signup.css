@@ -95,6 +95,8 @@
 
 .containBoxo{
   background-color: rgb(191, 194, 193);
+border: 1px solid black;
+
   
   
   width: 90%;
@@ -114,18 +116,27 @@
 }
 
 
+label{
+  font-weight: bold;
+}
 
-.textbox{
-  background-color: green;
+.box-signup .textbox{
+  background-color: beige;
   border: 10px solid grey;
   
 }
-
 
 .welcome-text h3{
   color: black;
   height: 35px;
 }
+
+
+.welcome-text p{
+  margin:  0 auto;
+  font-size: 22px;
+}
+
 
 .welcome-text{
   color: rgb(42, 165, 69);
