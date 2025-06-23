@@ -14,6 +14,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
+import CollectionAtest from "./pages/CollectionAtest";
+
 
 import Conc from "./pages/Conc";
 import Contact from "./pages/Contact";
@@ -59,6 +61,9 @@ function App() {
       <Route path="/signin" element={<Signin/>} />
       <Route path="/home" element={<Home/>} />
       <Route path="/collection" element={<Collection/>} />
+      <Route path="/collectionAtest" element={<CollectionAtest/>} />
+
+      
       {/*<Route path="/new" element={<New/>} />*/}
 
 
