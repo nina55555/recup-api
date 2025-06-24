@@ -141,6 +141,7 @@ const Collection = ({ product, handleClickLarge }) => {
                   <div className="big--ticket">
                     <div className="ticket">
                       <h3>Voir la salle d'enchere</h3>
+                      
                     </div>
                   </div>
                 </div>
