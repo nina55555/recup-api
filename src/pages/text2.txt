@@ -1,0 +1,75 @@
+const CollectionAtest2 = ({ productd }) => {
+  const { id } = useParams();
+
+  const { data, isError, isLoading } = useQuery("model", () => {
+    return axios.get(" http://localhost:5978/defilons/");
+  });
+
+
+  function previous() {
+    if (slideRef.current) {
+      const items = slideRef.current.querySelectorAll('.item');
+      if (items.length > 0) {
+        slideRef.current.prepend(items[items.length - 1]);
+      }
+    }
+  }
+
+  function nexter() {
+    if (slideRef.current) {
+      const items = slideRef.current.querySelectorAll('.item');
+      if (items.length > 0) {
+        slideRef.current.appendChild(items[0]);
+      }
+    }
+  }
+
+  const handleClickLarge = (id) => {
+    setEnlargedId(id);
+  };
+
+  return (
+    <div className="mainBox">
+      {data?.data.map((product) => (
+        <div className="container" key={product._id}>
+          <img src={product.imageUrl} alt="" />
+
+          <div className="slide" key={product._id} ref={slideRef}>
+            {data?.data.map((innerProduct, index) => (
+              <div
+                className={`item changing-class active ${
+                  enlargedId === innerProduct._id && index === 0 ? 'enlarged' : ''
+                }`}
+                key={innerProduct._id}
+              >
+                <img
+                  src={innerProduct.imageUrl}
+                  onClick={() => handleClickLarge(innerProduct._id)}
+                  alt=""
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="button">
+            <button onClick={() => previous()} className="prev">
+              prev
+            </button>
+            <button onClick={() => nexter()} className="next">
+
+
+
+
+
+
+
+
+/************************* */
+
+
+
+}
+
+
+export default CollectionAtest2;
+
