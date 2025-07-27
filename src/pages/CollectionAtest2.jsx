@@ -28,6 +28,7 @@ import ReactPlayer from "react-player";
 import videoShow from "../assets/videoDefile.mp4";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { GiCarDoor } from "react-icons/gi";
+import Icons from "../components/Icons";
 
 
 
@@ -98,8 +99,10 @@ const CollectionAtest2 = ({ product }) => {
           </div>
 
         </div>
-      ))}
+      ))}     
+      <Icons />
     </div>
+
   )
 }
   export default CollectionAtest2;

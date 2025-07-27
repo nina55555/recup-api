@@ -1,26 +1,121 @@
 
+/*
 
-.container{
+.mainBox{
 
-    position:absolute;
-    background-color: red;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1000px;
-    height: 600px;
+    /*logo background
+    background-image: url(src/assets/ohlogo.jpg);
+    background-size: 100%;
+    /*background-position: center;
+    background-position: center top;
+    background-repeat: no-repeat;
+
+    /*background-color: rgb(107, 109, 99);*/
+    /*overflow: scroll;*/
+
+    /*pour page collection caroussel*
+    background-image: url(src/assets/def.mp4);
+    /**/
+
+    /*
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+
+
+width: 100vw;
+/*height: 100vh;
+min-height: 100vh;
+
+/*
+    min-height: 50%;
+    width: 90%;
+    max-height: 80%;
+    margin: 8px auto;
+    padding: 8px;
+*/
+    /*margin: 5px auto 0 auto;*/
+    /*position: absolute;*/
+
+
+    /*
+    display: grid;
+    grid-template-rows:  33.3% 33.3% 33.3%;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    */
+    /*grid-template-rows:  16.66% 16.66% 16.66%   12.5% 12.5% 25%;
+
+
+
+}
+*/
+
+
+
+.mainBox{
+    background-color: purple;
+    width: 100%;
+    height: 90%;
+    position: absolute
 }
 
 
-.container .slide .item{
-    width: 200px;
+
+
+
+
+
+
+
+
+.container{
+
+    opacity: 1;
+    position: absolute;
+    background-color: red;
+    /*top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);*/
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*width: 1000px;
+    height: 600px;*/
+    width: 100%;
+    height: 40%;
+}
+
+
+
+
+.container .slide {
+    background-color: jaune;
+    display: flex;
+    flex-position: column;
+    width: 400px;
     height: 300px;
     position: absolute;
+    justify-content: space-between;
     top: 50%;
-    transform: translate(0, -50%);
+    left: 50%;
+    
+
+}
+
+.container .slide .item{
+    width: 50px;
+    height: 30px;
+    position: relative;
+    top: 50%;
+    /*position des cards*/
+    transform: translate(20%, 50%);
     background-position: 50% 50%;
     background-size: cover;
-    display: inline-block;
+    /*display: inline-block;*/
+    margin: 5px;
 }
 
 
@@ -55,7 +150,7 @@
     width: 100%;
     text-align: center;
     position: absolute;
-    bottom: 20px;
+    bottom: 80px;
     cursor: pointer;
     background: grey;
     margin: 5px;

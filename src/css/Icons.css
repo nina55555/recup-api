@@ -1,0 +1,50 @@
+
+
+
+.icons{
+    border:1px solid black;
+    width: 98%;
+    height: 40px;
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+    bottom : 20px;
+    z-index:100;
+    font-size:13px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    /*align-item: center;*/
+}
+
+
+.icons .text-icon p {
+ /*margin: 0px auto;
+ left: 50px;*/
+ /*margin-left: 250px;*/
+ 
+ transform:translateX(50%);
+}
+
+
+
+.icon-items{
+  
+display : flex;
+flex-direction: row; 
+justify-content: center;
+
+}
+
+
+
+.icon-items ul{
+  
+    display : flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    }
+
+    .icon-items ul li{
+  margin: 0px 10px ;
+        }
