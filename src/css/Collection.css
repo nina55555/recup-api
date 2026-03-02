@@ -49,7 +49,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   transition: all 0.8s ease;
-  opacity: 0;
+  opacity: 1; /* désormais visible mais géré par .transparent */
   z-index: 1;
 }
 
@@ -57,9 +57,15 @@ body {
 /* SLIDE ACTIVE */
 .activeSlide {
   transform: translateX(0) scale(1) rotateY(0deg);
-  opacity: 1;
   z-index: 3;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transition: all 0.8s ease;
+}
+
+/* SLIDE ACTIVE TRANSPARENTE */
+.activeSlide.transparent {
+  opacity: 0; /* transparente tout le temps qu'elle est active */
+  transition: opacity 0.8s ease;
 }
 
 /* ============================= */
