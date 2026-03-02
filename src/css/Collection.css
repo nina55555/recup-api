@@ -9,86 +9,80 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ============================= */
+/* CONTAINER PRINCIPAL */
 .slider-container {
   width: 100%;
   height: 100vh;
   position: relative;
   overflow: hidden;
-  perspective: 1500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
   background-size: cover;
   background-position: center;
   transition: background-image 0.8s ease;
 }
 
+/* ============================= */
+/* WRAPPER DES SLIDES 3D */
 .slider-3d {
   position: relative;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: row;
   transform-style: preserve-3d;
 }
 
+/* ============================= */
+/* SLIDE BASE */
 .slide {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  height: 70%;
+  top: 55%;
+  left: 70%;
+  width: 20%;
+  height: 30%;
+  border-radius: 15px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 10px;
   transition: all 0.8s ease;
   opacity: 0;
   z-index: 1;
 }
 
-/* Slide active */
+/* ============================= */
+/* SLIDE ACTIVE */
 .activeSlide {
-  transform: translate(-50%, -50%) scale(1.5);
-  opacity: 0;
-  /*opacity: 1;*/
-  z-index: 2;
+  transform: translateX(0) scale(1) rotateY(0deg);
+  opacity: 1;
+  z-index: 3;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-/* Slide suivante */
-.nextSlide {
-  transform: translate(calc(-50% + 220px), -50%) scale(0.8);
-  opacity: 0.8;
-  z-index: 3;
-  width: 200px;
-  height: 250px;
-}
-
-/* Slide suivante +2 */
-.nextSlide2 {
-  transform: translate(calc(-50% + 440px), -50%) scale(0.7);
-  opacity: 0.7;
-  z-index: 2;
-  width: 180px;
-  height: 230px;
-}
-
-/* Slide suivante +3 */
-.nextSlide3 {
-  transform: translate(calc(-50% + 660px), -50%) scale(0.6);
+/* ============================= */
+/* SLIDE PRÉCÉDENTE */
+.lastSlide {
+  transform: translateX(-60%) scale(0.8) rotateY(25deg);
   opacity: 0.6;
   z-index: 1;
-  width: 160px;
-  height: 200px;
 }
 
-/* Slides invisibles */
-.hiddenSlide {
-  opacity: 0;
-  z-index: 0;
+/* ============================= */
+/* SLIDE SUIVANTE */
+.nextSlide {
+  transform: translateX(60%) scale(0.8) rotateY(-25deg);
+  opacity: 0.6;
+  z-index: 2;
 }
 
-/* Buttons */
+/* ============================= */
+/* BOUTONS DE NAVIGATION */
 .buttons {
   position: absolute;
-  bottom: 60px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -97,14 +91,14 @@ body {
 }
 
 .buttons button {
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
   font-size: 22px;
-  background: rgba(255,255,255,0.85);
-  transition: 0.3s ease;
+  background: rgba(255, 255, 255, 0.85);
+  transition: 0.3s;
 }
 
 .buttons button:hover {
@@ -112,6 +106,8 @@ body {
   color: #fff;
 }
 
+/* ============================= */
+/* LOADER */
 .loader {
   color: white;
   font-size: 24px;

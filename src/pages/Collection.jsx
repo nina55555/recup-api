@@ -25,24 +25,31 @@ const Collection = () => {
       className="slider-container"
       style={{
         backgroundImage: `url(${images[currentIndex]?.imageUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         transition: "background-image 0.8s ease"
       }}
     >
       <div className="slider-3d">
         {images.map((item, index) => {
-          const distance = (index - currentIndex + images.length) % images.length;
+          let position = "nextSlide";
 
-          let className = "hiddenSlide";
-          if (distance === 0) className = "activeSlide";
-          else if (distance === 1) className = "nextSlide";
-          else if (distance === 2) className = "nextSlide2";
-          else if (distance === 3) className = "nextSlide3";
+          if (index === currentIndex) {
+            position = "activeSlide";
+          } else if (
+            index === currentIndex - 1 ||
+            (currentIndex === 0 && index === images.length - 1)
+          ) {
+            position = "lastSlide";
+          }
 
           return (
             <div
               key={item._id}
-              className={`slide ${className}`}
-              style={{ backgroundImage: `url(${item.imageUrl})` }}
+              className={`slide ${position}`}
+              style={{
+                backgroundImage: `url(${item.imageUrl})`,
+              }}
             />
           );
         })}
