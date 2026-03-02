@@ -55,6 +55,7 @@ const Collection = () => {
         })}
       </div>
 
+
       <div className="buttons">
         <button onClick={prevSlide}>‹</button>
         <button onClick={nextSlide}>›</button>
