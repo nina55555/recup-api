@@ -11,7 +11,6 @@ body {
 
 /* ============================= */
 /* CONTAINER */
-
 .slider-container {
   width: 100%;
   height: 100vh;
@@ -22,59 +21,65 @@ body {
 
 /* ============================= */
 /* SLIDER WRAPPER */
-
 .slider-3d {
+  background-color: purple;
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+
+  z-index: 6;
 }
 
 /* ============================= */
-/* SLIDES (BASE FULLSCREEN) */
-
+/* SLIDES (BASE) */
 .slide {
+  background-color: chartreuse;
+  padding: 15px;
   position: absolute;
-  inset: 0; /* prend toute la taille */
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   transition: all 0.8s ease;
   opacity: 0;
+  border-radius: 10px;
+
+  z-index: 6;
 }
 
 /* ============================= */
-/* IMAGE GAUCHE = FULL BACKGROUND */
-
-.lastSlide {
-  transform: translateX(0) scale(1);
-  opacity: 1;
-  z-index: 1;
-}
-
-/* ============================= */
-/* IMAGE CENTRE */
-
+/* SLIDE ACTIVE */
 .activeSlide {
-  transform: translateX(25%) scale(0.6) rotateY(-20deg);
-  opacity: 0.95;
-  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 70%;
+  transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+  z-index: 5;
+  opacity: 1;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* ============================= */
-/* IMAGE DROITE */
-
-.nextSlide {
-  transform: translateX(55%) scale(0.4) rotateY(-25deg);
+/* SLIDES NON ACTIVES EN PETIT EN BAS À DROITE */
+.nonActiveSlide {
+  position: absolute;
+  top: 570px;
+  /*right: 20px;*/
+  width: 270px;
+  height: 370px;
+  transform: scale(0.4);
   opacity: 0.6;
-  z-index: 2;
+  z-index: 6;
+  margin-left: 60%;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 /* ============================= */
 /* BUTTONS */
-
 .buttons {
   position: absolute;
   bottom: 60px;
@@ -82,7 +87,7 @@ body {
   transform: translateX(-50%);
   display: flex;
   gap: 20px;
-  z-index: 5;
+  z-index: 10;
 }
 
 .buttons button {
@@ -103,7 +108,6 @@ body {
 
 /* ============================= */
 /* LOADER */
-
 .loader {
   color: white;
   font-size: 24px;

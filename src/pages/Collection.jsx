@@ -32,29 +32,21 @@ const Collection = () => {
     <div className="slider-container">
       <div className="slider-3d">
         {images.map((item, index) => {
-          let position = "nextSlide";
+          let position = "nonActiveSlide";
 
           if (index === currentIndex) {
             position = "activeSlide";
-          } else if (
-            index === currentIndex - 1 ||
-            (currentIndex === 0 && index === images.length - 1)
-          ) {
-            position = "lastSlide";
           }
 
           return (
             <div
               key={item._id}
               className={`slide ${position}`}
-              style={{
-                backgroundImage: `url(${item.imageUrl})`,
-              }}
+              style={{ backgroundImage: `url(${item.imageUrl})` }}
             />
           );
         })}
       </div>
-
 
       <div className="buttons">
         <button onClick={prevSlide}>‹</button>
