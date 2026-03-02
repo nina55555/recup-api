@@ -1,0 +1,46 @@
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/*
+body{
+
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+html{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    margin: 10px;
+    height: 95%;
+}
+
+.App{
+    background-color: blue;
+    height: 100%;
+    width: 100vw;
+    margin: 0px;
+    display: flex;
+}
+*/
+
+.container{
+    background-color: aqua;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+    
+}

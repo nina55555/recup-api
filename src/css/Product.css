@@ -1,0 +1,184 @@
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.main--box{
+    background-color: rgb(107, 109, 99);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-width: 100vw;
+    max-width: 100vw;
+    /*height: 80%;
+    /*position: relative;*/
+    /*top: 100px;*/
+    
+    min-height: 100%;
+    max-height: 100%;
+
+    /*
+    min-height: 30%;
+    max-height: 72%;
+    */
+
+    /*margin: 5px auto 0 auto;*/
+    position: absolute;
+    height: auto;
+    top: 80px;
+    margin: 0px auto;
+}
+
+
+
+
+
+
+
+.big--box{
+    background-color: rgb(3, 3, 3);    
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /*align-items: top;*/
+    align-items: center;
+    text-align: center;
+    width: 90%;
+
+    /**/
+
+
+    height: auto;
+    /*height: 80%;*/
+
+    /*height: auto;*/
+    /*height: 100%;*/
+
+
+    
+    /**/
+    
+    margin-top: 0px;
+    position: absolute;
+    top: 0px;
+
+    
+}
+
+/*
+.bigBox{
+    background-color: rgb(9, 110, 199);
+    border: 1px solid black;
+    /*width: auto;
+    /*height: 100%;
+    
+    min-width: 100vw;
+    max-width: 100vw;
+
+    margin: 0px;
+    padding: 0px;
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: auto;
+}
+
+*/
+
+/*faire un grid template ^pour placer la peinture et la photo au centre*/
+
+.images--box {    
+    background-color: rgb(66, 230, 107);
+    padding: 0px;
+    /*padding: 10px;*/
+
+    width: 100%;
+    height: 70vh;
+
+    /*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    */
+    
+}
+
+.show-product{
+    background-color: rgb(61, 5, 5);
+    
+    /*width: 100%;*/
+    width: 30%;
+    /*height: auto;*/
+    /*height: 70%;*/
+    height: 59%;
+    position: relative;
+    top: -340px;
+    left: 260px;
+
+    border: 1px solid black;
+    margin: 1px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.show-product img{
+    width: 255px;
+    height: 355px;
+    /*margin: 0px;*/
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid black;
+}
+
+
+
+
+
+
+.row{
+    background-color: rgb(35, 99, 182);
+    width: 100%;
+
+    /**/
+    /*height: 100%;*/
+    /*height: 70%;*/
+    /*height: 50vh;*/
+    height: auto;
+    /**/
+
+
+    margin-top: 0px;
+    /*
+    width: 90%;
+    height: 500px;
+    margin: 0px;
+    */
+}
+
+
+
+
+/************c'est dans la page enchere a retirer************/
+/*
+.bigTable{
+    height: 255px;
+    width: 100%;
+    padding: 0px;
+    border: 1px solid black;
+  
+}*/

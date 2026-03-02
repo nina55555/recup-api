@@ -1,0 +1,666 @@
+
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.container{
+    /*background-color: aqua;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height:100%;
+    margin: 5px auto;
+    
+}
+
+.boxx-container1{
+    /*background-color: blueviolet;*/
+    border: 1px solid black;
+
+    display: flex;
+    width: 100%;
+    height: 50%;
+    box-shadow: 5px 5px 10px;
+
+    
+}
+
+
+.boxa{
+    background-color: chocolate;
+    width: 33%;
+    height: auto;
+}
+
+.box1{
+    /*background-color: cornflowerblue;*/
+    width: 80%;
+    height: auto;
+    margin: 5px;
+
+
+    position: relative;
+    overflow: hidden;
+    transition:  0.3s ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    object-fit: cover;
+    flex-direction: column;
+    box-shadow: 5px 5px 10px;
+
+
+}
+
+
+
+.box1 p{
+    margin: 15px auto;
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid black;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    box-shadow: 5px 5px 10px;
+    animation: shadowing 5s infinite;
+
+}
+
+.box1 img{
+    z-index: 20;
+    transition:  0.3s;
+    width: 80%;
+    height: 60%;
+    position: relative;
+    /*top: 33%;*/    
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid black;
+
+
+
+}
+
+
+.box1 h3{
+
+    display: none;
+
+    position: relative;
+    overflow: hidden;
+    transition:  0.3s ;
+    z-index: -20;
+
+    font-size: 20px;
+    color: black;
+    margin: 0 auto;
+    width: 90%;
+    height: 90%;
+    text-align: center;
+
+}
+
+
+
+
+
+
+.box1:hover{
+    .box1{
+        box-shadow: 5px 5px 10px;
+
+    }
+    p{
+       display: none;
+     
+    }
+    img{
+        display: none;
+
+        
+        /*
+    width: 100vw;
+    height: 100vh;
+    */
+    }
+    h3{
+        display: flex;
+        z-index: 30;
+        margin: 0 auto;
+        animation: appears 3s;
+
+
+    }
+
+}
+
+
+@keyframes appears {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+.boxb{
+    background-color: chocolate;
+    width: 33%;
+    height: auto;
+}
+
+
+.box2{
+    /*background-color: cornflowerblue;*/
+    width: 80%;
+    height: auto;
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+    transition:  0.3s ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 10px;
+
+
+    object-fit: cover;
+    flex-direction: column;
+
+}
+
+
+
+
+.box2 p{
+    margin: 15px auto;
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid black;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    box-shadow: 5px 5px 10px;
+    animation: shadowing 5s infinite;
+
+}
+
+
+.box2 img{
+    z-index: 20;
+    transition:  0.3s;
+    display: flex;
+    
+    width: 80%;
+    height: 60%;
+    
+    position: relative;
+    top: 0px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid black;
+}
+
+
+
+
+
+.box2 h3{
+
+    display: none;
+    position: relative;
+    overflow: hidden;
+    transition:  0.3s ;
+    z-index: -20;
+
+        font-size: 20px;
+        color: black;
+        margin: 0 auto;
+        width: 90%;
+        height: 90%;
+
+}
+
+
+.box2:hover{
+    p{
+       display: none;
+     
+    }
+    img{
+        display: none;
+        
+        /*
+    width: 100vw;
+    height: 100vh;
+    */
+    }
+    h3{
+        display: flex;
+        z-index: 30;
+        margin: 0 auto;
+        
+        animation: appears 3s;
+
+    }
+}
+
+
+
+
+.boxc{
+    background-color: chocolate;
+    width: 33%;
+    height: auto;
+}
+
+.box3{
+    /*background-color: cornflowerblue;*/
+    width: 80%;
+    
+    height: auto;
+
+    margin: 5px;
+    box-shadow: 5px 5px 10px;
+
+    
+    position: relative;
+    overflow: hidden;
+    transition:  0.3s ;
+
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+
+
+    object-fit: cover;
+    flex-direction: column;
+}
+
+
+
+
+
+
+.box3 p{
+    margin: 15px auto;
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid black;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    box-shadow: 5px 5px 10px;
+    animation: shadowing 5s infinite;
+
+}
+
+
+.box3 .mission{
+
+    
+    z-index: 20;
+    transition:  0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 80%;
+
+    height: 60%;
+    
+    position: relative;
+    top: 0px;
+    border-radius: 4px;
+    border: 1px solid black;
+
+    /*object-fit: cover;*/
+
+}
+
+
+.mission h2{
+    /*background-color: aquamarine;*/
+    width: 100%;
+    font-size: 14px;
+}
+
+
+
+.box3 h3{
+
+    display: none;
+
+    
+    position: relative;
+    overflow: hidden;
+    transition:  0.3s ;
+    z-index: -20;
+
+
+    
+        font-size: 20px;
+        color: black;
+        margin: 0 auto;
+        width: 90%;
+        height: 90%;
+    
+    
+
+}
+
+
+.box3:hover{
+    p{
+       display: none;
+     
+    }
+    .mission{
+        display: none;
+        
+        /*
+    width: 100vw;
+    height: 100vh;
+    */
+    }
+    h3{
+        display: flex;
+        z-index: 30;
+        margin: 0 auto;
+        
+        animation: appears 3s;
+    }
+}
+
+
+
+.box3 i.fa-solid {
+    color: rgb(212, 11, 11);
+    width: 15px;
+}
+
+
+
+
+
+
+
+
+
+/****/
+
+
+
+/*
+.boxx-container{
+    background-color: darkgray;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin:10px auto;
+     grid-row: 6/7;
+
+     grid-column: 1/4;
+     width: 100%;
+}
+
+*/
+
+/*
+.boxa{
+     grid-row: 5/6;
+     grid-column: 1/2;
+    width: 100%;
+    height: 90%;
+    margin: 15px;
+}
+*/
+
+/*
+.box1{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+
+}
+
+
+
+
+.box1 p{
+    margin: 7px auto;
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid black;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    box-shadow: 5px 5px 10px;
+    animation: shadowing 5s infinite;
+
+}
+
+
+.box1 img{
+    width: auto;
+    height: 60%;
+    object-fit: contain;
+
+}
+
+
+.box1:hover{
+    p{
+       display: none;
+     
+    }
+    img{
+        
+    width: 100vw;
+    height: 100vh;
+    }
+}
+
+
+
+
+
+.boxx-container{
+    display: none;
+}
+
+
+.boxb{
+    width: 100%;
+    height: 90%;
+    margin: 15px;
+}
+
+
+
+.box2{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+        background-color: white;
+
+
+}
+
+
+.box2 p{
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+
+    margin: 7px auto;
+    text-align: center;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 5px 5px 10px;
+    animation: shadowing 5s infinite;
+
+}
+
+
+.box2 img{
+    width: auto;
+    height: 60%;
+    object-fit: contain;
+
+}
+
+
+
+.box2:hover{
+    p{
+       display: none;
+     
+    }
+    img{
+        
+    width: 100vw;
+    height: 100vh;
+    }
+}
+
+
+
+.boxc{
+    width: 100%;
+    height: 90%;
+    margin: 15px;
+}
+
+
+
+.box3{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;    
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+
+}
+
+
+
+.box3 p{
+    width: 50%;
+    height: 17px;
+    font-size: 12px;
+
+    margin: 7px auto;
+    text-align: center;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 5px 5px 10px;
+    animation: shadowing 5s infinite;
+
+
+}
+
+
+@keyframes ghostText {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.1;
+    }
+}
+
+
+.box3 h2{
+    width: auto;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+
+}
+
+
+.box3 img{
+    width: auto;
+    height: 60%;
+    object-fit: contain;
+
+}
+*/
+
+
+/*
+.box3:hover{
+    p{
+       display: none;
+     
+    }
+    img{
+    width: 100vw;
+    height: 100vh;
+    }
+    
+}
+
+*/

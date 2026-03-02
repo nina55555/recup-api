@@ -1,0 +1,175 @@
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.bigg-box{
+    background-color: rgb(226, 227, 228);
+    margin:   auto;
+    padding: 10px;
+    display: flex;
+
+
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+    width: 100%;
+    /*width: auto;*/
+    position: relative;
+    top: 25px;
+}
+
+
+
+.chooseco-g{
+    background-color: rgb(245, 241, 241);
+    padding: 5px;
+    margin: 5px;
+    width: 45%;
+    
+}
+
+
+.chooseco-g:hover{
+    box-shadow: 5px 5px 5px;
+}
+
+
+.chooseco-d{
+    background-color: brown;
+    padding: 5px;
+    margin: 5px;
+    width: 45%;
+}
+
+
+.chooseco-d:hover{
+    box-shadow: 5px 5px 5px;
+}
+
+
+.classic-btn{
+    /*color: rgb(159, 204, 76);*/
+    background-color: rgba(127, 255, 212, 0.007);
+    color: rgb(11, 13, 14);
+    padding: 5px;
+    text-decoration: none;
+}
+
+
+
+.super-btn{
+    /*color: rgb(124, 16, 226);*/
+    background-color: rgba(8, 218, 148, 0.007);
+    /*background-color: darkred;*/
+    color: rgb(2, 3, 3);
+    padding: 5px;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****************************/
+/****************************/
+
+/********MEDIAQUERIES*******/
+
+/******FROM 0 TO 850PX*******/
+
+
+@media (max-width:850px)  {
+
+
+    .big-box{
+        background-color: rgb(226, 227, 228);
+        margin: 0px;
+        padding: 2px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        /*height: 75px;*/
+        height: auto;
+        width: 100%;
+        /*width: auto;*/
+        position: relative;
+        top: 10px;
+    }
+    
+    
+    
+    .chooseco-g{
+        background-color: rgb(245, 241, 241);
+        padding: 5px;
+        margin: 5px;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    
+    .chooseco-d{
+        background-color: brown;
+        padding: 5px;
+        margin: 5px;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    
+    
+    .classic-btn{
+        /*color: rgb(159, 204, 76);*/
+        background-color: rgba(127, 255, 212, 0.007);
+        color: rgb(11, 13, 14);
+        padding: 5px;
+        text-decoration: none;
+        font-size: 12px;
+
+    }
+    
+    
+    
+    .super-btn{
+        /*color: rgb(124, 16, 226);*/
+        background-color: rgba(8, 218, 148, 0.007);
+        /*background-color: darkred;*/
+        color: rgb(2, 3, 3);
+        padding: 5px;
+        text-decoration: none;
+        font-size: 12px;
+
+    }
+    
+
+}
+

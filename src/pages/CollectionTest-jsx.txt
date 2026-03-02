@@ -1,0 +1,40 @@
+
+      <div className="videodudef">
+        <div className="box-big-defile">
+          {data?.data.map((product) => {
+            /*
+                        let prev = document.querySelector('.prev')
+                        let next = document.querySelector('.next')
+
+                        prev.addEventListener('click', function(){
+                          let cardp = document.querySelectorAll('.card')
+                          document.querySelector('.big-defile').appendChild(cardp[0])
+                        })
+                        next.addEventListener('click', function(){
+                          let cardn = document.querySelectorAll('.card')
+                          document.querySelector('.big-defile').appendChild(cardn[1])
+                        })
+            */
+
+            return (
+              <>
+                <div className="big-defile" key={product._id}>
+                  {/*{`/product/${product._id} `}*/}
+                  <img src={product.imageUrl} />{" "}
+                  {/* <--mettre ici toutes url de defilé */}
+                </div>
+              </>
+            );
+          })}
+
+          {/*<img className="picmarque" src="/src/assets/ohlogo.jpg" alt="bigPic" />*/}
+
+          {/*<video src={videoShow} autoPlay muted loop />   */}
+
+          <div className="big--ticket">
+            <div className="ticket">
+              <h3>Voir la salle d'enchere</h3>
+            </div>
+          </div>
+        </div>
+      </div>

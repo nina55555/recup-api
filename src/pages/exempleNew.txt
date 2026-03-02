@@ -1,0 +1,50 @@
+
+  /*
+  <div className="infos">
+      
+      <div>
+        <br />
+        <input
+          type="text"
+          id="name"
+          /*  value={newName}  */
+          value={inputValue1}
+          onChange={(e) => setInputValue1(e.target.value) }
+        />
+      </div>
+
+      <br />
+
+
+      <div>
+        <br />
+        <input
+          type="email"
+          id="email"
+          /*  value={newName}  */
+          value={inputValue2}
+          onChange={(e) => setInputValue2(e.target.value) }
+        />
+      </div>
+
+      <br />
+
+
+
+      <div>
+        <br />
+        <input
+          type="number"
+          id="phone"
+          /*  value={newName}  */
+          value={inputValue3}
+          onChange={(e) => setInputValue3(e.target.value) }
+        />
+      </div>
+
+      <br />
+
+
+      <button onClick={saveInFirestore}>Save</button>
+
+  </div>

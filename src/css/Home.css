@@ -1,0 +1,777 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+
+/*
+.mainbox img{
+    width: 115px;
+    height: 105px;
+    z-index: 10;
+    position: relative;
+    top: 150px;
+    left: 555px;
+    border-radius: 50%;
+    transform: rotateY(180deg);
+}
+*/
+
+
+
+.containerHome{
+    /*background-color: rgb(241, 241, 241);*/
+    /*background-color: rgb(211, 208, 208);*/
+
+    /*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    */
+    width: 100%;
+    height: 100vh;
+    
+    
+    
+    
+    
+    /**********************ATTENTION A CA***********/
+    /**********************PADDING BOTTOM************/
+    padding-bottom: 0px;
+    /*********************ATTENTION A CA **********/
+
+
+
+
+
+    /*flex-direction: column;*/
+    /*position: absolute;*/
+    display: grid;
+    /*grid-template-rows:  16.66% 16.66% 16.66%   12.5% 12.5% 25%;*/
+    grid-template-rows: /*25% 25%*/ 12.5% 25% 12.5%   12.5% 12.5% 25%;
+
+    grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+
+
+
+.img2{
+/*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 155px;
+    height: 155px;
+    z-index: 15;
+    border-radius: 50px;
+    position: relative;
+    top:-285px;
+    left: -525px;
+    border: 1px solid red;
+*/
+     /*v->*/
+     grid-row: 2/3;
+     grid-column: 1/2;
+
+     
+     
+     /*position: relative;*/
+        /*height: 70%;   */  
+  
+        /*
+     width: 100%;
+     height: 60%;
+     /*margin: auto;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+     top: 90px;
+     left:0px;
+     */
+
+     /*
+     margin-top: 125px;
+     /*width: 310px;
+     width: 95%;    
+
+*/
+/*margin: 95px 70px auto;*/
+display: none;
+}
+
+
+
+
+
+/*
+.img2 img{
+    /*object-fit: cover;
+}
+
+*/
+
+
+.img3{
+    /*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 155px;
+    height: 155px;
+    z-index: 15;
+    border-radius: 50px;
+    position: relative;
+    top: 55px;
+    left: 505px;
+    */
+    transform: rotateY(180deg);
+    /*border: 1px solid red;*/
+
+     /*v->*/
+     grid-row: 1/3;
+     grid-column: 3/4;
+     display: none;
+}
+
+
+
+
+.boxVideo{
+    /*background-color: rgb(17, 17, 17);  ****/
+    border: 1px solid black;
+
+
+    /*
+    position: relative;
+    width: 90%;
+    height: 38%;
+    top: -85px;
+    */
+    /*border: 1px solid red;*/
+    /*v->*/
+    /*grid-row: 1/3;*/
+
+    grid-row: 1/6;
+    grid-column: 1/4;
+    width: 50%;
+
+    height: 82%;
+    /*margin: 10px auto 0;*/
+    /*margin: 0 auto;*/
+    text-align: center;
+    border-radius: 4px;
+    /*margin-top: 3px;*/
+    margin: 5px auto;
+} 
+
+
+
+.boxVideo p{
+    font-size: 14px;
+    /*margin: 0 auto*/
+    margin: 0px auto 8px;
+    width: 50%;
+    height: 17px;
+    /*border: 1px solid white;*/
+    /*color: brown;*/
+    /*color: rgb(29, 28, 28);*/
+    color: rgb(192, 191, 191);
+    background-color: transparent;
+
+}
+
+
+
+
+.videoShow{
+
+    /*background-color: rgb(105, 119, 80);*/
+   /* width: 100%;
+    height: auto;
+    margin: 0px auto;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+*/
+    
+    grid-row: 2/3;
+    grid-column: 2/3;
+    
+    /*width: 73.33%;*/
+    /*width: 33.33%;*/
+
+    width: 75.33%;
+
+    height: 93%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*position: relative;
+    top: -50px;
+    */
+    /*background-color: black;*/
+    /*background-color: rgb(17, 17, 17);   ***/
+
+
+
+}
+
+
+
+
+.videoShow video{
+    /*
+    width: auto;
+    /*width: 90%;
+    height: 90%;
+    margin:0 auto;
+    */
+
+    /*
+    grid-row: 1/2;
+    grid-column: 1/4;
+
+    */
+    width: 90%;
+    height: 100%;
+    object-fit: contain;
+    transform: translateY(-20px);
+    
+    
+}
+
+
+
+
+.btn-decouvrezz{
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px;
+    /*
+    padding: 5px;
+    margin: 5px;
+    */
+    /*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: -75px;
+    */
+     /*v->*/    
+     height: 33px;
+    width: 25%;
+    margin: 105px auto ;
+
+     grid-row: 3/4;
+     grid-column: 1/4;
+     z-index: 5;
+     display: flex;
+     text-align: center;
+     justify-content: center;
+     align-items: center;
+
+     text-wrap: wrap;
+     animation: shadowing 3s infinite;
+}
+
+
+@keyframes shadowing {
+    0%{
+        box-shadow: 5px 5px 10px;
+    }
+    50%{
+        box-shadow: 15px 15px 20px;
+    }
+    100%{
+        box-shadow: 5px 5px 15px;
+
+    }
+}
+
+
+.btn-decouvrezz a{
+    /*margin: 0 auto;*/
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: black;
+    background-color: transparent;
+    padding: 3px;
+}
+
+
+.btn-decouvrezz:hover {
+    /*background-color: rgb(6, 179, 107);*/
+    /*background-color: rgb(120, 185, 100);*/
+    /*background-color: rgba(167, 209, 132, 0.973);*/
+    background-color: rgb(146, 182, 81);
+
+
+}
+
+
+
+
+.presentation{
+    /*background-color: cadetblue;*/
+    /*background-color: rgba(21, 22, 20, 0.418);*/
+    /*
+    width: 80%;
+    height: 55px;
+    position: relative;
+    top: -60px;
+    */
+    /*border: 1px solid red;*/
+
+     /*v->*/
+     grid-row: 5/6;
+     grid-column: 2/5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 35px 55px 0px;
+
+    border-radius: 2px;
+    height: 100%;
+}
+
+
+
+.presentation h2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    /*margin-top: 5px;*/
+    padding-bottom: 10px;
+    /*height: 50%;*/
+    background-color: transparent;
+}
+
+
+
+
+.presentation p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    /*margin-top: 5px;*/
+    background-color: transparent;
+    /*height: 80%;*/
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+.box3 img:hover{
+    width: 100vw;
+    height: 100vh;
+}
+
+*/
+
+
+
+/***************************/
+/***************************/
+
+
+
+
+
+
+
+
+/****************************/
+/****************************/
+
+/********MEDIAQUERIES*******/
+
+/******FROM 0 TO 850PX*******/
+
+
+@media (max-width:750px)  {
+
+    
+
+.boxVideo{
+
+    grid-row: 1/6;
+    grid-column: 1/4;
+    width: 100%;
+
+    height: 59%;
+    text-align: center;
+    border-radius: 4px;
+    margin: 5px auto;
+} 
+
+
+
+
+
+.btn-decouvrezz{
+    background-color: aliceblue;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px;
+     height: 30px;
+    width: 50%;
+    margin: 77px auto ;
+     grid-row: 3/4;
+     grid-column: 1/4;
+     z-index: 5;
+     display: flex;
+     text-align: center;
+     justify-content: center;
+     align-items: center;
+
+     text-wrap: wrap;
+}
+
+
+
+.btn-decouvrezz a{
+    font-size: 12px;
+}
+
+.presentation{
+    //background-color: green;
+     grid-row: 4/7;
+     grid-column: 1/5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px 0px 0px;
+    margin-top: 10px;
+    margin-bottom: 140px;
+
+    border-radius: 2px;
+    height: auto;
+}
+
+
+.presentation h2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    /*margin-top: 5px;*/
+    padding-bottom: 3px;
+    margin: 1px auto;
+    /*height: 50%;*/
+    background-color: transparent;
+}
+
+
+
+
+.presentation p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    /*margin-top: 5px;*/
+    background-color: transparent;
+    /*height: 80%;*/
+    margin: auto;
+
+}
+
+    /*****************/
+/*
+    .boxes-container{
+        background-color: blue;
+        padding: 5px;
+        width: 100%;
+        height: 100%;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    
+    .box1{
+        background-color: aquamarine;
+        width: 175px;
+        height: 175px;
+        margin: 5px;
+        
+    }
+    
+    
+    
+    
+    .box2{
+        background-color: aquamarine;
+        width: 175px;
+        height: 175px;
+        margin: 5px;
+    }
+    
+    
+    .box3{
+        
+        background-color: aquamarine;
+        width: 175px;
+        height: 175px;
+        margin: 5px;
+    }
+*/
+
+
+
+/*swipper  */
+.swiper-container {
+    width: 150px;
+    height: auto;
+    background-color: transparent;
+    border: 1px solid red;
+    margin-bottom: auto;
+    border-radius: 15px;
+  }
+
+
+
+
+
+
+
+  .swiper-wrapper{
+    border-box: 1px solid green;
+    height: auto;
+    width: auto;
+
+  }
+
+
+  .swiper-slide{
+    border-box: 1px solid green;
+    height: auto;
+    width: auto;
+  }
+
+
+  
+  .swiper-pagination{
+    border-box: 1px solid green;
+    height: auto;
+    width: auto;
+  }
+
+
+
+
+  .swiper-scrollbar{
+    border-box: 1px solid green;
+    height: auto;
+    width: auto;
+  }
+
+
+  
+  
+
+
+
+}
+    
+
+@media (min-width:750px)  {
+
+   
+
+    .boxVideo{
+
+        grid-row: 1/6;
+        grid-column: 1/4;
+        width: 100%;
+    
+        height: 65%;
+        text-align: center;
+        border-radius: 4px;
+        margin: 5px auto;
+    } 
+    
+    
+    
+    .btn-decouvrezz{
+        background-color: aliceblue;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px;
+         height: 45px;
+        width: 75%;
+        margin: 10px auto ;
+    
+         grid-row: 4/5;
+         grid-column: 2/3;
+         z-index: 5;
+         display: flex;
+         text-align: center;
+         justify-content: center;
+         align-items: center;
+    
+         text-wrap: wrap;
+    }
+    
+
+/*
+    .btn-decouvrezz a{
+        font-size: 22px;
+    }
+*/
+
+    .presentation{
+         grid-row: 4/6;
+         grid-column: 1/5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0px 0px 0px;
+        margin-top: 38px;
+    
+        border-radius: 2px;
+        height: 100%;
+    }
+    
+    
+    .presentation h2{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 19px;
+        /*margin-top: 5px;*/
+        padding-bottom: 10px;
+        /*height: 50%;*/
+        background-color: transparent;
+    }
+    
+    
+    
+    
+    .presentation p{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17px;
+        /*margin-top: 5px;*/
+        background-color: transparent;
+        /*height: 80%;*/
+    
+    }
+
+}
+
+
+
+@media (min-width:1020px)  {
+
+
+    .btn-decouvrezz{
+        background-color: aliceblue;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px;
+         height: 35px;
+        width: 75%;
+        margin: 10px auto ;
+    
+         grid-row: 4/5;
+         grid-column: 2/3;
+         z-index: 5;
+         display: flex;
+         text-align: center;
+         justify-content: center;
+         align-items: center;
+    
+         text-wrap: wrap;
+    }
+    
+
+/*
+    .btn-decouvrezz a{
+        font-size: 20px;
+    }
+
+*/
+
+    .presentation{
+         grid-row: 4/6;
+         grid-column: 1/5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0px 0px 0px;
+        margin-top: 38px;
+    
+        border-radius: 2px;
+        height: 100%;
+    }
+    
+    
+    .presentation h2{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        /*margin-top: 5px;*/
+        padding-bottom: 10px;
+        /*height: 50%;*/
+        background-color: transparent;
+    }
+    
+    
+    
+    
+    .presentation p{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        /*margin-top: 5px;*/
+        background-color: transparent;
+        /*height: 80%;*/
+
+    }
+
+
+
+
+
+
+
+}
+
+

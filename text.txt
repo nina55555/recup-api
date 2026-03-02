@@ -1,0 +1,24 @@
+
+
+
+REACT_APP_API_KEY= "AIzaSyBKN_s0BAyqDXpHKUW5d05Sleqdmrtc9Bc"
+REACT_APP_AUTH_DOM="fir-emails-3f8c3.firebaseapp.com"
+REACT_APP_API_PROJ_ID="fir-emails-3f8c3"
+REACT_APP_API_STORAGEBUCKET="fir-emails-3f8c3.appspot.com"
+REACT_APP_API_MESSSENDERID="285219272258"
+REACT_APP_API_APPID="1:285219272258:web:5ce3a275ce7465e2df9fdb"
+
+
+
+
+
+mot a rajouter a la video
+
+sauter le pas
+s'affranchir de la peur
+
+tu es entr. et tu as acc. des ch. 
+/inspi.
+/qui doivent etre enca. 
+
+nous aimons enc..... l.. be... H.....
