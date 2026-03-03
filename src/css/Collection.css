@@ -136,6 +136,57 @@ body {
   z-index: 0;
 }
 
+
+
+
+/* ========================================= */
+/* TICKET */
+
+.ticket{
+  background-color: #000;
+  position: absolute;
+  left: 3%;
+  top: 30%;
+  width: 210px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ticket h1{
+  color: pink;
+  font-size: 25px;
+}
+
+
+.ticket h2{
+  color: pink;
+  font-size: 20px;
+}
+
+
+.ticket p{
+  font-weight: bold;
+  color: rgb(18, 129, 68);
+  font-size: 25px;
+  margin-top: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ========================================= */
 /* BOUTONS */
 .buttons {

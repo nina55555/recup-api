@@ -73,12 +73,21 @@ const Collection = () => {
             <div
               key={item._id}
               className={`slide ${positionClass}`}
-              style={{ backgroundImage: `url(${item.imageUrl})` }}
+              style={{ backgroundImage: `url(${item.imageUrl})` }}  
             />
+            
           );
         })}
       </div>
+      <div className="ticket"> 
+        <h1>MODEL A</h1>
+        <span></span>
+        <h2>descr</h2>
+        <span></span>
+        <p>I want this piece</p>
+      </div>
 
+<p>I want this piece</p>
       <div className="buttons">
         <button onClick={prevSlide}>‹</button>
         <button onClick={nextSlide}>›</button>
