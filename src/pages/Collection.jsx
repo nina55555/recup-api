@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import "../css/Collection.css";
@@ -14,18 +14,23 @@ const Collection = () => {
   if (isError) return <div className="loader">Erreur de chargement</div>;
 
   const images = data?.data || [];
+  const total = images.length;
+
+  const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
+  const nextNextIndex =
+    nextIndex === total - 1 ? 0 : nextIndex + 1;
 
   const nextSlide = () =>
-    setCurrentIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
 
   const prevSlide = () =>
-    setCurrentIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrentIndex(prev => (prev === 0 ? total - 1 : prev - 1));
 
   return (
     <div
       className="slider-container"
       style={{
-        backgroundImage: `url(${images[currentIndex]?.imageUrl})`,
+        backgroundImage: `url(${images[nextIndex]?.imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         transition: "background-image 0.8s ease"
@@ -33,18 +38,22 @@ const Collection = () => {
     >
       <div className="slider-3d">
         {images.map((item, index) => {
-          let position = "nextSlide";
-          if (index === currentIndex) position = "activeSlide";
-          else if (
-            index === currentIndex - 1 ||
-            (currentIndex === 0 && index === images.length - 1)
-          )
-            position = "lastSlide";
+          let positionClass = "hiddenSlide";
+
+          if (index === currentIndex) {
+            positionClass = "leftFadeSlide";
+          } 
+          else if (index === nextIndex) {
+            positionClass = "centerSlide";
+          } 
+          else if (index === nextNextIndex) {
+            positionClass = "rightTopSlide";
+          }
 
           return (
             <div
               key={item._id}
-              className={`slide ${position} ${index === currentIndex ? "transparent" : ""}`}
+              className={`slide ${positionClass}`}
               style={{ backgroundImage: `url(${item.imageUrl})` }}
             />
           );

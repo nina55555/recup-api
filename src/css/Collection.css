@@ -10,7 +10,7 @@ body {
 }
 
 /* ============================= */
-/* CONTAINER PRINCIPAL */
+/* CONTAINER */
 .slider-container {
   width: 100%;
   height: 100vh;
@@ -26,66 +26,67 @@ body {
 }
 
 /* ============================= */
-/* WRAPPER DES SLIDES 3D */
+/* WRAPPER */
 .slider-3d {
   position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: row;
-  transform-style: preserve-3d;
 }
 
 /* ============================= */
-/* SLIDE BASE */
+/* BASE SLIDE */
 .slide {
   position: absolute;
-  top: 55%;
-  left: 70%;
+  top: 50%;
+  left: 50%;
   width: 20%;
-  height: 30%;
+  height: 35%;
   border-radius: 15px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  transform: translate(-50%, -50%);
   transition: all 0.8s ease;
-  opacity: 1; /* désormais visible mais géré par .transparent */
+  opacity: 0;
+}
+
+/* ============================= */
+/* 1️⃣ SLIDE GAUCHE QUI DISPARAIT */
+.leftFadeSlide {
+  transform: translate(-170%, -50%) scale(0.8);
+  opacity: 0;
   z-index: 1;
 }
 
 /* ============================= */
-/* SLIDE ACTIVE */
-.activeSlide {
-  transform: translateX(0) scale(1) rotateY(0deg);
-  z-index: 3;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  transition: all 0.8s ease;
-}
-
-/* SLIDE ACTIVE TRANSPARENTE */
-.activeSlide.transparent {
-  opacity: 0; /* transparente tout le temps qu'elle est active */
-  transition: opacity 0.8s ease;
-}
-
-/* ============================= */
-/* SLIDE PRÉCÉDENTE */
-.lastSlide {
-  transform: translateX(-60%) scale(0.8) rotateY(25deg);
-  opacity: 0.6;
-  z-index: 1;
-}
-
-/* ============================= */
-/* SLIDE SUIVANTE */
-.nextSlide {
-  transform: translateX(60%) scale(0.8) rotateY(-25deg);
-  opacity: 0.6;
+/* 2️⃣ SLIDE CENTRE */
+.centerSlide {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
   z-index: 2;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 /* ============================= */
-/* BOUTONS DE NAVIGATION */
+/* 3️⃣ SLIDE DROITE AU-DESSUS */
+.rightTopSlide {
+  transform: translate(70%, -50%) scale(0.9);
+  opacity: 1;
+  z-index: 6; /* au-dessus de toutes */
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+}
+
+/* ============================= */
+/* SLIDES CACHEES */
+.hiddenSlide {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================= */
+/* BOUTONS */
 .buttons {
   position: absolute;
   bottom: 80px;
@@ -93,7 +94,7 @@ body {
   transform: translateX(-50%);
   display: flex;
   gap: 20px;
-  z-index: 5;
+  z-index: 10;
 }
 
 .buttons button {
@@ -111,7 +112,6 @@ body {
   background: #000;
   color: #fff;
 }
-
 
 /* ============================= */
 /* LOADER */
