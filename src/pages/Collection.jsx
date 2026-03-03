@@ -7,6 +7,7 @@ const Collection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(null);
   const [direction, setDirection] = useState("next");
+  const [ticketVisible, setTicketVisible] = useState(false); // état ticket visible
 
   const { data, isLoading, isError } = useQuery("model", () =>
     axios.get("http://localhost:5978/defilons/")
@@ -19,21 +20,27 @@ const Collection = () => {
   const total = images.length;
 
   const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
-  const nextNextIndex =
-    nextIndex === total - 1 ? 0 : nextIndex + 1;
-  const nextThirdIndex =
-    nextNextIndex === total - 1 ? 0 : nextNextIndex + 1;
+  const nextNextIndex = nextIndex === total - 1 ? 0 : nextIndex + 1;
+  const nextThirdIndex = nextNextIndex === total - 1 ? 0 : nextNextIndex + 1;
+
+  // 🔥 déclenchement animation ticket
+  const triggerTicketAnimation = () => {
+    setTicketVisible(false); // reset animation
+    setTimeout(() => setTicketVisible(true), 10); // relance animation
+  };
 
   const nextSlide = () => {
     setDirection("next");
     setPreviousIndex(currentIndex);
     setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
+    triggerTicketAnimation();
   };
 
   const prevSlide = () => {
     setDirection("prev");
     setPreviousIndex(currentIndex);
     setCurrentIndex(prev => (prev === 0 ? total - 1 : prev - 1));
+    triggerTicketAnimation();
   };
 
   return (
@@ -47,25 +54,15 @@ const Collection = () => {
         {images.map((item, index) => {
           let positionClass = "hiddenSlide";
 
-          /* 🔥 LOGIQUE SUIVANT = INTACTE */
           if (direction === "next" && index === currentIndex) {
             positionClass = "activeExpandSlide";
-          }
-
-          /* 🔥 LOGIQUE PRECEDENT = ANCIENNE SLIDE QUI REVIENT */
-          else if (direction === "prev" && index === previousIndex) {
+          } else if (direction === "prev" && index === previousIndex) {
             positionClass = "shrinkBackToCenter";
-          }
-
-          else if (index === nextIndex) {
+          } else if (index === nextIndex) {
             positionClass = "centerSlide";
-          }
-
-          else if (index === nextNextIndex) {
+          } else if (index === nextNextIndex) {
             positionClass = "rightSlide";
-          }
-
-          else if (index === nextThirdIndex) {
+          } else if (index === nextThirdIndex) {
             positionClass = "rightFarTopSlide";
           }
 
@@ -73,13 +70,13 @@ const Collection = () => {
             <div
               key={item._id}
               className={`slide ${positionClass}`}
-              style={{ backgroundImage: `url(${item.imageUrl})` }}  
+              style={{ backgroundImage: `url(${item.imageUrl})` }}
             />
-            
           );
         })}
       </div>
-      <div className="ticket"> 
+
+      <div className={`ticket ${ticketVisible ? "animateTicket" : ""}`}>
         <h1>MODEL A</h1>
         <span></span>
         <h2>descr</h2>
@@ -87,7 +84,6 @@ const Collection = () => {
         <p>I want this piece</p>
       </div>
 
-<p>I want this piece</p>
       <div className="buttons">
         <button onClick={prevSlide}>‹</button>
         <button onClick={nextSlide}>›</button>

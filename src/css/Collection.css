@@ -53,18 +53,16 @@ body {
 }
 
 /* ========================================= */
-/* 🔥 ANIMATION SUIVANT (grossit vers background) */
+/* 🔥 ANIMATION SUIVANT */
 @keyframes expandToBackground {
   0% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
-
   50% {
     transform: translate(-50%, -50%) scale(2);
     opacity: 0.6;
   }
-
   100% {
     transform: translate(-50%, -50%) scale(2.6);
     opacity: 0;
@@ -77,18 +75,15 @@ body {
   pointer-events: none;
 }
 
-/* ========================================= */
-/* 🔥 ANIMATION PRECEDENT (revient du background) */
+/* 🔥 ANIMATION PRECEDENT */
 @keyframes shrinkBackToFlow {
   0% {
     transform: translate(-50%, -50%) scale(2.6);
     opacity: 0;
   }
-
   40% {
     opacity: 0.7;
   }
-
   100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -100,8 +95,7 @@ body {
   z-index: 5;
 }
 
-/* ========================================= */
-/* POSITION 1 (visible principale du flux) */
+/* POSITION 1 */
 .centerSlide {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
@@ -109,7 +103,6 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
-/* ========================================= */
 /* POSITION 2 */
 .rightSlide {
   transform: translate(60%, -50%) scale(0.9);
@@ -118,7 +111,6 @@ body {
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* ========================================= */
 /* POSITION 3 */
 .rightFarTopSlide {
   transform: translate(160%, -50%) scale(0.8);
@@ -127,7 +119,6 @@ body {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
 }
 
-/* ========================================= */
 /* SLIDES CACHEES */
 .hiddenSlide {
   opacity: 0;
@@ -136,13 +127,9 @@ body {
   z-index: 0;
 }
 
-
-
-
-/* ========================================= */
+/* ============================= */
 /* TICKET */
-
-.ticket{
+.ticket {
   background-color: #000;
   position: absolute;
   left: 3%;
@@ -153,41 +140,50 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  opacity: 1;
 }
 
-.ticket h1{
-  color: pink;
-  font-size: 25px;
+.ticket h1,
+.ticket h2,
+.ticket p {
+  transform: translateY(50px);
+  opacity: 0;
 }
-
-
-.ticket h2{
-  color: pink;
-  font-size: 20px;
-}
-
-
-.ticket p{
-  font-weight: bold;
-  color: rgb(18, 129, 68);
-  font-size: 25px;
-  margin-top: 30px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ========================================= */
+/* ANIMATION TICKET BAS EN HAUT */
+@keyframes slideUpText {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* CLASSE DE TRIGGER AVEC DÉLAIS CASCADE */
+.animateTicket h1 {
+  animation: slideUpText 0.8s ease forwards;
+  animation-delay: 0s;
+}
+
+.animateTicket h2 {
+  animation: slideUpText 0.8s ease forwards;
+  animation-delay: 0.15s;
+}
+
+.animateTicket p {
+  animation: slideUpText 0.8s ease forwards;
+  animation-delay: 0.3s;
+}
+
+/* ============================= */
 /* BOUTONS */
 .buttons {
   position: absolute;
@@ -215,7 +211,6 @@ body {
   color: #fff;
 }
 
-/* ========================================= */
 /* LOADER */
 .loader {
   color: white;
