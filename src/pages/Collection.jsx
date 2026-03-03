@@ -43,26 +43,39 @@ const Collection = () => {
     triggerTicketAnimation();
   };
 
+  // Slide actuellement active pour le ticket
+  const activeSlide = images[currentIndex];
+
   return (
     <div
       className="slider-container"
       style={{
-        backgroundImage: `url(${images[currentIndex]?.imageUrl})`,
+        backgroundImage: `url(${activeSlide?.imageUrl})`,
       }}
     >
       <div className="slider-3d">
         {images.map((item, index) => {
           let positionClass = "hiddenSlide";
 
+          /* 🔥 LOGIQUE SUIVANT = INTACTE */
           if (direction === "next" && index === currentIndex) {
             positionClass = "activeExpandSlide";
-          } else if (direction === "prev" && index === previousIndex) {
+          }
+
+          /* 🔥 LOGIQUE PRECEDENT = ANCIENNE SLIDE QUI REVIENT */
+          else if (direction === "prev" && index === previousIndex) {
             positionClass = "shrinkBackToCenter";
-          } else if (index === nextIndex) {
+          }
+
+          else if (index === nextIndex) {
             positionClass = "centerSlide";
-          } else if (index === nextNextIndex) {
+          }
+
+          else if (index === nextNextIndex) {
             positionClass = "rightSlide";
-          } else if (index === nextThirdIndex) {
+          }
+
+          else if (index === nextThirdIndex) {
             positionClass = "rightFarTopSlide";
           }
 
@@ -76,12 +89,13 @@ const Collection = () => {
         })}
       </div>
 
+      {/* Ticket dynamique */}
       <div className={`ticket ${ticketVisible ? "animateTicket" : ""}`}>
-        <h1>MODEL A</h1>
+        <h1>{activeSlide?.title || "MODEL"}</h1>
         <span></span>
-        <h2>descr</h2>
+        <h2>{activeSlide?.description || "descr"}</h2>
         <span></span>
-        <p>I want this piece</p>
+        <p>{activeSlide?.subtitle || "I want this piece"}</p>
       </div>
 
       <div className="buttons">
