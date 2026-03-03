@@ -5,6 +5,7 @@ import "../css/Collection.css";
 
 const Collection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState("next"); // 🔥 direction animation
 
   const { data, isLoading, isError } = useQuery("model", () =>
     axios.get("http://localhost:5978/defilons/")
@@ -22,11 +23,17 @@ const Collection = () => {
   const nextThirdIndex =
     nextNextIndex === total - 1 ? 0 : nextNextIndex + 1;
 
-  const nextSlide = () =>
-    setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
+  const prevIndex = currentIndex === 0 ? total - 1 : currentIndex - 1;
 
-  const prevSlide = () =>
+  const nextSlide = () => {
+    setDirection("next");
+    setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setDirection("prev");
     setCurrentIndex(prev => (prev === 0 ? total - 1 : prev - 1));
+  };
 
   return (
     <div
@@ -39,15 +46,27 @@ const Collection = () => {
         {images.map((item, index) => {
           let positionClass = "hiddenSlide";
 
+          // 🔥 SLIDE ACTIVE
           if (index === currentIndex) {
-            positionClass = "activeFadeSlide";
-          } 
-          else if (index === nextIndex) {
+            positionClass =
+              direction === "next"
+                ? "activeExpandSlide"
+                : "activeShrinkFromBg";
+          }
+
+          // slide qui devient centre
+          else if (index === nextIndex && direction === "next") {
             positionClass = "centerSlide";
-          } 
+          }
+
+          else if (index === prevIndex && direction === "prev") {
+            positionClass = "centerSlide";
+          }
+
           else if (index === nextNextIndex) {
             positionClass = "rightSlide";
           }
+
           else if (index === nextThirdIndex) {
             positionClass = "rightFarTopSlide";
           }
