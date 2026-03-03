@@ -247,6 +247,8 @@
     background-color: rgb(3, 3, 3);
     width: 30px;
     height: 30px;
+
+    
     /*border: 1px solid red;*/
 }
 
@@ -355,6 +357,9 @@
         background-color: transparent;
         /*top: -60px;*/
         top: 35px;
+          /*z-index: 103;*/
+
+
         
     }
 
@@ -379,6 +384,8 @@
         /*top: 100%;*/
         left: 0px;
         text-align: center;
+         /* z-index: 102;*/
+
     }
 
 
