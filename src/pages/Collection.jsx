@@ -32,7 +32,7 @@ const Collection = () => {
     <div
       className="slider-container"
       style={{
-        backgroundImage: `url(${images[nextIndex]?.imageUrl})`,
+        backgroundImage: `url(${images[currentIndex]?.imageUrl})`,
       }}
     >
       <div className="slider-3d">
@@ -40,7 +40,7 @@ const Collection = () => {
           let positionClass = "hiddenSlide";
 
           if (index === currentIndex) {
-            positionClass = "leftFadeSlide";
+            positionClass = "invisibleSlide"; // 🔥 active totalement invisible
           } 
           else if (index === nextIndex) {
             positionClass = "centerSlide";

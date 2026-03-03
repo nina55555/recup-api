@@ -51,15 +51,15 @@ body {
 }
 
 /* ============================= */
-/* 1️⃣ SLIDE GAUCHE QUI DISPARAIT */
-.leftFadeSlide {
-  transform: translate(-200%, -50%) scale(0.8);
+/* 🔥 SLIDE ACTIVE INVISIBLE */
+.invisibleSlide {
   opacity: 0;
-  z-index: 1;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ============================= */
-/* 2️⃣ SLIDE CENTRE */
+/* SLIDE CENTRE */
 .centerSlide {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
@@ -68,7 +68,7 @@ body {
 }
 
 /* ============================= */
-/* 3️⃣ SLIDE DROITE */
+/* SLIDE DROITE */
 .rightSlide {
   transform: translate(70%, -50%) scale(0.9);
   opacity: 1;
@@ -77,11 +77,11 @@ body {
 }
 
 /* ============================= */
-/* 4️⃣ SLIDE TOUT A DROITE (AU-DESSUS) */
+/* SLIDE TOUT A DROITE (AU-DESSUS) */
 .rightFarTopSlide {
   transform: translate(150%, -50%) scale(0.8);
   opacity: 1;
-  z-index: 10; /* au-dessus de toutes */
+  z-index: 10;
   box-shadow: 0 30px 60px rgba(0,0,0,0.7);
 }
 
