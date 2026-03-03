@@ -53,7 +53,7 @@ body {
 /* ============================= */
 /* 1️⃣ SLIDE GAUCHE QUI DISPARAIT */
 .leftFadeSlide {
-  transform: translate(-170%, -50%) scale(0.8);
+  transform: translate(-200%, -50%) scale(0.8);
   opacity: 0;
   z-index: 1;
 }
@@ -68,12 +68,21 @@ body {
 }
 
 /* ============================= */
-/* 3️⃣ SLIDE DROITE AU-DESSUS */
-.rightTopSlide {
+/* 3️⃣ SLIDE DROITE */
+.rightSlide {
   transform: translate(70%, -50%) scale(0.9);
   opacity: 1;
-  z-index: 6; /* au-dessus de toutes */
+  z-index: 3;
   box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+}
+
+/* ============================= */
+/* 4️⃣ SLIDE TOUT A DROITE (AU-DESSUS) */
+.rightFarTopSlide {
+  transform: translate(150%, -50%) scale(0.8);
+  opacity: 1;
+  z-index: 10; /* au-dessus de toutes */
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
 }
 
 /* ============================= */
@@ -94,7 +103,7 @@ body {
   transform: translateX(-50%);
   display: flex;
   gap: 20px;
-  z-index: 10;
+  z-index: 20;
 }
 
 .buttons button {

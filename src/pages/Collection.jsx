@@ -19,6 +19,8 @@ const Collection = () => {
   const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
   const nextNextIndex =
     nextIndex === total - 1 ? 0 : nextIndex + 1;
+  const nextThirdIndex =
+    nextNextIndex === total - 1 ? 0 : nextNextIndex + 1;
 
   const nextSlide = () =>
     setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
@@ -31,9 +33,6 @@ const Collection = () => {
       className="slider-container"
       style={{
         backgroundImage: `url(${images[nextIndex]?.imageUrl})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        transition: "background-image 0.8s ease"
       }}
     >
       <div className="slider-3d">
@@ -47,7 +46,10 @@ const Collection = () => {
             positionClass = "centerSlide";
           } 
           else if (index === nextNextIndex) {
-            positionClass = "rightTopSlide";
+            positionClass = "rightSlide";
+          }
+          else if (index === nextThirdIndex) {
+            positionClass = "rightFarTopSlide";
           }
 
           return (
