@@ -40,7 +40,7 @@ const Collection = () => {
           let positionClass = "hiddenSlide";
 
           if (index === currentIndex) {
-            positionClass = "invisibleSlide"; // 🔥 active totalement invisible
+            positionClass = "activeFadeSlide";
           } 
           else if (index === nextIndex) {
             positionClass = "centerSlide";
