@@ -6,12 +6,8 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 /* ============================= */
-/* NAVBAR STRUCTURE */
+/* NAVBAR */
 .mainBox-nav {
   display: flex;
   justify-content: space-between;
@@ -19,21 +15,20 @@ body {
   width: 100%;
   height: 80px;
   padding: 0 20px;
-  background: linear-gradient(to right, black, #444444, black);
-
-  /* 🔥 FIX IMPORTANT */
+  background-color: #fff; /* ✅ fond blanc desktop */
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999999; /* Toujours au-dessus de tout */
+  z-index: 999999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 /* ============================= */
 /* LOGO */
 .lilTitle-box1 {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* ✅ centré horizontalement */
+  align-items: center;     /* ✅ centré verticalement */
   height: 100%;
 }
 
@@ -42,81 +37,96 @@ body {
 }
 
 /* ============================= */
-/* LINKS DESKTOP */
-
-.lilNav-box2{
-    position: relative;
+/* NAV LINKS */
+.lilNav-box2 {
+  position: relative;
 }
-
 
 .lilNav-box2 ul {
   display: flex;
   list-style: none;
   gap: 20px;
-  z-index: 9999; /* sécurité */
 }
 
 .lilNav-box2 ul li a {
   text-decoration: none;
-  color: #fff;
+  color: #000; /* noir sur fond blanc */
   font-weight: bold;
   font-size: 14px;
   padding: 8px 12px;
-  transition: background 0.3s;
+  border-radius: 6px;
+  transition: all 0.3s ease;
 }
 
+/* ✅ Liens dans des div colorés au hover */
 .lilNav-box2 ul li a:hover {
-  background-color: #370d6db9;
-  border-radius: 4px;
+  background-color: #444444;
+  color: #fff;
+  padding: 8px 14px; /* léger ajustement pour effet fluide */
 }
 
 /* ============================= */
-/* BURGER MENU */
+/* BURGER */
 .lilBurger-box3 {
-  display: none; /* caché en desktop */
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 30px;
   height: 25px;
   cursor: pointer;
+  z-index: 10001;
 }
 
 .lilBurger-box3 span {
-  display: block;
   height: 3px;
   width: 100%;
-  background: #fff;
+  background: #000;
   border-radius: 2px;
+  transition: all 0.4s ease;
+  transform-origin: center;
+}
+
+/* 🔥 ANIMATION CROIX */
+.lilBurger-box3.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(9px);
+}
+
+.lilBurger-box3.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.lilBurger-box3.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-9px);
 }
 
 /* ============================= */
-/* MEDIA QUERY MOBILE <1020px */
-
+/* MOBILE */
 @media (max-width: 1020px) {
 
   .lilBurger-box3 {
     display: flex;
-    z-index: 10001;
   }
 
   .lilNav-box2 ul {
-    position: fixed;        /* 🔥 CHANGEMENT IMPORTANT */
+    position: fixed;
     top: 80px;
     left: 0;
     width: 100%;
     height: calc(100vh - 80px);
     background: rgba(0, 0, 0, 0.95);
-
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    display: none;
-    z-index: 10000;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+    pointer-events: none;
   }
 
   .lilNav-box2 ul.open {
-    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
   }
 
   .lilNav-box2 ul li {
@@ -125,5 +135,12 @@ body {
 
   .lilNav-box2 ul li a {
     font-size: 22px;
+    color: #fff; /* blanc sur mobile menu */
+  }
+
+  /* hover mobile (optionnel) */
+  .lilNav-box2 ul li a:hover {
+    background-color: #555;
+    color: #fff;
   }
 }
