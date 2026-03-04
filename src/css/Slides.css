@@ -12,7 +12,7 @@ border-radius: 7px;
 
 
 .swiper-wrapper{
-    /*background-color: green;*/
+    background-color: green;
     height: 180px;
     width: 200%;
     margin: 5px auto;
@@ -20,8 +20,9 @@ border-radius: 7px;
 }
 
 .swiper-slide{
-    /*background-color: purple;*/
+    background-color: purple;
     height: 175px;
     width: 100px;
     margin: 5px auto;
 }
+    

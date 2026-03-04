@@ -107,7 +107,7 @@ const Collection = () => {
         </h2>
         <span></span>
         <p>
-          <a
+          <a 
             href={generateModelLink(activeSlide)}
             target="_blank"
             rel="noopener noreferrer"
