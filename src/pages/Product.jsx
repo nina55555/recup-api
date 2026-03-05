@@ -1,104 +1,74 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Countdown from "../components/Countdown";
+import Enchere from "../components/Enchere";
+import Icons from "../components/Icons";
+import "../css/Product.css";
 
+const Product = () => {
+  const { id } = useParams();
 
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-//page test
-import React, {useState, useEffect} from 'react';
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `http://localhost:5978/defilons/${id}`
+        );
 
-import { useParams } from 'react-router-dom';
+        if (!response.ok) {
+          throw new Error("Erreur produit");
+        }
 
-import { useQuery } from 'react-query';
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-//import { useParams } from 'react-router-dom';
-import Collection from './Collection';
-import Countdown from '../components/Countdown';
-import Enchere from '../components/Enchere.jsx';
-import '../css/Product.css';
+    if (id) getProduct();
+  }, [id]);
 
+  if (loading) return <div className="main--box">Loading...</div>;
+  if (!product) return <div className="main--box">Produit introuvable</div>;
 
+  return (
+    <div className="main--box">
 
+      {/* COUNTDOWN JUSTE AU DESSUS */}
+      <Countdown />
 
+      {/* BIG BOX IMAGE */}
+      <div className="big--box">
+        <div className="images--box">
+          <img
+            className="paint"
+            src="/src/assets/wallpaint.jpg"
+            alt="wall"
+          />
 
-
-
-
-const Product = () => { 
-    const {id} = useParams();
-
-
-    
-    const [product, setProduct] = useState ([]);
-    const [loading, setLoading]= useState(false);
-
-    useEffect (() => {
-        const getProduct = async () => {
-            setLoading (true);
-            //find solution id undefined bad request
-                    const response = await fetch ('http://localhost:5978/defilons/'+id);
-            setProduct(await response.json());
-        setLoading(false);        
-    }
-    getProduct()
-    }, []);
-
-
-
-
-    //avant
-    /*
-   const product = Collection.find((product) => product.id === id);
-   console.log (product)
-   //const {imageUrl, title} = product
-*/
-    
-
-   
-   const Loading = () => {
-    return(
-        <>
-        Loading...
-        </>
-    )
-   }
-
-   const ShowProduct = () => {
-    /*
-    const product = Collection.find((product) => product.id === id);
-    console.log (product)
-    //const {imageUrl, title} = product
-    */
-    return(
-        <div className="big--box">
-            < Countdown/>
-            <div className="images--box">
-                    
-                <img className='paint' src="/src/assets/wallpaint.jpg" alt="wallpaint" />
-                
-                <div className="show-product">
-                <img src={product.imageUrl} alt= "photo model" />
-                {/* <img src={product._id.imageUrl} alt= "photo model" /> */}
-                </div>
-
-            </div>
-            
+          <div className="product-overlay">
+            <img
+              className="podium"
+              src={product.imageUrl}
+              alt={product.title}
+            />
+            <h2>{product.title}</h2>
+          </div>
         </div>
-    )    
-   }
+      </div>
 
+      <Enchere productId={id} />
+      <Icons />
 
-   
-    return (
-            <div className='main--box'>
-                
-                {/*<img src={product.imageUrl.id} alt= "photo model"/> */}
-                {/*<h4>{id} </h4>*/}
-                {/*<div>this is single product {id} </div> */}
-                <div className="row">
-                    {loading ? <Loading/> : <ShowProduct/> }
-                    <Enchere/>
-                </div>
-            </div> 
-    );
+    </div>
+  );
 };
 
 export default Product;
-

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+
+                      import { useNavigate } from "react-router-dom";
+
 import "../css/Collection.css";
 
 const Collection = () => {
@@ -8,6 +11,9 @@ const Collection = () => {
   const [previousIndex, setPreviousIndex] = useState(null);
   const [direction, setDirection] = useState("next");
   const [ticketVisible, setTicketVisible] = useState(false);
+
+const navigate = useNavigate();
+
 
   const { data, isLoading, isError } = useQuery("model", () =>
     axios.get("http://localhost:5978/defilons/")
@@ -85,37 +91,17 @@ const Collection = () => {
       </div>
 
       {/* Ticket dynamique avec liens */}
-      <div className={`ticket ${ticketVisible ? "animateTicket" : ""}`}>
-        <h1>
-          <a
-            href={generateModelLink(activeSlide)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {activeSlide?.title || "MODEL"}
-          </a>
-        </h1>
-        <span></span>
-        <h2>
-          <a
-            href={generateModelLink(activeSlide)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {activeSlide?.description || "descr"}
-          </a>
-        </h2>
-        <span></span>
-        <p>
-          <a 
-            href={generateModelLink(activeSlide)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {activeSlide?.subtitle || "I want this piece"}
-          </a>
-        </p>
-      </div>
+      <div
+  className={`ticket ${ticketVisible ? "animateTicket" : ""}`}
+  onClick={() => navigate(`/product/${activeSlide?._id}`)}
+  style={{ cursor: "pointer" }}
+>
+  <h1>{activeSlide?.title || "MODEL"}</h1>
+  <span></span>
+  <h2>{activeSlide?.description || "descr"}</h2>
+  <span></span>
+  <p>{activeSlide?.subtitle || "I want this piece"}</p>
+</div>
 
       <div className="buttons">
         <button onClick={prevSlide}>‹</button>

@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import ReactDom from 'react-dom';
-import { QueryClient,QueryClientProvider } from "react-query";
+import {  QueryClient,QueryClientProvider } from "react-query";
 import { Route, Routes ,RouterProvider, Link} from "react-router-dom";
 import './css/App.css'
 

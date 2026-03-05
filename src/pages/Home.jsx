@@ -1,24 +1,15 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
-import videoShow from "../assets/cindyB.mp4";
-import Navbar from "../components/Navbar";
 import Video from "../components/Video";
-import "../css/Home.css";
 import Slides from "../components/Slides";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import Icons from "../components/Icons";
-import "../css/Icons.css";
-
-
-
+import "../css/Home.css";
 
 export default function Home() {
   // Fetch API
   const { data, isLoading, isError } = useQuery("model", () =>
-    axios.get("http://localhost:5978/defilons/"),
+    axios.get("http://localhost:5978/defilons/")
   );
 
   if (isLoading) return <p>Chargement...</p>;
@@ -28,34 +19,30 @@ export default function Home() {
 
   return (
     <div className="containerHome">
-      
-
+      {/* Vidéo avec paragraphe */}
       <Video />
 
+      {/* Bouton découvrir la collection */}
       <button className="btn-decouvrezz">
-        {/*<a href='/Signup' >Decouvrez la collection
-                </a>
-                */}
-        <a href="/Collection">Decouvrez la collection</a>
+        <a href="/Collection">Découvrez la collection</a>
       </button>
 
+      {/* Présentation */}
       <div className="presentation">
-        <h2>Presentation.</h2>
+        <h2>Présentation</h2>
         <p>
-          Pourrez vous ... Chez It V{" "}
-          {/*nous ne nous occupons pas de la mode. */} Nous nous specialisons
-          dans le vet.. d ... a.. h... i... Ra..... n... v... h* lors d n...
-          en...... et n... en fe.... d. l'.....*une br.... d'..... * u.. oe....
-          br....* presente s.. v... mod.. //qui acc.... de gr... ch... au tr...
-          d. n... ass//
+          Pourrez-vous ... Chez It V, nous nous spécialisons dans le vêtement
+          de haute qualité, réalisé avec passion et créativité. Découvrez nos
+          modèles uniques et laissez-vous surprendre par l'élégance et le style
+          qui caractérisent chaque pièce de notre collection.
         </p>
 
-        <Slides products={products} />
+        {/* Slider produits */}
+        {/*<Slides products={products} />*/}
 
-            <Icons/>
-
+        {/* Icônes réseaux sociaux */}
+        <Icons />
       </div>
-
     </div>
   );
 }

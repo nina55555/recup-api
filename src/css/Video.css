@@ -1,44 +1,72 @@
-
-/*
-
-.boxVideo{
-    /*
-    width: auto;        
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    /*background-color: greenyellow;
-    
-    
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
-.boxVideo p{
-    margin-top: 10px;
+/* Container Video */
+.boxVideo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 80px; /* espace pour navbar */
+  padding: 10px;
+  text-align: center;
+  grid-row: 1/6;
+  grid-column: 1/4;
 }
 
-.videoShow{
-    /*
-    width: 55%;
-    /*width: 70%;
-    height: 90%;
-    margin: 10px;
-    /*background-color: rgba(105, 110, 72, 0.87);
-    
-   
-
-   
+/* Paragraphe au-dessus de la vidéo */
+.video-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(192, 191, 191);
+  margin-bottom: 15px;
+  max-width: 90%;
+  line-height: 1.4;
 }
 
-.videoShow video{
-    /*
-    width: 80%;
-    height: 90%;
-    margin: 8px;
-    border-radius: 20px;
-    
+/* Wrapper de la vidéo */
+.videoShow {
+  width: 75%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-*/
+/* La vidéo elle-même */
+.videoShow video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh; /* pour ne pas dépasser l'écran */
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 750px) {
+  .video-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .videoShow {
+    width: 90%;
+  }
+}
+
+@media (min-width: 1020px) {
+  .video-text {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .videoShow {
+    width: 70%;
+  }
+}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import '../css/Enchere.css'
 
-function Enchere() {
+function Enchere({ productId }) {
   //etat
   const [sommes, setSommes] = useState([5555
   ]);
@@ -44,7 +44,13 @@ function Enchere() {
   //rendu
   return (
     <>
+
+
+
       <div className="bigTable">
+
+          <h3>Enchères pour le produit : {productId}</h3>
+
         <form action="submit" onSubmit={handleSubmit}>
           <input
             value={newSomme}
