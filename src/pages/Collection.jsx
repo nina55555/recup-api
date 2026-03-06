@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-
-                      import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import "../css/Collection.css";
 
 const Collection = () => {
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(null);
   const [direction, setDirection] = useState("next");
   const [ticketVisible, setTicketVisible] = useState(false);
 
-const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery("model", () =>
     axios.get("http://localhost:5978/defilons/")
@@ -50,13 +48,6 @@ const navigate = useNavigate();
 
   const activeSlide = images[currentIndex];
 
-  // Fonction pour générer l'URL dynamique à partir du titre
-  const generateModelLink = (slide) => {
-    // Si ton API fournit déjà un lien, tu peux remplacer slide.title par slide.link
-    const titleSlug = slide?.title?.toLowerCase().replace(/\s+/g, "-") || "model";
-    return `https://example.com/models/${titleSlug}`; // Change le domaine selon ton projet
-  };
-
   return (
     <div
       className="slider-container"
@@ -66,17 +57,27 @@ const navigate = useNavigate();
     >
       <div className="slider-3d">
         {images.map((item, index) => {
+
           let positionClass = "hiddenSlide";
+
+          /* slide qui va devenir active → passe derrière */
+          if (index === nextIndex && direction === "next") {
+            positionClass = "preActiveSlide";
+          }
 
           if (direction === "next" && index === currentIndex) {
             positionClass = "activeExpandSlide";
-          } else if (direction === "prev" && index === previousIndex) {
+          } 
+          else if (direction === "prev" && index === previousIndex) {
             positionClass = "shrinkBackToCenter";
-          } else if (index === nextIndex) {
+          } 
+          else if (index === nextIndex) {
             positionClass = "centerSlide";
-          } else if (index === nextNextIndex) {
+          } 
+          else if (index === nextNextIndex) {
             positionClass = "rightSlide";
-          } else if (index === nextThirdIndex) {
+          } 
+          else if (index === nextThirdIndex) {
             positionClass = "rightFarTopSlide";
           }
 
@@ -90,23 +91,23 @@ const navigate = useNavigate();
         })}
       </div>
 
-      {/* Ticket dynamique avec liens */}
       <div
-  className={`ticket ${ticketVisible ? "animateTicket" : ""}`}
-  onClick={() => navigate(`/product/${activeSlide?._id}`)}
-  style={{ cursor: "pointer" }}
->
-  <h1>{activeSlide?.title || "MODEL"}</h1>
-  <span></span>
-  <h2>{activeSlide?.description || "descr"}</h2>
-  <span></span>
-  <p>{activeSlide?.subtitle || "I want this piece"}</p>
-</div>
+        className={`ticket ${ticketVisible ? "animateTicket" : ""}`}
+        onClick={() => navigate(`/product/${activeSlide?._id}`)}
+        style={{ cursor: "pointer" }}
+      >
+        <h1>{activeSlide?.title || "MODEL"}</h1>
+        <span></span>
+        <h2>{activeSlide?.description || "descr"}</h2>
+        <span></span>
+        <p>{activeSlide?.subtitle || "I want this piece"}</p>
+      </div>
 
       <div className="buttons">
         <button onClick={prevSlide}>‹</button>
         <button onClick={nextSlide}>›</button>
       </div>
+
     </div>
   );
 };

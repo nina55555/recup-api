@@ -9,8 +9,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ============================= */
 /* CONTAINER */
+
 .slider-container {
   width: 100%;
   height: 100vh;
@@ -19,16 +19,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
 
   background-size: cover;
   background-position: center;
   transition: background-image 0.8s ease;
-  transform-style: flat;
 }
 
-/* ============================= */
 /* WRAPPER */
+
 .slider-3d {
   position: relative;
   top: 23%;
@@ -37,8 +35,8 @@ body {
   height: 100%;
 }
 
-/* ============================= */
 /* BASE SLIDE */
+
 .slide {
   position: absolute;
   top: 53%;
@@ -46,51 +44,72 @@ body {
   width: 12%;
   height: 20%;
   border-radius: 15px;
+
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
   transform: translate(-50%, -50%);
   transition: all 0.8s ease;
+
   opacity: 0;
 }
 
-/* ========================================= */
-/* 🔥 ANIMATION SUIVANT */
+/* slide qui va devenir active → derrière */
+
+.preActiveSlide {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  z-index: -2;
+}
+
+/* animation disparition */
+
 @keyframes expandToBackground {
+
   0% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
+
   50% {
     transform: translate(-50%, -50%) scale(2);
     opacity: 0.6;
   }
+
   100% {
     transform: translate(-50%, -50%) scale(2.6);
     opacity: 0;
   }
+
 }
 
-/* slide qui disparait -> toujours derrière */
 .activeExpandSlide {
+
   animation: expandToBackground 0.8s forwards ease-in-out;
   z-index: -1;
   pointer-events: none;
+
 }
 
-/* 🔥 ANIMATION PRECEDENT */
+/* animation retour */
+
 @keyframes shrinkBackToFlow {
+
   0% {
     transform: translate(-50%, -50%) scale(2.6);
     opacity: 0;
   }
+
   40% {
     opacity: 0.7;
   }
+
   100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
+
 }
 
 .shrinkBackToCenter {
@@ -98,35 +117,35 @@ body {
   z-index: 5;
 }
 
-/* ============================= */
-/* POSITION 1 (slide principale) */
+/* position principale */
+
 .centerSlide {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
   z-index: 4;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-/* ============================= */
-/* POSITION 2 */
+/* position 2 */
+
 .rightSlide {
   transform: translate(60%, -50%) scale(0.9);
   opacity: 1;
   z-index: 3;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
 }
 
-/* ============================= */
-/* POSITION 3 */
+/* position 3 */
+
 .rightFarTopSlide {
   transform: translate(160%, -50%) scale(0.8);
   opacity: 1;
   z-index: 2;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
 }
 
-/* ============================= */
-/* SLIDES CACHEES */
+/* slides invisibles */
+
 .hiddenSlide {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.5);
@@ -134,47 +153,56 @@ body {
   z-index: 0;
 }
 
-/* ============================= */
 /* TICKET */
+
 .ticket {
+
   background-color: #000;
   position: absolute;
+
   left: 3%;
   top: 30%;
+
   width: 210px;
   height: 200px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 1;
+
 }
 
 .ticket h1,
 .ticket h2,
 .ticket p {
+
   transform: translateY(50px);
   opacity: 0;
+
 }
 
-/* ========================================= */
-/* ANIMATION TICKET BAS EN HAUT */
+/* animation texte */
+
 @keyframes slideUpText {
+
   0% {
     transform: translateY(50px);
     opacity: 0;
   }
+
   50% {
     transform: translateY(-10px);
     opacity: 0.8;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
   }
+
 }
 
-/* CLASSE DE TRIGGER AVEC DÉLAIS CASCADE */
 .animateTicket h1 {
   animation: slideUpText 0.8s ease forwards;
   animation-delay: 0s;
@@ -190,27 +218,37 @@ body {
   animation-delay: 0.3s;
 }
 
-/* ============================= */
-/* BOUTONS */
+/* boutons */
+
 .buttons {
+
   position: absolute;
   bottom: 150px;
+
   left: 50%;
   transform: translateX(-50%);
+
   display: flex;
   gap: 20px;
+
   z-index: 20;
+
 }
 
 .buttons button {
+
   width: 50px;
   height: 50px;
+
   border-radius: 50%;
   border: none;
+
   cursor: pointer;
   font-size: 22px;
-  background: rgba(255, 255, 255, 0.85);
+
+  background: rgba(255,255,255,0.85);
   transition: 0.3s;
+
 }
 
 .buttons button:hover {
@@ -218,13 +256,17 @@ body {
   color: #fff;
 }
 
-/* ============================= */
-/* LOADER */
+/* loader */
+
 .loader {
+
   color: white;
   font-size: 24px;
+
   height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
