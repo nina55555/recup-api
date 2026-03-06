@@ -19,7 +19,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*perspective: 1200px;*/
   z-index: 1;
 
   background-size: cover;
@@ -72,9 +71,10 @@ body {
   }
 }
 
+/* slide qui disparait -> toujours derrière */
 .activeExpandSlide {
   animation: expandToBackground 0.8s forwards ease-in-out;
-  z-index: 1;
+  z-index: -1;
   pointer-events: none;
 }
 
@@ -98,7 +98,8 @@ body {
   z-index: 5;
 }
 
-/* POSITION 1 */
+/* ============================= */
+/* POSITION 1 (slide principale) */
 .centerSlide {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
@@ -106,6 +107,7 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
+/* ============================= */
 /* POSITION 2 */
 .rightSlide {
   transform: translate(60%, -50%) scale(0.9);
@@ -114,6 +116,7 @@ body {
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
+/* ============================= */
 /* POSITION 3 */
 .rightFarTopSlide {
   transform: translate(160%, -50%) scale(0.8);
@@ -122,6 +125,7 @@ body {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
 }
 
+/* ============================= */
 /* SLIDES CACHEES */
 .hiddenSlide {
   opacity: 0;
@@ -214,6 +218,7 @@ body {
   color: #fff;
 }
 
+/* ============================= */
 /* LOADER */
 .loader {
   color: white;
