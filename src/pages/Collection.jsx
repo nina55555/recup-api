@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-
 import "../css/Collection.css";
 
 const Collection = () => {
+
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState(null);
   const [direction, setDirection] = useState("next");
   const [ticketVisible, setTicketVisible] = useState(false);
 
@@ -22,6 +23,10 @@ const Collection = () => {
   const images = data?.data || [];
   const total = images.length;
 
+  const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
+  const nextNextIndex = nextIndex === total - 1 ? 0 : nextIndex + 1;
+  const nextThirdIndex = nextNextIndex === total - 1 ? 0 : nextNextIndex + 1;
+
   const triggerTicketAnimation = () => {
     setTicketVisible(false);
     setTimeout(() => setTicketVisible(true), 10);
@@ -29,13 +34,15 @@ const Collection = () => {
 
   const nextSlide = () => {
     setDirection("next");
-    setCurrentIndex((prev) => (prev + 1) % total);
+    setPreviousIndex(currentIndex);
+    setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
     triggerTicketAnimation();
   };
 
   const prevSlide = () => {
     setDirection("prev");
-    setCurrentIndex((prev) => (prev - 1 + total) % total);
+    setPreviousIndex(currentIndex);
+    setCurrentIndex(prev => (prev === 0 ? total - 1 : prev - 1));
     triggerTicketAnimation();
   };
 
@@ -50,13 +57,29 @@ const Collection = () => {
     >
       <div className="slider-3d">
         {images.map((item, index) => {
-          let position = (index - currentIndex + total) % total;
 
           let positionClass = "hiddenSlide";
 
-          if (position === 0) positionClass = "centerSlide";
-          else if (position === 1) positionClass = "rightSlide";
-          else if (position === 2) positionClass = "rightFarTopSlide";
+          /* slide qui va devenir active → passe derrière */
+          if (index === nextIndex && direction === "next") {
+            positionClass = "preActiveSlide";
+          }
+
+          if (direction === "next" && index === currentIndex) {
+            positionClass = "activeExpandSlide";
+          } 
+          else if (direction === "prev" && index === previousIndex) {
+            positionClass = "shrinkBackToCenter";
+          } 
+          else if (index === nextIndex) {
+            positionClass = "centerSlide";
+          } 
+          else if (index === nextNextIndex) {
+            positionClass = "rightSlide";
+          } 
+          else if (index === nextThirdIndex) {
+            positionClass = "rightFarTopSlide";
+          }
 
           return (
             <div
@@ -84,6 +107,7 @@ const Collection = () => {
         <button onClick={prevSlide}>‹</button>
         <button onClick={nextSlide}>›</button>
       </div>
+
     </div>
   );
 };
