@@ -1,4 +1,4 @@
-* {
+* { 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,7 +10,6 @@ body {
 }
 
 /* CONTAINER */
-
 .slider-container {
   width: 100%;
   height: 100vh;
@@ -19,14 +18,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-size: cover;
   background-position: center;
   transition: background-image 0.8s ease;
 }
 
 /* WRAPPER */
-
 .slider-3d {
   position: relative;
   top: 23%;
@@ -36,7 +33,6 @@ body {
 }
 
 /* BASE SLIDE */
-
 .slide {
   position: absolute;
   top: 53%;
@@ -44,18 +40,13 @@ body {
   width: 12%;
   height: 20%;
   border-radius: 15px;
-
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
   transform: translate(-50%, -50%);
   transition: all 0.8s ease;
-
   opacity: 0;
 }
-
-/* slide qui va devenir active → derrière */
 
 .preActiveSlide {
   transform: translate(-50%, -50%) scale(1);
@@ -63,61 +54,28 @@ body {
   z-index: -2;
 }
 
-/* animation disparition */
-
 @keyframes expandToBackground {
-
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-
-  50% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0.6;
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(2.6);
-    opacity: 0;
-  }
-
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(2); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
 }
 
 .activeExpandSlide {
-
   animation: expandToBackground 0.8s forwards ease-in-out;
   z-index: -1;
   pointer-events: none;
-
 }
 
-/* animation retour */
-
 @keyframes shrinkBackToFlow {
-
-  0% {
-    transform: translate(-50%, -50%) scale(2.6);
-    opacity: 0;
-  }
-
-  40% {
-    opacity: 0.7;
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-
+  0% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+  40% { opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
 .shrinkBackToCenter {
   animation: shrinkBackToFlow 0.8s forwards ease-in-out;
   z-index: 5;
 }
-
-/* position principale */
 
 .centerSlide {
   transform: translate(-50%, -50%) scale(1);
@@ -126,16 +84,12 @@ body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-/* position 2 */
-
 .rightSlide {
   transform: translate(60%, -50%) scale(0.9);
   opacity: 1;
   z-index: 3;
   box-shadow: 0 25px 50px rgba(0,0,0,0.6);
 }
-
-/* position 3 */
 
 .rightFarTopSlide {
   transform: translate(160%, -50%) scale(0.8);
@@ -144,8 +98,6 @@ body {
   box-shadow: 0 30px 60px rgba(0,0,0,0.7);
 }
 
-/* slides invisibles */
-
 .hiddenSlide {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.5);
@@ -153,116 +105,119 @@ body {
   z-index: 0;
 }
 
-/* TICKET */
-
-
-
-
-
-/* ============================= */
-/* TICKET */
-
+/* =============================
+   TICKET PREMIUM
+============================= */
 .ticket {
-  background-color: #000;
+  background-color: #f8f8f8ef;
+  border: 1px solid grey;
   position: absolute;
   left: 3%;
   top: 30%;
-  width: 210px;
-  height: 200px;
-
+  width: 230px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 8px;
-
   opacity: 1;
+  border-radius: 12px;
+
+  /* ombre noire premium */
+  box-shadow:
+    20px 15px 40px rgba(0,0,0,0.55),
+    0 5px 30px rgba(0,0,0,0.25) inset;
 }
 
-/* état initial texte */
-
+/* texte du ticket */
 .ticket h1,
 .ticket h2,
 .ticket p {
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
   transform: translateY(30px);
   opacity: 0;
+  color: #030303;
 }
 
-/* ============================= */
-/* ANIMATION TEXTE DOUCE */
+/* paragraphe */
+.ticket p {
+  background-color: rgba(0, 128, 0, 0.521);
+  border: 1px solid rgb(41, 39, 39);
+  border-radius: 3px;
+  margin: 2px;
+  padding: 10px;
+  font-size: 22px;
+  transform: translateY(30px);
+  opacity: 0;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
 
+/* HOVER MODERN */
+.ticket p:hover {
+  transform: translateY(-3px) scale(1.03);
+  background-color: rgba(0, 170, 0, 0.75);
+  color: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35), 0 0 12px rgba(0,255,120,0.35);
+}
+
+.ticket p::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(27, 27, 27, 0.35), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+}
+
+.ticket p:hover::after {
+  left: 120%;
+}
+
+/* =============================
+   ANIMATION TEXTE
+============================= */
 @keyframes slideUpTextSmooth {
-  0% {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-
-  60% {
-    opacity: 0.7;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  0% { transform: translateY(30px); opacity: 0; }
+  40% { opacity: 0.7; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
-/* déclenchement */
+.animateTicket h1 { animation: slideUpTextSmooth 1s cubic-bezier(0.22,1,0.36,1) forwards; }
+.animateTicket h2 { animation: slideUpTextSmooth 1s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay: 0.2s; }
+.animateTicket p { animation: slideUpTextSmooth 1s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay: 0.4s; }
 
-.animateTicket h1 {
-  animation: slideUpTextSmooth 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.animateTicket h2 {
-  animation: slideUpTextSmooth 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: 0.2s;
-}
-
-.animateTicket p {
-  animation: slideUpTextSmooth 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: 0.4s;
-}
-
-
-
-
-
-
-
-
-
-
-/* boutons */
-
+/* BOUTONS */
 .buttons {
-
   position: absolute;
   bottom: 150px;
-
   left: 50%;
   transform: translateX(-50%);
-
   display: flex;
   gap: 20px;
-
   z-index: 20;
-
 }
 
 .buttons button {
-
   width: 50px;
   height: 50px;
-
   border-radius: 50%;
   border: none;
-
   cursor: pointer;
   font-size: 22px;
-
   background: rgba(255,255,255,0.85);
   transition: 0.3s;
-
 }
 
 .buttons button:hover {
@@ -270,17 +225,12 @@ body {
   color: #fff;
 }
 
-/* loader */
-
+/* LOADER */
 .loader {
-
   color: white;
   font-size: 24px;
-
   height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
