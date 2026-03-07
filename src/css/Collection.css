@@ -109,11 +109,13 @@ body {
    TICKET PREMIUM
 ============================= */
 .ticket {
-  background-color: #f8f8f8ef;
+  /*background-color: #7c774cef;*/
+    /*background-color: white;*/
+  background-color: rgb(233, 233, 232);
   border: 1px solid grey;
   position: absolute;
   left: 3%;
-  top: 30%;
+  top: 25%;
   width: 230px;
   height: 250px;
   display: flex;
