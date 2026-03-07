@@ -1,16 +1,13 @@
 .bigTable {
   width: 90%;
-  min-height: calc(50vh - 60px); /* prend l'espace sous la big-box */
-
+  min-height: calc(50vh - 60px);
   background-color: aliceblue;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-
   padding: 20px;
-  margin-bottom: 60px; /* espace pour les icônes */
+  margin-bottom: 60px;
 }
 
 .bigTable form {
@@ -25,4 +22,29 @@
 .bigTable li {
   padding: 8px 0;
   border-bottom: 1px solid #ccc;
+}
+
+/* ======================== */
+/* ALIGNEMENT ENCHERE SUR UNE LIGNE */
+.enchere-row {
+  display: flex;
+  justify-content: space-between; /* texte à gauche, icônes à droite */
+  align-items: center;
+  gap: 10px; /* espace entre texte et icônes */
+}
+
+.enchere-icons {
+  display: flex;
+  gap: 10px; /* espace entre icônes */
+}
+
+.enchere-icons a {
+  font-size: 20px;
+  color: #333;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.enchere-icons a:hover {
+  transform: scale(1.3);
+  color: #00ff7f; /* vert lumineux au hover */
 }
