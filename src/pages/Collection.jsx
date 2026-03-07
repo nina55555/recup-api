@@ -38,7 +38,7 @@ const Collection = () => {
       // animation ticket
       setTicketVisible(false);
       setTimeout(() => setTicketVisible(true), 10);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(interval); // nettoyage
   }, [currentIndex, images, total]);
