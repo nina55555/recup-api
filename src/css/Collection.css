@@ -1,3 +1,4 @@
+/* Collection.css */
 * { 
   margin: 0;
   padding: 0;
@@ -109,8 +110,6 @@ body {
    TICKET PREMIUM
 ============================= */
 .ticket {
-  /*background-color: #7c774cef;*/
-    /*background-color: white;*/
   background-color: rgb(233, 233, 232);
   border: 1px solid grey;
   position: absolute;
@@ -125,37 +124,38 @@ body {
   gap: 8px;
   opacity: 1;
   border-radius: 12px;
-
-  /* ombre noire premium */
-  box-shadow:
-    20px 15px 40px rgba(0,0,0,0.55),
-    0 5px 30px rgba(0,0,0,0.25) inset;
+  box-shadow: 20px 15px 40px rgba(0,0,0,0.55), 0 5px 30px rgba(0,0,0,0.25) inset;
+  text-align: center; /* centre le texte horizontalement */
 }
 
 /* texte du ticket */
 .ticket h1,
-.ticket h2,
-.ticket p {
-  font-weight: bold;
+.ticket h2
+{
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 19px;
+  font-size: 17px;
   transform: translateY(30px);
   opacity: 0;
   color: #030303;
+  text-align: center; /* ajout pour centrer horizontalement */
 }
 
 /* paragraphe */
 .ticket p {
+  
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
   background-color: rgba(0, 128, 0, 0.521);
   border: 1px solid rgb(41, 39, 39);
   border-radius: 3px;
-  margin: 2px;
+  margin: 10px;
   padding: 10px;
   font-size: 18px;
   transform: translateY(30px);
   opacity: 0;
   position: relative;
   overflow: hidden;
+  text-align: center; /* centrer le texte */
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,
@@ -163,7 +163,7 @@ body {
     color 0.35s ease;
 }
 
-/* HOVER MODERN */
+/* Hover */
 .ticket p:hover {
   transform: translateY(-3px) scale(1.03);
   background-color: rgba(0, 170, 0, 0.75);
@@ -178,7 +178,7 @@ body {
   left: -120%;
   width: 120%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(27, 27, 27, 0.35), transparent);
+  background: linear-gradient(120deg, transparent, rgba(27,27,27,0.35), transparent);
   transform: skewX(-25deg);
   transition: left 0.6s ease;
 }
@@ -187,9 +187,7 @@ body {
   left: 120%;
 }
 
-/* =============================
-   ANIMATION TEXTE
-============================= */
+/* ANIMATION TEXTE */
 @keyframes slideUpTextSmooth {
   0% { transform: translateY(30px); opacity: 0; }
   40% { opacity: 0.7; }

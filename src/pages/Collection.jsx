@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import "../css/Collection.css";
 
 const Collection = () => {
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(null);
   const [direction, setDirection] = useState("next");
@@ -27,7 +26,7 @@ const Collection = () => {
     if (images.length > 0) setTicketVisible(true);
   }, [images]);
 
-  // Slide automatique toutes les 3 secondes
+  // Slide automatique toutes les 5 secondes
   useEffect(() => {
     if (images.length === 0) return;
 
@@ -106,7 +105,7 @@ const Collection = () => {
         <span></span>
         <h2>{activeSlide?.description || "descr"}</h2>
         <span></span>
-        <p>{activeSlide?.subtitle || "I WANT THIS PIECE"}</p>
+        <p>{activeSlide?.subtitle || "I WANT THIS EXCLUSIVE PIECE"}</p>
       </div>
 
       <div className="buttons">
