@@ -1,125 +1,188 @@
-.bigTable {
-  width: 90%;
-  min-height: calc(50vh - 60px);
-  background-color: aliceblue;
+/* CONTENEUR PRINCIPAL DE L'ENCHÈRE */
+.enchere-container {
+  width: 95%;
+  max-width: 1000px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* BOÎTE D'INPUT */
+.bid-input-box {
+  display: flex;
+  gap: 10px;
+}
+
+.bid-input-box input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.bid-input-box button {
+  padding: 12px 20px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.bid-input-box button:hover {
+  background: #333;
+}
+
+/* LISTE DES ENCHÈRES */
+.bid-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 200px; 
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* SCROLLBAR PREMIUM */
+.bid-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.bid-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.bid-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d4af37, #8a6c2f);
+  border-radius: 10px;
+}
+
+/* LIGNE ENCHÈRE */
+.bid-row {
+  display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 20px;
-  margin-bottom: 60px;
+  gap: 8px;
+  background: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  min-width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-.bigTable form {
-  margin: 15px 0;
+/* SPANS FLEXIBLES */
+.bid-row span {
+  flex-shrink: 0; /* empêche de rétrécir trop */
 }
 
-.bigTable ul {
+.comment {
+  color: #444;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1; /* texte peut se réduire si nécessaire */
+}
+
+/* PRIX */
+.price {
+  font-weight: bold;
+  color: black;
+  flex-shrink: 0;
+}
+
+/* ICÔNES */
+.icons-ench {
+  margin-left: auto; /* pousse les icônes à l'extrême droite */
+  display: flex;
+  gap: 6px;
+  font-size: 14px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* POPUP ERREUR */
+.error-popup {
+  position: fixed;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  z-index: 1100;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ANIMATION FADE */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* POPUP FORMULAIRE */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  list-style: none;
-}
-
-.bigTable li {
-  padding: 8px 0;
-  border-bottom: 1px solid #ccc;
-}
-
-/* ======================== */
-/* ALIGNEMENT ENCHERE SUR UNE LIGNE */
-.enchere-row {
+  height: 100%;
+  background: rgba(0,0,0,0.7);
   display: flex;
-  justify-content: space-between; /* texte à gauche, icônes à droite */
+  justify-content: center;
   align-items: center;
-  gap: 10px; /* espace entre texte et icônes */
+  z-index: 1000;
 }
 
-.enchere-icons {
+.popup-form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
   display: flex;
-  gap: 10px; /* espace entre icônes */
+  flex-direction: column;
+  gap: 15px;
 }
 
-.enchere-icons a {
-  font-size: 20px;
-  color: #333;
-  transition: transform 0.2s ease, color 0.2s ease;
+.popup-form textarea {
+  height: 100px;
+  resize: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-.enchere-icons a:hover {
-  transform: scale(1.3);
-  color: #00ff7f; /* vert lumineux au hover */
+.popup-form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-
-
-
-
-.popup-overlay{
-
-position:fixed;
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,0.7);
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-z-index:1000;
-
+.popup-form button {
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.popup-form{
-
-background:white;
-padding:30px;
-
-border-radius:10px;
-
-width:400px;
-
-display:flex;
-flex-direction:column;
-
-gap:15px;
-
-}
-
-.popup-form textarea{
-
-height:100px;
-
-resize:none;
-
-padding:10px;
-
-}
-
-.popup-options{
-
-display:flex;
-gap:10px;
-
-}
-
-.popup-form select{
-
-padding:10px;
-
-}
-
-.validate-bid{
-
-padding:12px;
-
-background:black;
-color:white;
-
-border:none;
-
-cursor:pointer;
-
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .bid-row {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+  .comment {
+    max-width: 100%;
+  }
+  .icons-ench {
+    font-size: 16px;
+  }
 }
