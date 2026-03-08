@@ -24,6 +24,10 @@ const Enchere = ({ onBidSubmit, bids }) => {
     if (e.key === "Enter") handleSubmit();
   };
 
+  const handleIconClick = (type, bid) => {
+    alert(`Vous avez cliqué sur l'icône "${type}" pour l'enchère de ${bid.amount}€`);
+  };
+
   return (
     <div className="enchere-container">
       {/* INPUT */}
@@ -50,20 +54,27 @@ const Enchere = ({ onBidSubmit, bids }) => {
         {bids.map((bid, index) => {
           const date = new Date(bid.date).toLocaleString();
           return (
+          <div className="bid-infos">
             <div className="bid-row" key={index}>
-              <span>Pseudo</span>
-              <span>a enchéri le</span>
-              <span>{date}</span>
-              <span className="price">{bid.amount}€</span>
-              <span>commentaire</span>
-              <span className="comment">{bid.message || "-"}</span>
-              <span>pays promu</span>
-              <span>{bid.country || "-"}</span>
-              <span className="icons-ench">
-                🔥
-                📖
-              </span>
-            </div>
+              
+                <span>Pseudo</span> 
+                <span>a enchéri le</span>
+                <span>{date}</span>
+                <span className="price">{bid.amount}€</span>
+                <span>commentaire</span>
+                <span className="comment">{bid.message || "-"}</span>
+                <span>pays promu</span>
+                <span>{bid.country || "-"}</span>
+
+              </div>
+              
+              <div className="icons-ench">
+                <a href="#" onClick={() => handleIconClick("feu", bid)}>🔥</a>
+                <a href="#" onClick={() => handleIconClick("livre", bid)}>📖</a>
+              </div>
+
+           
+           </div>  
           );
         })}
       </div>

@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 200px; 
+  max-height: 200px;
   overflow-y: auto;
   padding-right: 5px;
 }
@@ -54,6 +54,7 @@
 
 .bid-list::-webkit-scrollbar-track {
   background: transparent;
+  border-radius: 4px;
 }
 
 .bid-list::-webkit-scrollbar-thumb {
@@ -61,7 +62,19 @@
   border-radius: 10px;
 }
 
-/* LIGNE ENCHÈRE */
+.bid-list::-webkit-scrollbar-thumb:hover {
+  background: #bfa14d;
+}
+
+/* CONTENEUR POUR BID ROW + ICÔNES */
+.bid-infos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* LIGNE D'UNE ENCHÈRE */
 .bid-row {
   display: flex;
   align-items: center;
@@ -70,38 +83,43 @@
   padding: 10px 16px;
   border-radius: 6px;
   font-size: 13px;
-  min-width: 100%;
+  white-space: nowrap;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   overflow: hidden;
-}
-
-/* SPANS FLEXIBLES */
-.bid-row span {
-  flex-shrink: 0; /* empêche de rétrécir trop */
-}
-
-.comment {
-  color: #444;
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-shrink: 1; /* texte peut se réduire si nécessaire */
+  flex-shrink: 0; /* ne pas shrink */
 }
 
 /* PRIX */
 .price {
   font-weight: bold;
-  color: black;
-  flex-shrink: 0;
+  color: rgb(194, 4, 4);
 }
 
-/* ICÔNES */
+/* COMMENTAIRE */
+.comment {
+  color: #444;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ICÔNES CLIQUABLES */
 .icons-ench {
-  margin-left: auto; /* pousse les icônes à l'extrême droite */
   display: flex;
   gap: 6px;
-  font-size: 14px;
-  flex-shrink: 0;
+  font-size: 16px;
+  flex-shrink: 0; /* empêche les icônes de rétrécir */
+}
+
+.icons-ench a {
+  text-decoration: none;
+  color: black;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.icons-ench a:hover {
+  transform: scale(1.3);
+  color: #ff8c00;
   cursor: pointer;
 }
 
@@ -175,14 +193,17 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  .bid-infos {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .bid-row {
-    flex-wrap: wrap;
     white-space: normal;
   }
   .comment {
     max-width: 100%;
   }
   .icons-ench {
-    font-size: 16px;
+    margin-top: 5px;
   }
 }
