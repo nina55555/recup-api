@@ -15,6 +15,7 @@ const Product = () => {
     const getProduct = async () => {
       try {
         setLoading(true);
+
         const response = await fetch(
           `http://localhost:5978/defilons/${id}`
         );
@@ -25,6 +26,7 @@ const Product = () => {
 
         const data = await response.json();
         setProduct(data);
+
       } catch (error) {
         console.error(error);
       } finally {
@@ -33,6 +35,7 @@ const Product = () => {
     };
 
     if (id) getProduct();
+
   }, [id]);
 
   if (loading) return <div className="main--box">Loading...</div>;
@@ -41,12 +44,11 @@ const Product = () => {
   return (
     <div className="main--box">
 
-      {/* COUNTDOWN JUSTE AU DESSUS */}
       <Countdown />
 
-      {/* BIG BOX IMAGE */}
       <div className="big--box">
         <div className="images--box">
+
           <img
             className="paint"
             src="/src/assets/wallpaint.jpg"
@@ -54,17 +56,22 @@ const Product = () => {
           />
 
           <div className="product-overlay">
+
             <img
               className="podium"
               src={product.imageUrl}
               alt={product.title}
             />
+
             <h2>{product.title}</h2>
+
           </div>
+
         </div>
       </div>
 
       <Enchere productId={id} />
+
       <Icons />
 
     </div>
