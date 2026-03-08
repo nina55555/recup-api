@@ -9,93 +9,106 @@ const Product = () => {
 
   const { id } = useParams();
 
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [product,setProduct] = useState(null);
+  const [loading,setLoading] = useState(true);
 
-  const [showPopup, setShowPopup] = useState(false);
-  const [bidValue, setBidValue] = useState(null);
+  const [showPopup,setShowPopup] = useState(false);
+  const [bidValue,setBidValue] = useState(null);
 
-  const [formData, setFormData] = useState({
-    message: "",
-    writeOption: "now",
-    country: ""
+  const [formData,setFormData] = useState({
+    message:"",
+    country:""
   });
 
-  const [bids, setBids] = useState([]);
+  const [bids,setBids] = useState([
+    {
+      amount:5555,
+      message:"Ouverture des enchères",
+      country:"France",
+      date:new Date()
+    }
+  ]);
 
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        setLoading(true);
+  useEffect(()=>{
+
+    const getProduct = async()=>{
+
+      try{
 
         const response = await fetch(
           `http://localhost:5978/defilons/${id}`
         );
 
-        if (!response.ok) {
-          throw new Error("Erreur produit");
-        }
-
         const data = await response.json();
+
         setProduct(data);
 
-      } catch (error) {
+      }catch(error){
+
         console.error(error);
-      } finally {
+
+      }finally{
+
         setLoading(false);
+
       }
+
     };
 
-    if (id) getProduct();
-  }, [id]);
+    if(id) getProduct();
 
-  const handleBidSubmit = (value) => {
+  },[id]);
+
+  const handleBidSubmit = (value)=>{
+
     setBidValue(value);
     setShowPopup(true);
+
   };
 
-  const handleFormChange = (e) => {
+  const handleChange = (e)=>{
 
-    const { name, value } = e.target;
+    const {name,value} = e.target;
 
     setFormData({
       ...formData,
-      [name]: value
+      [name]:value
     });
+
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e)=>{
+
     e.preventDefault();
 
     const newBid = {
-      amount: bidValue,
-      message: formData.message,
-      writeOption: formData.writeOption,
-      country: formData.country,
-      date: new Date()
+
+      amount:bidValue,
+      message:formData.message,
+      country:formData.country,
+      date:new Date()
+
     };
 
-    setBids([newBid, ...bids]);
+    setBids([newBid,...bids]);
 
     setShowPopup(false);
 
     setFormData({
-      message: "",
-      writeOption: "now",
-      country: ""
+      message:"",
+      country:""
     });
+
   };
 
-  if (loading) return <div className="main--box">Loading...</div>;
-  if (!product) return <div className="main--box">Produit introuvable</div>;
+  if(loading) return <div className="main--box">Loading...</div>;
+  if(!product) return <div className="main--box">Produit introuvable</div>;
 
-  return (
+  return(
 
     <div className="main--box">
 
-      <Countdown />
-
-      {/* IMAGE */}
+      <Countdown/>
 
       <div className="big--box">
 
@@ -123,15 +136,12 @@ const Product = () => {
 
       </div>
 
-      {/* ENCHERE */}
-
       <Enchere
-        productId={id}
-        onBidSubmit={handleBidSubmit}
         bids={bids}
+        onBidSubmit={handleBidSubmit}
       />
 
-      <Icons />
+      <Icons/>
 
       {/* POPUP FORMULAIRE */}
 
@@ -141,53 +151,21 @@ const Product = () => {
 
           <div className="popup-form">
 
-            <h3>Ajouter quelques mots</h3>
+            <h3>Commentaire</h3>
 
             <form onSubmit={handleFormSubmit}>
 
               <textarea
                 name="message"
-                placeholder="Ecrire quelques lignes..."
+                placeholder="Ecrire quelques lignes"
                 value={formData.message}
-                onChange={handleFormChange}
+                onChange={handleChange}
               />
-
-              <div className="radio-options">
-
-                <label>
-
-                  <input
-                    type="radio"
-                    name="writeOption"
-                    value="now"
-                    checked={formData.writeOption === "now"}
-                    onChange={handleFormChange}
-                  />
-
-                  Écrire maintenant
-
-                </label>
-
-                <label>
-
-                  <input
-                    type="radio"
-                    name="writeOption"
-                    value="later"
-                    checked={formData.writeOption === "later"}
-                    onChange={handleFormChange}
-                  />
-
-                  Revenir plus tard
-
-                </label>
-
-              </div>
 
               <select
                 name="country"
                 value={formData.country}
-                onChange={handleFormChange}
+                onChange={handleChange}
                 required
               >
 
@@ -197,10 +175,6 @@ const Product = () => {
                 <option>Espagne</option>
                 <option>Allemagne</option>
                 <option>Belgique</option>
-                <option>Suisse</option>
-                <option>Canada</option>
-                <option>États-Unis</option>
-                <option>Japon</option>
 
               </select>
 
@@ -217,7 +191,9 @@ const Product = () => {
       )}
 
     </div>
+
   );
+
 };
 
 export default Product;

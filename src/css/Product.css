@@ -6,7 +6,7 @@ padding:0;
 box-sizing:border-box;
 }
 
-/* MAIN */
+/* MAIN CONTAINER */
 
 .main--box{
 
@@ -24,6 +24,7 @@ align-items:center;
 
 width:90%;
 height:50vh;
+
 position:relative;
 }
 
@@ -34,16 +35,19 @@ position:relative;
 position:relative;
 width:100%;
 height:100%;
+
 overflow:hidden;
 }
 
-/* WALL */
+/* WALL IMAGE */
 
 .paint{
 
 position:absolute;
+
 width:100%;
 height:100%;
+
 object-fit:cover;
 
 top:0;
@@ -68,12 +72,13 @@ justify-content:center;
 align-items:center;
 }
 
-/* PODIUM */
+/* PODIUM IMAGE */
 
 .podium{
 
 width:50%;
 height:75%;
+
 object-fit:contain;
 }
 
@@ -82,12 +87,15 @@ object-fit:contain;
 .product-overlay h2{
 
 margin-top:15px;
+
 color:white;
+
 font-size:22px;
+
 text-align:center;
 }
 
-/* ENCHERE */
+/* ENCHERE CONTAINER */
 
 .enchere-container{
 
@@ -98,6 +106,7 @@ margin-top:30px;
 
 display:flex;
 flex-direction:column;
+
 gap:20px;
 }
 
@@ -106,6 +115,7 @@ gap:20px;
 .bid-input-box{
 
 display:flex;
+
 gap:10px;
 }
 
@@ -134,13 +144,16 @@ border-radius:6px;
 cursor:pointer;
 }
 
-/* LIST */
+/* LISTE ENCHERES */
 
 .bid-list{
 
 display:flex;
 flex-direction:column;
+
 gap:12px;
+
+margin-bottom:30px;
 }
 
 /* BID ITEM */
@@ -149,23 +162,56 @@ gap:12px;
 
 background:white;
 
-padding:15px;
+padding:16px;
 
 border-radius:8px;
 
 display:flex;
 flex-direction:column;
-gap:5px;
+
+gap:6px;
 
 box-shadow:0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* PRICE */
+/* TOP ROW */
+
+.bid-top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+}
+
+/* PRIX */
 
 .bid-price{
 
 font-weight:bold;
+
 font-size:18px;
+}
+
+/* ICONES */
+
+.bid-icons{
+
+display:flex;
+
+gap:10px;
+
+font-size:18px;
+}
+
+/* USER */
+
+.bid-user{
+
+font-size:13px;
+
+color:gray;
 }
 
 /* MESSAGE */
@@ -173,15 +219,8 @@ font-size:18px;
 .bid-message{
 
 font-size:14px;
+
 color:#333;
-}
-
-/* META */
-
-.bid-meta{
-
-font-size:12px;
-color:gray;
 }
 
 /* NO BID */
@@ -189,10 +228,11 @@ color:gray;
 .no-bid{
 
 text-align:center;
+
 color:white;
 }
 
-/* POPUP */
+/* POPUP FORMULAIRE */
 
 .popup-overlay{
 
@@ -213,7 +253,7 @@ align-items:center;
 z-index:1000;
 }
 
-/* POPUP BOX */
+/* FORM */
 
 .popup-form{
 
@@ -228,6 +268,7 @@ border-radius:10px;
 
 display:flex;
 flex-direction:column;
+
 gap:15px;
 
 box-shadow:0 10px 30px rgba(0,0,0,0.3);
@@ -244,7 +285,19 @@ padding:10px;
 resize:none;
 
 border:1px solid #ccc;
+
 border-radius:6px;
+}
+
+/* RADIO OPTIONS */
+
+.radio-options{
+
+display:flex;
+
+flex-direction:column;
+
+gap:6px;
 }
 
 /* SELECT */
@@ -265,6 +318,7 @@ border:1px solid #ccc;
 padding:12px;
 
 background:black;
+
 color:white;
 
 border:none;
@@ -274,12 +328,168 @@ border-radius:6px;
 cursor:pointer;
 }
 
-/* RADIO */
+/* POPUP ERREUR */
 
-.radio-options{
+.error-popup{
+
+position:fixed;
+
+top:120px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:black;
+
+color:white;
+
+padding:12px 20px;
+
+border-radius:6px;
+
+z-index:1100;
+
+font-size:14px;
+
+animation:fadeIn 0.3s ease;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translate(-50%,-10px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translate(-50%,0);
+
+}
+
+}
+
+/* RESPONSIVE */
+
+@media (max-width:768px){
+
+.podium{
+
+width:70%;
+height:70%;
+
+}
+
+.product-overlay h2{
+
+font-size:18px;
+
+}
+
+.bid-input-box{
+
+flex-direction:column;
+
+}
+
+.bid-input-box button{
+
+width:100%;
+}
+
+}
+
+
+
+
+
+
+
+/* LISTE ENCHERES */
+
+.bid-list{
+
+margin-top:20px;
+
+max-height:120px;
+
+overflow-y:auto;
 
 display:flex;
 flex-direction:column;
 
-gap:5px;
+gap:10px;
+
+width:100%;
+
+}
+
+/* LIGNE */
+
+.bid-row{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+background:white;
+
+padding:10px;
+
+border-radius:6px;
+
+font-size:13px;
+
+white-space:nowrap;
+
+}
+
+/* PRIX */
+
+.price{
+
+font-weight:bold;
+
+color:black;
+
+}
+
+/* COMMENTAIRE */
+
+.comment{
+
+color:#444;
+
+max-width:200px;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+}
+
+/* ICONES */
+
+.icons{
+
+margin-left:auto;
+
+display:flex;
+
+gap:8px;
+
+font-size:16px;
+
+cursor:pointer;
+
 }
