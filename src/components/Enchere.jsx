@@ -1,184 +1,80 @@
-import { useState } from "react";
-import '../css/Enchere.css';
-import { FaThumbsUp, FaBook } from "react-icons/fa";
+import React, { useState } from "react";
 
-function Enchere({ productId }) {
+const Enchere = ({ productId, onBidSubmit, bids }) => {
 
-  const [sommes, setSommes] = useState([5555]);
-  const [newSomme, setNewSomme] = useState("");
+  const [value, setValue] = useState("");
 
-  const [showPopup, setShowPopup] = useState(false);
+  const handleSubmit = () => {
 
-  const [message, setMessage] = useState("");
-  const [country, setCountry] = useState("");
+    if (!value) return;
 
-  const countries = [
-    "France",
-    "USA",
-    "UK",
-    "Germany",
-    "Italy",
-    "Spain",
-    "Japan",
-    "Canada",
-    "Brazil"
-  ];
+    onBidSubmit(value);
 
-  const handleChange = (e) => {
-    setNewSomme(e.target.value);
+    setValue("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleKeyDown = (e) => {
 
-    const max = Math.max(...sommes);
-
-    if (max > newSomme) {
-      alert("Allons un peu de nerf");
-      setNewSomme("");
-      return;
+    if (e.key === "Enter") {
+      handleSubmit();
     }
-
-    setShowPopup(true);
-  };
-
-  const handlePopupSubmit = (e) => {
-
-    e.preventDefault();
-
-    const sommesCopy = [...sommes];
-
-    sommesCopy.push(newSomme);
-
-    setSommes(sommesCopy);
-
-    setShowPopup(false);
-
-    setNewSomme("");
-    setMessage("");
-    setCountry("");
 
   };
 
   return (
-    <div className="bigTable">
 
-      <h3>Enchères pour le produit : {productId}</h3>
+    <div className="enchere-container">
 
-      <form onSubmit={handleSubmit}>
+      <div className="bid-input-box">
 
         <input
-          value={newSomme}
           type="number"
-          placeholder="entrez une somme"
-          onChange={handleChange}
+          placeholder="Entrer une enchère..."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
 
-        <button>ok</button>
+        <button onClick={handleSubmit}>
+          OK
+        </button>
 
-      </form>
+      </div>
 
-      <h1>Most recent bids :</h1>
+      <div className="bid-list">
 
-      <ul>
+        {bids && bids.length === 0 && (
+          <p className="no-bid">Aucune enchère pour le moment</p>
+        )}
 
-        {sommes
-          .sort((a,b) => b - a)
-          .map((somme, i) => (
+        {bids && bids.map((bid, index) => (
 
-            <li key={i}>
+          <div className="bid-item" key={index}>
 
-              <div className="enchere-row">
-
-                <p>
-                  Pseudo: à encherit le: 25/07/85 à: 9:00:00 
-                  {somme} $
-                  comment: {message || "...."}
-                </p>
-
-                <div className="enchere-icons">
-
-                  <a href="#" title="Like">
-                    <FaThumbsUp />
-                  </a>
-
-                  <a href="#" title="Book">
-                    <FaBook />
-                  </a>
-
-                </div>
-
-              </div>
-
-            </li>
-
-          ))}
-
-      </ul>
-
-
-      {showPopup && (
-
-        <div className="popup-overlay">
-
-          <div className="popup-form">
-
-            <h3>Say something about your bid</h3>
-
-            <textarea
-              placeholder="write a few lines..."
-              value={message}
-              onChange={(e)=>setMessage(e.target.value)}
-            />
-
-            <div className="popup-options">
-
-              <button
-                type="button"
-                onClick={()=>{}}
-              >
-                Write now
-              </button>
-
-              <button
-                type="button"
-                onClick={()=>setShowPopup(false)}
-              >
-                Write later
-              </button>
-
+            <div className="bid-price">
+              {bid.amount} €
             </div>
 
-            <select
-              value={country}
-              onChange={(e)=>setCountry(e.target.value)}
-            >
+            {bid.message && (
+              <div className="bid-message">
+                {bid.message}
+              </div>
+            )}
 
-              <option value="">Select country</option>
-
-              {countries.map((c,i)=>(
-                <option key={i} value={c}>
-                  {c}
-                </option>
-              ))}
-
-            </select>
-
-            <button
-              className="validate-bid"
-              onClick={handlePopupSubmit}
-            >
-              Validate bid
-            </button>
+            <div className="bid-meta">
+              {bid.country} • {new Date(bid.date).toLocaleTimeString()}
+            </div>
 
           </div>
 
-        </div>
+        ))}
 
-      )}
+      </div>
 
     </div>
+
   );
-}
+
+};
 
 export default Enchere;
