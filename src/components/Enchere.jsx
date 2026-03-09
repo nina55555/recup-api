@@ -25,13 +25,14 @@ const Enchere = ({ onBidSubmit, bids }) => {
     if (e.key === "Enter") handleSubmit();
   };
 
-  const handleIconClick = (type, bid) => {
+  const handleIconClick = (e, type, bid) => {
+    e.preventDefault();
     alert(`Vous avez cliqué sur l'icône "${type}" pour l'enchère de ${bid.amount}€`);
   };
 
   return (
     <div className="enchere-container">
-      {/* INPUT */}
+
       <div className="bid-input-box">
         <input
           type="number"
@@ -43,32 +44,19 @@ const Enchere = ({ onBidSubmit, bids }) => {
         <button onClick={handleSubmit}>OK</button>
       </div>
 
-      {/* POPUP ERREUR */}
       {showError && (
         <div className="error-popup">
           Allez un peu de nerf ! L'enchère doit être supérieure à la dernière.
         </div>
       )}
 
-      {/* LISTE ENCHÈRES */}
       <div className="bid-list">
         {bids.map((bid, index) => {
           const date = new Date(bid.date).toLocaleString();
+
           return (
             <div className="bid-infos" key={index}>
               <div className="bid-row">
-                
-                {/*
-                  <span></span> 
-                  <span>a enchéri le</span>
-                  <span></span>
-                  <span className="price"></span>
-                  <span>commentaire</span>
-                  <span className="comment"></span>
-                  <span>pays promu</span>
-                  <span></span>
-                */}
-                
 
                 <div className="pseudo">
                   <p>PSEUDO</p>
@@ -82,38 +70,31 @@ const Enchere = ({ onBidSubmit, bids }) => {
                   <p>{date}</p>
                 </div>
 
-                
-
                 <div className="com">
                   <p>{bid.message || "....."}</p>
                 </div>
-                
 
                 <div className="pays-promu">
                   <p>PAYS PROMU: {bid.country || "-"}</p>
                 </div>
 
-                
                 <div className="price">
                   <p>{bid.amount}€</p>
                 </div>
 
-
                 <div className="icons-ench">
-                  <a href="#" onClick={() => handleIconClick("feu", bid)}>🔥</a>
-                  <a href="#" onClick={() => handleIconClick("livre", bid)}>📖</a>
+                  <a href="#" onClick={(e)=>handleIconClick(e,"feu",bid)}>🔥</a>
+                  <a href="#" onClick={(e)=>handleIconClick(e,"livre",bid)}>📖</a>
                 </div>
 
               </div>
-
-
-            </div>  
+            </div>
           );
-          
         })}
       </div>
+
     </div>
-  );                                                                                                                                                                                                                                                       
+  );
 };
 
 export default Enchere;

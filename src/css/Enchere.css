@@ -1,4 +1,7 @@
-/* CONTENEUR PRINCIPAL DE L'ENCHÈRE */
+/* ========================= */
+/* CONTENEUR PRINCIPAL */
+/* ========================= */
+
 .enchere-container {
   width: 95%;
   max-width: 1000px;
@@ -9,9 +12,14 @@
   font-family: Arial, sans-serif;
 }
 
-/* BOÎTE D'INPUT */
+
+/* ========================= */
+/* INPUT ENCHERE */
+/* ========================= */
+
 .bid-input-box {
-  display: flex;margin: 0 auto;
+  display: flex;
+  margin: 0 auto;
   gap: 10px;
   width: 55%;
 }
@@ -31,365 +39,496 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.25s;
 }
 
 .bid-input-box button:hover {
   background: #3e963e;
 }
 
-/* LISTE DES ENCHÈRES */
+
+/* ========================= */
+/* LISTE DES ENCHERES */
+/* ========================= */
+
 .bid-list {
+
   border: 1px solid blue;
+
   display: flex;
   flex-direction: column;
+
   gap: 10px;
-  min-height: 133px;
-  max-height: 100px;
-  /*width: 100%;*/
+
+  height: 135px; /* environ 3 lignes */
+
   overflow-y: auto;
-  /*padding-right: 5px;*/
+  overflow-x: hidden;
+
+  padding-right: 6px;
+
+  scroll-behavior: smooth;
 }
 
+
+/* ========================= */
 /* SCROLLBAR PREMIUM */
+/* ========================= */
+
 .bid-list::-webkit-scrollbar {
   width: 8px;
 }
 
 .bid-list::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 4px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 10px;
 }
 
 .bid-list::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #d4af37, #8a6c2f);
+
+  background: linear-gradient(
+    180deg,
+    #e6c86e,
+    #bfa14d,
+    #8a6c2f
+  );
+
   border-radius: 10px;
+
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.35);
 }
 
 .bid-list::-webkit-scrollbar-thumb:hover {
-  background: #bfa14d;
+
+  background: linear-gradient(
+    180deg,
+    #f3d77e,
+    #c9aa55,
+    #9b7a35
+  );
+
 }
 
-/* CONTENEUR POUR BID ROW + ICÔNES */
+
+/* ========================= */
+/* CONTENEUR LIGNE */
+/* ========================= */
+
 .bid-infos {
+
   border: 1px solid red;
+
   display: flex;
-  flex-direction: row;
-  /*align-items: center;*/
-  justify-content: space-between; /* bid-row à gauche, icônes à droite */
+
+  justify-content: space-between;
+
   gap: 5px;
-  
-  
-  
+
+  width: 100%;
+
   min-height: 25px;
-  width: 100%;
-  /*padding: 5px;*/
+
 }
 
-/* LIGNE D'UNE ENCHÈRE */
+
+/* ========================= */
+/* LIGNE ENCHERE */
+/* ========================= */
+
 .bid-row {
+
   border: 1px solid pink;
+
   display: flex;
+
   align-items: center;
+
   width: 100%;
+
   gap: 5px;
+
   background: white;
+
   border-radius: 6px;
+
   font-size: 15px;
+
   white-space: nowrap;
+
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
   overflow: hidden;
-  flex-shrink: 0; /* empêche de shrinker */
+
+  flex-shrink: 0;
+
+  transition: all 0.25s ease;
+
 }
 
+/* effet premium au hover */
+
+.bid-row:hover {
+
+  transform: translateX(2px);
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+}
+
+
+/* ========================= */
+/* BLOCS CONTENU */
+/* ========================= */
 
 .pseudo,
 .a-encheri,
 .date,
 .com,
 .pays,
-.price{
+.price {
   padding: 3px;
 }
 
-.pseudo{
+
+/* pseudo */
+
+.pseudo {
+
   display: flex;
+
   justify-content: center;
+
   background-color: #bfa14d;
+
   min-width: 75px;
+
   font-weight: bold;
+
 }
 
-.a-encheri{
+
+/* texte enchère */
+
+.a-encheri {
+
   font-size: 13px;
+
   display: flex;
+
   justify-content: center;
+
   background-color: cadetblue;
+
   min-width: 85px;
+
   font-weight: bold;
+
 }
 
-.date{
+
+/* date */
+
+.date {
+
   background-color: darkorchid;
+
   display: flex;
+
   justify-content: center;
-  min-width: 75px;
+
+  min-width: 120px;
+
   font-weight: bold;
+
 }
 
 
+/* commentaire */
 
-.com{
+.com {
+
   background-color: #72ac7f;
+
   display: flex;
+
   justify-content: center;
-  min-width: 85px;
+
+  min-width: 120px;
+
   font-weight: bold;
+
 }
 
-.pays-promu{
+
+/* pays */
+
+.pays-promu {
+
   background-color: darksalmon;
+
   display: flex;
+
   justify-content: center;
+
   font-weight: bold;
-  min-width: 155px;
+
+  min-width: 170px;
+
 }
 
 
+/* ========================= */
 /* PRIX */
+/* ========================= */
+
 .price {
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   background-color: aqua;
+
   font-weight: bold;
+
   color: rgb(189, 10, 10);
+
   min-width: 75px;
+
   margin-left: 15px;
+
 }
 
-/* COMMENTAIRE 
-.comment {
-  display: flex;
-  justify-content: center;
-  color: #9e8f06;
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-*/
 
+/* ========================= */
+/* ICONES */
+/* ========================= */
 
-/* ICÔNES CLIQUABLES */
 .icons-ench {
+
   display: flex;
+
   margin-left: auto;
+
   gap: 6px;
+
   font-size: 16px;
+
   flex-shrink: 0;
+
 }
 
 .icons-ench a {
+
   text-decoration: none;
+
   color: black;
+
   transition: transform 0.2s ease, color 0.2s ease;
+
 }
 
 .icons-ench a:hover {
+
   transform: scale(1.3);
+
   color: #ff8c00;
+
   cursor: pointer;
+
 }
 
+
+/* ========================= */
 /* POPUP ERREUR */
+/* ========================= */
+
 .error-popup {
+
   position: fixed;
+
   top: 120px;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   background: black;
+
   color: white;
+
   padding: 12px 20px;
+
   border-radius: 6px;
+
   z-index: 1100;
+
   font-size: 14px;
+
   animation: fadeIn 0.3s ease;
+
 }
 
-/* ANIMATION FADE */
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, -10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
 }
 
+
+/* ========================= */
 /* POPUP FORMULAIRE */
+/* ========================= */
+
 .popup-overlay {
+
   position: fixed;
+
   top: 0;
+
   left: 0;
+
   width: 100%;
+
   height: 100%;
+
   background: rgba(0,0,0,0.7);
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   z-index: 1000;
+
 }
 
 .popup-form {
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   background: white;
+
   padding: 30px;
+
   border-radius: 10px;
+
   width: 400px;
+
   height: 350px;
-  display: flex;
+
   flex-direction: column;
+
   gap: 15px;
+
 }
 
 .popup-form textarea {
+
   height: 100px;
+
   width: 100%;
+
   resize: none;
+
   padding: 10px;
+
   margin-bottom: 30px;
+
   border: 1px solid #ccc;
+
   border-radius: 6px;
+
 }
 
 .popup-form select {
+
   width: 55%;
+
   padding: 10px;
-  /*margin-left: 35px;*/
+
   border-radius: 6px;
+
   border: 1px solid #ccc;
+
 }
 
 .popup-form button {
+
   padding: 12px;
+
   background: black;
+
   color: white;
+
   border: none;
+
   border-radius: 6px;
+
   cursor: pointer;
+
 }
 
+
+/* ========================= */
 /* RESPONSIVE */
+/* ========================= */
+
 @media (max-width: 768px) {
+
   .bid-infos {
-    flex-direction: column;
-    /*align-items: flex-start;*/
+
+    flex-direction: row;
+
+    gap: 5px;
+
   }
+
   .bid-row {
-    white-space: normal;
-  }
-  .comment {
-    max-width: 100%;
-  }
-  .icons-ench {
-    margin-top: 5px;
+
+    font-size: 14px;
+
   }
 
-  
-.pseudo,
-.a-encheri,
-.date,
-.com,
-.pays,
-.price{
-  padding: 3px;
-}
+  .pseudo {
+    min-width: 68px;
+  }
 
-.pseudo{
-  display: flex;
-  justify-content: center;
-  background-color: #bfa14d;
-  min-width: 68px;
-  font-weight: bold;
-}
+  .a-encheri {
+    min-width: 80px;
+  }
 
-.a-encheri{
-  font-size: 13px;
-  display: flex;
-  justify-content: center;
-  background-color: cadetblue;
-  min-width: 80px;
-  font-weight: bold;
-}
+  .date {
+    min-width: 85px;
+  }
 
-.date{
-  background-color: darkorchid;
-  display: flex;
-  justify-content: center;
-  min-width: 85px;
-  font-weight: bold;
-}
+  .com {
+    min-width: 65px;
+  }
 
+  .pays-promu {
+    min-width: 165px;
+  }
 
-
-.com{
-  background-color: #72ac7f;
-  display: flex;
-  justify-content: center;
-  min-width: 65px;
-  font-weight: bold;
-}
-
-.pays-promu{
-  background-color: darksalmon;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  min-width: 165px;
-}
-
-
-/* PRIX */
-.price {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: aqua;
-  font-weight: bold;
-  color: rgb(189, 10, 10);
-  min-width: 70px;
-  margin-left: 0px;
-}
-
-/* CONTENEUR POUR BID ROW + ICÔNES */
-.bid-infos {
-  border: 1px solid red;
-  display: flex;
-  flex-direction: row;
-  /*align-items: center;*/
-  justify-content: space-between; /* bid-row à gauche, icônes à droite */
-  gap: 5px;
-  
-  
-  
-  min-height: 25px;
-  width: 100%;
-  /*padding: 5px;*/
-}
-
-/* LIGNE D'UNE ENCHÈRE */
-.bid-row {
-  border: 1px solid pink;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 5px;
-  background: white;
-  border-radius: 6px;
-  font-size: 15px;
-  white-space: nowrap;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  overflow: hidden;
-  flex-shrink: 0; /* empêche de shrinker */
-}
-
+  .price {
+    min-width: 70px;
+    margin-left: 0;
+  }
 
 }
