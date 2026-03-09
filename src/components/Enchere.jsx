@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/Enchere.css";
 
 const Enchere = ({ onBidSubmit, bids }) => {
   const [value, setValue] = useState("");
@@ -54,32 +55,65 @@ const Enchere = ({ onBidSubmit, bids }) => {
         {bids.map((bid, index) => {
           const date = new Date(bid.date).toLocaleString();
           return (
-          <div className="bid-infos">
-            <div className="bid-row" key={index}>
-              
-                <span>Pseudo</span> 
-                <span>a enchéri le</span>
-                <span>{date}</span>
-                <span className="price">{bid.amount}€</span>
-                <span>commentaire</span>
-                <span className="comment">{bid.message || "-"}</span>
-                <span>pays promu</span>
-                <span>{bid.country || "-"}</span>
+            <div className="bid-infos">
+              <div className="bid-row" key={index}>
+                
+                {/*
+                  <span></span> 
+                  <span>a enchéri le</span>
+                  <span></span>
+                  <span className="price"></span>
+                  <span>commentaire</span>
+                  <span className="comment"></span>
+                  <span>pays promu</span>
+                  <span></span>
+                */}
+                
+
+                <div className="pseudo">
+                  <p>PSEUDO</p>
+                </div>
+
+                <div className="a-encheri">
+                  <p>a encheri le:</p>
+                </div>
+
+                <div className="date">
+                  <p>{date}</p>
+                </div>
+
+                
+
+                <div className="com">
+                  <p>{bid.message || "....."}</p>
+                </div>
+                
+
+                <div className="pays-promu">
+                  <p>PAYS PROMU: {bid.country || "-"}</p>
+                </div>
+
+                
+                <div className="price">
+                  <p>{bid.amount}€</p>
+                </div>
+
+
+                <div className="icons-ench">
+                  <a href="#" onClick={() => handleIconClick("feu", bid)}>🔥</a>
+                  <a href="#" onClick={() => handleIconClick("livre", bid)}>📖</a>
+                </div>
 
               </div>
-              
-              <div className="icons-ench">
-                <a href="#" onClick={() => handleIconClick("feu", bid)}>🔥</a>
-                <a href="#" onClick={() => handleIconClick("livre", bid)}>📖</a>
-              </div>
 
-           
-           </div>  
+
+            </div>  
           );
+          
         })}
       </div>
     </div>
-  );
+  );                                                                                                                                                                                                                                                       
 };
 
 export default Enchere;

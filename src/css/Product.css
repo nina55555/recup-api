@@ -67,17 +67,19 @@
   text-align: center;
 }
 
-/* ENCHERE CONTAINER */
+
+
+/*
 .enchere-container {
   width: 95%;
-  max-width: 1000px; /* élargi pour icônes */
+  max-width: 1000px; /* élargi pour icônes 
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* INPUT BOX */
+
 .bid-input-box {
   display: flex;
   gap: 10px;
@@ -100,18 +102,18 @@
   cursor: pointer;
 }
 
-/* LISTE ENCHERES */
+/* LISTE ENCHERES 
 .bid-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 30px;
-  max-height: 180px; /* 3 lignes visibles */
+  max-height: 180px; /* 3 lignes visibles 
   overflow-y: auto;
   padding-right: 6px;
 }
 
-/* SCROLL PREMIUM */
+/* SCROLL PREMIUM 
 .bid-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -125,7 +127,9 @@
   border-radius: 10px;
 }
 
-/* LIGNE ENCHERE */
+
+
+/* LIGNE ENCHERE 
 .bid-row {
   display: flex;
   align-items: center;
@@ -139,20 +143,20 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* PRIX */
+/* PRIX 
 .price {
   font-weight: bold;
 }
 
-/* COMMENTAIRE */
+/* COMMENTAIRE 
 .comment {
-  max-width: 250px; /* zone élargie */
+  max-width: 250px; /* zone élargie 
   overflow: hidden;
   text-overflow: ellipsis;
   color: #444;
 }
 
-/* ICONES */
+/* ICONES 
 .icons {
   margin-left: auto;
   display: flex;
@@ -160,6 +164,10 @@
   font-size: 18px;
   cursor: pointer;
 }
+
+*/
+
+
 
 /* POPUP FORMULAIRE */
 .popup-overlay {

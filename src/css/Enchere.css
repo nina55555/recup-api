@@ -39,12 +39,14 @@
 
 /* LISTE DES ENCHÈRES */
 .bid-list {
+  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   gap: 10px;
   max-height: 200px;
+  /*width: 100%;*/
   overflow-y: auto;
-  padding-right: 5px;
+  /*padding-right: 5px;*/
 }
 
 /* SCROLLBAR PREMIUM */
@@ -68,47 +70,118 @@
 
 /* CONTENEUR POUR BID ROW + ICÔNES */
 .bid-infos {
+  border: 1px solid red;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 8px;
+  /*align-items: center;*/
+  justify-content: space-between; /* bid-row à gauche, icônes à droite */
+  gap: 5px;
+  width: 100%;
+  /*padding: 5px;*/
 }
 
 /* LIGNE D'UNE ENCHÈRE */
 .bid-row {
+  border: 1px solid pink;
   display: flex;
   align-items: center;
-  gap: 8px;
+  width: 100%;
+  gap: 5px;
   background: white;
-  padding: 10px 16px;
+  padding: 5px ;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 15px;
   white-space: nowrap;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   overflow: hidden;
-  flex-shrink: 0; /* ne pas shrink */
+  flex-shrink: 0; /* empêche de shrinker */
 }
+
+
+.pseudo,
+.a-encheri,
+.date,
+.com,
+.pays,
+.price{
+  padding: 3px;
+}
+
+.pseudo{
+  display: flex;
+  justify-content: center;
+  background-color: #bfa14d;
+  min-width: 75px;
+  font-weight: bold;
+}
+
+.a-encheri{
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  background-color: cadetblue;
+  min-width: 85px;
+  font-weight: bold;
+}
+
+.date{
+  background-color: darkorchid;
+  display: flex;
+  justify-content: center;
+  min-width: 75px;
+  font-weight: bold;
+}
+
+
+
+.com{
+  background-color: #72ac7f;
+  display: flex;
+  justify-content: center;
+  min-width: 85px;
+  font-weight: bold;
+}
+
+.pays-promu{
+  background-color: darksalmon;
+  display: flex;
+  justify-content: center;
+  min-width: 105px;
+  font-weight: bold;
+}
+
 
 /* PRIX */
 .price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
   font-weight: bold;
-  color: rgb(194, 4, 4);
+  color: rgb(189, 10, 10);
+  min-width: 75px;
+  margin-left: 15px;
 }
 
-/* COMMENTAIRE */
+/* COMMENTAIRE 
 .comment {
-  color: #444;
+  display: flex;
+  justify-content: center;
+  color: #9e8f06;
   max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+*/
+
 
 /* ICÔNES CLIQUABLES */
 .icons-ench {
   display: flex;
+  margin-left: auto;
   gap: 6px;
   font-size: 16px;
-  flex-shrink: 0; /* empêche les icônes de rétrécir */
+  flex-shrink: 0;
 }
 
 .icons-ench a {
