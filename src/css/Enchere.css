@@ -315,6 +315,56 @@
 }
 
 
+
+
+
+
+.new-bid{
+
+    animation:slideBid 0.6s ease;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,0.25),
+        rgba(255,255,255,1)
+    );
+
+}
+
+@keyframes slideBid{
+
+    from{
+        transform:translateY(-20px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+
+/* ========================= */
+/* EFFET PRIX DORE */
+/* ========================= */
+
+.new-bid .price{
+
+    background:linear-gradient(
+        90deg,
+        #7c0202,
+        #a03535
+    );
+
+    color:black;
+
+    box-shadow:0 0 8px rgba(255,215,0,0.8);
+
+}
+
+
 }
 
 
@@ -346,5 +396,55 @@
         min-width: 85px;
 
 }
+
+
+
+
+.new-bid{
+
+    animation:slideBid 0.6s ease;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,0.25),
+        rgba(255,255,255,1)
+    );
+
+}
+
+@keyframes slideBid{
+
+    from{
+        transform:translateY(-20px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+
+/* ========================= */
+/* EFFET PRIX DORE */
+/* ========================= */
+
+.new-bid .price{
+
+    background:linear-gradient(
+        90deg,
+        #7c0202,
+        #a03535
+    );
+
+    color:black;
+
+    box-shadow:0 0 8px rgba(255,215,0,0.8);
+
+}
+
+
 
 }
