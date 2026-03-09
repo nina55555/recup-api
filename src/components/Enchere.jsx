@@ -55,8 +55,8 @@ const Enchere = ({ onBidSubmit, bids }) => {
         {bids.map((bid, index) => {
           const date = new Date(bid.date).toLocaleString();
           return (
-            <div className="bid-infos">
-              <div className="bid-row" key={index}>
+            <div className="bid-infos" key={index}>
+              <div className="bid-row">
                 
                 {/*
                   <span></span> 
