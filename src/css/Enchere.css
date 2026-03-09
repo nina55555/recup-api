@@ -284,7 +284,23 @@
     flex-wrap:wrap;
 }
 
+.com p{
+  background-color: aquamarine;
+    font-style:italic;
+    min-width: 40px;
+}
 
+
+
+.pays-promu p{
+
+    color:#292929;
+      background-color: #7c020249;
+      flex-wrap: nowrap;
+      width: 165px;
+
+    /*background-color: #45a049;*/
+}
 
 .price{
     margin-left:auto;
@@ -307,6 +323,7 @@
 
 @media (max-width: 750px) {
      .bid-infos{
+      background-color: rgb(94, 141, 47);
  /* border: 1px solid rgb(0, 110, 255);*/
     border-bottom:1px solid #eee;
     background:white;
@@ -316,12 +333,14 @@
 }
 
 .com p{
+  background-color: aquamarine;
     font-style:italic;
     min-width: 85px;
 }
 
 
 .pays-promu p{
+  background-color: #7c020249;
     color:#292929;
     /*background-color: #45a049;*/
         min-width: 85px;
