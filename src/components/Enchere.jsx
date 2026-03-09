@@ -44,8 +44,8 @@ const Enchere = ({ onBidSubmit, bids }) => {
     }
 
     onBidSubmit(numericValue);
-
     setValue("");
+
   };
 
   const handleKeyDown = (e) => {
@@ -57,7 +57,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const handleIconClick = (e, type, bid) => {
 
     e.preventDefault();
-
     alert(`Vous avez cliqué sur "${type}" pour l'enchère de ${bid.amount}€`);
 
   };
@@ -65,8 +64,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
   return (
 
     <div className="enchere-container">
-
-      {/* INPUT */}
 
       <div className="bid-input-box">
 
@@ -82,26 +79,17 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
       </div>
 
-
-      {/* ERREUR */}
-
       {showError && (
-
         <div className="error-popup">
           Allez un peu de nerf ! L'enchère doit être supérieure à la dernière.
         </div>
-
       )}
-
-
-      {/* LISTE ENCHERES */}
 
       <div className="bid-list" ref={listRef}>
 
         {bids.map((bid, index) => {
 
           const date = new Date(bid.date).toLocaleString();
-
           const isNew = index === lastBidIndex;
 
           return (
