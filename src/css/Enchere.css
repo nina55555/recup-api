@@ -1,15 +1,12 @@
 /* ========================= */
-/* CONTENEUR PRINCIPAL */
+/* CONTAINER GENERAL */
 /* ========================= */
 
-.enchere-container {
-  width: 95%;
-  max-width: 1000px;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  font-family: Arial, sans-serif;
+.enchere-container{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 
@@ -17,327 +14,33 @@
 /* INPUT ENCHERE */
 /* ========================= */
 
-.bid-input-box {
-  display: flex;
-  margin: 0 auto;
-  gap: 10px;
-  width: 55%;
+.bid-input-box{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:20px;
 }
 
-.bid-input-box input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 18px;
+.bid-input-box input{
+    padding:10px;
+    font-size:16px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    width:180px;
 }
 
-.bid-input-box button {
-  padding: 12px 20px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.25s;
+.bid-input-box button{
+    padding:10px 20px;
+    font-size:16px;
+    border:none;
+    border-radius:6px;
+    background:#4CAF50;
+    color:white;
+    cursor:pointer;
 }
 
-.bid-input-box button:hover {
-  background: #3e963e;
-}
-
-
-/* ========================= */
-/* LISTE DES ENCHERES */
-/* ========================= */
-
-.bid-list {
-
-  border: 1px solid blue;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 10px;
-
-  height: 135px; /* environ 3 lignes */
-
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  padding-right: 6px;
-
-  scroll-behavior: smooth;
-}
-
-
-/* ========================= */
-/* SCROLLBAR PREMIUM */
-/* ========================= */
-
-.bid-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.bid-list::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.05);
-  border-radius: 10px;
-}
-
-.bid-list::-webkit-scrollbar-thumb {
-
-  background: linear-gradient(
-    180deg,
-    #e6c86e,
-    #bfa14d,
-    #8a6c2f
-  );
-
-  border-radius: 10px;
-
-  box-shadow: inset 0 0 4px rgba(0,0,0,0.35);
-}
-
-.bid-list::-webkit-scrollbar-thumb:hover {
-
-  background: linear-gradient(
-    180deg,
-    #f3d77e,
-    #c9aa55,
-    #9b7a35
-  );
-
-}
-
-
-/* ========================= */
-/* CONTENEUR LIGNE */
-/* ========================= */
-
-.bid-infos {
-
-  border: 1px solid red;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 5px;
-
-  width: 100%;
-
-  min-height: 25px;
-
-}
-
-
-/* ========================= */
-/* LIGNE ENCHERE */
-/* ========================= */
-
-.bid-row {
-
-  border: 1px solid pink;
-
-  display: flex;
-
-  align-items: center;
-
-  width: 100%;
-
-  gap: 5px;
-
-  background: white;
-
-  border-radius: 6px;
-
-  font-size: 15px;
-
-  white-space: nowrap;
-
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-
-  overflow: hidden;
-
-  flex-shrink: 0;
-
-  transition: all 0.25s ease;
-
-}
-
-/* effet premium au hover */
-
-.bid-row:hover {
-
-  transform: translateX(2px);
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-
-}
-
-
-/* ========================= */
-/* BLOCS CONTENU */
-/* ========================= */
-
-.pseudo,
-.a-encheri,
-.date,
-.com,
-.pays,
-.price {
-  padding: 3px;
-}
-
-
-/* pseudo */
-
-.pseudo {
-
-  display: flex;
-
-  justify-content: center;
-
-  background-color: #bfa14d;
-
-  min-width: 75px;
-
-  font-weight: bold;
-
-}
-
-
-/* texte enchère */
-
-.a-encheri {
-
-  font-size: 13px;
-
-  display: flex;
-
-  justify-content: center;
-
-  background-color: cadetblue;
-
-  min-width: 85px;
-
-  font-weight: bold;
-
-}
-
-
-/* date */
-
-.date {
-
-  background-color: darkorchid;
-
-  display: flex;
-
-  justify-content: center;
-
-  min-width: 120px;
-
-  font-weight: bold;
-
-}
-
-
-/* commentaire */
-
-.com {
-
-  background-color: #72ac7f;
-
-  display: flex;
-
-  justify-content: center;
-
-  min-width: 120px;
-
-  font-weight: bold;
-
-}
-
-
-/* pays */
-
-.pays-promu {
-
-  background-color: darksalmon;
-
-  display: flex;
-
-  justify-content: center;
-
-  font-weight: bold;
-
-  min-width: 170px;
-
-}
-
-
-/* ========================= */
-/* PRIX */
-/* ========================= */
-
-.price {
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  background-color: aqua;
-
-  font-weight: bold;
-
-  color: rgb(189, 10, 10);
-
-  min-width: 75px;
-
-  margin-left: 15px;
-
-}
-
-
-/* ========================= */
-/* ICONES */
-/* ========================= */
-
-.icons-ench {
-
-  display: flex;
-
-  margin-left: auto;
-
-  gap: 6px;
-
-  font-size: 16px;
-
-  flex-shrink: 0;
-
-}
-
-.icons-ench a {
-
-  text-decoration: none;
-
-  color: black;
-
-  transition: transform 0.2s ease, color 0.2s ease;
-
-}
-
-.icons-ench a:hover {
-
-  transform: scale(1.3);
-
-  color: #ff8c00;
-
-  cursor: pointer;
-
+.bid-input-box button:hover{
+    background:#45a049;
 }
 
 
@@ -345,190 +48,157 @@
 /* POPUP ERREUR */
 /* ========================= */
 
-.error-popup {
-
-  position: fixed;
-
-  top: 120px;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  background: black;
-
-  color: white;
-
-  padding: 12px 20px;
-
-  border-radius: 6px;
-
-  z-index: 1100;
-
-  font-size: 14px;
-
-  animation: fadeIn 0.3s ease;
-
-}
-
-
-@keyframes fadeIn {
-
-  from {
-    opacity: 0;
-    transform: translate(-50%, -10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-
+.error-popup{
+    text-align:center;
+    background:#ff4d4d;
+    color:white;
+    padding:10px;
+    margin-bottom:15px;
+    border-radius:6px;
+    font-weight:bold;
 }
 
 
 /* ========================= */
-/* POPUP FORMULAIRE */
+/* LISTE DES ENCHERES */
 /* ========================= */
 
-.popup-overlay {
-
-  position: fixed;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  background: rgba(0,0,0,0.7);
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  z-index: 1000;
-
-}
-
-.popup-form {
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  background: white;
-
-  padding: 30px;
-
-  border-radius: 10px;
-
-  width: 400px;
-
-  height: 350px;
-
-  flex-direction: column;
-
-  gap: 15px;
-
-}
-
-.popup-form textarea {
-
-  height: 100px;
-
-  width: 100%;
-
-  resize: none;
-
-  padding: 10px;
-
-  margin-bottom: 30px;
-
-  border: 1px solid #ccc;
-
-  border-radius: 6px;
-
-}
-
-.popup-form select {
-
-  width: 55%;
-
-  padding: 10px;
-
-  border-radius: 6px;
-
-  border: 1px solid #ccc;
-
-}
-
-.popup-form button {
-
-  padding: 12px;
-
-  background: black;
-
-  color: white;
-
-  border: none;
-
-  border-radius: 6px;
-
-  cursor: pointer;
-
+.bid-list{
+    max-height:350px;
+    overflow-y:auto;
+    border:1px solid #ddd;
+    border-radius:6px;
 }
 
 
 /* ========================= */
-/* RESPONSIVE */
+/* BLOC ENCHERE */
 /* ========================= */
 
-@media (max-width: 768px) {
+.bid-infos{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    background:white;
+}
 
-  .bid-infos {
+.bid-infos:nth-child(even){
+    background:#fafafa;
+}
 
-    flex-direction: row;
 
-    gap: 5px;
+/* ========================= */
+/* LIGNE ENCHERE */
+/* ========================= */
 
-  }
+.bid-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
 
-  .bid-row {
 
-    font-size: 14px;
+/* ========================= */
+/* ELEMENTS */
+/* ========================= */
 
-  }
+.pseudo p{
+    font-weight:bold;
+}
 
-  .pseudo {
-    min-width: 68px;
-  }
+.a-encheri p{
+    color:#555;
+}
 
-  .a-encheri {
-    min-width: 80px;
-  }
+.date p{
+    font-size:14px;
+    color:#888;
+}
 
-  .date {
-    min-width: 85px;
-  }
+.com p{
+    font-style:italic;
+}
 
-  .com {
-    min-width: 65px;
-  }
+.pays-promu p{
+    color:#444;
+}
 
-  .pays-promu {
-    min-width: 165px;
-  }
+.price{
+    margin-left:auto;
+}
 
-  .price {
-    min-width: 70px;
-    margin-left: 0;
-  }
+.price p{
+    font-weight:bold;
+    font-size:18px;
+    color:#2c7a2c;
+}
+
+
+/* ========================= */
+/* ICONES */
+/* ========================= */
+
+.icons-ench{
+    display:flex;
+    gap:10px;
+}
+
+.icons-ench a{
+    text-decoration:none;
+    font-size:18px;
+}
+
+.icons-ench a:hover{
+    transform:scale(1.2);
+}
+
+
+/* ========================= */
+/* ANIMATION NOUVELLE ENCHERE */
+/* ========================= */
+
+.new-bid{
+
+    animation:slideBid 0.6s ease;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,0.25),
+        rgba(255,255,255,1)
+    );
+
+}
+
+
+/* animation glissante */
+
+@keyframes slideBid{
+
+    from{
+        transform:translateY(-20px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+
+/* effet doré sur le prix */
+
+.new-bid .price{
+
+    background:linear-gradient(
+        90deg,
+        #ffd700,
+        #ffb700
+    );
+
+    color:black;
+
+    box-shadow:0 0 8px rgba(255,215,0,0.8);
 
 }
