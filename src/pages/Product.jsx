@@ -13,6 +13,8 @@ const Product = () => {
   const [loading,setLoading] = useState(true);
 
   const [showPopup,setShowPopup] = useState(false);
+  const [showStripe,setShowStripe] = useState(false);
+
   const [bidValue,setBidValue] = useState(null);
 
   const [formData,setFormData] = useState({
@@ -81,23 +83,36 @@ const Product = () => {
 
     e.preventDefault();
 
-    const newBid = {
-
-      amount:bidValue,
-      message:formData.message,
-      country:formData.country,
-      date:new Date()
-
-    };
-
-    setBids([newBid,...bids]);
+    if(!formData.country) return;
 
     setShowPopup(false);
+    setShowStripe(true);
 
-    setFormData({
-      message:"",
-      country:""
-    });
+  };
+
+  const handleFakePayment = () => {
+
+    setTimeout(()=>{
+
+      const newBid = {
+
+        amount:bidValue,
+        message:formData.message,
+        country:formData.country,
+        date:new Date()
+
+      };
+
+      setBids([newBid,...bids]);
+
+      setShowStripe(false);
+
+      setFormData({
+        message:"",
+        country:""
+      });
+
+    },1500);
 
   };
 
@@ -183,6 +198,48 @@ const Product = () => {
               </button>
 
             </form>
+
+          </div>
+
+        </div>
+
+      )}
+
+      {/* FAKE STRIPE POPUP */}
+
+      {showStripe && (
+
+        <div className="popup-overlay">
+
+          <div className="stripe-popup">
+
+            <h3>Paiement sécurisé</h3>
+
+            <p>Montant de l'enchère</p>
+
+            <h2>{bidValue} €</h2>
+
+            <div className="fake-card">
+
+              <input placeholder="4242 4242 4242 4242"/>
+              <input placeholder="MM/YY"/>
+              <input placeholder="CVC"/>
+
+            </div>
+
+            <button
+              className="stripe-pay"
+              onClick={handleFakePayment}
+            >
+              Payer l'enchère (Vous serez debité de 10% de la somme a la fin de l'enchere si vous l'emportez, vous reglerez le reste avec la styliste lors du premier essayage)
+            </button>
+
+            <button
+              className="stripe-cancel"
+              onClick={()=>setShowStripe(false)}
+            >
+              Annuler
+            </button>
 
           </div>
 
