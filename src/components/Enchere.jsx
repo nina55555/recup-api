@@ -7,40 +7,47 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const [showError, setShowError] = useState(false);
   const [lastBidIndex, setLastBidIndex] = useState(null);
 
+  const [showBook,setShowBook] = useState(false);
+  const [selectedComment,setSelectedComment] = useState("");
+
   const listRef = useRef(null);
 
   const MIN_BID = 5555;
   const lastBid = bids.length > 0 ? Math.max(...bids.map(b => b.amount)) : MIN_BID;
 
-  useEffect(() => {
+  useEffect(()=>{
 
-    if (bids.length > 0) {
+    if(bids.length>0){
 
       setLastBidIndex(0);
 
-      setTimeout(() => {
+      setTimeout(()=>{
         setLastBidIndex(null);
-      }, 2000);
+      },2000);
 
-      if (listRef.current) {
+      if(listRef.current){
         listRef.current.scrollTop = 0;
       }
 
     }
 
-  }, [bids]);
+  },[bids]);
 
-  const handleSubmit = () => {
+
+  const handleSubmit = ()=>{
 
     const numericValue = Number(value);
 
-    if (numericValue <= lastBid) {
+    if(numericValue <= lastBid){
 
       setShowError(true);
 
-      setTimeout(() => setShowError(false), 2000);
+      setTimeout(()=>{
+        setShowError(false);
+      },2000);
 
       return;
+
     }
 
     onBidSubmit(numericValue);
@@ -48,20 +55,25 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
   };
 
-  const handleKeyDown = (e) => {
 
-    if (e.key === "Enter") handleSubmit();
+  const handleKeyDown = (e)=>{
+    if(e.key === "Enter") handleSubmit();
+  };
+
+
+  const openBook = (comment)=>{
+
+    setSelectedComment(comment || "Aucun commentaire");
+    setShowBook(true);
+
+    const audio = new Audio("/src/assets/page.mp3");
+    audio.volume = 0.3;
+    audio.play();
 
   };
 
-  const handleIconClick = (e, type, bid) => {
 
-    e.preventDefault();
-    alert(`Vous avez cliqué sur "${type}" pour l'enchère de ${bid.amount}€`);
-
-  };
-
-  return (
+  return(
 
     <div className="enchere-container">
 
@@ -71,7 +83,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
           type="number"
           placeholder="Votre enchère"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e)=>setValue(e.target.value)}
           onKeyDown={handleKeyDown}
         />
 
@@ -79,20 +91,24 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
       </div>
 
+
       {showError && (
+
         <div className="error-popup">
           Allez un peu de nerf ! L'enchère doit être supérieure à la dernière.
         </div>
+
       )}
+
 
       <div className="bid-list" ref={listRef}>
 
-        {bids.map((bid, index) => {
+        {bids.map((bid,index)=>{
 
           const date = new Date(bid.date).toLocaleString();
           const isNew = index === lastBidIndex;
 
-          return (
+          return(
 
             <div className={`bid-infos ${isNew ? "new-bid" : ""}`} key={index}>
 
@@ -124,9 +140,19 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
                 <div className="icons-ench">
 
-                  <a href="#" onClick={(e)=>handleIconClick(e,"feu",bid)}>🔥</a>
+                  <a href="#">
+                    🔥
+                  </a>
 
-                  <a href="#" onClick={(e)=>handleIconClick(e,"livre",bid)}>📖</a>
+                  <a
+                    href="#"
+                    onClick={(e)=>{
+                      e.preventDefault();
+                      openBook(bid.message);
+                    }}
+                  >
+                    📖
+                  </a>
 
                 </div>
 
@@ -139,6 +165,42 @@ const Enchere = ({ onBidSubmit, bids }) => {
         })}
 
       </div>
+
+
+      {/* POPUP LIVRE */}
+
+      {showBook && (
+
+        <div className="book-overlay">
+
+          <div className="book-popup">
+
+            <span
+              className="book-close"
+              onClick={()=>setShowBook(false)}
+            >
+              ✕
+            </span>
+
+            <div className="book">
+
+              <div className="page left"></div>
+
+              <div className="page right">
+
+                <p className="book-text">
+                  {selectedComment}
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
 
     </div>
 
