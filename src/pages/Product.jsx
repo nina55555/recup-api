@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Countdown from "../components/Countdown";
 import Enchere from "../components/Enchere";
 import Icons from "../components/Icons";
@@ -8,321 +8,303 @@ import "../css/Product.css";
 
 const Product = () => {
 
-  const { id } = useParams();
+const { id } = useParams();
+const navigate = useNavigate();
 
-  const [product,setProduct] = useState(null);
-  const [loading,setLoading] = useState(true);
+const [product,setProduct] = useState(null);
+const [loading,setLoading] = useState(true);
 
-  const [showPopup,setShowPopup] = useState(false);
-  const [bidValue,setBidValue] = useState(null);
+const [showPopup,setShowPopup] = useState(false);
+const [bidValue,setBidValue] = useState(null);
 
-  const [formData,setFormData] = useState({
-    message:"",
-    country:""
-  });
+const [formData,setFormData] = useState({
+message:"",
+country:""
+});
 
-  const [bids,setBids] = useState([]);
+const [bids,setBids] = useState([]);
+const [user,setUser] = useState(null);
+const [pseudo,setPseudo] = useState("");
 
-  const [user,setUser] = useState(null);
+/* ============================= */
+/* USER CONNECTE */
+/* ============================= */
 
-  /* ============================= */
-  /* RECUPERER UTILISATEUR CONNECTE */
-  /* ============================= */
+useEffect(()=>{
 
-  useEffect(()=>{
+const getUser = async()=>{
 
-    const getUser = async () => {
+const { data } = await supabase.auth.getUser();
 
-      const { data } = await supabase.auth.getUser();
+if(data?.user){
 
-      if(data?.user){
-        setUser(data.user);
-      }
+setUser(data.user);
 
-    };
+const { data:profile } = await supabase
+.from("profiles")
+.select("pseudo")
+.eq("id",data.user.id)
+.single();
 
-    getUser();
+if(profile) setPseudo(profile.pseudo);
 
-  },[]);
+}
 
-  /* ============================= */
-  /* RECUPERER PRODUIT */
-  /* ============================= */
+};
 
-  useEffect(()=>{
+getUser();
 
-    const getProduct = async()=>{
+},[]);
 
-      try{
+/* ============================= */
+/* RECUP PRODUIT */
+/* ============================= */
 
-        const response = await fetch(
-          `http://localhost:5978/defilons/${id}`
-        );
+useEffect(()=>{
 
-        const data = await response.json();
+const getProduct = async()=>{
 
-        setProduct(data);
+try{
 
-      }catch(error){
+const response = await fetch(
+`http://localhost:5978/defilons/${id}`
+);
 
-        console.error(error);
+const data = await response.json();
+setProduct(data);
 
-      }finally{
+}catch(error){
 
-        setLoading(false);
+console.error(error);
 
-      }
+}finally{
 
-    };
+setLoading(false);
 
-    if(id) getProduct();
+}
 
-  },[id]);
+};
 
-  /* ============================= */
-  /* RECUPERER ENCHERES SUPABASE */
-  /* ============================= */
+if(id) getProduct();
 
-  useEffect(()=>{
+},[id]);
 
-    const fetchBids = async ()=>{
+/* ============================= */
+/* RECUP ENCHERES */
+/* ============================= */
 
-      const { data, error } = await supabase
-        .from("bids")
-        .select("*")
-        .order("amount",{ascending:false});
+useEffect(()=>{
 
-      if(error){
+const fetchBids = async ()=>{
 
-        console.error("Erreur récupération enchères:",error);
-        return;
+const { data,error } = await supabase
+.from("bids")
+.select(`
+amount,
+message,
+country,
+created_at,
+profiles (pseudo)
+`)
+.order("amount",{ascending:false});
 
-      }
+if(error){
 
-      if(data){
+console.error(error);
+return;
 
-        const formatted = data.map(b=>({
+}
 
-          amount:b.amount,
-          message:b.message,
-          country:b.country,
-          date:b.created_at
+if(data){
 
-        }));
+const formatted = data.map(b => ({
 
-        setBids(formatted);
+amount:b.amount,
+message:b.message,
+country:b.country,
+pseudo:b.profiles?.pseudo,
+date:b.created_at
 
-      }
+}));
 
-    };
+setBids(formatted);
 
-    fetchBids();
+}
 
-  },[]);
+};
 
-  /* ============================= */
-  /* CLICK SUR OK ENCHERE */
-  /* ============================= */
+fetchBids();
 
-  const handleBidSubmit = (value)=>{
+},[]);
 
-    if(!user){
+/* ============================= */
+/* CLICK ENCHERE */
+/* ============================= */
 
-      setShowPopup(true);
-      setBidValue(value);
-      return;
+const handleBidSubmit = (value)=>{
 
-    }
+if(!user){
 
-    setBidValue(value);
-    setShowPopup(true);
+navigate("/signup");
+return;
 
-  };
+}
 
-  /* ============================= */
-  /* GOOGLE LOGIN */
-  /* ============================= */
+setBidValue(value);
+setShowPopup(true);
 
-  const handleGoogleLogin = async()=>{
+};
 
-    await supabase.auth.signInWithOAuth({
-      provider:"google"
-    });
+/* ============================= */
+/* CHANGE FORM */
+/* ============================= */
 
-  };
+const handleChange = (e)=>{
 
-  /* ============================= */
-  /* CHANGE FORM */
-  /* ============================= */
+const {name,value} = e.target;
 
-  const handleChange = (e)=>{
+setFormData({
+...formData,
+[name]:value
+});
 
-    const {name,value} = e.target;
+};
 
-    setFormData({
-      ...formData,
-      [name]:value
-    });
+/* ============================= */
+/* ENREGISTRER ENCHERE */
+/* ============================= */
 
-  };
+const handleFormSubmit = async (e)=>{
 
-  /* ============================= */
-  /* VALIDATION FORM + INSERT BDD */
-  /* ============================= */
+e.preventDefault();
 
-  const handleFormSubmit = async (e)=>{
+const newBid = {
 
-    e.preventDefault();
+amount:bidValue,
+message:formData.message,
+country:formData.country,
+user_id:user.id
 
-    const newBid = {
+};
 
-      amount:bidValue,
-      message:formData.message,
-      country:formData.country
+const { error } = await supabase
+.from("bids")
+.insert([newBid]);
 
-    };
+if(error){
 
-    const { error } = await supabase
-      .from("bids")
-      .insert([newBid]);
+console.error(error);
+return;
 
-    if(error){
+}
 
-      console.error(error);
-      return;
+const localBid = {
+...newBid,
+pseudo:pseudo,
+date:new Date()
+};
 
-    }
+setBids([localBid,...bids]);
 
-    const localBid = {
-      ...newBid,
-      date:new Date()
-    };
+setShowPopup(false);
 
-    setBids([localBid,...bids]);
+setFormData({
+message:"",
+country:""
+});
 
-    setShowPopup(false);
+};
 
-    setFormData({
-      message:"",
-      country:""
-    });
+if(loading) return <div>Loading...</div>;
+if(!product) return <div>Produit introuvable</div>;
 
-  };
+return(
 
-  /* ============================= */
+<div className="main--box">
 
-  if(loading) return <div className="main--box">Loading...</div>;
-  if(!product) return <div className="main--box">Produit introuvable</div>;
+<Countdown/>
 
-  return(
+<div className="big--box">
 
-    <div className="main--box">
+<div className="images--box">
 
-      <Countdown/>
+<img
+className="paint"
+src="/src/assets/wallpaint.jpg"
+alt="wall"
+/>
 
-      <div className="big--box">
+<div className="product-overlay">
 
-        <div className="images--box">
+<img
+className="podium"
+src={product.imageUrl}
+alt={product.title}
+/>
 
-          <img
-            className="paint"
-            src="/src/assets/wallpaint.jpg"
-            alt="wall"
-          />
+<h2>{product.title}</h2>
 
-          <div className="product-overlay">
+</div>
 
-            <img
-              className="podium"
-              src={product.imageUrl}
-              alt={product.title}
-            />
+</div>
 
-            <h2>{product.title}</h2>
+</div>
 
-          </div>
+<Enchere
+bids={bids}
+onBidSubmit={handleBidSubmit}
+/>
 
-        </div>
+<Icons/>
 
-      </div>
+{showPopup && (
 
-      <Enchere
-        bids={bids}
-        onBidSubmit={handleBidSubmit}
-      />
+<div className="popup-overlay">
 
-      <Icons/>
+<div className="popup-form">
 
-      {/* ======================= */}
-      {/* POPUP INSCRIPTION */}
-      {/* ======================= */}
+<h3>Commentaire</h3>
 
-      {showPopup && (
+<form onSubmit={handleFormSubmit}>
 
-        <div className="popup-overlay">
+<textarea
+name="message"
+placeholder="Ecrire quelques lignes"
+value={formData.message}
+onChange={handleChange}
+/>
 
-          <div className="popup-form">
+<select
+name="country"
+value={formData.country}
+onChange={handleChange}
+required
+>
 
-            {!user && (
+<option value="">Choisir un pays</option>
+<option>France</option>
+<option>Italie</option>
+<option>Espagne</option>
+<option>Allemagne</option>
+<option>Belgique</option>
 
-              <>
+</select>
 
-                <h3>Connexion requise</h3>
+<button type="submit">
+Valider l'enchère
+</button>
 
-                <button
-                  onClick={handleGoogleLogin}
-                >
-                  Se connecter avec Google
-                </button>
+</form>
 
-                <hr/>
+</div>
 
-              </>
+</div>
 
-            )}
+)}
 
-            <h3>Commentaire</h3>
+</div>
 
-            <form onSubmit={handleFormSubmit}>
-
-              <textarea
-                name="message"
-                placeholder="Ecrire quelques lignes"
-                value={formData.message}
-                onChange={handleChange}
-              />
-
-              <select
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-                required
-              >
-
-                <option value="">Choisir un pays</option>
-                <option>France</option>
-                <option>Italie</option>
-                <option>Espagne</option>
-                <option>Allemagne</option>
-                <option>Belgique</option>
-
-              </select>
-
-              <button type="submit">
-                Valider
-              </button>
-
-            </form>
-
-          </div>
-
-        </div>
-
-      )}
-
-    </div>
-
-  );
+);
 
 };
 

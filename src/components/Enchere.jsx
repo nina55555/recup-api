@@ -1,210 +1,115 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../css/Enchere.css";
+import React,{useState} from "react";
 
-const Enchere = ({ onBidSubmit, bids }) => {
+const Enchere = ({ onBidSubmit,bids })=>{
 
-  const [value, setValue] = useState("");
-  const [showError, setShowError] = useState(false);
-  const [lastBidIndex, setLastBidIndex] = useState(null);
+const [value,setValue] = useState("");
+const [showError,setShowError] = useState(false);
 
-  const [showBook,setShowBook] = useState(false);
-  const [selectedComment,setSelectedComment] = useState("");
+const MIN_BID = 5555;
 
-  const listRef = useRef(null);
+const lastBid = bids.length > 0
+? Math.max(...bids.map(b => b.amount))
+: MIN_BID;
 
-  const MIN_BID = 5555;
-  const lastBid = bids.length > 0 ? Math.max(...bids.map(b => b.amount)) : MIN_BID;
+const handleSubmit = ()=>{
 
-  useEffect(()=>{
+const numericValue = Number(value);
 
-    if(bids.length>0){
+if(numericValue <= lastBid){
 
-      setLastBidIndex(0);
+setShowError(true);
 
-      setTimeout(()=>{
-        setLastBidIndex(null);
-      },2000);
+setTimeout(()=>setShowError(false),2000);
 
-      if(listRef.current){
-        listRef.current.scrollTop = 0;
-      }
+return;
 
-    }
+}
 
-  },[bids]);
+onBidSubmit(numericValue);
 
+setValue("");
 
-  const handleSubmit = ()=>{
+};
 
-    const numericValue = Number(value);
+const handleKeyDown = (e)=>{
 
-    if(numericValue <= lastBid){
+if(e.key === "Enter") handleSubmit();
 
-      setShowError(true);
+};
 
-      setTimeout(()=>{
-        setShowError(false);
-      },2000);
+return(
 
-      return;
+<div className="enchere-container">
 
-    }
+<div className="bid-input-box">
 
-    onBidSubmit(numericValue);
-    setValue("");
+<input
+type="number"
+placeholder="Votre enchère"
+value={value}
+onChange={(e)=>setValue(e.target.value)}
+onKeyDown={handleKeyDown}
+/>
 
-  };
+<button onClick={handleSubmit}>
+OK
+</button>
 
+</div>
 
-  const handleKeyDown = (e)=>{
-    if(e.key === "Enter") handleSubmit();
-  };
+{showError && (
 
+<div className="error-popup">
+L'enchère doit être supérieure à la dernière
+</div>
 
-  const openBook = (comment)=>{
+)}
 
-    setSelectedComment(comment || "Aucun commentaire");
-    setShowBook(true);
+<div className="bid-list">
 
-    const audio = new Audio("/src/assets/page.mp3");
-    audio.volume = 0.3;
-    audio.play();
+{bids.map((bid,index)=>{
 
-  };
+const date = new Date(bid.date).toLocaleString();
 
+return(
 
-  return(
+<div className="bid-row" key={index}>
 
-    <div className="enchere-container">
+<span className="pseudo">
+{bid.pseudo || "Anonyme"}
+</span>
 
-      <div className="bid-input-box">
+<span>
+a enchéri le
+</span>
 
-        <input
-          type="number"
-          placeholder="Votre enchère"
-          value={value}
-          onChange={(e)=>setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+<span>
+{date}
+</span>
 
-        <button onClick={handleSubmit}>OK</button>
+<span className="price">
+{bid.amount}€
+</span>
 
-      </div>
+<span className="comment">
+{bid.message || "-"}
+</span>
 
+<span>
+{bid.country || "-"}
+</span>
 
-      {showError && (
+</div>
 
-        <div className="error-popup">
-          Allez un peu de nerf ! L'enchère doit être supérieure à la dernière.
-        </div>
+);
 
-      )}
+})}
 
+</div>
 
-      <div className="bid-list" ref={listRef}>
+</div>
 
-        {bids.map((bid,index)=>{
-
-          const date = new Date(bid.date).toLocaleString();
-          const isNew = index === lastBidIndex;
-
-          return(
-
-            <div className={`bid-infos ${isNew ? "new-bid" : ""}`} key={index}>
-
-              <div className="bid-row">
-
-                <div className="pseudo">
-                  <p>PSEUDO</p>
-                </div>
-
-                <div className="a-encheri">
-                  <p>a enchéri le:</p>
-                </div>
-
-                <div className="date">
-                  <p>{date}</p>
-                </div>
-
-                <div className="com">
-                  <p>{bid.message || "....."}</p>
-                </div>
-
-                <div className="pays-promu">
-                  <p>PAYS PROMU: {bid.country || "-"}</p>
-                </div>
-
-                <div className="price">
-                  <p>{bid.amount}€</p>
-                </div>
-
-                <div className="icons-ench">
-
-                  <a href="#">
-                    🔥
-                  </a>
-
-                  <a
-                    href="#"
-                    onClick={(e)=>{
-                      e.preventDefault();
-                      openBook(bid.message);
-                    }}
-                  >
-                    📖
-                  </a>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          );
-
-        })}
-
-      </div>
-
-
-      {/* POPUP LIVRE */}
-
-      {showBook && (
-
-        <div className="book-overlay">
-
-          <div className="book-popup">
-
-            <span
-              className="book-close"
-              onClick={()=>setShowBook(false)}
-            >
-              ✕
-            </span>
-
-            <div className="book">
-
-              <div className="page left"></div>
-
-              <div className="page right">
-
-                <p className="book-text">
-                  {selectedComment}
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      )}
-
-    </div>
-
-  );
+);
 
 };
 

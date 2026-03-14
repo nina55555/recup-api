@@ -1,36 +1,74 @@
-import React from 'react';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../css/Signin.css'
+import React,{useState} from "react";
+import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
+import "../css/Auth.css";
 
-const Signin = () => {
-    return (
-        <div className="bigBox">
-            <div className='signin'>
-            <form>
-                <h3>sign in...
-                    <br/> and let's run the world </h3> <br/> 
-                <br/>
-                <br/>
-                <div>
-                    <label htmlFor='email' >email</label>
-                    <input type='email' placeholder='enter your email' className='form-control input-form'/>
-                </div>
+const Signin = ()=>{
 
-                <br/>
+const navigate = useNavigate();
 
-                <div>
-                    <label htmlFor='password' >password</label>
-                    <input type='password' placeholder='enter your password' className='form-control input-form'/>
-                </div>
-                <br/>
-                
-                <button className='btn'><a href='/home' >sign in</a></button>
-           
-            </form>
-            </div>
-        </div>
-        
-    );
+const [email,setEmail] = useState("");
+const [password,setPassword] = useState("");
+const [error,setError] = useState(null);
+
+const handleSignin = async (e)=>{
+
+e.preventDefault();
+
+const { error } = await supabase.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+if(error){
+
+setError(error.message);
+return;
+
+}
+
+navigate("/home");
+
+};
+
+return(
+
+<div className="auth-container">
+
+<h2>Connexion</h2>
+
+<form onSubmit={handleSignin} className="auth-form">
+
+<input
+type="email"
+placeholder="Email"
+value={email}
+onChange={(e)=>setEmail(e.target.value)}
+required
+/>
+
+<input
+type="password"
+placeholder="Mot de passe"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+required
+/>
+
+<button type="submit">
+Se connecter
+</button>
+
+{error && <p className="auth-error">{error}</p>}
+
+</form>
+
+</div>
+
+);
+
 };
 
 export default Signin;
