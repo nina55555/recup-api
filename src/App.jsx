@@ -87,7 +87,7 @@ function App() {
 
       {/*<Route path="/enchere" element={<Enchere/>} /> */}
       
-      <Route path="/Product/:id" element={<Product/>} />
+      <Route path="/product/:id" element={<Product/>} />
 
 
 

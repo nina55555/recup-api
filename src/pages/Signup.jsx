@@ -25,7 +25,13 @@ setError(null);
 const { data,error } = await supabase.auth.signUp({
 
 email,
-password
+password,
+options:{
+    emailRedirectTo:"http://localhost:5173",
+     data:{
+   pseudo:pseudo
+  }
+  }
 
 });
 
