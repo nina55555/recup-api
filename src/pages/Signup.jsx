@@ -44,6 +44,10 @@ return;
 
 if(data?.user){
 
+
+
+  alert("Compte créé ! Vérifie ton email.");
+  /*enleve temporairement selon gpt
 const { error:profileError } = await supabase
 .from("profiles")
 .insert([{
@@ -55,6 +59,11 @@ story:storyMode==="now"?story:null,
 story_mode:storyMode
 
 }]);
+*/
+
+
+
+
 
 if(profileError){
 
@@ -62,6 +71,9 @@ setError(profileError.message);
 return;
 
 }
+
+
+
 
 }
 
