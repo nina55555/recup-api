@@ -4,293 +4,230 @@ import Countdown from "../components/Countdown";
 import Enchere from "../components/Enchere";
 import Icons from "../components/Icons";
 import { supabase } from "../lib/supabase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../css/Product.css";
 
 const Product = () => {
-
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [product,setProduct] = useState(null);
-  const [loading,setLoading] = useState(true);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const [showPopup,setShowPopup] = useState(false);
-  const [bidValue,setBidValue] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [bidValue, setBidValue] = useState(null);
 
-  const [formData,setFormData] = useState({
-    message:"",
-    country:""
-  });
+  const [formData, setFormData] = useState({ message: "", country: "" });
 
-  const [bids,setBids] = useState([]);
-  const [user,setUser] = useState(null);
-  const [pseudo,setPseudo] = useState("");
+  const [bids, setBids] = useState([]);
+  const [user, setUser] = useState(null);
+  const [pseudo, setPseudo] = useState("");
 
-  /* ============================= */
-  /* VERIFICATION SESSION */
-  /* ============================= */
-
-  useEffect(()=>{
-
-    supabase.auth.getSession().then(({data})=>{
-
-      if(data.session){
-        console.log("user connecté");
-      }
-
-    });
-
-  },[]);
-
-  /* ============================= */
-  /* RECUPERER UTILISATEUR */
-  /* ============================= */
-
-  useEffect(()=>{
-
-    const getUser = async()=>{
-
+  // 🔹 USER
+  useEffect(() => {
+    const getUser = async () => {
       const { data } = await supabase.auth.getUser();
+      if (data?.user) setUser(data.user);
+    };
+    getUser();
+  }, []);
 
-      if(data?.user){
+  // 🔹 PROFILE
+  useEffect(() => {
+    if (!user) return;
 
-        setUser(data.user);
-
-        const { data:profile } = await supabase
+    const getProfile = async () => {
+      const { data } = await supabase
         .from("profiles")
         .select("pseudo")
-        .eq("id",data.user.id)
+        .eq("id", user.id)
         .single();
 
-        if(profile){
-          setPseudo(profile.pseudo);
-        }
-
-      }
-
+      if (data) setPseudo(data.pseudo);
     };
 
-    getUser();
+    getProfile();
+  }, [user]);
 
-  },[]);
-
-  /* ============================= */
-  /* RECUP PRODUIT */
-  /* ============================= */
-
-  useEffect(()=>{
-
-    const getProduct = async()=>{
-
-      try{
-
-        const response = await fetch(
-          `http://localhost:5978/defilons/${id}`
-        );
-
-        const data = await response.json();
-
+  // 🔹 PRODUCT (AVEC IMAGE CONSERVÉE)
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await fetch(`http://localhost:5978/defilons/${id}`);
+        if (!res.ok) throw new Error();
+        const data = await res.json();
         setProduct(data);
-
-      }catch(error){
-
-        console.error(error);
-
-      }finally{
-
+      } catch {
+        toast.error("Erreur chargement produit");
+      } finally {
         setLoading(false);
-
       }
-
     };
 
-    if(id) getProduct();
+    if (id) getProduct();
+  }, [id]);
 
-  },[id]);
+  // 🔹 FETCH BIDS (FIX UUID → TEXT)
+  useEffect(() => {
+    if (!id) return;
 
-  /* ============================= */
-  /* RECUP ENCHERES */
-  /* ============================= */
+    const fetchBids = async () => {
+      const { data, error } = await supabase
+        .from("bids")
+        .select(`
+          amount,
+          message,
+          country,
+          created_at,
+          profiles (pseudo)
+        `)
+        .eq("product_id", id)
+        .order("amount", { ascending: false });
 
-  useEffect(()=>{
-
-    const fetchBids = async ()=>{
-
-      const { data,error } = await supabase
-      .from("bids")
-      .select(`
-        amount,
-        message,
-        country,
-        created_at,
-        profiles (pseudo)
-      `)
-      .order("amount",{ascending:false});
-
-      if(error){
-        console.error(error);
+      if (error) {
+        console.error("Erreur bids:", error.message);
         return;
       }
 
-      if(data){
+      const formatted = data.map((b) => ({
+        amount: b.amount,
+        message: b.message,
+        country: b.country,
+        pseudo: b.profiles?.pseudo || "Anonyme",
+        date: b.created_at
+      }));
 
-        const formatted = data.map(b => ({
-
-          amount:b.amount,
-          message:b.message,
-          country:b.country,
-          pseudo:b.profiles?.pseudo,
-          date:b.created_at
-
-        }));
-
-        setBids(formatted);
-
-      }
-
+      setBids(formatted);
     };
 
     fetchBids();
+  }, [id]);
 
-  },[]);
+  // 🔥 REALTIME (OK)
+  useEffect(() => {
+    if (!id) return;
 
-  /* ============================= */
-  /* CLICK ENCHERE */
-  /* ============================= */
+    const channel = supabase
+      .channel("bids-realtime")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "bids",
+          filter: `product_id=eq.${id}`
+        },
+        (payload) => {
+          const newBid = {
+            amount: payload.new.amount,
+            message: payload.new.message,
+            country: payload.new.country,
+            pseudo: pseudo || "Anonyme",
+            date: payload.new.created_at
+          };
 
-  const handleBidSubmit = (value)=>{
+          setBids((prev) => [newBid, ...prev]);
+        }
+      )
+      .subscribe();
 
-    if(!user){
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [id, pseudo]);
 
+  // 🔹 CLICK ENCHÈRE
+  const handleBidSubmit = (value) => {
+    if (!user) {
       navigate("/signup");
       return;
+    }
 
+    if (!value || value <= 0) {
+      toast.error("Montant invalide");
+      return;
     }
 
     setBidValue(value);
     setShowPopup(true);
-
   };
 
-  /* ============================= */
-  /* CHANGE FORM */
-  /* ============================= */
-
-  const handleChange = (e)=>{
-
-    const {name,value} = e.target;
-
-    setFormData({
-      ...formData,
-      [name]:value
-    });
-
+  // 🔹 FORM CHANGE
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  /* ============================= */
-  /* ENREGISTRER ENCHERE */
-  /* ============================= */
-
-  const handleFormSubmit = async (e)=>{
-
+  // 🔹 SUBMIT
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const newBid = {
+    const { error } = await supabase.from("bids").insert([
+      {
+        amount: bidValue,
+        message: formData.message,
+        country: formData.country,
+        user_id: user.id,
+        product_id: id
+      }
+    ]);
 
-      amount:bidValue,
-      message:formData.message,
-      country:formData.country,
-      user_id:user.id
-
-    };
-
-    const { error } = await supabase
-      .from("bids")
-      .insert([newBid]);
-
-    if(error){
-
+    if (error) {
       console.error(error);
+      toast.error("Erreur ajout enchère");
       return;
-
     }
 
-    const localBid = {
-
-      ...newBid,
-      pseudo:pseudo,
-      date:new Date()
-
-    };
-
-    setBids([localBid,...bids]);
-
+    toast.success("Enchère ajoutée !");
     setShowPopup(false);
-
-    setFormData({
-      message:"",
-      country:""
-    });
-
+    setFormData({ message: "", country: "" });
   };
 
-  /* ============================= */
+  // 🔹 LOADER
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="spinner"></div>
+        <p>Chargement...</p>
+      </div>
+    );
+  }
 
-  if(loading) return <div>Loading...</div>;
-  if(!product) return <div>Produit introuvable</div>;
+  if (!product) return <div>Produit introuvable</div>;
 
-  return(
-
+  return (
     <div className="main--box">
-
-      <Countdown/>
+      <Countdown />
 
       <div className="big--box">
-
         <div className="images--box">
+          <img className="paint" src="/src/assets/wallpaint.jpg" alt="wall" />
 
-          <img
-            className="paint"
-            src="/src/assets/wallpaint.jpg"
-            alt="wall"
-          />
-
+          {/* ✅ IMAGE PRODUIT CONSERVÉE */}
           <div className="product-overlay">
-
             <img
               className="podium"
               src={product.imageUrl}
               alt={product.title}
             />
-
             <h2>{product.title}</h2>
-
           </div>
-
         </div>
-
       </div>
 
-      <Enchere
-        bids={bids}
-        onBidSubmit={handleBidSubmit}
-      />
+      <Enchere bids={bids} onBidSubmit={handleBidSubmit} />
 
-      <Icons/>
+      <Icons />
 
       {showPopup && (
-
         <div className="popup-overlay">
-
           <div className="popup-form">
-
             <h3>Commentaire</h3>
 
             <form onSubmit={handleFormSubmit}>
-
               <textarea
                 name="message"
-                placeholder="Ecrire quelques lignes"
                 value={formData.message}
                 onChange={handleChange}
               />
@@ -301,32 +238,23 @@ const Product = () => {
                 onChange={handleChange}
                 required
               >
-
                 <option value="">Choisir un pays</option>
                 <option>France</option>
                 <option>Italie</option>
                 <option>Espagne</option>
                 <option>Allemagne</option>
                 <option>Belgique</option>
-
               </select>
 
-              <button type="submit">
-                Valider l'enchère
-              </button>
-
+              <button type="submit">Valider l'enchère</button>
             </form>
-
           </div>
-
         </div>
-
       )}
 
+      <ToastContainer />
     </div>
-
   );
-
 };
 
 export default Product;
