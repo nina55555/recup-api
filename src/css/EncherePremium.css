@@ -1,19 +1,10 @@
 /* =========================
-   RESET
+   CONTAINER GENERAL
 ========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* =========================
-   MAIN CONTAINER
-========================= */
-.main--box {
+.enchere-premium-container {
   width: 95%;
-  max-width: 1200px;
-  margin: 100px auto 0 auto; /* top margin = navbar height */
+  max-width: 1000px;
+  margin: 20px auto 80px;
   font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
@@ -21,91 +12,21 @@
 }
 
 /* =========================
-   COUNTDOWN
+   INPUT & BUTTON
 ========================= */
-.countdown-container {
-  width: 100%;
-  position: sticky;
-  top: 80px; /* navbar height */
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.timer-container {
-  width: 100%;
-  max-width: 500px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.timer {
-  width: 90%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 8px;
-  background-color: rgb(117, 117, 92);
-  color: white;
-  font-weight: bold;
-}
-
-/* =========================
-   BIG BOX (IMAGE)
-========================= */
-.big--box {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.images--box {
-  width: 100%;
-  max-width: 400px; /* wallpaint plus petit pour libérer de l'espace */
-  height: 200px;
-  position: relative;
-}
-
-.paint {
-  width: 100%;
-  height: 100px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-/* =========================
-   ENCHÈRES PREMIUM
-========================= */
-.enchere-premium-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  gap: 15px;
-}
-
-/* INPUT + BUTTON */
 .bid-input-box-premium {
   display: flex;
-  gap: 10px;
   justify-content: center;
-  width: 100%;
+  gap: 15px;
 }
 
 .bid-input-box-premium input {
   flex: 1;
-  padding: 12px;
-  font-size: 16px;
+  padding: 14px;
   border-radius: 8px;
   border: 2px solid #c5c5c5;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 .bid-input-box-premium input:focus {
@@ -115,20 +36,23 @@
 }
 
 .bid-input-box-premium button {
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 24px;
   background: linear-gradient(90deg, #4CAF50, #2e7d32);
   color: white;
   font-weight: bold;
   border: none;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .bid-input-box-premium button:hover {
   background: linear-gradient(90deg, #66bb6a, #1b5e20);
 }
 
-/* ERROR POPUP */
+/* =========================
+   ERROR POPUP
+========================= */
 .error-popup-premium {
   text-align: center;
   background: #ff4d4d;
@@ -139,20 +63,25 @@
   animation: fadeIn 0.3s ease;
 }
 
-/* BID LIST */
+/* =========================
+   LISTE DES ENCHÈRES
+========================= */
 .bid-list-premium {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: calc(3 * 72px + 24px); /* 3 cartes + gaps */
+
+  /* Hauteur maximale = 3 cartes + gaps */
+  max-height: calc(3 * 70px + 2 * 12px); /* 3 cartes de 70px + 2 gaps */
   overflow-y: auto;
+
   padding-right: 6px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 10px;
   border: 1px solid #ddd;
 }
 
-/* SCROLLBAR */
+/* SCROLLBAR PREMIUM */
 .bid-list-premium::-webkit-scrollbar {
   width: 12px;
 }
@@ -171,16 +100,23 @@
   background: linear-gradient(180deg, #ffec70, #ffcf33);
 }
 
-/* BID CARD */
+/* =========================
+   BID CARD
+========================= */
 .bid-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #fffdf5;
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  height: 72px;
+
+  /* Hauteur fixe 70px */
+  height: 70px;
+  min-height: 70px;
+  max-height: 70px;
+
   transition: transform 0.3s ease;
 }
 
@@ -191,20 +127,22 @@
 /* LEFT INFO */
 .bid-info-left p {
   margin: 2px 0;
+  line-height: 1.2; /* ajuste la ligne pour tenir dans 70px */
 }
 
 .pseudo {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .message {
   font-style: italic;
+  font-size: 13px;
   color: #555;
 }
 
 .country {
-  font-size: 14px;
+  font-size: 12px;
   color: #888;
 }
 
@@ -219,14 +157,16 @@
 }
 
 .price {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   background: linear-gradient(90deg, #ffd700, #ffb700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* ANIMATION NOUVELLE ENCHÈRE */
+/* =========================
+   ANIMATION NOUVELLE ENCHÈRE
+========================= */
 .new-bid-premium {
   animation: slideBidPremium 0.6s ease;
   background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), #fffdf5);
@@ -241,37 +181,20 @@
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-  .big--box {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .bid-card {
     flex-direction: column;
     align-items: flex-start;
-    height: auto; /* s’adapte pour mobile */
+    height: auto; /* hauteur auto si contenu dépasse sur mobile */
+    min-height: 70px;
   }
 
   .bid-info-right {
     width: 100%;
     text-align: left;
-    margin-top: 6px;
-  }
-
-  .timer-container {
-    height: 80px;
-  }
-
-  .timer {
-    width: 95%;
-    font-size: 14px;
+    margin-top: 4px;
   }
 
   .bid-list-premium {
-    max-height: calc(3 * 80px + 24px); /* hauteur adaptative mobile */
-  }
-
-  .bid-input-box-premium input {
-    width: 60%;
+    max-height: calc(3 * 70px + 2 * 12px);
   }
 }

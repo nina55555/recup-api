@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Countdown from "../components/Countdown";
-import Enchere from "../components/Enchere";
+import EncherePremium from "../components/EncherePremium";
 import Icons from "../components/Icons";
 import { supabase } from "../lib/supabase";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,7 +17,6 @@ const Product = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [bidValue, setBidValue] = useState(null);
-
   const [formData, setFormData] = useState({ message: "", country: "" });
 
   const [bids, setBids] = useState([]);
@@ -43,14 +42,13 @@ const Product = () => {
         .select("pseudo")
         .eq("id", user.id)
         .single();
-
       if (data) setPseudo(data.pseudo);
     };
 
     getProfile();
   }, [user]);
 
-  // 🔹 PRODUCT (AVEC IMAGE CONSERVÉE)
+  // 🔹 PRODUCT
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -64,11 +62,10 @@ const Product = () => {
         setLoading(false);
       }
     };
-
     if (id) getProduct();
   }, [id]);
 
-  // 🔹 FETCH BIDS (FIX UUID → TEXT)
+  // 🔹 FETCH BIDS
   useEffect(() => {
     if (!id) return;
 
@@ -104,7 +101,7 @@ const Product = () => {
     fetchBids();
   }, [id]);
 
-  // 🔥 REALTIME (OK)
+  // 🔥 REALTIME BIDS
   useEffect(() => {
     if (!id) return;
 
@@ -126,7 +123,6 @@ const Product = () => {
             pseudo: pseudo || "Anonyme",
             date: payload.new.created_at
           };
-
           setBids((prev) => [newBid, ...prev]);
         }
       )
@@ -143,12 +139,10 @@ const Product = () => {
       navigate("/signup");
       return;
     }
-
     if (!value || value <= 0) {
       toast.error("Montant invalide");
       return;
     }
-
     setBidValue(value);
     setShowPopup(true);
   };
@@ -184,7 +178,6 @@ const Product = () => {
     setFormData({ message: "", country: "" });
   };
 
-  // 🔹 LOADER
   if (loading) {
     return (
       <div className="loader-container">
@@ -203,8 +196,6 @@ const Product = () => {
       <div className="big--box">
         <div className="images--box">
           <img className="paint" src="/src/assets/wallpaint.jpg" alt="wall" />
-
-          {/* ✅ IMAGE PRODUIT CONSERVÉE */}
           <div className="product-overlay">
             <img
               className="podium"
@@ -216,7 +207,7 @@ const Product = () => {
         </div>
       </div>
 
-      <Enchere bids={bids} onBidSubmit={handleBidSubmit} />
+      <EncherePremium bids={bids} onBidSubmit={handleBidSubmit} />
 
       <Icons />
 
@@ -224,14 +215,12 @@ const Product = () => {
         <div className="popup-overlay">
           <div className="popup-form">
             <h3>Commentaire</h3>
-
             <form onSubmit={handleFormSubmit}>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
               />
-
               <select
                 name="country"
                 value={formData.country}
@@ -245,7 +234,6 @@ const Product = () => {
                 <option>Allemagne</option>
                 <option>Belgique</option>
               </select>
-
               <button type="submit">Valider l'enchère</button>
             </form>
           </div>
