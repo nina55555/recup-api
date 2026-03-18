@@ -8,6 +8,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Product.css";
 
+
+import "../css/Enchere.css";
+
+
+
+
+
+
 const Product = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -189,13 +197,20 @@ const Product = () => {
 
   if (!product) return <div>Produit introuvable</div>;
 
+
+
+
+
   return (
     <div className="main--box">
-      <Countdown />
 
+
+<Countdown />
+
+      {/* IMAGE */}
       <div className="big--box">
         <div className="images--box">
-          <img className="paint" src="/src/assets/wallpaint.jpg" alt="wall" />
+          <img className="paint" src="../src/assets/wallpaint.jpg"  />
           <div className="product-overlay">
             <img
               className="podium"
@@ -207,9 +222,9 @@ const Product = () => {
         </div>
       </div>
 
-      <EncherePremium bids={bids} onBidSubmit={handleBidSubmit} />
 
-      <Icons />
+
+  <Icons />
 
       {showPopup && (
         <div className="popup-overlay">
@@ -246,3 +261,16 @@ const Product = () => {
 };
 
 export default Product;
+
+
+
+
+
+
+
+
+
+
+
+
+      

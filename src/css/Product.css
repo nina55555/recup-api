@@ -1,277 +1,1223 @@
-/* =========================
-   RESET
-========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* =========================
-   MAIN CONTAINER
-========================= */
+/* MAIN CONTAINER */
 .main--box {
-  width: 95%;
-  max-width: 1200px;
-  margin: 100px auto 0 auto; /* top margin = navbar height */
-  font-family: 'Poppins', sans-serif;
+  background-color: rgb(107, 109, 99);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-.countdown-container {
-  width: 100%;
-  position: sticky;
-  top: 80px; /* navbar height */
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.timer-container {
-  width: 100%;
-  max-width: 500px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
 
-.timer {
+/* BIG BOX */
+.big--box {
   width: 90%;
+  height: 50vh;
+  position: relative;
+}
+
+/* IMAGE CONTAINER */
+.images--box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* WALL IMAGE */
+.paint {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* OVERLAY */
+.product-overlay {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 8px;
-  background-color: rgb(117, 117, 92);
+}
+
+/* PODIUM IMAGE */
+.podium {
+  width: 50%;
+  height: 75%;
+  object-fit: contain;
+}
+
+/* TITLE */
+.product-overlay h2 {
+  margin-top: 15px;
   color: white;
-  font-weight: bold;
+  font-size: 22px;
+  text-align: center;
 }
 
-/* =========================
-   BIG BOX (IMAGE)
-========================= */
-.big--box {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 
-.images--box {
-  width: 100%;
-  max-width: 400px; /* wallpaint plus petit pour libérer de l'espace */
-  height: 200px;
-  position: relative;
-}
 
-.paint {
-  width: 100%;
-  height: 100px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-/* =========================
-   ENCHÈRES PREMIUM
-========================= */
-.enchere-premium-container {
+/*
+.enchere-container {
+  width: 95%;
+  max-width: 1000px; /* élargi pour icônes 
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  gap: 15px;
+  gap: 20px;
 }
 
-/* INPUT + BUTTON */
-.bid-input-box-premium {
+
+.bid-input-box {
   display: flex;
   gap: 10px;
-  justify-content: center;
-  width: 100%;
 }
 
-.bid-input-box-premium input {
+.bid-input-box input {
   flex: 1;
   padding: 12px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 2px solid #c5c5c5;
-}
-
-.bid-input-box-premium input:focus {
-  outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.bid-input-box-premium button {
-  padding: 12px 24px;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #4CAF50, #2e7d32);
-  color: white;
-  font-weight: bold;
   border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.bid-input-box button {
+  padding: 12px 20px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.bid-input-box-premium button:hover {
-  background: linear-gradient(90deg, #66bb6a, #1b5e20);
-}
-
-/* ERROR POPUP */
-.error-popup-premium {
-  text-align: center;
-  background: #ff4d4d;
-  color: white;
-  padding: 10px;
-  border-radius: 6px;
-  font-weight: bold;
-  animation: fadeIn 0.3s ease;
-}
-
-/* BID LIST */
-.bid-list-premium {
+/* LISTE ENCHERES 
+.bid-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: calc(3 * 72px + 24px); /* 3 cartes + gaps */
+  margin-bottom: 30px;
+  max-height: 180px; /* 3 lignes visibles 
   overflow-y: auto;
   padding-right: 6px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 10px;
-  border: 1px solid #ddd;
 }
 
-/* SCROLLBAR */
-.bid-list-premium::-webkit-scrollbar {
-  width: 12px;
+/* SCROLL PREMIUM 
+.bid-list::-webkit-scrollbar {
+  width: 8px;
 }
 
-.bid-list-premium::-webkit-scrollbar-track {
-  background: #f3f3f3;
-  border-radius: 10px;
+.bid-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.bid-list-premium::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ffd700, #ffb700);
+.bid-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d4af37, #8a6c2f);
   border-radius: 10px;
 }
 
-.bid-list-premium::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #ffec70, #ffcf33);
-}
 
-/* BID CARD */
-.bid-card {
+
+/* LIGNE ENCHERE 
+.bid-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: #fffdf5;
+  gap: 12px;
+  background: white;
   padding: 12px 16px;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  height: 72px;
-  transition: transform 0.3s ease;
-}
-
-.bid-card:hover {
-  transform: translateY(-2px);
-}
-
-/* LEFT INFO */
-.bid-info-left p {
-  margin: 2px 0;
-}
-
-.pseudo {
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.message {
-  font-style: italic;
-  color: #555;
-}
-
-.country {
+  border-radius: 8px;
   font-size: 14px;
-  color: #888;
+  white-space: nowrap;
+  min-width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* RIGHT INFO */
-.bid-info-right {
-  text-align: right;
-}
-
-.date {
-  font-size: 12px;
-  color: #aaa;
-}
-
+/* PRIX 
 .price {
-  font-size: 18px;
   font-weight: bold;
-  background: linear-gradient(90deg, #ffd700, #ffb700);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
-/* ANIMATION NOUVELLE ENCHÈRE */
-.new-bid-premium {
-  animation: slideBidPremium 0.6s ease;
-  background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), #fffdf5);
+/* COMMENTAIRE 
+.comment {
+  max-width: 250px; /* zone élargie 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #444;
 }
 
-@keyframes slideBidPremium {
-  from { transform: translateY(-15px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+/* ICONES 
+.icons {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-  .big--box {
-    flex-direction: column;
-    align-items: center;
-  }
+*/
 
-  .bid-card {
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto; /* s’adapte pour mobile */
-  }
 
-  .bid-info-right {
+
+/* POPUP FORMULAIRE */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup-form textarea {
+  height: 110px;
+  padding: 10px;
+  resize: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.popup-form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.popup-form button {
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* POPUP ERREUR */
+.error-popup {
+  position: fixed;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  z-index: 1100;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+
+
+
+
+
+
+
+
+/* ========================= */
+/* FAKE STRIPE POPUP */
+/* ========================= */
+
+.stripe-popup{
+
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  width:90%;
+  max-width:400px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:15px;
+
+}
+
+.stripe-popup h2{
+
+  font-size:28px;
+  color:#2c7a2c;
+
+}
+
+.fake-card{
+
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+}
+
+.fake-card input{
+
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:14px;
+
+}
+
+.stripe-pay{
+
+  width:100%;
+  padding:12px;
+
+  background:#635bff;
+  color:white;
+
+  border:none;
+  border-radius:6px;
+
+  font-weight:bold;
+  cursor:pointer;
+
+  transition:0.2s;
+
+}
+
+.stripe-pay:hover{
+
+  background:#4b44c6;
+
+}
+
+.stripe-cancel{
+
+  background:none;
+  border:none;
+  color:#888;
+  cursor:pointer;
+
+}  
+.big-box-count{
+    /*background-color: blueviolet;*/
+    padding: 10px;
+    height: 80vh;
+}
+
+
+.timer-container{
+    background-color: grey;
     width: 100%;
-    text-align: left;
-    margin-top: 6px;
-  }
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;   
 
-  .timer-container {
-    height: 80px;
+    margin-bottom: 15px;
   }
+  
+  .timer{
+    background-color: rgb(117, 117, 92);
+    width: 80%;
+    height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+    border:  1px solid black;
+    text-align: center;
+  }
+  
+  .text{
+    font-weight: bold;
+  }
+  
+  
+  .line{
+    /*background-color: purple;*/
+    
+    width: 70vw;
+    height: 35px;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  
+  
+  
+  
+  
+  
+  .box{
+     height: 35px;
+     font-size: 22px;
+    /*background-color: rgb(88, 172, 4);*/
+    /*border: 1px solid black;*/
+    padding: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  
+  
+  .type{
+    /*background-color: aqua;*/
+    height: 35px;
+    /*border: 1px solid black;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto 0 ;
+  }
+  
+  /*
+  @media screen and (max-width: 480px) {
+    .timer div:last-child{
+      margin-left: 2em;
+      margin-right: 2em;
+      padding: 3em 1em;
+    }
+    
+  }
+    */   /* ========================= */
+/* CONTAINER GENERAL */
+/* ========================= */
 
-  .timer {
-    width: 95%;
-    font-size: 14px;
-  }
+.enchere-container{
+    width:95%;
+    max-width:1000px;
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 10px 0 70px 0;
+}
 
-  .bid-list-premium {
-    max-height: calc(3 * 80px + 24px); /* hauteur adaptative mobile */
-  }
 
-  .bid-input-box-premium input {
-    width: 60%;
-  }
+/* ========================= */
+/* INPUT ENCHERE */
+/* ========================= */
+
+.bid-input-box{
+  /*border: 1PX SOLID RED;*/
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:20px;
+    width: 100%;
+}
+
+.bid-input-box input{
+    padding:10px;    
+    font-size:16px;
+    border-radius:6px;
+    /*border:1px solid #3f07a8;*/
+    width:35%;
+}
+
+.bid-input-box button{
+    padding:10px 20px;
+    font-size:16px;
+    border:none;
+    border-radius:6px;
+    background:#4CAF50;
+    color:white;
+    cursor:pointer;
+}
+
+.bid-input-box button:hover{
+    background:#45a049;
+}
+
+
+/* ========================= */
+/* POPUP ERREUR */
+/* ========================= */
+
+.error-popup{
+    text-align:center;
+    background:#ff4d4d;
+    color:white;
+    padding:10px;
+    margin-bottom:15px;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+
+/* ========================= */
+/* LISTE DES ENCHERES */
+/* ========================= */
+
+.bid-list{
+
+    max-height:140px; /* 2 lignes visibles */
+
+    overflow-y:auto;
+
+    border:1px solid #ddd;
+
+    border-radius:6px;
+
+}
+
+
+/* ========================= */
+/* SCROLLBAR PREMIUM */
+/* ========================= */
+
+.bid-list::-webkit-scrollbar{
+    width:14px;
+}
+
+.bid-list::-webkit-scrollbar-track{
+    background:#f1f1f1;
+    border-radius:10px;
+}
+
+.bid-list::-webkit-scrollbar-thumb{
+    background:linear-gradient(
+        180deg,
+        #11110f,
+        #62d346
+    );
+    border-radius:10px;
+}
+
+.bid-list::-webkit-scrollbar-thumb:hover{
+    background:linear-gradient(
+        180deg,
+        #325f2c,
+        #0e0c0b
+    );
+}
+
+
+/* ========================= */
+/* BLOC ENCHERE */
+/* ========================= */
+
+.bid-infos{
+ /* border: 1px solid rgb(0, 110, 255);*/
+    border-bottom:1px solid #eee;
+    background:white;
+    max-height:60px;
+    padding: 10px;
+    margin: 0px 0px 5px 0px;
+}
+
+.bid-infos:nth-child(even){
+    background:#fafafa;
+}
+
+
+/* ========================= */
+/* LIGNE ENCHERE */
+/* ========================= */
+
+.bid-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+
+/* ========================= */
+/* ELEMENTS */
+/* ========================= */
+
+.pseudo p{
+    font-weight:bold;
+}
+
+.a-encheri p{
+    color:#555;
+}
+
+.date p{
+    font-size:14px;
+    color:#888;
+}
+
+.com p{
+    font-style:italic;
+}
+
+.pays-promu p{
+    color:#292929;
+    /*background-color: #45a049;*/
+}
+
+.price{
+    margin-left:auto;
+}
+
+.price p{
+    font-weight:bold;
+    font-size:18px;
+    color:#2c7a2c;
+    /*background-color: #ff4d4d;*/
+}
+
+
+/* ========================= */
+/* ICONES */
+/* ========================= */
+
+.icons-ench{
+    display:flex;
+    gap:10px;
+}
+
+.icons-ench a{
+    text-decoration:none;
+    font-size:18px;
+}
+
+.icons-ench a:hover{
+    transform:scale(1.2);
+}
+
+
+/* ========================= */
+/* ANIMATION NOUVELLE ENCHERE */
+/* ========================= */
+
+.new-bid{
+
+    animation:slideBid 0.6s ease;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,0.25),
+        rgba(255,255,255,1)
+    );
+
+}
+
+@keyframes slideBid{
+
+    from{
+        transform:translateY(-20px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+
+/* ========================= */
+/* EFFET PRIX DORE */
+/* ========================= */
+
+.new-bid .price{
+
+    background:linear-gradient(
+        90deg,
+        #7c0202,
+        #a03535
+    );
+
+    color:black;
+
+    box-shadow:0 0 8px rgba(255,215,0,0.8);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*//////////////////////////////////////*/
+
+@media (max-width: 1020px) {
+
+
+  .bid-infos{
+ /* border: 1px solid rgb(0, 110, 255);*/
+    border-bottom:1px solid #eee;
+    background:white;
+    max-height:67px;
+    padding: 2px;
+}
+  /* ========================= */
+/* LIGNE ENCHERE */
+/* ========================= */
+
+.bid-row{
+  border: 1px solid purple;
+  padding: 0px;
+    flex-wrap:wrap;
+}
+
+.com p{
+  background-color: aquamarine;
+    font-style:italic;
+    min-width: 40px;
+}
+
+
+
+.pays-promu p{
+
+    color:#292929;
+      background-color: #7c020249;
+      flex-wrap: nowrap;
+      width: 165px;
+
+    /*background-color: #45a049;*/
+}
+
+.price{
+    margin-left:auto;
+    flex-wrap: wrap;
+}
+
+.price p{
+    font-weight:bold;
+    font-size:18px;
+    color:#2c7a2c;
+    /*background-color: #ff4d4d;*/
+}
+
+
+
+
+
+
+.new-bid{
+
+    animation:slideBid 0.6s ease;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,0.25),
+        rgba(255,255,255,1)
+    );
+
+}
+
+@keyframes slideBid{
+
+    from{
+        transform:translateY(-20px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+
+/* ========================= */
+/* EFFET PRIX DORE */
+/* ========================= */
+
+.new-bid .price{
+
+    background:linear-gradient(
+        90deg,
+        #7c0202,
+        #a03535
+    );
+
+    color:black;
+
+    box-shadow:0 0 8px rgba(255,215,0,0.8);
+
+}
+
+
+}
+
+
+
+/*///////*/
+
+@media (max-width: 750px) {
+     .bid-infos{
+      background-color: rgb(94, 141, 47);
+ /* border: 1px solid rgb(0, 110, 255);*/
+    border-bottom:1px solid #eee;
+    background:white;
+    max-height:67px;
+    padding: 2px;
+    max-width: 750px;
+}
+
+.com p{
+  background-color: aquamarine;
+    font-style:italic;
+    min-width: 85px;
+}
+
+
+.pays-promu p{
+  background-color: #7c020249;
+    color:#292929;
+    /*background-color: #45a049;*/
+        min-width: 85px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.new-bid{
+
+    animation:slideBid 0.6s ease;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,0.25),
+        rgba(255,255,255,1)
+    );
+
+}
+
+@keyframes slideBid{
+
+    from{
+        transform:translateY(-20px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+
+/* ========================= */
+/* EFFET PRIX DORE */
+/* ========================= */
+
+.new-bid .price{
+
+    background:linear-gradient(
+        90deg,
+        #7c0202,
+        #a03535
+    );
+
+    color:black;
+
+    box-shadow:0 0 8px rgba(255,215,0,0.8);
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+/* ========================= */
+/* POPUP LIVRE COMMENTAIRE */
+/* ========================= */
+
+.book-overlay{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.75);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:2000;
+
+}
+
+.book-popup{
+
+position:relative;
+
+width:600px;
+height:350px;
+
+background:#8b5a2b;
+
+border-radius:6px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+}
+
+/* CROIX */
+
+.book-close{
+
+position:absolute;
+top:10px;
+right:15px;
+
+font-size:22px;
+cursor:pointer;
+color:white;
+
+}
+
+/* LIVRE */
+
+.book-pages{
+
+display:flex;
+width:90%;
+height:80%;
+
+background:#fdf6e3;
+
+border-radius:4px;
+
+overflow:hidden;
+
+box-shadow:inset 0 0 10px rgba(0,0,0,0.2);
+
+}
+
+/* PAGE GAUCHE */
+
+.book-page-left{
+
+flex:1;
+
+background:linear-gradient(
+90deg,
+#f5e6c8,
+#fdf6e3
+);
+
+border-right:2px solid #d2b48c;
+
+}
+
+/* PAGE DROITE */
+
+.book-page-right{
+
+flex:1;
+
+padding:25px;
+
+font-family:Georgia,serif;
+font-size:16px;
+line-height:1.6;
+
+color:#333;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-align:center;
+
+}
+
+
+
+
+
+/* ========================= */
+/* POPUP LIVRE PREMIUM */
+/* ========================= */
+
+.book-overlay{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.8);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:2000;
+
+animation:fadeBook 0.4s ease;
+
+}
+
+@keyframes fadeBook{
+
+from{opacity:0}
+to{opacity:1}
+
+}
+
+
+.book-popup{
+
+position:relative;
+
+width:650px;
+height:380px;
+
+perspective:2000px;
+
+}
+
+
+/* CROIX */
+
+.book-close{
+
+position:absolute;
+top:-30px;
+right:-10px;
+
+font-size:26px;
+cursor:pointer;
+color:white;
+
+}
+
+
+/* LIVRE */
+
+.book{
+
+width:100%;
+height:100%;
+
+display:flex;
+
+transform-style:preserve-3d;
+
+animation:openBook 0.8s ease;
+
+}
+
+
+@keyframes openBook{
+
+from{
+
+transform:rotateY(-30deg) scale(0.9);
+opacity:0;
+
+}
+
+to{
+
+transform:rotateY(0deg) scale(1);
+opacity:1;
+
+}
+
+}
+
+
+/* PAGE */
+
+.page{
+
+flex:1;
+padding:30px;
+
+background:#f7ecd2;
+
+border:1px solid #d4c29a;
+
+box-shadow:inset 0 0 20px rgba(0,0,0,0.15);
+
+}
+
+
+/* PAGE GAUCHE */
+
+.page.left{
+
+background:linear-gradient(
+90deg,
+#e9d8b5,
+#f7ecd2
+);
+
+border-right:2px solid #c2a97c;
+
+}
+
+
+/* PAGE DROITE */
+
+.page.right{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:linear-gradient(
+90deg,
+#f7ecd2,
+#fff9e8
+);
+
+}
+
+
+/* TEXTE */
+
+.book-text{
+
+font-family:Georgia,serif;
+font-size:18px;
+line-height:1.7;
+
+color:#4b3b1b;
+
+text-align:center;
+
+animation:textFade 1.2s ease;
+
+}
+
+@keyframes textFade{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+/* HOVER REALISTE */
+
+.book:hover{
+
+transform:scale(1.02);
+
+transition:0.3s;
+
+}
+
+
+
+
+
+/* ========================= */
+/* CROIX FERMETURE LIVRE */
+/* ========================= */
+
+.book-close{
+
+position:absolute;
+
+top:-0px;
+right:-0px;
+
+width:40px;
+height:40px;
+
+border-radius:50%;
+
+border:none;
+
+background:#111;
+color:white;
+
+font-size:22px;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+z-index:5000;
+
+transition:0.2s;
+
+}
+
+.book-close:hover{
+
+background:#444;
+transform:scale(1.1);
 }

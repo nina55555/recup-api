@@ -1,116 +1,93 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
+import "./Enchere.css";
 
-const Enchere = ({ onBidSubmit,bids })=>{
+const Enchere = () => {
+  const [bids, setBids] = useState([]);
+  const [price, setPrice] = useState("");
+  const [error, setError] = useState("");
 
-const [value,setValue] = useState("");
-const [showError,setShowError] = useState(false);
+  const handleBid = () => {
+    if (!price) {
+      setError("Veuillez entrer un montant");
+      return;
+    }
 
-const MIN_BID = 5555;
+    const newBid = {
+      id: Date.now(),
+      pseudo: "Utilisateur",
+      comment: "a enchéri",
+      country: "France",
+      date: new Date().toLocaleTimeString(),
+      price: price,
+    };
 
-const lastBid = bids.length > 0
-? Math.max(...bids.map(b => b.amount))
-: MIN_BID;
+    setBids([newBid, ...bids]);
+    setPrice("");
+    setError("");
+  };
 
-const handleSubmit = ()=>{
+  return (
+    <div className="enchere-container">
 
-const numericValue = Number(value);
+      {/* ERREUR */}
+      {error && <div className="error-popup">{error}</div>}
 
-if(numericValue <= lastBid){
+      {/* INPUT */}
+      <div className="bid-input-box">
+        <input
+          type="number"
+          placeholder="Votre enchère"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <button onClick={handleBid}>Enchérir</button>
+      </div>
 
-setShowError(true);
+      {/* LISTE */}
+      <div className="bid-list">
+        {bids.map((bid, index) => (
+          <div
+            key={bid.id}
+            className={`bid-infos ${index === 0 ? "new-bid" : ""}`}
+          >
+            <div className="bid-row">
 
-setTimeout(()=>setShowError(false),2000);
+              <div className="pseudo">
+                <p>{bid.pseudo}</p>
+              </div>
 
-return;
+              <div className="a-encheri">
+                <p>{bid.comment}</p>
+              </div>
 
-}
+              <div className="com">
+                <p>"{bid.comment}"</p>
+              </div>
 
-onBidSubmit(numericValue);
+              <div className="pays-promu">
+                <p>{bid.country}</p>
+              </div>
 
-setValue("");
+              <div className="date">
+                <p>{bid.date}</p>
+              </div>
 
-};
+              <div className="price">
+                <p>{bid.price} €</p>
+              </div>
 
-const handleKeyDown = (e)=>{
+              {/* ICONES (optionnel mais prévu dans ton CSS) */}
+              <div className="icons-ench">
+                <a href="#">❤️</a>
+                <a href="#">⭐</a>
+              </div>
 
-if(e.key === "Enter") handleSubmit();
-
-};
-
-return(
-
-<div className="enchere-container">
-
-<div className="bid-input-box">
-
-<input
-type="number"
-placeholder="Votre enchère"
-value={value}
-onChange={(e)=>setValue(e.target.value)}
-onKeyDown={handleKeyDown}
-/>
-
-<button onClick={handleSubmit}>
-OK
-</button>
-
-</div>
-
-{showError && (
-
-<div className="error-popup">
-L'enchère doit être supérieure à la dernière
-</div>
-
-)}
-
-<div className="bid-list">
-
-{bids.map((bid,index)=>{
-
-const date = new Date(bid.date).toLocaleString();
-
-return(
-
-<div className="bid-row" key={index}>
-
-<span className="pseudo">
-{bid.pseudo || "Anonyme"}
-</span>
-
-<span>
-a enchéri le
-</span>
-
-<span>
-{date}
-</span>
-
-<span className="price">
-{bid.amount}€
-</span>
-
-<span className="comment">
-{bid.message || "-"}
-</span>
-
-<span>
-{bid.country || "-"}
-</span>
-
-</div>
-
-);
-
-})}
-
-</div>
-
-</div>
-
-);
-
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Enchere;
