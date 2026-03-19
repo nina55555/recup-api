@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Countdown from "../components/Countdown";
@@ -7,11 +8,10 @@ import { supabase } from "../lib/supabase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Product.css";
-
-
+import "../components/Enchere.jsx";
 import "../css/Enchere.css";
 
-
+import Enchere from "../components/Enchere.jsx";
 
 
 
@@ -222,7 +222,8 @@ const Product = () => {
         </div>
       </div>
 
-
+  
+  <Enchere onBidSubmit={handleBidSubmit} bids={bids} />
 
   <Icons />
 
