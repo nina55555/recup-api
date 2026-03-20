@@ -409,21 +409,31 @@
 
 
 
-
-
-
 .com p{
   background-color: aquamarine;
     font-style:italic;
-    min-width: 85px;
+    /*min-width: 95px;*/
+    min-width: 180px;
 }
 
+
+.price p{
+        min-width: 80px;
+
+}
+
+.icone a{
+        min-width: 180px;
+
+}
 
 .pays-promu p{
   background-color: #7c020249;
     color:#292929;
     /*background-color: #45a049;*/
-        max-width: 95px;
+        /*max-width: 95px;*/
+        /*min-width: 120px;*/
+        min-width: 195px;
 
 }
 
