@@ -4,6 +4,13 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import "../css/Collection.css";
+import Icons from "../components/Icons";
+import "../components/Icons";
+
+import "../css/Icons.css";
+
+/*import Navbar from "../components/Navbar.jsx";*/
+
 
 const Collection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -69,6 +76,7 @@ const Collection = () => {
   };
 
   return (
+    <>
     <div
       className="slider-container"
       style={{
@@ -113,7 +121,10 @@ const Collection = () => {
         <button onClick={nextSlide}>›</button>
       </div>
     </div>
+<Icons />
+</>
   );
+ 
 };
 
 export default Collection;
