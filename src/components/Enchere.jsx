@@ -136,9 +136,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
 
                   
-                  <div className="pays-promu">
-                    <p>PAYS PROMU: {bid.country || "-"}</p>
-                  </div>
+                 
                 <div className="price">
                   <p>{bid.amount}€</p>
                 </div>
@@ -165,6 +163,10 @@ const Enchere = ({ onBidSubmit, bids }) => {
                     📖
                   </a>
 
+
+ <div className="pays-promu">
+                    <p>PAYS PROMU: {bid.country || "-"}</p>
+                  </div>
 
                 </div>
 
