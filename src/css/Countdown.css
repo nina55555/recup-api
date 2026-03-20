@@ -1,47 +1,65 @@
 .timer-container {
   background-color: grey;
   width: 100%;
-  height: 120px;
-
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  margin-top: 100px;
-  margin-bottom: 15px;
-}
+    position: fixed;
+    top: 80px;
+    z-index: 100;
+/*margin-top: 120px;*/  
+    }
 
 .timer {
   background-color: rgb(117, 117, 92);
-  width: 80%;
-
   display: flex;
   flex-direction: column;
-  align-items: center;
-
+  /*align-items: center;*/
+  justify-content:space-between ;
   border: 1px solid black;
-  text-align: center;
-  padding: 10px;
+  /*text-align: center;*/
+    width: 100%;
+    height: 90%;
 }
 
 .text {
+  /*background-color: blueviolet;*/
   font-weight: bold;
-  margin-bottom: 10px;
+/*margin-bottom: 10px;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto 0px;
+    padding: 3px ;
+    font-size: 12px;
+/*height: 15px;*/
+    min-width: 100%;
+    flex-wrap: nowrap;
 }
 
 .line {
-  width: 70vw;
-  height: 35px;
-
+  background-color: rgb(206, 190, 168);
+  /*width: 70vw;*/
   display: flex;
-  justify-content: center;
+  /*justify-content: space-around;*/
+  justify-content: space-around;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
+  font-size: 2px;
+  padding: 3px;
+/*width: 100%;*/
+  height: 25px;
+  /*min-width: 80%;*/
+    min-width: 70%;
+    max-width: 90%;
+    margin: 0px auto 5px;
 }
 
 .box {
+  background-color: rgba(214, 224, 170, 0.479);
   height: 35px;
-  font-size: 22px;
+  font-size: 20px;
 
   display: flex;
   justify-content: center;
@@ -50,6 +68,7 @@
   min-width: 40px;
 }
 
+
 .type {
-  font-size: 14px;
+  font-size: 10px;
 }

@@ -370,13 +370,32 @@
 
 
 
+
+
+
 /*///////*/
 
 @media (max-width: 750px) {
 
+
+
+    .bid-container{
+    border:1px solid #e45fdd;
+height: 225px;
+    }
+
+
+    .bid-list{
+    border:1
+    3px solid #3ea3b1;
+height: 205px;
+    }
+
+
+
   .bid-infos{
  /* border: 1px solid rgb(0, 110, 255);*/
-    border-bottom:3px solid #110d0d;
+    border:1px solid #110d0d;
     background:white;
     
         max-height:120px;
