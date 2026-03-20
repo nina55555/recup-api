@@ -373,15 +373,44 @@
 /*///////*/
 
 @media (max-width: 750px) {
-     .bid-infos{
-      background-color: rgb(94, 141, 47);
+
+  .bid-infos{
  /* border: 1px solid rgb(0, 110, 255);*/
-    border-bottom:1px solid #eee;
+    border-bottom:3px solid #110d0d;
     background:white;
-    max-height:67px;
+    
+        max-height:120px;
+    /*max-width: 95%;*/
+        width: 100%;
+
     padding: 2px;
-    max-width: 750px;
 }
+  /* ========================= */
+/* LIGNE ENCHERE */
+/* ========================= */
+
+.bid-row{
+    /*background-color: #7bbe7b;*/
+    background-color: white;
+  border: 1px solid purple;
+  padding: 0px;
+    flex-wrap:wrap;
+    width: 100%;
+    /*height:90%;*/
+        height:auto;
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 .com p{
   background-color: aquamarine;
@@ -394,7 +423,7 @@
   background-color: #7c020249;
     color:#292929;
     /*background-color: #45a049;*/
-        min-width: 85px;
+        max-width: 95px;
 
 }
 

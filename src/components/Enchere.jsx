@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/Enchere.css";
 
+
 const Enchere = ({ onBidSubmit, bids }) => {
 
   const [value, setValue] = useState("");
@@ -130,13 +131,23 @@ const Enchere = ({ onBidSubmit, bids }) => {
                   <p>{bid.message || "....."}</p>
                 </div>
 
-                <div className="pays-promu">
-                  <p>PAYS PROMU: {bid.country || "-"}</p>
-                </div>
 
+
+
+
+                  
+                  <div className="pays-promu">
+                    <p>PAYS PROMU: {bid.country || "-"}</p>
+                  </div>
                 <div className="price">
                   <p>{bid.amount}€</p>
                 </div>
+
+
+
+
+                
+                  
 
                 <div className="icons-ench">
 
@@ -153,6 +164,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
                   >
                     📖
                   </a>
+
 
                 </div>
 
