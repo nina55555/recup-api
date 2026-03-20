@@ -154,7 +154,7 @@ function Countdown() {
     <div className="timer-container">
       <div className="timer">
         <div className="text">
-          <p>Countdown to a really special date, enter your bid and see</p>
+          <p>Countdown to an exclusive experience ends in:</p>
         </div>
 
         <div className="line">
