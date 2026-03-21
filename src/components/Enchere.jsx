@@ -82,7 +82,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
         <input
           type="number"
-          placeholder="Votre enchère"
+          placeholder="Entrez votre enchère ici ..."
           value={value}
           onChange={(e)=>setValue(e.target.value)}
           onKeyDown={handleKeyDown}
