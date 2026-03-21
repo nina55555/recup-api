@@ -84,6 +84,9 @@ const Product = () => {
       }));
 
       setBids(formatted);
+
+      console.log("BIDS DATA:", data);
+      
     };
 
     fetchBids();
