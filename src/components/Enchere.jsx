@@ -52,7 +52,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    // Ajouter la lettre "à" avant l'heure
     return `${date.toLocaleDateString()} à ${date.toLocaleTimeString()}`;
   };
 
@@ -80,7 +79,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
           const isNew = index === lastBidIndex;
           return (
             <div className={`bid-infos ${isNew ? "new-bid" : ""}`} key={index}>
-              {/* Ligne 1 */}
               <div className="bid-row">
                 <div className="bid-row-left">
                   <div className="pseudo">
@@ -114,7 +112,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
                   </div>
                 </div>
               </div>
-              {/* Ligne 2 */}
               <div className="pays-promu">
                 <p>PAYS PROMU: {bid.country || "-"}</p>
               </div>
