@@ -95,8 +95,8 @@
 
 .bid-infos{
     /*border-bottom:1px solid #eee;*/
-    border: 1px solid green;
-    background:rgb(233, 231, 231);
+    border: 1px solid rgb(51, 51, 51);
+    background:rgb(250, 249, 250);
     max-height:90px;
     padding: 8px 10px 5px 10px;
     margin: 0px 0px 5px 0px;
@@ -106,7 +106,7 @@
 }
 
 .bid-infos:nth-child(even){
-    background:#fafafa;
+    background:#9c989e50;
 }
 
 .bid-row{

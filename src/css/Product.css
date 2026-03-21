@@ -9,7 +9,9 @@
 /* MAIN CONTAINER */
 .main--box {
   /*background-color: rgb(107, 109, 99);*/
-    background-color: rgb(229, 230, 229);
+     /* background-color: rgb(229, 230, 229);*/
+            background-color: rgb(248, 250, 248);
+
 
   /*min-height: 100vh;*/
   max-height: 80vh;
