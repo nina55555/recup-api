@@ -3,7 +3,7 @@
     /*bottom: 30px;*/
 
     bottom: 20px;
-    border: 2px solid red;
+    /*border: 2px solid red;*/
     width:95%;
     max-width:1000px;
     min-height: 35vh;
@@ -13,7 +13,7 @@
 }
 
 .bid-input-box{
-    background-color: #e45fdd;
+    /*background-color: #e45fdd;*/
     display:flex;
     justify-content:center;
     gap:10px;
@@ -23,7 +23,7 @@
 }
 
 .bid-input-box input{
-    background-color: #d2b48c;
+    /*background-color: #d2b48c;*/
     padding:10px;    
     font-size:16px;
     border-radius:6px;
@@ -69,7 +69,7 @@
     max-height: 220px;
     width: 100%;
     overflow-y:auto;
-    border:2px solid #11d7fa;
+    /*border:2px solid #11d7fa;*/
     border-radius:6px;
 }
 
@@ -83,17 +83,20 @@
 }
 
 .bid-list::-webkit-scrollbar-thumb{
-    background:linear-gradient(180deg,#11110f,#62d346);
+    /*background:linear-gradient(180deg,#440e63,#b3c079);*/
+        background:linear-gradient(180deg,#2b093f,#b3c079);
+
     border-radius:10px;
 }
 
 .bid-list::-webkit-scrollbar-thumb:hover{
-    background:linear-gradient(180deg,#325f2c,#0e0c0b);
+    background:linear-gradient(180deg,#a9b37d,#0e0c0b);
 }
 
 .bid-infos{
-    border-bottom:1px solid #eee;
-    background:rgb(207, 7, 7);
+    /*border-bottom:1px solid #eee;*/
+    border: 1px solid green;
+    background:rgb(233, 231, 231);
     max-height:90px;
     padding: 8px 10px 5px 10px;
     margin: 0px 0px 5px 0px;
@@ -129,13 +132,13 @@
     gap:6px;
 }
 
-.pseudo p{ font-weight:bold; margin:0; }
+.pseudo p{ color:#a10f0f;font-weight:bold; margin:0; }
 .a-encheri p{ color:#555; margin:0; }
 .date p{ font-size:14px; color:#888; margin:0; }
 .com p{ font-style:italic; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .pays-promu p{ color:#292929; margin:0; }
 .price{ display:flex; justify-content:flex-end; min-width:80px; }
-.price p{ font-weight:bold; font-size:18px; color:#2c7a2c; margin:0; }
+.price p{ font-weight:bold; font-size:18px; color:#8d0b11; margin:0; }
 .icons-ench{ display:flex; gap:5px; }
 .icons-ench a{ text-decoration:none; font-size:15px; }
 .icons-ench a:hover{ transform:scale(1.2); }
@@ -171,9 +174,9 @@
 /* ========================= */
 /* RESPONSIVE MOBILE */
 @media (max-width: 750px){
-.enchere-container{ border:1px solid #e45fdd; height: 225px; }
-.bid-list{ border:1px solid #0bec61; height: 225px; }
-.bid-infos{ border:1px solid #110d0d; background:rgb(233, 160, 160); max-height:95px; width:100%; padding:5px 7px; }
+.enchere-container{ /*border:1px solid #e45fdd;*/ height: 225px; }
+.bid-list{ /*border:1px solid #0bec61;*/ height: 225px; }
+.bid-infos{ border:1px solid #110d0d; background:rgb(240, 240, 240); max-height:95px; width:100%; padding:5px 7px; }
 .bid-row-left{ flex-wrap:wrap; gap:4px; }
 .bid-row-right{ gap:4px; }
 .bid-row p{ font-size:11px; line-height:1.1; }
