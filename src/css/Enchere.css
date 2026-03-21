@@ -39,7 +39,9 @@
     /*border:none;*/
     border: 1px solid grey;
     border-radius:6px;
-    background:#9ea39e;
+    /*background:#9ea39e;*/
+        background:#6ba76b;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +52,7 @@
 }
 
 .bid-input-box button:hover{
-    background:#45a049;
+    background:#41ac46;
 }
 
 .error-popup{
@@ -108,9 +110,12 @@
     justify-content:space-between;
 }
 
+/*
 .bid-infos:nth-child(even){
-    background:#9c989e50;
+    background:#ecebec9f;
 }
+
+*/
 
 .bid-row{
     display:flex;
@@ -157,7 +162,7 @@
 }
 
 .new-bid .price{
-    background:linear-gradient(90deg,#7c0202,#a03535);
+    background:linear-gradient(90deg,#7c0202c2,#a03535);
     color:black;
     box-shadow:0 0 8px rgba(255,215,0,0.8);
 }
