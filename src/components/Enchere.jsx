@@ -16,13 +16,8 @@ const Enchere = ({ onBidSubmit, bids }) => {
   useEffect(() => {
     if (bids.length > 0) {
       setLastBidIndex(0);
-      setTimeout(() => {
-        setLastBidIndex(null);
-      }, 2000);
-
-      if (listRef.current) {
-        listRef.current.scrollTop = 0;
-      }
+      setTimeout(() => setLastBidIndex(null), 2000);
+      if (listRef.current) listRef.current.scrollTop = 0;
     }
   }, [bids]);
 
@@ -37,17 +32,9 @@ const Enchere = ({ onBidSubmit, bids }) => {
     setValue("");
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSubmit();
-  };
-
   const openBook = (comment) => {
     setSelectedComment(comment || "Aucun commentaire");
     setShowBook(true);
-
-    const audio = new Audio("/src/assets/page.mp3");
-    audio.volume = 0.3;
-    audio.play();
   };
 
   const formatDate = (dateStr) => {
@@ -63,72 +50,54 @@ const Enchere = ({ onBidSubmit, bids }) => {
           placeholder="Entrez votre enchère ici ..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
         />
         <button onClick={handleSubmit}>OK</button>
       </div>
 
-      {showError && (
-        <div className="error-popup">
-          Allez un peu de nerf ! L'enchère doit être supérieure à la dernière.
-        </div>
-      )}
+      {showError && <div className="error-popup">Enchère trop basse</div>}
 
       <div className="bid-list" ref={listRef}>
-        {bids.map((bid, index) => {
-          const isNew = index === lastBidIndex;
-          return (
-            <div className={`bid-infos ${isNew ? "new-bid" : ""}`} key={index}>
-              <div className="bid-row">
-                <div className="bid-row-left">
-                  <div className="pseudo">
-                    <p>{bid.username || "PSEUDO"}</p>
-                  </div>
-                  <div className="a-encheri">
-                    <p>a enchéri le:</p>
-                  </div>
-                  <div className="date">
-                    <p>{formatDate(bid.date)}</p>
-                  </div>
-                  <div className="com">
-                    <p>{bid.message || "....."}</p>
-                  </div>
+        {bids.map((bid, index) => (
+          <div className="bid-infos" key={index}>
+            <div className="bid-row">
+              <div className="bid-row-left">
+                <div className="pseudo">
+                  <p>{bid.pseudo || "PSEUDO"}</p>
                 </div>
-                <div className="bid-row-right">
-                  <div className="price">
-                    <p>{bid.amount}€</p>
-                  </div>
-                  <div className="icons-ench">
-                    <a href="#">🔥</a>
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        openBook(bid.message);
-                      }}
-                    >
-                      📖
-                    </a>
-                  </div>
+                <div className="date">
+                  <p>{formatDate(bid.date)}</p>
+                </div>
+                <div className="com">
+                  <p>{bid.message || "..."}</p>
                 </div>
               </div>
-              <div className="pays-promu">
-                <p>PAYS PROMU: {bid.country || "-"}</p>
+
+              <div className="bid-row-right">
+                <div className="price">
+                  <p>{bid.amount}€</p>
+                </div>
+
+                <div className="icons-ench">
+                  <a href="#">🔥</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); openBook(bid.message); }}>
+                    📖
+                  </a>
+                </div>
               </div>
             </div>
-          );
-        })}
+
+            <div className="pays-promu">
+              <p>PAYS PROMU: {bid.country || "-"}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* POPUP LIVRE */}
       {showBook && (
         <div className="book-overlay">
           <div className="book-popup">
-            <span className="book-close" onClick={() => setShowBook(false)}>
-              ✕
-            </span>
+            <span className="book-close" onClick={() => setShowBook(false)}>✕</span>
             <div className="book">
-              <div className="page left"></div>
               <div className="page right">
                 <p className="book-text">{selectedComment}</p>
               </div>

@@ -25,8 +25,7 @@ const Signup = () => {
       email,
       password,
       options: {
-        emailRedirectTo: "http://localhost:5173",
-        data: { pseudo }
+        emailRedirectTo: "http://localhost:5173"
       }
     });
 
@@ -38,7 +37,22 @@ const Signup = () => {
     }
 
     if (data?.user) {
-      toast.success("Compte créé ! Vérifiez votre email.");
+      // ✅ INSERT PROFILE (FIX MAJEUR)
+      const { error: profileError } = await supabase.from("profiles").insert([
+        {
+          id: data.user.id,
+          pseudo: pseudo,
+          story: story || ""
+        }
+      ]);
+
+      if (profileError) {
+        console.error(profileError);
+        toast.error("Erreur création profil");
+        return;
+      }
+
+      toast.success("Compte créé ! Vérifie ton email.");
     }
   };
 
@@ -50,6 +64,7 @@ const Signup = () => {
         }
       }
     );
+
     return () => {
       listener?.subscription?.unsubscribe();
     };
@@ -112,7 +127,7 @@ const Signup = () => {
                 checked={storyMode === "now"}
                 onChange={() => setStoryMode("now")}
               />
-              Raconter maintenant
+              Maintenant
             </label>
 
             <label>
@@ -122,7 +137,7 @@ const Signup = () => {
                 checked={storyMode === "later"}
                 onChange={() => setStoryMode("later")}
               />
-              Raconter plus tard
+              Plus tard
             </label>
           </div>
 
@@ -140,7 +155,7 @@ const Signup = () => {
         </button>
       </form>
 
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer />
     </div>
   );
 };
