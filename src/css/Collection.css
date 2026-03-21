@@ -136,7 +136,9 @@ body {
   font-size: 17px;
   transform: translateY(30px);
   opacity: 0;
-  color: #030303;
+  /*color: #030303;*/
+    color: #292828;
+
   text-align: center; /* ajout pour centrer horizontalement */
 }
 
@@ -145,8 +147,10 @@ body {
   
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgba(0, 128, 0, 0.521);
-  border: 1px solid rgb(41, 39, 39);
+  /*background-color: rgba(0, 128, 0, 0.521);*/
+    background-color: rgba(88, 190, 88, 0.521);
+
+  border: 1px solid rgb(83, 83, 83);
   border-radius: 3px;
   margin: 10px;
   padding: 10px;
@@ -166,9 +170,17 @@ body {
 /* Hover */
 .ticket p:hover {
   transform: translateY(-3px) scale(1.03);
-  background-color: rgba(0, 170, 0, 0.75);
-  color: white;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.35), 0 0 12px rgba(0,255,120,0.35);
+  /*background-color: rgba(0, 170, 0, 0.75);*/
+    background-color: rgba(87, 155, 87, 0.75);
+
+  /*color: white;*/
+    /*color: rgb(182, 180, 180);*/
+      color: rgb(183, 187, 174);
+
+
+  /*box-shadow: 0 10px 25px rgba(0,0,0,0.35), 0 0 12px rgba(0,255,120,0.35);*/
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35), 0 0 12px rgba(58, 10, 85, 0.35);
+
 }
 
 .ticket p::after {
@@ -221,7 +233,9 @@ body {
 }
 
 .buttons button:hover {
-  background: #313131;
+  /*background: #313131;*/
+    background: #2d08427c;
+
   color: #fff;
 }
 
