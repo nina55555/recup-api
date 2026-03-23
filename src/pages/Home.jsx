@@ -31,6 +31,15 @@ export default function Home() {
       <div className="presentation">
         <h2>Présentation</h2>
         <p>
+          Des pièces conçues pour marquer.
+
+          Chaque silhouette incarne une vision :
+          celle d’une élégance affirmée, rare et intemporelle.
+
+
+
+
+
           Pourrez-vous ... Chez It V, nous nous spécialisons dans le vêtement
           de haute qualité, réalisé avec passion et créativité. Découvrez nos
           modèles uniques et laissez-vous surprendre par l'élégance et le style
