@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Navbar from "./components/Navbar";
 
-// Import de toutes tes pages
+// Pages
 import Welcome from "./pages/Welcome";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -10,40 +10,54 @@ import Book from "./pages/Book";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
+// Style global
+import "./css/App.css";
+
 const queryClient = new QueryClient();
 
 function App() {
+  // IntersectionObserver pour fade-in des sections
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Navbar />
 
-      {/* Le main englobe toutes les sections pour scroll vertical */}
-      <main style={{
-        scrollSnapType: "y mandatory",
-        overflowY: "scroll",
-        height: "100vh"
-      }}>
-        <section id="welcome" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+      {/* MAIN avec scroll vertical et smooth */}
+      <main>
+        <section id="welcome" className="section">
           <Welcome />
         </section>
-
-        <section id="home" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+        <section id="home" className="section">
           <Home />
         </section>
-
-        <section id="collection" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+        <section id="collection" className="section">
           <Collection />
         </section>
-
-        <section id="book" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+        <section id="book" className="section">
           <Book />
         </section>
-
-        <section id="about" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+        <section id="about" className="section">
           <About />
         </section>
-
-        <section id="contact" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+        <section id="contact" className="section">
           <Contact />
         </section>
       </main>
