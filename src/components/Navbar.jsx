@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,42 +12,45 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 🔥 VRAIES ROUTES
   const navLinks = [
-    { label: "Home", path: "home" },
-    { label: "Collection", path: "collection" },
-    { label: "Book", path: "book" },
-    { label: "About", path: "about" },
+    { label: "Home", id: "home" },
+    { label: "Collection", id: "collection" },
+    { label: "Book", id: "book" },
+    { label: "About", id: "about" },
   ];
 
-  // Fonction pour scroller vers une section
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   };
 
-  // 🔥 Gérer overflow du body uniquement si menu ouvert
+  // bloque scroll quand menu ouvert
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
 
   return (
     <>
-      {/* NAVBAR */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          scrolled ? "bg-white/90 backdrop-blur-md border-b" : "bg-transparent"
+          scrolled
+            ? "bg-white/90 backdrop-blur-md border-b"
+            : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
-          {/* LEFT LINKS (desktop) */}
+
+          {/* LEFT */}
           <div className="hidden md:flex gap-10">
             {navLinks.map((link) => (
               <button
-                key={link.path}
-                onClick={() => scrollToSection(link.path)}
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
                 className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition"
               >
                 {link.label}
@@ -56,26 +58,15 @@ export default function Navbar() {
             ))}
           </div>
 
+          {/* LOGO CENTRÉ */}
+          <button
+            onClick={() => scrollToSection("welcome")}
+            className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-semibold tracking-widest"
+          >
+            IT V
+          </button>
 
-
-
-          {/* LOGO */}
-         {/* LOGO / TITRE → IT V */}
-<Link
- onClick={() => scrollToSection("welcome")}  // redirige vers la page Welcome
-  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-semibold"
->
-  IT V
-</Link>
-
-   
-
-
-
-
-
-
-          {/* RIGHT LINKS desktop */}
+          {/* RIGHT */}
           <div className="hidden md:flex ml-auto">
             <button
               onClick={() => scrollToSection("contact")}
@@ -104,15 +95,15 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-white flex flex-col items-center justify-center gap-10 z-40"
           >
-            {[...navLinks, { label: "Contact", path: "contact" }].map(
+            {[...navLinks, { label: "Contact", id: "contact" }].map(
               (link, i) => (
                 <motion.button
-                  key={link.path}
+                  key={link.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   onClick={() => {
-                    scrollToSection(link.path);
+                    scrollToSection(link.id);
                     setMenuOpen(false);
                   }}
                   className="text-2xl uppercase tracking-widest"
