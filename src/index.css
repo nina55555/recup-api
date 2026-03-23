@@ -1,32 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-
-
-*{
-  margin: 0px;
-  padding: 0px;
-
-  overflow: hidden;
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html{
-  width: 100vw;
-  height: 100vh;
+html, body {
+  overflow-x: hidden; /* 🔥 FIX décalage */
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-  /*background-color: rgb(42, 95, 165);*/
- 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
   width: 100%;
-  height: 100%;
-  /*height: 10vh;*/
-  padding: 5px;
+  height: 80px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 1000;
 }
 
+.nav-left, .nav-right {
+  display: flex;
+  gap: 20px;
+}
 
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* SCROLL SECTIONS */
+.main-scroll {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+}
+
+/* PRODUCT PAGE */
+.product-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-content {
+  text-align: center;
+}
