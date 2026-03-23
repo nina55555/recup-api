@@ -56,16 +56,24 @@ export default function Navbar() {
             ))}
           </div>
 
+
+
+
           {/* LOGO */}
-          <button
-            onClick={() => scrollToSection("home")}
-            className="absolute left-1/2 -translate-x-1/2 text-2xl font-semibold"
-          >
-            <button
-            onClick={() => scrollToSection("welcome")}
-          >IT V</button>
-            
-          </button>
+         {/* LOGO / TITRE → IT V */}
+<Link
+ onClick={() => scrollToSection("welcome")}  // redirige vers la page Welcome
+  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-semibold"
+>
+  IT V
+</Link>
+
+   
+
+
+
+
+
 
           {/* RIGHT LINKS desktop */}
           <div className="hidden md:flex ml-auto">
