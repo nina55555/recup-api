@@ -9,8 +9,6 @@ export default function Navbar() {
 
   const location = useLocation();
   const navigate = useNavigate();
-
-  const isScrollPage = location.pathname === "/";
   const NAVBAR_OFFSET = 80;
 
   useEffect(() => {
@@ -33,25 +31,44 @@ export default function Navbar() {
     { label: "About", id: "about" },
   ];
 
-  const scrollToSection = (id) => {
-    setMenuOpen(false);
-
-    if (!isScrollPage) {
-      navigate(`/#${id}`);
-      return;
-    }
-
+  const scrollToId = (id) => {
     const element = document.getElementById(id);
-    if (!element) return;
+    if (!element) return false;
 
-    const y = element.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET;
+    const scroller = document.scrollingElement || document.documentElement;
+    const targetTop = Math.max(
+      0,
+      element.getBoundingClientRect().top + scroller.scrollTop - NAVBAR_OFFSET
+    );
 
-    window.scrollTo({
-      top: y,
+    scroller.scrollTo({
+      top: targetTop,
       behavior: "smooth",
     });
 
-    window.history.replaceState(window.history.state, "", `/#${id}`);
+    return true;
+  };
+
+  const goToSection = (id) => {
+    setMenuOpen(false);
+
+    if (location.pathname === "/") {
+      window.history.replaceState(window.history.state, "", `/#${id}`);
+
+      const runScroll = () => scrollToId(id);
+
+      if (menuOpen) {
+        window.setTimeout(runScroll, 250);
+      } else {
+        window.requestAnimationFrame(() => {
+          runScroll();
+        });
+      }
+
+      return;
+    }
+
+    navigate(`/#${id}`);
   };
 
   return (
@@ -60,7 +77,15 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           scrolled ? "bg-white/90 backdrop-blur-md border-b" : "bg-transparent"
         }`}
-        style={{ zIndex: 1000000, pointerEvents: "auto" }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000000,
+          pointerEvents: "auto",
+          isolation: "isolate",
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
           <div className="hidden md:flex gap-10" style={{ position: "relative", zIndex: 1000001 }}>
@@ -68,7 +93,7 @@ export default function Navbar() {
               <button
                 key={link.id}
                 type="button"
-                onClick={() => scrollToSection(link.id)}
+                onClick={() => goToSection(link.id)}
                 className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition"
               >
                 {link.label}
@@ -78,7 +103,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            onClick={() => scrollToSection("welcome")}
+            onClick={() => goToSection("welcome")}
             className="absolute left-1/2 -translate-x-1/2 text-2xl font-semibold"
             style={{ zIndex: 1000001 }}
           >
@@ -88,7 +113,7 @@ export default function Navbar() {
           <div className="hidden md:flex ml-auto" style={{ position: "relative", zIndex: 1000001 }}>
             <button
               type="button"
-              onClick={() => scrollToSection("contact")}
+              onClick={() => goToSection("contact")}
               className="text-sm uppercase tracking-wider text-gray-600 hover:text-black"
             >
               Contact
@@ -124,7 +149,7 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  onClick={() => scrollToSection(link.id)}
+                  onClick={() => goToSection(link.id)}
                   className="text-2xl uppercase tracking-widest"
                 >
                   {link.label}

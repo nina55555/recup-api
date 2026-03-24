@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./css/App.css";
@@ -19,6 +19,25 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 
 const queryClient = new QueryClient();
+const NAVBAR_OFFSET = 80;
+
+function scrollToSectionId(id) {
+  const element = document.getElementById(id);
+  if (!element) return false;
+
+  const scroller = document.scrollingElement || document.documentElement;
+  const targetTop = Math.max(
+    0,
+    element.getBoundingClientRect().top + scroller.scrollTop - NAVBAR_OFFSET
+  );
+
+  scroller.scrollTo({
+    top: targetTop,
+    behavior: "smooth",
+  });
+
+  return true;
+}
 
 function LandingPage() {
   return (
@@ -53,26 +72,32 @@ function LandingPage() {
 function AppContent() {
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.pathname !== "/" || !location.hash) return;
 
     const targetId = location.hash.replace("#", "");
-    const NAVBAR_OFFSET = 80;
 
-    const frame = requestAnimationFrame(() => {
-      const element = document.getElementById(targetId);
+    let isCancelled = false;
+    let timeoutId;
+    let attempts = 0;
 
-      if (element) {
-        const y = element.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET;
+    const tryScroll = () => {
+      if (isCancelled) return;
 
-        window.scrollTo({
-          top: y,
-          behavior: "smooth",
-        });
+      attempts += 1;
+      const didScroll = scrollToSectionId(targetId);
+
+      if (!didScroll && attempts < 20) {
+        timeoutId = window.setTimeout(tryScroll, 80);
       }
-    });
+    };
 
-    return () => cancelAnimationFrame(frame);
+    timeoutId = window.setTimeout(tryScroll, 80);
+
+    return () => {
+      isCancelled = true;
+      window.clearTimeout(timeoutId);
+    };
   }, [location.pathname, location.hash]);
 
   return (
