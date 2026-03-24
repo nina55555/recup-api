@@ -9,7 +9,11 @@ export default function Navbar() {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const NAVBAR_OFFSET = 80;
+  const getSectionOffset = (id) => {
+    if (id === "book") return 0;
+    if (id === "welcome") return 0;
+    return 80;
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -36,9 +40,10 @@ export default function Navbar() {
     if (!element) return false;
 
     const scroller = document.scrollingElement || document.documentElement;
+    const offset = getSectionOffset(id);
     const targetTop = Math.max(
       0,
-      element.getBoundingClientRect().top + scroller.scrollTop - NAVBAR_OFFSET
+      element.getBoundingClientRect().top + scroller.scrollTop - offset
     );
 
     scroller.scrollTo({

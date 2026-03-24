@@ -19,16 +19,22 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 
 const queryClient = new QueryClient();
-const NAVBAR_OFFSET = 80;
+
+function getSectionOffset(id) {
+  if (id === "book") return 0;
+  if (id === "welcome") return 0;
+  return 80;
+}
 
 function scrollToSectionId(id) {
   const element = document.getElementById(id);
   if (!element) return false;
 
   const scroller = document.scrollingElement || document.documentElement;
+  const offset = getSectionOffset(id);
   const targetTop = Math.max(
     0,
-    element.getBoundingClientRect().top + scroller.scrollTop - NAVBAR_OFFSET
+    element.getBoundingClientRect().top + scroller.scrollTop - offset
   );
 
   scroller.scrollTo({
