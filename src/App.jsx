@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./css/App.css";
 
 import Welcome from "./pages/Welcome";
@@ -22,35 +22,28 @@ const queryClient = new QueryClient();
 
 function LandingPage() {
   return (
-    <main
-      style={{
-        scrollSnapType: "y mandatory",
-        overflowY: "scroll",
-        height: "100vh",
-        scrollBehavior: "smooth",
-      }}
-    >
-      <section id="welcome" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+    <main style={{ width: "100%", overflowX: "hidden" }}>
+      <section id="welcome" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
         <Welcome />
       </section>
 
-      <section id="home" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+      <section id="home" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
         <Home />
       </section>
 
-      <section id="collection" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+      <section id="collection" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
         <Collection />
       </section>
 
-      <section id="book" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+      <section id="book" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
         <Book />
       </section>
 
-      <section id="about" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+      <section id="about" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
         <About />
       </section>
 
-      <section id="contact" style={{ minHeight: "100vh", scrollSnapAlign: "start" }}>
+      <section id="contact" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
         <Contact />
       </section>
     </main>
@@ -59,24 +52,28 @@ function LandingPage() {
 
 function AppContent() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname !== "/" || !location.state?.scrollTo) return;
+    if (location.pathname !== "/" || !location.hash) return;
 
-    const targetId = location.state.scrollTo;
+    const targetId = location.hash.replace("#", "");
+    const NAVBAR_OFFSET = 80;
 
     const frame = requestAnimationFrame(() => {
-      document.getElementById(targetId)?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      const element = document.getElementById(targetId);
 
-      navigate("/", { replace: true, state: null });
+      if (element) {
+        const y = element.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET;
+
+        window.scrollTo({
+          top: y,
+          behavior: "smooth",
+        });
+      }
     });
 
     return () => cancelAnimationFrame(frame);
-  }, [location, navigate]);
+  }, [location.pathname, location.hash]);
 
   return (
     <div className="App">
