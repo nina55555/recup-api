@@ -1,62 +1,35 @@
-/* RESET */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-html, body {
-  overflow-x: hidden; /* 🔥 FIX décalage */
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* NAVBAR */
-.navbar {
-  position: fixed;
-  top: 0;
+html,
+body,
+#root {
   width: 100%;
-  height: 80px;
-  background: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
-  z-index: 1000;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
-.nav-left, .nav-right {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* SCROLL SECTIONS */
-.main-scroll {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+html {
   scroll-behavior: smooth;
 }
 
-section {
-  min-height: 100vh;
-  scroll-snap-align: start;
-}
-
-/* PRODUCT PAGE */
-.product-page {
+body {
   width: 100%;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.product-content {
-  text-align: center;
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
