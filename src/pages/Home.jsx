@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import Video from "../components/Video";
-import Slides from "../components/Slides";
 import Icons from "../components/Icons";
 import "../css/Home.css";
 

@@ -115,8 +115,8 @@ body {
   position: absolute;
   left: 3%;
   top: 25%;
-  width: 230px;
-  height: 250px;
+  width: 225px;
+  height: 245px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -258,4 +258,25 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .ticket {
+    width: 140px;
+    height: 165px;
+    left: 2%;
+    top: 20%;
+    gap: 3px;
+  }
+
+  .ticket h1,
+  .ticket h2 {
+    font-size: 12px;
+  }
+
+  .ticket p {
+    margin: 5px;
+    padding: 5px;
+    font-size: 13px;
+  }
 }

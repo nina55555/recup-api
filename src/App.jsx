@@ -9,8 +9,6 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
-import CollectionAtest from "./pages/CollectionAtest";
-import CollectionAtest2 from "./pages/CollectionAtest2";
 import CollectionShow from "./pages/CollectionShow";
 import Conc from "./pages/Conc";
 import Contact from "./pages/Contact";
@@ -116,8 +114,6 @@ function AppContent() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/home" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
-        <Route path="/collectionAtest" element={<CollectionAtest />} />
-        <Route path="/collectionAtest2" element={<CollectionAtest2 />} />
         <Route path="/collectionShow" element={<CollectionShow />} />
         <Route path="/book" element={<Book />} />
         <Route path="/about" element={<About />} />

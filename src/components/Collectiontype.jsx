@@ -10,7 +10,7 @@ const Collectiontype = () => {
                 
                 {/*<a className='classic-btn' href="collection">Collection classic</a>*/}
 
-                <a className='classic-btn' href="collectionAtest2">Collection classic</a>
+                <a className='classic-btn' href="collection">Collection classic</a>
 
             </div>
             <div className="chooseco-d">

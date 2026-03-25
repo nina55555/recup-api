@@ -9,6 +9,7 @@ export default function Navbar() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const isLandingPage = location.pathname === "/";
   const getSectionOffset = (id) => {
     if (id === "book") return 0;
     if (id === "welcome") return 0;
@@ -80,7 +81,11 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          scrolled ? "bg-white/90 backdrop-blur-md border-b" : "bg-transparent"
+          scrolled
+            ? "bg-white/20 backdrop-blur-xl border-b border-white/20"
+            : isLandingPage
+              ? "bg-white"
+              : "bg-transparent"
         }`}
         style={{
           position: "fixed",
@@ -93,13 +98,13 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
-          <div className="hidden md:flex gap-10" style={{ position: "relative", zIndex: 1000001 }}>
+          <div className="hidden md:flex gap-8" style={{ position: "relative", zIndex: 1000001 }}>
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 type="button"
                 onClick={() => goToSection(link.id)}
-                className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition"
+                className="text-[12px] uppercase tracking-wider text-gray-600 hover:text-black transition"
               >
                 {link.label}
               </button>
@@ -119,7 +124,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => goToSection("contact")}
-              className="text-sm uppercase tracking-wider text-gray-600 hover:text-black"
+              className="text-[12px] uppercase tracking-wider text-gray-600 hover:text-black"
             >
               Contact
             </button>
@@ -129,7 +134,8 @@ export default function Navbar() {
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden ml-auto"
-            style={{ position: "relative", zIndex: 1000001 }}
+            style={{ position: "relative", zIndex: 1000003 }}
+            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -145,6 +151,17 @@ export default function Navbar() {
             className="fixed inset-0 bg-white flex flex-col items-center justify-center gap-10 z-40"
             style={{ zIndex: 1000002 }}
           >
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Fermer le menu"
+              className="md:hidden absolute top-[18px] right-3 h-12 w-12 rounded-full border border-black/10 bg-white/90 text-stone-900 shadow-[0_12px_30px_rgba(0,0,0,0.12)] backdrop-blur-sm transition hover:scale-105 hover:bg-stone-100"
+            >
+              <span className="flex items-center justify-center">
+                <X size={20} strokeWidth={1.75} />
+              </span>
+            </button>
+
             {[...navLinks, { label: "Contact", id: "contact" }].map((link, i) => (
               <motion.div
                 key={link.id}
