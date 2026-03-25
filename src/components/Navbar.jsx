@@ -12,7 +12,7 @@ export default function Navbar() {
   const isLandingPage = location.pathname === "/";
   const getSectionOffset = (id) => {
     if (id === "book") return 0;
-    if (id === "welcome") return 0;
+    if (id === "home") return 0;
     return 80;
   };
 
@@ -30,7 +30,6 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const navLinks = [
-    { label: "Home", id: "home" },
     { label: "Collection", id: "collection" },
     { label: "Book", id: "book" },
     { label: "About", id: "about" },
@@ -113,7 +112,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            onClick={() => goToSection("welcome")}
+            onClick={() => goToSection("home")}
             className="absolute left-1/2 -translate-x-1/2 text-2xl font-semibold"
             style={{ zIndex: 1000001 }}
           >
