@@ -3,14 +3,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./css/App.css";
 
-import Welcome from "./pages/Welcome";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Book from "./pages/Book";
 import Collection from "./pages/Collection";
-import CollectionAtest from "./pages/CollectionAtest";
-import CollectionAtest2 from "./pages/CollectionAtest2";
 import CollectionShow from "./pages/CollectionShow";
 import Conc from "./pages/Conc";
 import Contact from "./pages/Contact";
@@ -22,7 +19,7 @@ const queryClient = new QueryClient();
 
 function getSectionOffset(id) {
   if (id === "book") return 0;
-  if (id === "welcome") return 0;
+  if (id === "home") return 0;
   return 80;
 }
 
@@ -48,10 +45,6 @@ function scrollToSectionId(id) {
 function LandingPage() {
   return (
     <main style={{ width: "100%", overflowX: "hidden" }}>
-      <section id="welcome" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
-        <Welcome />
-      </section>
-
       <section id="home" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
         <Home />
       </section>
@@ -114,10 +107,7 @@ function AppContent() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
-        <Route path="/collectionAtest" element={<CollectionAtest />} />
-        <Route path="/collectionAtest2" element={<CollectionAtest2 />} />
         <Route path="/collectionShow" element={<CollectionShow />} />
         <Route path="/book" element={<Book />} />
         <Route path="/about" element={<About />} />

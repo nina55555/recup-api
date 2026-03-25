@@ -1,7 +1,6 @@
 
 
 import { Link } from 'react-router-dom';
-import videoShow from '../assets/cindyB.mp4';
 import Navbar from '../components/Navbar';
 import Video from '../components/Video';
 import '../css/Conc.css';

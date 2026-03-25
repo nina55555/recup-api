@@ -1,57 +1,65 @@
-import React from "react";
-import axios from "axios";
-import { useQuery } from "react-query";
-import Video from "../components/Video";
-import Slides from "../components/Slides";
-import Icons from "../components/Icons";
-import "../css/Home.css";
-
-export default function Home() {
-  // Fetch API
-  const { data, isLoading, isError } = useQuery("model", () =>
-    axios.get("http://localhost:5978/defilons/")
-  );
-
-  if (isLoading) return <p>Chargement...</p>;
-  if (isError) return <p>Erreur API</p>;
-
-  const products = data?.data || [];
-
-  return (
-    <div className="containerHome">
-      {/* Vidéo avec paragraphe */}
-      <Video />
-
-      {/* Bouton découvrir la collection */}
-      <button className="btn-decouvrezz">
-        <a href="/Collection">Découvrez la collection</a>
-      </button>
-
-      {/* Présentation */}
-      <div className="presentation">
-        <h2>Présentation</h2>
-        <p>
-          Des pièces conçues pour marquer.
-
-          Chaque silhouette incarne une vision :
-          celle d’une élégance affirmée, rare et intemporelle.
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import videoShow from "../assets/vid-home2.mp4";
+import { X } from "lucide-react";
+import Collectiontype from '../components/Collectiontype'
+import '../css/Home.css'
 
 
+const Welcome = () => {
+    const [isTextboxOpen, setIsTextboxOpen] = useState(true);
 
+    return (
+        <div className="containBox">
 
+            <div className='mainBoxx-welcome'>
+                        <h2 className="welcome-video-title">Vous l'avez fait !</h2>
+                        <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
+                            <video src={videoShow} autoPlay muted loop playsInline />
+                        </div>
+                        <div className='marbreG' >
+                            {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
+                        </div>
+                        
+                        {isTextboxOpen && (
+                        <div className='textbox'>
+                            <button
+                                type="button"
+                                className="welcome-close"
+                                aria-label="Fermer le popup"
+                                onClick={() => setIsTextboxOpen(false)}
+                            >
+                                <X size={18} strokeWidth={1.75} />
+                            </button>
+                            <div className='welcometextt'>
+                                WELCOME
+                                    <br/>
+                                    <br/>
 
-          Pourrez-vous ... Chez It V, nous nous spécialisons dans le vêtement
-          de haute qualité, réalisé avec passion et créativité. Découvrez nos
-          modèles uniques et laissez-vous surprendre par l'élégance et le style
-          qui caractérisent chaque pièce de notre collection.
-        </p>
+                                Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme et votre capacité à impacter le monde.
+                                <br/>
+                                Entrons ensemble dans cette belle experience stylistique pour une aventure hors du commun.
+                                <br/>
+                                <br/>
+                                <p>IT V</p>
+                            </div >
+                            <Collectiontype />
+                        </div>
+                        )}
 
-        {/* Slider produits */}
-        {/*<Slides products={products} />*/}
+                        <div className="welcome-cta">
+                            <button className="btn-decouvrezz btn-welcomezz welcome-discover-btn">
+                                <Link to="/Collection">Découvrez la collection</Link>
+                            </button>
+                        </div>
+                        <div className='marbreD'>
+                            {/*<img src='src/assets/Capture marbre 2.PNG'></img>*/}
+                        </div> 
+            </div>
 
-        {/* Icônes réseaux sociaux */}
-        <Icons />
-      </div>
-    </div>
-  );
-}
+        </div>
+      
+    );
+};
+
+export default Welcome;

@@ -44,10 +44,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const openBook = (story) => {
     setSelectedStory(story || "Aucune histoire");
     setShowBook(true);
-
-    const audio = new Audio("/src/assets/page.mp3");
-    audio.volume = 0.3;
-    audio.play();
   };
 
   const formatDate = (dateStr) => {
