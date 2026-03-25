@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "../lib/supabase";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,6 +25,28 @@ export default function Navbar() {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const syncUser = async () => {
+      const {
+        data: { user: currentUser },
+      } = await supabase.auth.getUser();
+
+      setUser(currentUser || null);
+    };
+
+    syncUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -80,6 +104,11 @@ export default function Navbar() {
     navigate(`/#${id}`);
   };
 
+  const goToProfile = () => {
+    setMenuOpen(false);
+    navigate("/profile");
+  };
+
   return (
     <>
       <nav
@@ -124,6 +153,15 @@ export default function Navbar() {
           </button>
 
           <div className="hidden md:flex ml-auto" style={{ position: "relative", zIndex: 1000001 }}>
+            {user && (
+              <button
+                type="button"
+                onClick={goToProfile}
+                className="mr-6 text-[12px] uppercase tracking-wider text-gray-600 hover:text-black"
+              >
+                Profile
+              </button>
+            )}
             <button
               type="button"
               onClick={() => goToSection("contact")}
@@ -165,7 +203,7 @@ export default function Navbar() {
               </span>
             </button>
 
-            {[...navLinks, { label: "Contact", id: "contact" }].map((link, i) => (
+            {[...navLinks, ...(user ? [{ label: "Profile", id: "profile" }] : []), { label: "Contact", id: "contact" }].map((link, i) => (
               <motion.div
                 key={link.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -174,7 +212,7 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  onClick={() => goToSection(link.id)}
+                  onClick={() => (link.id === "profile" ? goToProfile() : goToSection(link.id))}
                   className="text-2xl uppercase tracking-widest"
                 >
                   {link.label}

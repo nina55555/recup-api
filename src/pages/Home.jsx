@@ -6,7 +6,7 @@ import Collectiontype from '../components/Collectiontype'
 import '../css/Home.css'
 
 
-const Welcome = () => {
+const Home = () => {
     const [isTextboxOpen, setIsTextboxOpen] = useState(true);
 
     return (
@@ -32,16 +32,16 @@ const Welcome = () => {
                                 <X size={18} strokeWidth={1.75} />
                             </button>
                             <div className='welcometextt'>
-                                WELCOME
+                                <h2>WELCOME</h2>
                                     <br/>
                                     <br/>
 
-                                Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme et votre capacité à impacter le monde.
+                                <p>Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme et votre capacité à impacter le monde.
                                 <br/>
                                 Entrons ensemble dans cette belle experience stylistique pour une aventure hors du commun.
+                                <br/></p>
                                 <br/>
-                                <br/>
-                                <p>IT V</p>
+                                <h1 className='sign'>IT V</h1>
                             </div >
                             <Collectiontype />
                         </div>
@@ -62,4 +62,4 @@ const Welcome = () => {
     );
 };
 
-export default Welcome;
+export default Home;

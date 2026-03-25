@@ -97,3 +97,21 @@ color:#4CAF50;
 font-size:13px;
 
 }
+
+.auth-toggle{
+
+background:transparent;
+border:none;
+color:#d4af37;
+font-size:13px;
+padding:0;
+text-align:left;
+cursor:pointer;
+
+}
+
+.auth-toggle:hover{
+
+text-decoration:underline;
+
+}

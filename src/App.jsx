@@ -12,6 +12,7 @@ import CollectionShow from "./pages/CollectionShow";
 import Conc from "./pages/Conc";
 import Contact from "./pages/Contact";
 import Product from "./pages/Product";
+import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 
@@ -117,6 +118,7 @@ function AppContent() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/conc" element={<Conc />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );
