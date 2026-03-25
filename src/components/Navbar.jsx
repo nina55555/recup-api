@@ -13,6 +13,9 @@ export default function Navbar() {
   const getSectionOffset = (id) => {
     if (id === "book") return 0;
     if (id === "home") return 0;
+    if (id === "collection") return 0;
+    if (id === "about") return 0;
+    if (id === "contact") return 0;
     return 80;
   };
 
@@ -30,6 +33,7 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const navLinks = [
+    { label: "Home", id: "home" },
     { label: "Collection", id: "collection" },
     { label: "Book", id: "book" },
     { label: "About", id: "about" },

@@ -20,6 +20,9 @@ const queryClient = new QueryClient();
 function getSectionOffset(id) {
   if (id === "book") return 0;
   if (id === "home") return 0;
+  if (id === "collection") return 0;
+  if (id === "about") return 0;
+  if (id === "contact") return 0;
   return 80;
 }
 
