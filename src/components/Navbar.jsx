@@ -8,6 +8,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [profilePseudo, setProfilePseudo] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,6 +49,31 @@ export default function Navbar() {
       subscription.unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    const loadProfilePseudo = async () => {
+      if (!user?.id) {
+        setProfilePseudo("");
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("pseudo")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (error) {
+        console.error("Erreur chargement pseudo navbar :", error);
+        setProfilePseudo("");
+        return;
+      }
+
+      setProfilePseudo(data?.pseudo || "");
+    };
+
+    loadProfilePseudo();
+  }, [user]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
@@ -153,6 +179,11 @@ export default function Navbar() {
           </button>
 
           <div className="hidden md:flex ml-auto" style={{ position: "relative", zIndex: 1000001 }}>
+            {user && profilePseudo && (
+              <div className="mr-6 rounded-full border border-stone-200/80 bg-white/70 px-4 py-1 text-[11px] font-light tracking-[0.28em] text-stone-500 shadow-[0_10px_30px_rgba(0,0,0,0.04)] backdrop-blur-sm">
+                Hello "{profilePseudo}"
+              </div>
+            )}
             {user && (
               <button
                 type="button"
@@ -202,6 +233,17 @@ export default function Navbar() {
                 <X size={20} strokeWidth={1.75} />
               </span>
             </button>
+
+            {user && profilePseudo && (
+              <motion.div
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                className="rounded-full border border-stone-200/80 bg-white/80 px-5 py-2 text-[11px] font-light tracking-[0.28em] text-stone-500 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-sm"
+              >
+                Hello "{profilePseudo}"
+              </motion.div>
+            )}
 
             {[...navLinks, ...(user ? [{ label: "Profile", id: "profile" }] : []), { label: "Contact", id: "contact" }].map((link, i) => (
               <motion.div
