@@ -144,6 +144,70 @@
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(245, 241, 232, 0.88) 100%);
 }
 
+.profile-security-block {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 241, 234, 0.88) 100%);
+}
+
+.profile-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.profile-toggle input {
+  width: 18px !important;
+  height: 18px;
+}
+
+.profile-toggle-status {
+  display: inline-flex;
+  width: fit-content;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4e4a40;
+}
+
+.profile-upload-card span {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4e4a40;
+}
+
+.profile-inline-action {
+  width: fit-content;
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #1f1b16;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.profile-inline-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.profile-social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
 .profile-bids-header {
   display: grid;
   gap: 6px;
@@ -253,6 +317,10 @@
   }
 
   .profile-media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-social-grid {
     grid-template-columns: 1fr;
   }
 

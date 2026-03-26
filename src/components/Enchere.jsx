@@ -44,7 +44,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const openBook = (bid) => {
     setSelectedStory({
       story: bid.story || "Aucune histoire",
-      avatarUrl: bid.avatarUrl || "",
       storyImageUrl: bid.storyImageUrl || "",
       storyVideoUrl: bid.storyVideoUrl || "",
       pseudo: bid.pseudo || "Anonyme",
@@ -140,14 +139,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
               <img className="book-image" src={livreImage} alt="Livre ouvert" />
 
               <div className="book-layer book-layer-left">
-                {selectedStory?.avatarUrl ? (
-                  <img
-                    className="book-avatar"
-                    src={selectedStory.avatarUrl}
-                    alt={`Profil de ${selectedStory?.pseudo || "utilisateur"}`}
-                  />
-                ) : null}
-
                 {selectedStory?.storyImageUrl ? (
                   <img
                     className="book-media"

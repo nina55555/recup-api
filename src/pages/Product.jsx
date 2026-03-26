@@ -47,6 +47,7 @@ const Product = () => {
 
     const userIds = [...new Set(bidRows.map((bid) => bid.user_id).filter(Boolean))];
     let profilesById = {};
+    let signedMediaByUserId = {};
 
     if (userIds.length > 0) {
       const { data: profileRows, error: profileError } = await supabase
@@ -61,10 +62,22 @@ const Product = () => {
           profileRows.map((profile) => [profile.id, profile])
         );
       }
+
+      const { data: signedMediaResult, error: signedMediaError } =
+        await supabase.functions.invoke("sign-story-media", {
+          body: { productId: id },
+        });
+
+      if (signedMediaError) {
+        console.error("Erreur generation URLs signees stories :", signedMediaError);
+      } else {
+        signedMediaByUserId = signedMediaResult?.items || {};
+      }
     }
 
     const formatted = bidRows.map((bid) => {
       const profile = profilesById[bid.user_id];
+      const signedMedia = signedMediaByUserId[bid.user_id] || {};
 
       return {
         amount: bid.amount,
@@ -73,8 +86,8 @@ const Product = () => {
         pseudo: profile?.pseudo || "Anonyme",
         story: profile?.story || "",
         avatarUrl: "",
-        storyImageUrl: "",
-        storyVideoUrl: "",
+        storyImageUrl: signedMedia.storyImageUrl || "",
+        storyVideoUrl: signedMedia.storyVideoUrl || "",
         user_id: bid.user_id,
         date: bid.created_at,
       };

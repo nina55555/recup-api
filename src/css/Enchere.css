@@ -329,7 +329,9 @@
     top:50%;
     transform:translateY(-50%);
     border-radius:18px;
-    object-fit:cover;
+    object-fit:contain;
+    object-position:center;
+    overflow:hidden;
     background:rgba(236,230,214,0.92);
     box-shadow:0 12px 30px rgba(0,0,0,0.1);
 }
