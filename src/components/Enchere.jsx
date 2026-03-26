@@ -140,14 +140,13 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
               <div className="book-layer book-layer-left">
                 { selectedStory?.storyVideoUrl ? (
-                  <video
+                  <video autoPlay muted
                     className="book-media"
                     src={selectedStory.storyVideoUrl}
                     controls
                     playsInline
                   />
                 ) :
-                
                 selectedStory?.storyImageUrl ? (
                   <img
                     className="book-media"
