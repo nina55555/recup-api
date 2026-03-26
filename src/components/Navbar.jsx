@@ -143,7 +143,7 @@ export default function Navbar() {
             ? "bg-white/20 backdrop-blur-xl border-b border-white/20"
             : isLandingPage
               ? "bg-white"
-              : "bg-transparent"
+              : "bg-white"
         }`}
         style={{
           position: "fixed",
@@ -180,7 +180,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex ml-auto" style={{ position: "relative", zIndex: 1000001 }}>
             {user && profilePseudo && (
-              <div className="mr-6 rounded-full border border-stone-200/80 bg-white/70 px-4 py-1 text-[11px] font-light tracking-[0.28em] text-stone-500 shadow-[0_10px_30px_rgba(0,0,0,0.04)] backdrop-blur-sm">
+              <div className="mr-3 rounded-full border border-stone-200/80 bg-white/70 px-2.5 py-1 text-[9px] font-light tracking-[0.18em] text-stone-500 shadow-[0_10px_30px_rgba(0,0,0,0.04)] backdrop-blur-sm lg:mr-6 lg:px-4 lg:text-[11px] lg:tracking-[0.28em]">
                 Hello "{profilePseudo}"
               </div>
             )}

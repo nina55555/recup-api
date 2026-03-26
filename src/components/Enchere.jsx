@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/Enchere.css";
+import livreImage from "../assets/livre.jpg";
 
 const Enchere = ({ onBidSubmit, bids }) => {
   const [value, setValue] = useState("");
@@ -40,7 +41,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
     if (e.key === "Enter") handleSubmit();
   };
 
-  // 📖 OUVRIR STORY
   const openBook = (bid) => {
     setSelectedStory({
       story: bid.story || "Aucune histoire",
@@ -54,7 +54,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    return `${date.toLocaleDateString()} à ${date.toLocaleTimeString()}`;
+    return `${date.toLocaleDateString()} a ${date.toLocaleTimeString()}`;
   };
 
   return (
@@ -62,7 +62,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
       <div className="bid-input-box">
         <input
           type="number"
-          placeholder="Entrez votre enchère ici ..."
+          placeholder="Entrez votre enchere ici ..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -72,7 +72,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
       {showError && (
         <div className="error-popup">
-          Allez un peu de nerf ! L'enchère doit être supérieure à la dernière.
+          Allez un peu de nerf ! L'enchere doit etre superieure a la derniere.
         </div>
       )}
 
@@ -84,22 +84,18 @@ const Enchere = ({ onBidSubmit, bids }) => {
             <div className={`bid-infos ${isNew ? "new-bid" : ""}`} key={index}>
               <div className="bid-row">
                 <div className="bid-row-left">
-
-                  {/* ✅ PSEUDO */}
                   <div className="pseudo">
                     <p>{bid.pseudo || "Anonyme"}</p>
                   </div>
 
                   <div className="a-encheri">
-                    <p>a enchéri le:</p>
+                    <p>a encheri le:</p>
                   </div>
 
-                  {/* ✅ DATE */}
                   <div className="date">
                     <p>{formatDate(bid.date)}</p>
                   </div>
 
-                  {/* ✅ MESSAGE */}
                   <div className="com">
                     <p>{bid.message || "..."}</p>
                   </div>
@@ -107,13 +103,11 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
                 <div className="bid-row-right">
                   <div className="price">
-                    <p>{bid.amount}€</p>
+                    <p>{bid.amount}EUR</p>
                   </div>
 
                   <div className="icons-ench">
                     <a href="#">🔥</a>
-
-                    {/* ✅ STORY */}
                     <a
                       href="#"
                       onClick={(e) => {
@@ -127,7 +121,6 @@ const Enchere = ({ onBidSubmit, bids }) => {
                 </div>
               </div>
 
-              {/* ✅ COUNTRY */}
               <div className="pays-promu">
                 <p>PAYS PROMU: {bid.country || "-"}</p>
               </div>
@@ -136,51 +129,46 @@ const Enchere = ({ onBidSubmit, bids }) => {
         })}
       </div>
 
-      {/* 📖 POPUP LIVRE */}
       {showBook && (
         <div className="book-overlay">
           <div className="book-popup">
             <span className="book-close" onClick={() => setShowBook(false)}>
               ✕
             </span>
-            <div className="book">
-              <div className="page left">
-                {selectedStory?.avatarUrl && (
+
+            <div className="book-visual">
+              <img className="book-image" src={livreImage} alt="Livre ouvert" />
+
+              <div className="book-layer book-layer-left">
+                {selectedStory?.avatarUrl ? (
                   <img
                     className="book-avatar"
                     src={selectedStory.avatarUrl}
                     alt={`Profil de ${selectedStory?.pseudo || "utilisateur"}`}
                   />
+                ) : null}
+
+                {selectedStory?.storyImageUrl ? (
+                  <img
+                    className="book-media"
+                    src={selectedStory.storyImageUrl}
+                    alt="Illustration de story"
+                  />
+                ) : selectedStory?.storyVideoUrl ? (
+                  <video
+                    className="book-media"
+                    src={selectedStory.storyVideoUrl}
+                    controls
+                    playsInline
+                  />
+                ) : (
+                  <div className="book-media-empty">Aucune image ajoutee</div>
                 )}
-
-                <div className="book-media-stack">
-                  {selectedStory?.storyImageUrl && (
-                    <img
-                      className="book-media"
-                      src={selectedStory.storyImageUrl}
-                      alt="Illustration de story"
-                    />
-                  )}
-
-                  {selectedStory?.storyVideoUrl && (
-                    <video
-                      className="book-media"
-                      src={selectedStory.storyVideoUrl}
-                      controls
-                      playsInline
-                    />
-                  )}
-
-                  {!selectedStory?.storyImageUrl && !selectedStory?.storyVideoUrl && (
-                    <div className="book-media-empty">Aucun média ajouté</div>
-                  )}
-                </div>
               </div>
-              <div className="page right">
-                <div className="book-text-wrap">
-                  <p className="book-author">{selectedStory?.pseudo || "Anonyme"}</p>
-                  <p className="book-text">{selectedStory?.story || "Aucune histoire"}</p>
-                </div>
+
+              <div className="book-layer book-layer-right">
+                <p className="book-author">{selectedStory?.pseudo || "Anonyme"}</p>
+                <p className="book-text">{selectedStory?.story || "Aucune histoire"}</p>
               </div>
             </div>
           </div>
