@@ -66,7 +66,7 @@ const Product = () => {
           country,
           created_at,
           user_id,
-          profiles (pseudo, story)
+          profiles (pseudo, story, avatar_url, story_image_url, story_video_url)
         `)
         .eq("product_id", id)
         .order("amount", { ascending: false });
@@ -79,6 +79,9 @@ const Product = () => {
         country: b.country,
         pseudo: b.profiles?.pseudo || "Anonyme",
         story: b.profiles?.story || "",
+        avatarUrl: b.profiles?.avatar_url || "",
+        storyImageUrl: b.profiles?.story_image_url || "",
+        storyVideoUrl: b.profiles?.story_video_url || "",
         user_id: b.user_id,
         date: b.created_at
       }));

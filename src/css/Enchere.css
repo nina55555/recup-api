@@ -237,20 +237,91 @@
 
 .page{
     width:45%;
-    height:200px;
+    min-height:260px;
     background:#f5f5dc;
     border:1px solid #ccc;
     border-radius:5px;
     padding:10px;
 }
 
+.page.left{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
 .page.right{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+}
+
+.book-avatar{
+    width:56px;
+    height:56px;
+    border-radius:999px;
+    object-fit:cover;
+    margin:0 auto;
+    border:1px solid rgba(0,0,0,0.12);
+}
+
+.book-media-stack{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    height:100%;
+}
+
+.book-media,
+.book-media-empty{
+    width:100%;
+    flex:1;
+    min-height:86px;
+    border-radius:8px;
+    object-fit:cover;
+    background:#ece6d6;
+}
+
+.book-media-empty{
     display:flex;
     align-items:center;
     justify-content:center;
+    color:#6f6a5e;
+    font-size:13px;
+    text-align:center;
+    padding:10px;
+}
+
+.book-text-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:100%;
+    height:100%;
+}
+
+.book-author{
+    margin:0;
+    text-align:center;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#6f6a5e;
 }
 
 .book-text{
     font-style:italic;
     text-align:center;
+    margin:0;
+    line-height:1.55;
+}
+
+@media (max-width: 750px){
+  .book{
+    flex-direction:column;
+  }
+
+  .page{
+    width:100%;
+  }
 }

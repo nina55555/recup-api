@@ -6,7 +6,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const [showError, setShowError] = useState(false);
   const [lastBidIndex, setLastBidIndex] = useState(null);
   const [showBook, setShowBook] = useState(false);
-  const [selectedStory, setSelectedStory] = useState("");
+  const [selectedStory, setSelectedStory] = useState(null);
 
   const listRef = useRef(null);
 
@@ -41,8 +41,14 @@ const Enchere = ({ onBidSubmit, bids }) => {
   };
 
   // 📖 OUVRIR STORY
-  const openBook = (story) => {
-    setSelectedStory(story || "Aucune histoire");
+  const openBook = (bid) => {
+    setSelectedStory({
+      story: bid.story || "Aucune histoire",
+      avatarUrl: bid.avatarUrl || "",
+      storyImageUrl: bid.storyImageUrl || "",
+      storyVideoUrl: bid.storyVideoUrl || "",
+      pseudo: bid.pseudo || "Anonyme",
+    });
     setShowBook(true);
   };
 
@@ -112,7 +118,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        openBook(bid.story);
+                        openBook(bid);
                       }}
                     >
                       📖
@@ -138,9 +144,43 @@ const Enchere = ({ onBidSubmit, bids }) => {
               ✕
             </span>
             <div className="book">
-              <div className="page left"></div>
+              <div className="page left">
+                {selectedStory?.avatarUrl && (
+                  <img
+                    className="book-avatar"
+                    src={selectedStory.avatarUrl}
+                    alt={`Profil de ${selectedStory?.pseudo || "utilisateur"}`}
+                  />
+                )}
+
+                <div className="book-media-stack">
+                  {selectedStory?.storyImageUrl && (
+                    <img
+                      className="book-media"
+                      src={selectedStory.storyImageUrl}
+                      alt="Illustration de story"
+                    />
+                  )}
+
+                  {selectedStory?.storyVideoUrl && (
+                    <video
+                      className="book-media"
+                      src={selectedStory.storyVideoUrl}
+                      controls
+                      playsInline
+                    />
+                  )}
+
+                  {!selectedStory?.storyImageUrl && !selectedStory?.storyVideoUrl && (
+                    <div className="book-media-empty">Aucun média ajouté</div>
+                  )}
+                </div>
+              </div>
               <div className="page right">
-                <p className="book-text">{selectedStory}</p>
+                <div className="book-text-wrap">
+                  <p className="book-author">{selectedStory?.pseudo || "Anonyme"}</p>
+                  <p className="book-text">{selectedStory?.story || "Aucune histoire"}</p>
+                </div>
               </div>
             </div>
           </div>
