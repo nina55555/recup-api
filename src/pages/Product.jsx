@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Countdown from "../components/Countdown";
 import Icons from "../components/Icons";
@@ -14,30 +14,95 @@ const Product = () => {
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const [showPopup, setShowPopup] = useState(false);
   const [bidValue, setBidValue] = useState(null);
-
   const [formData, setFormData] = useState({
     pseudo: "",
     story: "",
     message: "",
-    country: ""
+    country: "",
   });
-
   const [bids, setBids] = useState([]);
   const [user, setUser] = useState(null);
 
-  // USER
+  const fetchBids = async () => {
+    if (!id) return;
+
+    const { data: bidRows, error: bidError } = await supabase
+      .from("bids")
+      .select("amount, message, country, created_at, user_id")
+      .eq("product_id", id)
+      .order("amount", { ascending: false });
+
+    if (bidError) {
+      console.error("Erreur chargement des encheres :", bidError);
+      toast.error("Erreur chargement encheres");
+      return;
+    }
+
+    if (!bidRows?.length) {
+      setBids([]);
+      return;
+    }
+
+    const userIds = [...new Set(bidRows.map((bid) => bid.user_id).filter(Boolean))];
+    let profilesById = {};
+
+    if (userIds.length > 0) {
+      const { data: profileRows, error: profileError } = await supabase
+        .from("profiles")
+        .select("id, pseudo, story")
+        .in("id", userIds);
+
+      if (profileError) {
+        console.error("Erreur chargement des profils lies aux encheres :", profileError);
+      } else {
+        profilesById = Object.fromEntries(
+          profileRows.map((profile) => [profile.id, profile])
+        );
+      }
+    }
+
+    const formatted = bidRows.map((bid) => {
+      const profile = profilesById[bid.user_id];
+
+      return {
+        amount: bid.amount,
+        message: bid.message,
+        country: bid.country,
+        pseudo: profile?.pseudo || "Anonyme",
+        story: profile?.story || "",
+        avatarUrl: "",
+        storyImageUrl: "",
+        storyVideoUrl: "",
+        user_id: bid.user_id,
+        date: bid.created_at,
+      };
+    });
+
+    setBids(formatted);
+  };
+
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data?.user) setUser(data.user);
+      try {
+        const { data, error } = await supabase.auth.getUser();
+        if (error?.name === "AbortError") return;
+        if (error) {
+          console.error("Erreur recuperation user :", error);
+          return;
+        }
+        if (data?.user) setUser(data.user);
+      } catch (error) {
+        if (error?.name !== "AbortError") {
+          console.error("Erreur auth product :", error);
+        }
+      }
     };
+
     getUser();
   }, []);
 
-  // PRODUCT
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -50,101 +115,68 @@ const Product = () => {
         setLoading(false);
       }
     };
+
     if (id) getProduct();
   }, [id]);
 
-  // FETCH BIDS
   useEffect(() => {
-    if (!id) return;
-
-    const fetchBids = async () => {
-      const { data } = await supabase
-        .from("bids")
-        .select(`
-          amount,
-          message,
-          country,
-          created_at,
-          user_id,
-          profiles (pseudo, story, avatar_url, story_image_url, story_video_url)
-        `)
-        .eq("product_id", id)
-        .order("amount", { ascending: false });
-
-      if (!data) return;
-
-      const formatted = data.map((b) => ({
-        amount: b.amount,
-        message: b.message,
-        country: b.country,
-        pseudo: b.profiles?.pseudo || "Anonyme",
-        story: b.profiles?.story || "",
-        avatarUrl: b.profiles?.avatar_url || "",
-        storyImageUrl: b.profiles?.story_image_url || "",
-        storyVideoUrl: b.profiles?.story_video_url || "",
-        user_id: b.user_id,
-        date: b.created_at
-      }));
-
-      setBids(formatted);
-
-      console.log("BIDS DATA:", data);
-      
-    };
-
     fetchBids();
   }, [id]);
 
-  // CLICK ENCHERE
   const handleBidSubmit = (value) => {
     if (!user) {
       navigate("/signup");
       return;
     }
+
     setBidValue(value);
     setShowPopup(true);
   };
 
-  // INPUT CHANGE
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // SUBMIT
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // 🔹 1. INSERT PROFILE (si pas existant)
-    await supabase.from("profiles").upsert({
+    const { error: profileError } = await supabase.from("profiles").upsert({
       id: user.id,
       pseudo: formData.pseudo,
-      story: formData.story
+      story: formData.story,
     });
 
-    // 🔹 2. INSERT BID
+    if (profileError) {
+      console.error("Erreur profil avant enchere :", profileError);
+      toast.error("Impossible d'enregistrer le pseudo");
+      return;
+    }
+
     const { error } = await supabase.from("bids").insert([
       {
         amount: bidValue,
         message: formData.message,
         country: formData.country,
         user_id: user.id,
-        product_id: id
-      }
+        product_id: id,
+      },
     ]);
 
     if (error) {
-      toast.error("Erreur enchère");
+      console.error("Erreur insertion enchere :", error);
+      toast.error("Erreur enchere");
       return;
     }
 
-    toast.success("Enchère envoyée !");
+    toast.success("Enchere envoyee !");
     setShowPopup(false);
+    await fetchBids();
     setFormData({
       pseudo: "",
       story: "",
       message: "",
-      country: ""
+      country: "",
     });
   };
 
@@ -153,7 +185,6 @@ const Product = () => {
 
   return (
     <div className="main--box">
-
       <Countdown />
 
       <div className="big--box">
@@ -173,11 +204,9 @@ const Product = () => {
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-form">
-
-            <h3>Ton enchère</h3>
+            <h3>Ton enchere</h3>
 
             <form onSubmit={handleFormSubmit}>
-
               <input
                 type="text"
                 name="pseudo"
@@ -215,8 +244,7 @@ const Product = () => {
                 <option>Belgique</option>
               </select>
 
-              <button type="submit">Valider l'enchère</button>
-
+              <button type="submit">Valider l'enchere</button>
             </form>
           </div>
         </div>

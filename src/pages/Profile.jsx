@@ -1,55 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { supabase } from "../lib/supabase";
 import "../css/Profile.css";
 import "react-toastify/dist/ReactToastify.css";
 
-const PROFILE_MEDIA_BUCKET = "profile-media";
-
 const EMPTY_PROFILE = {
   pseudo: "",
   story: "",
   email: "",
   password: "",
-  avatarUrl: "",
-  storyImageUrl: "",
-  storyVideoUrl: "",
-};
-
-const IMAGE_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
-const VIDEO_MIME_TYPES = ["video/mp4", "video/webm", "video/quicktime"];
-const VIDEO_EXTENSIONS = ["mp4", "webm", "mov"];
-
-const sanitizeFileName = (name) =>
-  name
-    .toLowerCase()
-    .replace(/[^a-z0-9.-]/g, "-")
-    .replace(/-+/g, "-");
-
-const getFileExtension = (fileName) => fileName.split(".").pop()?.toLowerCase() || "";
-
-const validateFile = ({ file, allowedMimeTypes, allowedExtensions, maxBytes, label }) => {
-  if (!file) return `${label} introuvable.`;
-
-  const extension = getFileExtension(file.name);
-
-  if (!allowedMimeTypes.includes(file.type) || !allowedExtensions.includes(extension)) {
-    return `${label} non autorisé.`;
-  }
-
-  if (file.size > maxBytes) {
-    return `${label} trop volumineux.`;
-  }
-
-  return null;
-};
-
-const buildStoragePath = (userId, folder, file) => {
-  const extension = getFileExtension(file.name);
-  const safeName = sanitizeFileName(file.name.replace(/\.[^.]+$/, ""));
-  return `${userId}/${folder}/${Date.now()}-${safeName}.${extension}`;
 };
 
 const Profile = () => {
@@ -59,68 +19,74 @@ const Profile = () => {
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState(EMPTY_PROFILE);
   const [currentStory, setCurrentStory] = useState("");
-  const [avatarFile, setAvatarFile] = useState(null);
-  const [storyImageFile, setStoryImageFile] = useState(null);
-  const [storyVideoFile, setStoryVideoFile] = useState(null);
-
-  const avatarPreview = useMemo(
-    () => (avatarFile ? URL.createObjectURL(avatarFile) : formData.avatarUrl),
-    [avatarFile, formData.avatarUrl]
-  );
-
-  const storyImagePreview = useMemo(
-    () => (storyImageFile ? URL.createObjectURL(storyImageFile) : formData.storyImageUrl),
-    [storyImageFile, formData.storyImageUrl]
-  );
-
-  const storyVideoPreview = useMemo(
-    () => (storyVideoFile ? URL.createObjectURL(storyVideoFile) : formData.storyVideoUrl),
-    [storyVideoFile, formData.storyVideoUrl]
-  );
-
-  useEffect(() => {
-    return () => {
-      if (avatarFile) URL.revokeObjectURL(avatarPreview);
-      if (storyImageFile) URL.revokeObjectURL(storyImagePreview);
-      if (storyVideoFile) URL.revokeObjectURL(storyVideoPreview);
-    };
-  }, [avatarFile, avatarPreview, storyImageFile, storyImagePreview, storyVideoFile, storyVideoPreview]);
 
   useEffect(() => {
     const loadProfile = async () => {
-      const {
-        data: { user: currentUser },
-      } = await supabase.auth.getUser();
+      try {
+        const {
+          data: { user: currentUser },
+          error: authError,
+        } = await supabase.auth.getUser();
 
-      if (!currentUser) {
-        navigate("/signin");
-        return;
+        if (authError?.name === "AbortError") return;
+
+        if (authError) {
+          console.error("Erreur auth profil :", authError);
+        }
+
+        if (!currentUser) {
+          navigate("/signin");
+          return;
+        }
+
+        setUser(currentUser);
+
+        const { data: rows, error } = await supabase
+          .from("profiles")
+          .select("id, pseudo, story")
+          .eq("id", currentUser.id)
+          .limit(1);
+
+        if (error) {
+          console.error("Erreur chargement profil :", error);
+          toast.error("Impossible de charger le profil.");
+        }
+
+        let profile = rows?.[0] || null;
+
+        if (!profile) {
+          const { data: insertedRows, error: insertError } = await supabase
+            .from("profiles")
+            .insert({
+              id: currentUser.id,
+              pseudo: "",
+              story: "",
+            })
+            .select("id, pseudo, story")
+            .limit(1);
+
+          if (insertError) {
+            console.error("Erreur creation profil :", insertError);
+          } else {
+            profile = insertedRows?.[0] || null;
+          }
+        }
+
+        setFormData({
+          pseudo: profile?.pseudo || "",
+          story: profile?.story || "",
+          email: currentUser.email || "",
+          password: "",
+        });
+        setCurrentStory(profile?.story || "");
+      } catch (error) {
+        if (error?.name !== "AbortError") {
+          console.error("Erreur inattendue profil :", error);
+          toast.error("Impossible de charger le profil.");
+        }
+      } finally {
+        setLoading(false);
       }
-
-      setUser(currentUser);
-
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("pseudo, story, avatar_url, story_image_url, story_video_url")
-        .eq("id", currentUser.id)
-        .maybeSingle();
-
-      if (error) {
-        toast.error("Impossible de charger le profil.");
-      }
-
-      setFormData({
-        pseudo: data?.pseudo || "",
-        story: data?.story || "",
-        email: currentUser.email || "",
-        password: "",
-        avatarUrl: data?.avatar_url || "",
-        storyImageUrl: data?.story_image_url || "",
-        storyVideoUrl: data?.story_video_url || "",
-      });
-      setCurrentStory(data?.story || "");
-
-      setLoading(false);
     };
 
     loadProfile();
@@ -131,44 +97,33 @@ const Profile = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e, setter, validationConfig) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const saveProfileRow = async (profilePayload) => {
+    const { data: updatedRows, error: updateError } = await supabase
+      .from("profiles")
+      .update(profilePayload)
+      .eq("id", user.id)
+      .select("id")
+      .limit(1);
 
-    const error = validateFile({ file, ...validationConfig });
-    if (error) {
-      toast.error(error);
-      e.target.value = "";
-      return;
+    if (updateError) {
+      console.error("Erreur mise a jour profil :", updateError);
     }
 
-    setter(file);
-  };
-
-  const uploadFileIfNeeded = async ({ file, currentUrl, folder, validationConfig }) => {
-    if (!file || !user) return currentUrl;
-
-    const error = validateFile({ file, ...validationConfig });
-    if (error) {
-      throw new Error(error);
+    if (updatedRows?.length) {
+      return null;
     }
 
-    const storagePath = buildStoragePath(user.id, folder, file);
+    const { error: insertError } = await supabase.from("profiles").insert({
+      id: user.id,
+      ...profilePayload,
+    });
 
-    const { error: uploadError } = await supabase.storage
-      .from(PROFILE_MEDIA_BUCKET)
-      .upload(storagePath, file, {
-        cacheControl: "3600",
-        upsert: true,
-      });
-
-    if (uploadError) {
-      throw new Error(uploadError.message);
+    if (insertError) {
+      console.error("Erreur insertion profil :", insertError);
+      return insertError;
     }
 
-    const { data } = supabase.storage.from(PROFILE_MEDIA_BUCKET).getPublicUrl(storagePath);
-
-    return data.publicUrl;
+    return null;
   };
 
   const handleSave = async (e) => {
@@ -179,49 +134,9 @@ const Profile = () => {
     setSaving(true);
 
     try {
-      const avatarUrl = await uploadFileIfNeeded({
-        file: avatarFile,
-        currentUrl: formData.avatarUrl,
-        folder: "avatar",
-        validationConfig: {
-          allowedMimeTypes: IMAGE_MIME_TYPES,
-          allowedExtensions: IMAGE_EXTENSIONS,
-          maxBytes: 5 * 1024 * 1024,
-          label: "Photo de profil",
-        },
-      });
-
-      const storyImageUrl = await uploadFileIfNeeded({
-        file: storyImageFile,
-        currentUrl: formData.storyImageUrl,
-        folder: "story-image",
-        validationConfig: {
-          allowedMimeTypes: IMAGE_MIME_TYPES,
-          allowedExtensions: IMAGE_EXTENSIONS,
-          maxBytes: 8 * 1024 * 1024,
-          label: "Image de story",
-        },
-      });
-
-      const storyVideoUrl = await uploadFileIfNeeded({
-        file: storyVideoFile,
-        currentUrl: formData.storyVideoUrl,
-        folder: "story-video",
-        validationConfig: {
-          allowedMimeTypes: VIDEO_MIME_TYPES,
-          allowedExtensions: VIDEO_EXTENSIONS,
-          maxBytes: 25 * 1024 * 1024,
-          label: "Vidéo de story",
-        },
-      });
-
-      const { error: profileError } = await supabase.from("profiles").upsert({
-        id: user.id,
+      const profileError = await saveProfileRow({
         pseudo: formData.pseudo,
         story: formData.story,
-        avatar_url: avatarUrl,
-        story_image_url: storyImageUrl,
-        story_video_url: storyVideoUrl,
       });
 
       if (profileError) {
@@ -243,6 +158,7 @@ const Profile = () => {
         const { data, error: authError } = await supabase.auth.updateUser(authUpdates);
 
         if (authError) {
+          console.error("Erreur mise a jour auth :", authError);
           toast.error(authError.message);
           return;
         }
@@ -254,20 +170,14 @@ const Profile = () => {
 
       setFormData((prev) => ({
         ...prev,
-        avatarUrl,
-        storyImageUrl,
-        storyVideoUrl,
         password: "",
       }));
       setCurrentStory(formData.story);
 
-      setAvatarFile(null);
-      setStoryImageFile(null);
-      setStoryVideoFile(null);
-
-      toast.success("Profil mis à jour.");
+      toast.success("Profil mis a jour.");
     } catch (error) {
-      toast.error(error.message || "Envoi refusé.");
+      console.error("Erreur sauvegarde profil :", error);
+      toast.error(error.message || "Envoi refuse.");
     } finally {
       setSaving(false);
     }
@@ -294,29 +204,6 @@ const Profile = () => {
         </div>
 
         <form className="profile-form" onSubmit={handleSave}>
-          <div className="profile-media-grid">
-            <label className="profile-upload-card">
-              Photo de profil
-              {avatarPreview ? (
-                <img className="profile-avatar-preview" src={avatarPreview} alt="Prévisualisation profil" />
-              ) : (
-                <div className="profile-upload-placeholder">Aperçu profil</div>
-              )}
-              <input
-                type="file"
-                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
-                onChange={(e) =>
-                  handleFileChange(e, setAvatarFile, {
-                    allowedMimeTypes: IMAGE_MIME_TYPES,
-                    allowedExtensions: IMAGE_EXTENSIONS,
-                    maxBytes: 5 * 1024 * 1024,
-                    label: "Photo de profil",
-                  })
-                }
-              />
-            </label>
-          </div>
-
           <label>
             Modifier mon pseudo
             <input
@@ -332,7 +219,7 @@ const Profile = () => {
             <div className="profile-story-current">
               <span>Mon histoire actuelle</span>
               <div className="profile-story-current-box">
-                {currentStory || "Aucune histoire enregistrée pour le moment."}
+                {currentStory || "Aucune histoire enregistree pour le moment."}
               </div>
             </div>
 
@@ -343,50 +230,6 @@ const Profile = () => {
                 value={formData.story}
                 onChange={handleChange}
                 placeholder="Votre histoire..."
-              />
-            </label>
-          </div>
-
-          <div className="profile-media-grid">
-            <label className="profile-upload-card">
-              Image de story
-              {storyImagePreview ? (
-                <img className="profile-story-media-preview" src={storyImagePreview} alt="Prévisualisation story" />
-              ) : (
-                <div className="profile-upload-placeholder">Aperçu image</div>
-              )}
-              <input
-                type="file"
-                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
-                onChange={(e) =>
-                  handleFileChange(e, setStoryImageFile, {
-                    allowedMimeTypes: IMAGE_MIME_TYPES,
-                    allowedExtensions: IMAGE_EXTENSIONS,
-                    maxBytes: 8 * 1024 * 1024,
-                    label: "Image de story",
-                  })
-                }
-              />
-            </label>
-
-            <label className="profile-upload-card">
-              Vidéo de story
-              {storyVideoPreview ? (
-                <video className="profile-story-media-preview" src={storyVideoPreview} controls muted />
-              ) : (
-                <div className="profile-upload-placeholder">Aperçu vidéo</div>
-              )}
-              <input
-                type="file"
-                accept=".mp4,.webm,.mov,video/mp4,video/webm,video/quicktime"
-                onChange={(e) =>
-                  handleFileChange(e, setStoryVideoFile, {
-                    allowedMimeTypes: VIDEO_MIME_TYPES,
-                    allowedExtensions: VIDEO_EXTENSIONS,
-                    maxBytes: 25 * 1024 * 1024,
-                    label: "Vidéo de story",
-                  })
-                }
               />
             </label>
           </div>
@@ -418,7 +261,7 @@ const Profile = () => {
               {saving ? "Enregistrement..." : "Enregistrer"}
             </button>
             <button type="button" className="profile-secondary" onClick={handleSignOut}>
-              Se déconnecter
+              Se deconnecter
             </button>
           </div>
         </form>
