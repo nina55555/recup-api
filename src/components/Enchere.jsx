@@ -139,20 +139,23 @@ const Enchere = ({ onBidSubmit, bids }) => {
               <img className="book-image" src={livreImage} alt="Livre ouvert" />
 
               <div className="book-layer book-layer-left">
-                {selectedStory?.storyImageUrl ? (
-                  <img
-                    className="book-media"
-                    src={selectedStory.storyImageUrl}
-                    alt="Illustration de story"
-                  />
-                ) : selectedStory?.storyVideoUrl ? (
+                { selectedStory?.storyVideoUrl ? (
                   <video
                     className="book-media"
                     src={selectedStory.storyVideoUrl}
                     controls
                     playsInline
                   />
-                ) : (
+                ) :
+                
+                selectedStory?.storyImageUrl ? (
+                  <img
+                    className="book-media"
+                    src={selectedStory.storyImageUrl}
+                    alt="Illustration de story"
+                  />
+                ) :
+                (
                   <div className="book-media-empty">Aucune image ajoutee</div>
                 )}
               </div>
