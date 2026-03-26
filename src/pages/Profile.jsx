@@ -19,6 +19,7 @@ const Profile = () => {
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState(EMPTY_PROFILE);
   const [currentStory, setCurrentStory] = useState("");
+  const [bidProducts, setBidProducts] = useState([]);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -79,6 +80,47 @@ const Profile = () => {
           password: "",
         });
         setCurrentStory(profile?.story || "");
+
+        const { data: bidRows, error: bidsError } = await supabase
+          .from("bids")
+          .select("product_id, amount, created_at")
+          .eq("user_id", currentUser.id)
+          .order("created_at", { ascending: false });
+
+        if (bidsError) {
+          console.error("Erreur chargement encheres profil :", bidsError);
+        } else if (bidRows?.length) {
+          const uniqueProductIds = [...new Set(bidRows.map((bid) => bid.product_id).filter(Boolean))];
+
+          try {
+            const response = await fetch("http://localhost:5978/defilons/");
+            const products = await response.json();
+
+            const productsById = Object.fromEntries(
+              (products || []).map((product) => [product._id, product])
+            );
+
+            const linkedProducts = uniqueProductIds
+              .map((productId) => {
+                const product = productsById[productId];
+
+                if (!product) return null;
+
+                return {
+                  id: product._id,
+                  title: product.title || "Produit",
+                  imageUrl: product.imageUrl || "",
+                };
+              })
+              .filter(Boolean);
+
+            setBidProducts(linkedProducts);
+          } catch (productsError) {
+            console.error("Erreur chargement produits profil :", productsError);
+          }
+        } else {
+          setBidProducts([]);
+        }
       } catch (error) {
         if (error?.name !== "AbortError") {
           console.error("Erreur inattendue profil :", error);
@@ -232,6 +274,37 @@ const Profile = () => {
                 placeholder="Votre histoire..."
               />
             </label>
+          </div>
+
+          <div className="profile-bids-block">
+            <div className="profile-bids-header">
+              <span>Mes encheres en cours</span>
+              <p>Acces rapide aux pages produit ou vous avez deja enchéri.</p>
+            </div>
+
+            {bidProducts.length > 0 ? (
+              <div className="profile-bids-list">
+                {bidProducts.map((product) => (
+                  <button
+                    key={product.id}
+                    type="button"
+                    className="profile-bid-link"
+                    onClick={() => navigate(`/product/${product.id}`)}
+                  >
+                    <img
+                      className="profile-bid-thumb"
+                      src={product.imageUrl}
+                      alt={product.title}
+                    />
+                    <span>{product.title}</span>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="profile-bids-empty">
+                Aucune enchere enregistree pour le moment.
+              </div>
+            )}
           </div>
 
           <label>

@@ -135,6 +135,88 @@
   white-space: pre-wrap;
 }
 
+.profile-bids-block {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(245, 241, 232, 0.88) 100%);
+}
+
+.profile-bids-header {
+  display: grid;
+  gap: 6px;
+}
+
+.profile-bids-header span {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4e4a40;
+}
+
+.profile-bids-header p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6f6a5e;
+}
+
+.profile-bids-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.profile-bid-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 8px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #1f1b16;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.profile-bid-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.profile-bid-link span {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.profile-bid-thumb {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(245, 242, 235, 0.9);
+  flex-shrink: 0;
+}
+
+.profile-bids-empty {
+  padding: 12px 14px;
+  border: 1px dashed rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #6f6a5e;
+  background: rgba(255, 255, 255, 0.7);
+}
+
 .profile-actions {
   display: flex;
   gap: 12px;
@@ -146,9 +228,14 @@
   border: none;
   border-radius: 10px;
   background: #d4af37;
-  color: #151515;
+  color: #4a345f;
   font-weight: 700;
   cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.profile-actions button:hover {
+  color: #111111;
 }
 
 .profile-actions .profile-secondary {
@@ -179,5 +266,18 @@
 
   .profile-story-grid {
     grid-template-columns: 1fr;
+  }
+
+  .profile-bids-list {
+    flex-direction: column;
+  }
+
+  .profile-bid-link {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .profile-bid-link span {
+    max-width: none;
   }
 }
