@@ -13,6 +13,7 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const isLandingPage = location.pathname === "/";
+  const isProductPage = location.pathname.startsWith("/product/");
   const getSectionOffset = (id) => {
     if (id === "book") return 0;
     if (id === "home") return 0;
@@ -155,7 +156,7 @@ export default function Navbar() {
           isolation: "isolate",
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+        <div className={`max-w-7xl mx-auto px-6 flex items-center justify-between ${isProductPage ? "h-14" : "h-20"}`}>
           <div className="hidden md:flex gap-8" style={{ position: "relative", zIndex: 1000001 }}>
             {navLinks.map((link) => (
               <button
@@ -172,7 +173,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => goToSection("home")}
-            className="absolute left-1/2 -translate-x-1/2 text-2xl font-semibold"
+            className={`absolute left-1/2 -translate-x-1/2 font-semibold ${isProductPage ? "text-xl" : "text-2xl"}`}
             style={{ zIndex: 1000001 }}
           >
             IT V

@@ -22,7 +22,7 @@
     width: 100%;
     /*width: auto;*/
     position: relative;
-    top: 25px;
+    top: 0;
 }
 
 
@@ -106,7 +106,7 @@
 @media (max-width:850px)  {
 
 
-    .big-box{
+    .bigg-box{
         background-color: rgb(226, 227, 228);
         margin: 0px;
         padding: 2px;
@@ -119,7 +119,7 @@
         width: 100%;
         /*width: auto;*/
         position: relative;
-        top: 10px;
+        top: 0;
     }
     
     

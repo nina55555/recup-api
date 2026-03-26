@@ -181,7 +181,7 @@
     /*opacity: 0;*/
     /*transition: 3s;*/
     /*width: 330px;*/
-    transition: 3s;
+    transition: none;
     /*
     animation: transitionScale 2s;
     */
@@ -215,7 +215,7 @@
 
 
 .welcometextt{
-    background-color: coral;
+    /*background-color: coral;*/
     /*background-color: rgb(255, 255, 255);*/
     /*z-index: 1;*/
     color: rgb(8, 6, 6);
@@ -235,13 +235,14 @@
 
 .welcometextt h2{
     
-    font-size: 20px;
+    font-size: 14px;
 }
 
 
 
 
 .welcometextt p{
+    padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -258,7 +259,7 @@
 
 .welcometextt h1{
     
-    margin-top: 85px;
+    margin-top: 25px;
     font-size: 20px;
 }
 
@@ -267,7 +268,7 @@
 .welcometextt h1::before{
     content: "";
     position: absolute;
-    top: 355px;
+    top: 425px;
     left: 50%;
     transform: translateX(-50%);
     width: 78px;
@@ -464,12 +465,13 @@
     justify-content: center;
     align-items: center;
     font-size: 12px;
-    top: 20px;
+    /*top: 30px;*/
     font-family: var(--font-display);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     height: 22%;
     position: relative;
+    padding-top: 20px;
 }
 
 
@@ -485,7 +487,7 @@
     content: "";
     position: absolute;
     /*top: 115px;*/
-    top: 325px;
+    top: 375px;
     left: 50%;
     transform: translateX(-50%);
     width: 78px;

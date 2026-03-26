@@ -15,7 +15,7 @@ const Home = () => {
             <div className='mainBoxx-welcome'>
                         <h2 className="welcome-video-title">Vous l'avez fait !</h2>
                         <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
-                            <video src={videoShow} autoPlay muted loop playsInline />
+                            <video src={videoShow} autoPlay muted loop playsInline preload="auto" />
                         </div>
                         <div className='marbreG' >
                             {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
@@ -36,7 +36,7 @@ const Home = () => {
                                     <br/>
                                     <br/>
 
-                                <p>Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme et votre capacité à impacter le monde.
+                                <p>Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme et votre aura pour impacter le monde.
                                 <br/>
                                 Entrons ensemble dans cette belle experience stylistique pour une aventure hors du commun.
                                 <br/></p>
