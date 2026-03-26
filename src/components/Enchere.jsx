@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/Enchere.css";
-import livreImage from "../assets/livre.jpg";
+import livreImage from "../assets/blankbook.jpg";
 
 const Enchere = ({ onBidSubmit, bids }) => {
   const [value, setValue] = useState("");
@@ -167,8 +167,10 @@ const Enchere = ({ onBidSubmit, bids }) => {
               </div>
 
               <div className="book-layer book-layer-right">
-                <p className="book-author">{selectedStory?.pseudo || "Anonyme"}</p>
-                <p className="book-text">{selectedStory?.story || "Aucune histoire"}</p>
+                <div className="book-text-panel">
+                  <p className="book-author">{selectedStory?.pseudo || "Anonyme"}</p>
+                  <p className="book-text">{selectedStory?.story || "Aucune histoire"}</p>
+                </div>
               </div>
             </div>
           </div>
