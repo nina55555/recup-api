@@ -119,11 +119,23 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:5978/defilons/${id}`);
-        const data = await res.json();
-        setProduct(data);
-      } catch {
+        const { data, error } = await supabase
+          .from("models")
+          .select("*")
+          .eq("id", id)
+          .single();
+
+        if (error) {
+          console.error("Erreur récupération produit:", error);
+          toast.error("Erreur chargement produit");
+          setProduct(null);
+        } else {
+          setProduct(data);
+        }
+      } catch (err) {
+        console.error("Erreur inattendue:", err);
         toast.error("Erreur chargement produit");
+        setProduct(null);
       } finally {
         setLoading(false);
       }
@@ -204,7 +216,7 @@ const Product = () => {
         <div className="images--box">
           <img className="paint" src="../src/assets/wallpaint.jpg" />
           <div className="product-overlay">
-            <img className="podium" src={product.imageUrl} />
+            <img className="podium" src={product.image_url} />  {/* Changed from product.imageUrl to product.image_url to match Supabase column */}
             <h2>{product.title}</h2>
           </div>
         </div>

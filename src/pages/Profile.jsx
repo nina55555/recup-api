@@ -50,6 +50,20 @@ const Profile = () => {
 
   const bucketName = useMemo(() => getProfileMediaBucket(), []);
 
+  // debug bucket access, à laisser temporaire
+  useEffect(() => {
+    const checkBucket = async () => {
+      const { data, error } = await supabase.storage
+        .from("profile-media")
+        .list("", { limit: 20 });
+
+      console.log("profile-media list data:", data);
+      console.log("profile-media list error:", error);
+    };
+
+    checkBucket();
+  }, []);
+
   useEffect(() => {
     const loadMediaUrls = async (profileConfig) => {
       try {
@@ -450,9 +464,7 @@ const Profile = () => {
           return;
         }
 
-        if (data?.user) {
-          setUser(data.user);
-        }
+        if (data?.user) { setUser(data.user); }
       }
 
       setFormData((prev) => ({

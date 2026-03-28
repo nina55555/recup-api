@@ -127,21 +127,101 @@ export const resolveSecureProfileRecord = ({ profile, media }) => {
 
 export const getProfileMediaBucket = () => PROFILE_MEDIA_BUCKET;
 
+
+
+
+
+// filepath: c:\Users\moi\Desktop\recup-api\src\lib\secureProfileMedia.js
+// ...existing code...
+
+export const createSignedProfileMediaUrl = async (supabase, path) => {
+  if (!path) return "";
+
+  // AJOUT : Vérifier si le fichier existe avant de signer
+  try {
+    const userId = path.split('/')[0];  // Extraire user-id du chemin
+    const fileName = path.split('/')[1];  // Extraire nom du fichier
+    const { data: files, error: listError } = await supabase.storage
+      .from(PROFILE_MEDIA_BUCKET)
+      .list(userId, { limit: 1000 });  // Lister le dossier utilisateur
+
+    if (listError) {
+      console.warn(`Erreur list fichiers pour ${path}:`, listError);
+      return "";  // Erreur de list, retourner vide
+    }
+
+    const fileExists = files.some(file => file.name === fileName);
+    if (!fileExists) {
+      console.warn(`Fichier ${path} n'existe pas dans bucket`);
+      return "";  // Fichier absent, retourner vide
+    }
+  } catch (err) {
+    console.warn(`Erreur vérif fichier ${path}:`, err);
+    return "";  // En cas d'erreur, retourner vide
+  }
+
+  // Si existe, signer normalement
+  try {
+    const { data, error } = await supabase.storage
+      .from(PROFILE_MEDIA_BUCKET)
+      .createSignedUrl(path, SIGNED_URL_TTL);
+
+    if (error) {
+      console.warn("createSignedUrl error:", error);
+      return "";
+    }
+    return data?.signedUrl || "";
+  } catch (err) {
+    console.warn("createSignedUrl catch:", err);
+    return "";
+  }
+};
+
+// ...existing code...
+
+
+
+
+
+
+
+/*ancient create sign without verifiying if file exists */
+/*
+
+
+
 export const createSignedProfileMediaUrl = async (supabase, path) => {
   if (!path) {
     return "";
   }
-
   const { data, error } = await supabase.storage
     .from(PROFILE_MEDIA_BUCKET)
     .createSignedUrl(path, SIGNED_URL_TTL);
-
   if (error) {
     throw error;
   }
-
   return data?.signedUrl || "";
 };
+
+
+
+*/
+/*  end code without verifiying if file exist*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const validateImageFile = async (file) => {
   baseValidation(file);
