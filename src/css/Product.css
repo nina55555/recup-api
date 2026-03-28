@@ -1,4 +1,3 @@
-
 /* RESET */
 * {
   margin: 0;
@@ -192,45 +191,169 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(4px);
 }
 
 .popup-form {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 420px;
+  background: linear-gradient(135deg, #fafbfc 0%, #f0f1f3 50%, #e8ebf0 100%);
+  padding: 0;
+  border-radius: 18px;
+  width: 80%;
+  max-width: 320px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 0;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 80px rgba(212,175,55,0.15), inset 0 1px 0 rgba(255,255,255,0.5);
+  border: 2px solid #d4af37;
+  font-family: 'Segoe UI', 'Georgia', serif;
+  overflow: hidden;
+  animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup-form h3 {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  margin: 0;
+  background: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #8a6c2f 100%);
+  padding: 18px 16px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.popup-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+}
+
+.popup-form input,
+.popup-form textarea,
+.popup-form select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #d4af37;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.95);
+  padding: 11px 13px;
+  font-size: 14px;
+  font-family: 'Segoe UI', serif;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.popup-form input::placeholder,
+.popup-form textarea::placeholder {
+  color: #a8a8a8;
+  font-style: italic;
+}
+
+.popup-form input:focus,
+.popup-form textarea:focus,
+.popup-form select:focus {
+  border-color: #b8860b;
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.15), 0 4px 15px rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.98);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.popup-form input {
+  height: 42px;
 }
 
 .popup-form textarea {
-  height: 110px;
-  padding: 10px;
+  height: 85px;
   resize: none;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  font-family: 'Segoe UI', serif;
 }
 
 .popup-form select {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  height: 50px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+  padding-right: 35px;
 }
 
-.popup-form button {
-  padding: 12px;
-  background: black;
+.popup-form button[type="submit"] {
+  width: 100%;
+  padding: 11px;
+  background: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #8a6c2f 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Segoe UI', serif;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  height: 42px;
+  letter-spacing: 0.4px;
+  box-shadow: 0 8px 20px rgba(212,175,55,0.3), 0 4px 10px rgba(0,0,0,0.15);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.popup-form button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(212,175,55,0.4), 0 6px 15px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, #e0c158 0%, #c49a23 50%, #9a7c3f 100%);
+}
+
+.popup-form button[type="submit"]:active {
+  transform: translateY(-1px);
+}
+
+/* AJOUT : Style pour la croix de fermeture du popup enchères */
+.product-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,240,245,0.9) 100%);
+  border: 2px solid #d4af37;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  color: #8a6c2f;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.product-popup-close:hover {
+  color: #b8860b;
+  border-color: #b8860b;
+  transform: scale(1.15) rotate(90deg);
+  box-shadow: 0 6px 18px rgba(212,175,55,0.4);
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(245,245,250,1) 100%);
 }
 
 /* POPUP ERREUR */
@@ -239,13 +362,16 @@
   top: 120px;
   left: 50%;
   transform: translateX(-50%);
-  background: black;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
   color: white;
-  padding: 12px 20px;
-  border-radius: 6px;
+  padding: 14px 24px;
+  border-radius: 10px;
   z-index: 1100;
   font-size: 14px;
   animation: fadeIn 0.3s ease;
+  border: 1px solid #d4af37;
+  box-shadow: 0 8px 24px rgba(212,175,55,0.3);
+  font-weight: 500;
 }
 
 @keyframes fadeIn {
@@ -253,9 +379,167 @@
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
+/* RESPONSIVE POUR LE POPUP - MOBILE */
+@media (max-width: 750px) {
+  .popup-form {
+    max-width: 280px;
+    width: 75%;
+    border-radius: 14px;
+  }
 
+  .popup-form h3 {
+    font-size: 17px;
+    padding: 14px 14px;
+    letter-spacing: 0.4px;
+  }
 
+  .popup-form form {
+    padding: 16px;
+    gap: 12px;
+  }
 
+  .popup-form input,
+  .popup-form textarea,
+  .popup-form select {
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 8px;
+  }
+
+  .popup-form input {
+    height: 38px;
+  }
+
+  .popup-form textarea {
+    height: 75px;
+  }
+
+  .popup-form select {
+    height: 48px;
+  }
+
+  .popup-form button[type="submit"] {
+    height: 38px;
+    font-size: 14px;
+    padding: 9px;
+  }
+
+  .product-popup-close {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    top: 11px;
+    right: 11px;
+  }
+}
+
+/* RESPONSIVE POUR LE POPUP - IPAD */
+@media (min-width: 751px) and (max-width: 1023px) {
+  .popup-form {
+    max-width: 340px;
+    width: 80%;
+    border-radius: 16px;
+  }
+
+  .popup-form h3 {
+    font-size: 18px;
+    padding: 16px 15px;
+    letter-spacing: 0.6px;
+  }
+
+  .popup-form form {
+    padding: 20px;
+    gap: 13px;
+  }
+
+  .popup-form input,
+  .popup-form textarea,
+  .popup-form select {
+    font-size: 14px;
+    padding: 11px 13px;
+    border-radius: 9px;
+  }
+
+  .popup-form input {
+    height: 40px;
+  }
+
+  .popup-form textarea {
+    height: 80px;
+  }
+
+  .popup-form select {
+    height: 49px;
+  }
+
+  .popup-form button[type="submit"] {
+    height: 40px;
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .product-popup-close {
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+    top: 13px;
+    right: 13px;
+  }
+}
+
+/* RESPONSIVE POUR LE POPUP - DESKTOP */
+@media (min-width: 1024px) {
+  .popup-form {
+    max-width: 320px;
+    width: 80%;
+    border-radius: 18px;
+  }
+
+  .popup-form h3 {
+    font-size: 20px;
+    padding: 18px 16px;
+    letter-spacing: 0.8px;
+  }
+
+  .popup-form form {
+    padding: 22px;
+    gap: 14px;
+  }
+
+  .popup-form input,
+  .popup-form textarea,
+  .popup-form select {
+    font-size: 14px;
+    padding: 11px 13px;
+    border-radius: 10px;
+  }
+
+  .popup-form input {
+    height: 42px;
+  }
+
+  .popup-form textarea {
+    height: 85px;
+  }
+
+  .popup-form select {
+    height: 50px;
+  }
+
+  .popup-form button[type="submit"] {
+    height: 42px;
+    font-size: 15px;
+    padding: 11px;
+  }
+
+  .product-popup-close {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    top: 14px;
+    right: 14px;
+  }
+}
 
 
 
@@ -336,15 +620,6 @@
   color:#888;
   cursor:pointer;
 
-}
-
-
-
-/* INPUT AJOUTÉS (pseudo + story) */
-.popup-form input {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
 }
 
 

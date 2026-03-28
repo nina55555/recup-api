@@ -229,6 +229,15 @@ const Product = () => {
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-form">
+            {/* AJOUT : Croix de fermeture pour le popup enchères, identique au popup book */}
+            <button
+              type="button"
+              className="product-popup-close"
+              onClick={() => setShowPopup(false)}  // Ferme le popup enchères
+              aria-label="Fermer"
+            >
+              ×
+            </button>
             <h3>Ton enchere</h3>
 
             <form onSubmit={handleFormSubmit}>
