@@ -368,6 +368,39 @@
     padding-right:6px;
 }
 
+.book-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.book-social-links a {
+  font-size: 11px;
+  color: #7b5f3f;
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 0.2s ease;
+}
+
+.book-social-links a:hover {
+  color: #3f2e1f;
+  text-decoration: underline;
+}
+
+@media (max-width: 750px){
+  .book-social-links {
+    gap: 4px;
+    margin-top: 6px;
+    font-size: 9px;
+  }
+
+  .book-social-links a {
+    font-size: 9px;
+  }
+}
+
 @media (max-width: 750px){
   .book-popup{
     width:88vw;

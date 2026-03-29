@@ -193,31 +193,28 @@ const Profile = () => {
         } else if (bidRows?.length) {
           const uniqueProductIds = [...new Set(bidRows.map((bid) => bid.product_id).filter(Boolean))];
 
-          try {
-            const response = await fetch("http://localhost:5978/defilons/");
-            const products = await response.json();
+          if (uniqueProductIds.length === 0) {
+            setBidProducts([]);
+          } else {
+            const { data: productsData, error: productsError } = await supabase
+              .from("models")
+              .select("id, title, image_url")
+              .in("id", uniqueProductIds);
 
-            const productsById = Object.fromEntries(
-              (products || []).map((product) => [product._id, product])
-            );
-
-            const linkedProducts = uniqueProductIds
-              .map((productId) => {
-                const product = productsById[productId];
-
-                if (!product) return null;
-
-                return {
-                  id: product._id,
+            if (productsError) {
+              console.error("Erreur chargement produits profil :", productsError);
+              setBidProducts([]);
+            } else {
+              const linkedProducts = (productsData || [])
+                .map((product) => ({
+                  id: product.id,
                   title: product.title || "Produit",
-                  imageUrl: product.imageUrl || "",
-                };
-              })
-              .filter(Boolean);
+                  imageUrl: product.image_url || "",
+                }))
+                .filter(Boolean);
 
-            setBidProducts(linkedProducts);
-          } catch (productsError) {
-            console.error("Erreur chargement produits profil :", productsError);
+              setBidProducts(linkedProducts);
+            }
           }
         } else {
           setBidProducts([]);

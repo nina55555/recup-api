@@ -47,6 +47,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
       storyImageUrl: bid.storyImageUrl || "",
       storyVideoUrl: bid.storyVideoUrl || "",
       pseudo: bid.pseudo || "Anonyme",
+      socialLinks: bid.socialLinks || {},
     });
     setShowBook(true);
   };
@@ -109,7 +110,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
                     <a href="#">🔥</a>
                     <a
                       href="#"
-                      title="Voir son histoire"
+                      title="lire son histoire"
                       onClick={(e) => {
                         e.preventDefault();
                         openBook(bid);
@@ -157,6 +158,36 @@ const Enchere = ({ onBidSubmit, bids }) => {
                 ) :
                 (
                   <div className="book-media-empty">Aucune image ajoutee</div>
+                )}
+
+                {selectedStory?.socialLinks && Object.keys(selectedStory.socialLinks).length > 0 && (
+                  <div className="book-social-links">
+                    {selectedStory.socialLinks.facebook && (
+                      <a href={selectedStory.socialLinks.facebook} target="_blank" rel="noopener noreferrer">
+                        Facebook
+                      </a>
+                    )}
+                    {selectedStory.socialLinks.twitter && (
+                      <a href={selectedStory.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+                        Twitter
+                      </a>
+                    )}
+                    {selectedStory.socialLinks.instagram && (
+                      <a href={selectedStory.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+                        Instagram
+                      </a>
+                    )}
+                    {selectedStory.socialLinks.tiktok && (
+                      <a href={selectedStory.socialLinks.tiktok} target="_blank" rel="noopener noreferrer">
+                        TikTok
+                      </a>
+                    )}
+                    {selectedStory.socialLinks.linkedin && (
+                      <a href={selectedStory.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                        LinkedIn
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
 

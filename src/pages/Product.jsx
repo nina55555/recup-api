@@ -47,12 +47,13 @@ const Product = () => {
 
     const userIds = [...new Set(bidRows.map((bid) => bid.user_id).filter(Boolean))];
     let profilesById = {};
-    let signedMediaByUserId = {};
 
     if (userIds.length > 0) {
       const { data: profileRows, error: profileError } = await supabase
         .from("profiles")
-        .select("id, pseudo, story")
+        .select(
+          "id, pseudo, story, avatar_url, story_image_url, story_video_url, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url"
+        )
         .in("id", userIds);
 
       if (profileError) {
@@ -62,22 +63,10 @@ const Product = () => {
           profileRows.map((profile) => [profile.id, profile])
         );
       }
-
-      const { data: signedMediaResult, error: signedMediaError } =
-        await supabase.functions.invoke("sign-story-media", {
-          body: { productId: id },
-        });
-
-      if (signedMediaError) {
-        console.error("Erreur generation URLs signees stories :", signedMediaError);
-      } else {
-        signedMediaByUserId = signedMediaResult?.items || {};
-      }
     }
 
     const formatted = bidRows.map((bid) => {
       const profile = profilesById[bid.user_id];
-      const signedMedia = signedMediaByUserId[bid.user_id] || {};
 
       return {
         amount: bid.amount,
@@ -85,9 +74,17 @@ const Product = () => {
         country: bid.country,
         pseudo: profile?.pseudo || "Anonyme",
         story: profile?.story || "",
-        avatarUrl: "",
-        storyImageUrl: signedMedia.storyImageUrl || "",
-        storyVideoUrl: signedMedia.storyVideoUrl || "",
+        avatarUrl: profile?.avatar_url || "",
+        storyImageUrl: profile?.story_image_url || "",
+        storyVideoUrl: profile?.story_video_url || "",
+        socialLinks: {
+          instagram: profile?.instagram_url || "",
+          facebook: profile?.facebook_url || "",
+          tiktok: profile?.tiktok_url || "",
+          x: profile?.x_url || "",
+          youtube: profile?.youtube_url || "",
+          linkedin: profile?.linkedin_url || "",
+        },
         user_id: bid.user_id,
         date: bid.created_at,
       };
@@ -216,7 +213,7 @@ const Product = () => {
         <div className="images--box">
           <img className="paint" src="../src/assets/wallpaint.jpg" />
           <div className="product-overlay">
-            <img className="podium" src={product.image_url} />  {/* Changed from product.imageUrl to product.image_url to match Supabase column */}
+            <img className="podium" src={product.image_url} />
             <h2>{product.title}</h2>
           </div>
         </div>
@@ -229,11 +226,10 @@ const Product = () => {
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-form">
-            {/* AJOUT : Croix de fermeture pour le popup enchères, identique au popup book */}
             <button
               type="button"
               className="product-popup-close"
-              onClick={() => setShowPopup(false)}  // Ferme le popup enchères
+              onClick={() => setShowPopup(false)}
               aria-label="Fermer"
             >
               ×
