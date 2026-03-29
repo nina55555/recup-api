@@ -256,7 +256,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => (link.id === "profile" ? goToProfile() : goToSection(link.id))}
-                  className="text-2xl uppercase tracking-widest"
+                  className="text-2xl uppercase tracking-widest text-gray-800 hover:text-white hover:bg-violet-500 transition-colors duration-300"
                 >
                   {link.label}
                 </button>

@@ -12,9 +12,9 @@
 /* ============================= */
 /* NAVBAR */
 .mainBox-nav {
-/*background-color: aquamarine;  */
+  /*background-color: aquamarine;  */
   display: flex;
-/*justify-content: space-between;*/  
+  /*justify-content: space-between;*/  
   background-color: #ffffff; 
     /*background-color: #ffffff5e; */
   justify-content: left;
@@ -63,11 +63,15 @@
 
 
 
+
+
+
+
 /* ============================= */
 /* NAV LINKS */
 .lilNav-box2 {
-/*background-color: burlywood;*/
-/*position: relative;*/
+  /*background-color: burlywood;*/
+  /*position: relative;*/
     position: absolute;
     right: 15px;
 }
@@ -154,6 +158,9 @@
 
 
 
+
+
+
 /* ============================= */
 /* MOBILE */
 @media (max-width: 1020px) {
@@ -164,9 +171,9 @@
 /* ============================= */
 /* NAVBAR */
 .mainBox-nav {
-/*background-color: aquamarine;  */
+  /*background-color: aquamarine;  */
   display: flex;
-/*justify-content: space-between;*/  
+  /*justify-content: space-between;*/  
   background-color: #ffffff; 
     /*background-color: #ffffff5e; */
   align-items: center;
@@ -199,6 +206,10 @@
   height: 60px;
   padding: 5px;
 }
+
+
+
+
 
 
 
@@ -265,4 +276,15 @@
       color: #f5f5f5; 
 
   }
+}
+
+/* ============================= */
+/* MOBILE MENU LINK HOVER */
+.mobile-menu-link {
+  color: #374151; /* text-gray-800 equivalent */
+  transition: color 0.3s ease;
+}
+
+.mobile-menu-link:hover {
+  color: #000000; /* text-black equivalent */
 }
