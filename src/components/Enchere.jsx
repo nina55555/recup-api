@@ -109,6 +109,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
                     <a href="#">🔥</a>
                     <a
                       href="#"
+                      title="Voir son histoire"
                       onClick={(e) => {
                         e.preventDefault();
                         openBook(bid);
