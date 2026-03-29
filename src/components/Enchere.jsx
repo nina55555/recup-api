@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/Enchere.css";
 import livreImage from "../assets/blankbook.jpg";
+import { createSignedProfileMediaUrl } from "../lib/secureProfileMedia";
+import { supabase } from "../lib/supabase";
 
 const Enchere = ({ onBidSubmit, bids }) => {
   const [value, setValue] = useState("");
@@ -8,6 +10,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const [lastBidIndex, setLastBidIndex] = useState(null);
   const [showBook, setShowBook] = useState(false);
   const [selectedStory, setSelectedStory] = useState(null);
+  const [loadingMedia, setLoadingMedia] = useState(false);
 
   const listRef = useRef(null);
 
@@ -41,15 +44,64 @@ const Enchere = ({ onBidSubmit, bids }) => {
     if (e.key === "Enter") handleSubmit();
   };
 
-  const openBook = (bid) => {
-    setSelectedStory({
-      story: bid.story || "Aucune histoire",
-      storyImageUrl: bid.storyImageUrl || "",
-      storyVideoUrl: bid.storyVideoUrl || "",
-      pseudo: bid.pseudo || "Anonyme",
-      socialLinks: bid.socialLinks || {},
-    });
+  const openBook = async (bid) => {
+    setLoadingMedia(true);
+
+    // Récupérer le profil pour le texte et les liens sociaux
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select(
+        "id, pseudo, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url"
+      )
+      .eq("id", bid.user_id)
+      .single();
+
+    if (profileError) {
+      console.error("Erreur récupération profil pour popup :", profileError);
+      setLoadingMedia(false);
+      return;
+    }
+
+    // Récupérer les chemins médias depuis profile_media
+    const { data: mediaData, error: mediaError } = await supabase
+      .from("profile_media")
+      .select("story_image_path, story_video_path")
+      .eq("user_id", bid.user_id)
+      .single();
+
+    if (mediaError) {
+      console.error("Erreur récupération médias pour popup :", mediaError);
+      setLoadingMedia(false);
+      return;
+    }
+
+    // Générer les URLs signées fraîches depuis les chemins de profile_media
+    const freshStoryImageUrl = mediaData?.story_image_path
+      ? await createSignedProfileMediaUrl(supabase, mediaData.story_image_path)
+      : "";
+    const freshStoryVideoUrl = mediaData?.story_video_path
+      ? await createSignedProfileMediaUrl(supabase, mediaData.story_video_path)
+      : "";
+
+    const selected = {
+      story: bid.story || profile?.story || "Aucune histoire",
+      storyImageUrl: freshStoryImageUrl,
+      storyVideoUrl: freshStoryVideoUrl,
+      pseudo: profile?.pseudo || "Anonyme",
+      socialLinks: {
+        instagram: profile?.instagram_url || "",
+        facebook: profile?.facebook_url || "",
+        tiktok: profile?.tiktok_url || "",
+        x: profile?.x_url || "",
+        youtube: profile?.youtube_url || "",
+        linkedin: profile?.linkedin_url || "",
+      },
+    };
+
+    setSelectedStory(selected);
+    console.log("selectedStory:", selected);
     setShowBook(true);
+    setLoadingMedia(false);
   };
 
   const formatDate = (dateStr) => {
@@ -141,54 +193,77 @@ const Enchere = ({ onBidSubmit, bids }) => {
               <img className="book-image" src={livreImage} alt="Livre ouvert" />
 
               <div className="book-layer book-layer-left">
-                { selectedStory?.storyVideoUrl ? (
-                  <video autoPlay muted
+                {loadingMedia ? (
+                  <div className="book-media-empty">Chargement du média...</div>
+                ) : selectedStory?.storyVideoUrl ? (
+                  <video
+                    autoPlay
+                    muted
                     className="book-media"
                     src={selectedStory.storyVideoUrl}
                     controls
                     playsInline
                   />
-                ) :
-                selectedStory?.storyImageUrl ? (
+                ) : selectedStory?.storyImageUrl ? (
                   <img
                     className="book-media"
                     src={selectedStory.storyImageUrl}
                     alt="Illustration de story"
                   />
-                ) :
-                (
+                ) : (
                   <div className="book-media-empty">Aucune image ajoutee</div>
                 )}
 
-                {selectedStory?.socialLinks && Object.keys(selectedStory.socialLinks).length > 0 && (
-                  <div className="book-social-links">
-                    {selectedStory.socialLinks.facebook && (
-                      <a href={selectedStory.socialLinks.facebook} target="_blank" rel="noopener noreferrer">
-                        Facebook
-                      </a>
-                    )}
-                    {selectedStory.socialLinks.twitter && (
-                      <a href={selectedStory.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-                        Twitter
-                      </a>
-                    )}
-                    {selectedStory.socialLinks.instagram && (
-                      <a href={selectedStory.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                        Instagram
-                      </a>
-                    )}
-                    {selectedStory.socialLinks.tiktok && (
-                      <a href={selectedStory.socialLinks.tiktok} target="_blank" rel="noopener noreferrer">
-                        TikTok
-                      </a>
-                    )}
-                    {selectedStory.socialLinks.linkedin && (
-                      <a href={selectedStory.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                        LinkedIn
-                      </a>
-                    )}
-                  </div>
-                )}
+                {selectedStory?.socialLinks &&
+                  Object.keys(selectedStory.socialLinks).length > 0 && (
+                    <div className="book-social-links">
+                      {selectedStory.socialLinks.facebook && (
+                        <a
+                          href={selectedStory.socialLinks.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Facebook
+                        </a>
+                      )}
+                      {selectedStory.socialLinks.twitter && (
+                        <a
+                          href={selectedStory.socialLinks.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Twitter
+                        </a>
+                      )}
+                      {selectedStory.socialLinks.instagram && (
+                        <a
+                          href={selectedStory.socialLinks.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Instagram
+                        </a>
+                      )}
+                      {selectedStory.socialLinks.tiktok && (
+                        <a
+                          href={selectedStory.socialLinks.tiktok}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          TikTok
+                        </a>
+                      )}
+                      {selectedStory.socialLinks.linkedin && (
+                        <a
+                          href={selectedStory.socialLinks.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          LinkedIn
+                        </a>
+                      )}
+                    </div>
+                  )}
               </div>
 
               <div className="book-layer book-layer-right">

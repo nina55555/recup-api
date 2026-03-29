@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Product.css";
 import Enchere from "../components/Enchere.jsx";
+import { createSignedProfileMediaUrl } from "../lib/secureProfileMedia";
 
 const Product = () => {
   const { id } = useParams();
@@ -65,30 +66,40 @@ const Product = () => {
       }
     }
 
-    const formatted = bidRows.map((bid) => {
-      const profile = profilesById[bid.user_id];
+    const formatted = await Promise.all(
+      bidRows.map(async (bid) => {
+        const profile = profilesById[bid.user_id];
 
-      return {
-        amount: bid.amount,
-        message: bid.message,
-        country: bid.country,
-        pseudo: profile?.pseudo || "Anonyme",
-        story: profile?.story || "",
-        avatarUrl: profile?.avatar_url || "",
-        storyImageUrl: profile?.story_image_url || "",
-        storyVideoUrl: profile?.story_video_url || "",
-        socialLinks: {
-          instagram: profile?.instagram_url || "",
-          facebook: profile?.facebook_url || "",
-          tiktok: profile?.tiktok_url || "",
-          x: profile?.x_url || "",
-          youtube: profile?.youtube_url || "",
-          linkedin: profile?.linkedin_url || "",
-        },
-        user_id: bid.user_id,
-        date: bid.created_at,
-      };
-    });
+        // Générer les URLs signées pour les médias
+        const storyImageUrl = profile?.story_image_url
+          ? await createSignedProfileMediaUrl(supabase, profile.story_image_url)
+          : "";
+        const storyVideoUrl = profile?.story_video_url
+          ? await createSignedProfileMediaUrl(supabase, profile.story_video_url)
+          : "";
+
+        return {
+          amount: bid.amount,
+          message: bid.message,
+          country: bid.country,
+          pseudo: profile?.pseudo || "Anonyme",
+          story: profile?.story || "",
+          avatarUrl: profile?.avatar_url || "",
+          storyImageUrl,
+          storyVideoUrl,
+          socialLinks: {
+            instagram: profile?.instagram_url || "",
+            facebook: profile?.facebook_url || "",
+            tiktok: profile?.tiktok_url || "",
+            x: profile?.x_url || "",
+            youtube: profile?.youtube_url || "",
+            linkedin: profile?.linkedin_url || "",
+          },
+          user_id: bid.user_id,
+          date: bid.created_at,
+        };
+      })
+    );
 
     setBids(formatted);
   };
