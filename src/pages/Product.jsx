@@ -17,15 +17,12 @@ const Product = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [bidValue, setBidValue] = useState(null);
   const [formData, setFormData] = useState({
-    pseudo: "",
-    story: "",
     message: "",
-    country: "",
   });
   const [bids, setBids] = useState([]);
   const [user, setUser] = useState(null);
+  const [bidderProfile, setBidderProfile] = useState(null);
 
-  // Fonction pour générer l'URL publique depuis profile-media
   const getMediaUrl = (path) => {
     if (!path) return "";
     return supabase.storage.from("profile-media").getPublicUrl(path).data.publicUrl;
@@ -35,16 +32,15 @@ const Product = () => {
     if (!id) return;
 
     try {
-      // 1️⃣ Récupération des enchères
       const { data: bidRows, error: bidError } = await supabase
         .from("bids")
-        .select("amount, message, country, created_at, user_id")
+        .select("amount, message, created_at, user_id")
         .eq("product_id", id)
         .order("amount", { ascending: false });
 
       if (bidError) {
         console.error("Erreur chargement des encheres :", bidError);
-        toast.error("Erreur chargement enchères");
+        toast.error("Erreur chargement encheres");
         return;
       }
 
@@ -53,25 +49,23 @@ const Product = () => {
         return;
       }
 
-      // 2️⃣ Récupération des profils liés aux enchères
       const userIds = [...new Set(bidRows.map((bid) => bid.user_id).filter(Boolean))];
       let profilesById = {};
       if (userIds.length > 0) {
         const { data: profileRows, error: profileError } = await supabase
           .from("profiles")
           .select(
-            "id, pseudo, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url"
+            "id, pseudo, country, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url"
           )
           .in("id", userIds);
 
         if (profileError) {
           console.error("Erreur chargement des profils :", profileError);
         } else {
-          profilesById = Object.fromEntries(profileRows.map((p) => [p.id, p]));
+          profilesById = Object.fromEntries(profileRows.map((profile) => [profile.id, profile]));
         }
       }
 
-      // 3️⃣ Récupération des médias depuis profile_media
       const mediaRowsByUserId = {};
       if (userIds.length > 0) {
         const { data: mediaRows, error: mediaError } = await supabase
@@ -80,7 +74,7 @@ const Product = () => {
           .in("user_id", userIds);
 
         if (mediaError) {
-          console.error("Erreur récupération medias :", mediaError);
+          console.error("Erreur recuperation medias :", mediaError);
         }
 
         mediaRows?.forEach((media) => {
@@ -92,7 +86,6 @@ const Product = () => {
         });
       }
 
-      // 4️⃣ Format final
       const formatted = bidRows.map((bid) => {
         const profile = profilesById[bid.user_id] || {};
         const media = mediaRowsByUserId[bid.user_id] || {};
@@ -100,7 +93,7 @@ const Product = () => {
         return {
           amount: bid.amount,
           message: bid.message,
-          country: bid.country,
+          country: profile.country || "-",
           pseudo: profile.pseudo || "Anonyme",
           story: profile.story || "",
           avatarUrl: media.avatar || "",
@@ -120,8 +113,8 @@ const Product = () => {
       });
 
       setBids(formatted);
-    } catch (err) {
-      console.error("Erreur fetchBids :", err);
+    } catch (error) {
+      console.error("Erreur fetchBids :", error);
     }
   };
 
@@ -130,11 +123,28 @@ const Product = () => {
       try {
         const { data, error } = await supabase.auth.getUser();
         if (error?.name !== "AbortError" && error) {
-          console.error("Erreur récupération user :", error);
+          console.error("Erreur recuperation user :", error);
         }
-        if (data?.user) setUser(data.user);
-      } catch (err) {
-        if (err?.name !== "AbortError") console.error("Erreur auth product :", err);
+
+        if (data?.user) {
+          setUser(data.user);
+
+          const { data: profile, error: profileError } = await supabase
+            .from("profiles")
+            .select("id, pseudo, country, story")
+            .eq("id", data.user.id)
+            .single();
+
+          if (profileError) {
+            console.error("Erreur chargement profil enchere :", profileError);
+          } else {
+            setBidderProfile(profile);
+          }
+        }
+      } catch (error) {
+        if (error?.name !== "AbortError") {
+          console.error("Erreur auth product :", error);
+        }
       }
     };
 
@@ -144,14 +154,21 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const { data, error } = await supabase.from("models").select("*").eq("id", id).single();
+        const { data, error } = await supabase
+          .from("models")
+          .select("*")
+          .eq("id", id)
+          .single();
+
         if (error) {
-          console.error("Erreur récupération produit:", error);
+          console.error("Erreur recuperation produit:", error);
           toast.error("Erreur chargement produit");
           setProduct(null);
-        } else setProduct(data);
-      } catch (err) {
-        console.error("Erreur inattendue:", err);
+        } else {
+          setProduct(data);
+        }
+      } catch (error) {
+        console.error("Erreur inattendue:", error);
         toast.error("Erreur chargement produit");
         setProduct(null);
       } finally {
@@ -175,23 +192,16 @@ const Product = () => {
     setShowPopup(true);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-    const { error: profileError } = await supabase.from("profiles").upsert({
-      id: user.id,
-      pseudo: formData.pseudo,
-      story: formData.story,
-    });
-
-    if (profileError) {
-      console.error("Erreur profil avant enchère :", profileError);
-      toast.error("Impossible d'enregistrer le pseudo");
+    if (!bidderProfile?.pseudo || !bidderProfile?.country) {
+      toast.error("Renseignez pseudo et pays promu dans votre profil.");
       return;
     }
 
@@ -199,22 +209,22 @@ const Product = () => {
       {
         amount: bidValue,
         message: formData.message,
-        country: formData.country,
+        country: bidderProfile.country,
         user_id: user.id,
         product_id: id,
       },
     ]);
 
     if (error) {
-      console.error("Erreur insertion enchère :", error);
-      toast.error("Erreur enchère");
+      console.error("Erreur insertion enchere :", error);
+      toast.error("Erreur enchere");
       return;
     }
 
-    toast.success("Enchère envoyée ! 🔥");
+    toast.success("Enchere envoyee !");
     setShowPopup(false);
     await fetchBids();
-    setFormData({ pseudo: "", story: "", message: "", country: "" });
+    setFormData({ message: "" });
   };
 
   if (loading) return <div>Chargement...</div>;
@@ -247,27 +257,11 @@ const Product = () => {
               onClick={() => setShowPopup(false)}
               aria-label="Fermer"
             >
-              ×
+              x
             </button>
-            <h3>Ton enchère</h3>
+            <h3>Ton enchere</h3>
 
             <form onSubmit={handleFormSubmit}>
-              <input
-                type="text"
-                name="pseudo"
-                placeholder="Ton pseudo"
-                value={formData.pseudo}
-                onChange={handleChange}
-                required
-              />
-
-              <textarea
-                name="story"
-                placeholder="Ton histoire (optionnel)"
-                value={formData.story}
-                onChange={handleChange}
-              />
-
               <textarea
                 name="message"
                 placeholder="Commentaire"
@@ -275,21 +269,7 @@ const Product = () => {
                 onChange={handleChange}
               />
 
-              <select
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Choisir un pays</option>
-                <option>France</option>
-                <option>Italie</option>
-                <option>Espagne</option>
-                <option>Allemagne</option>
-                <option>Belgique</option>
-              </select>
-
-              <button type="submit">Valider l'enchère 🔥</button>
+              <button type="submit">Valider l'enchere</button>
             </form>
           </div>
         </div>

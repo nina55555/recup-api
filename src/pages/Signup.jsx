@@ -17,6 +17,17 @@ const Signup = ({ initialMode = "signup" }) => {
   const [storyMode, setStoryMode] = useState("later");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const COUNTRY_OPTIONS = [
+    "France",
+    "Italie",
+    "Espagne",
+    "Allemagne",
+    "Belgique",
+    "Suisse",
+    "Canada",
+    "USA",
+    "Japon",
+  ];
 
   useEffect(() => {
     setMode(initialMode);
@@ -48,6 +59,7 @@ const Signup = ({ initialMode = "signup" }) => {
             {
               id: data.user.id,
               pseudo,
+              country,
               story: story || "",
             },
           ]);
@@ -116,15 +128,11 @@ const Signup = ({ initialMode = "signup" }) => {
               required
             >
               <option value="">Choisir un pays</option>
-              <option>France</option>
-              <option>Italie</option>
-              <option>Espagne</option>
-              <option>Allemagne</option>
-              <option>Belgique</option>
-              <option>Suisse</option>
-              <option>Canada</option>
-              <option>USA</option>
-              <option>Japon</option>
+              {COUNTRY_OPTIONS.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
             </select>
           </>
         )}

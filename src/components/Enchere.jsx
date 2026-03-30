@@ -46,6 +46,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
     return data.publicUrl;
   };
 
+  // 🔥 ouverture du livre avec récupération médias (SEULEMENT ici)
   const openBook = async (bid) => {
     setLoadingMedia(true);
 
@@ -106,7 +107,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={handleSubmit}>🔥 OK</button>
+        <button onClick={handleSubmit}> OK</button>
       </div>
 
       {showError && (
@@ -118,6 +119,7 @@ const Enchere = ({ onBidSubmit, bids }) => {
       <div className="bid-list" ref={listRef}>
         {bids.map((bid, index) => {
           const isNew = index === lastBidIndex;
+          const isTopBid = index === 0; // 🔥 PLUS HAUTE ENCHERE
 
           return (
             <div className={`bid-infos ${isNew ? "new-bid" : ""}`} key={index}>
@@ -142,13 +144,22 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
                 <div className="bid-row-right">
                   <div className="price">
-                    <p>{bid.amount}EUR 🔥</p>
+                    <p>{bid.amount}EUR</p>
                   </div>
 
                   <div className="icons-ench">
-                    <button title="lire son histoire" onClick={() => openBook(bid)}>
+
+                    {/* 🔥 FEU UNIQUEMENT SUR LA MEILLEURE ENCHERE */}
+                    {isTopBid && (
+                      <button title="Meilleure enchère">
+                        🔥
+                      </button>
+                    )}
+
+                    <button title="voir son histoire" onClick={() => openBook(bid)}>
                       📖
                     </button>
+
                   </div>
                 </div>
               </div>
@@ -184,7 +195,11 @@ const Enchere = ({ onBidSubmit, bids }) => {
                     playsInline
                   />
                 ) : selectedStory?.storyImageUrl ? (
-                  <img className="book-media" src={selectedStory.storyImageUrl} alt="Illustration de story" />
+                  <img
+                    className="book-media"
+                    src={selectedStory.storyImageUrl}
+                    alt="Illustration de story"
+                  />
                 ) : (
                   <div className="book-media-empty">Aucune image ajoutée</div>
                 )}
@@ -203,7 +218,9 @@ const Enchere = ({ onBidSubmit, bids }) => {
               <div className="book-layer book-layer-right">
                 <div className="book-text-panel">
                   <p className="book-author">{selectedStory?.pseudo || "Anonyme"}</p>
-                  <p className="book-text">{selectedStory?.story || "Aucune histoire"}</p>
+                  <p className="book-text">
+                    {selectedStory?.story || "Aucune histoire"}
+                  </p>
                 </div>
               </div>
             </div>

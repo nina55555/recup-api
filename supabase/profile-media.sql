@@ -1,4 +1,5 @@
 alter table public.profiles
+  add column if not exists country text default '',
   add column if not exists instagram_url text default '',
   add column if not exists facebook_url text default '',
   add column if not exists tiktok_url text default '',

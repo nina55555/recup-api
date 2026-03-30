@@ -18,10 +18,23 @@ import "react-toastify/dist/ReactToastify.css";
 
 const EMPTY_PROFILE = {
   pseudo: "",
+  country: "",
   story: "",
   email: "",
   password: "",
 };
+
+const COUNTRY_OPTIONS = [
+  "France",
+  "Italie",
+  "Espagne",
+  "Allemagne",
+  "Belgique",
+  "Suisse",
+  "Canada",
+  "USA",
+  "Japon",
+];
 
 const SOCIAL_FIELDS = [
   { key: "instagram", label: "Instagram" },
@@ -50,19 +63,6 @@ const Profile = () => {
 
   const bucketName = useMemo(() => getProfileMediaBucket(), []);
 
-  // debug bucket access, à laisser temporaire
-  useEffect(() => {
-    const checkBucket = async () => {
-      const { data, error } = await supabase.storage
-        .from("profile-media")
-        .list("", { limit: 20 });
-
-      console.log("profile-media list data:", data);
-      console.log("profile-media list error:", error);
-    };
-
-    checkBucket();
-  }, []);
 
   useEffect(() => {
     const loadMediaUrls = async (profileConfig) => {
@@ -105,7 +105,7 @@ const Profile = () => {
 
         const { data: rows, error } = await supabase
           .from("profiles")
-          .select("id, pseudo, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
+          .select("id, pseudo, country, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
           .eq("id", currentUser.id)
           .limit(1);
 
@@ -122,6 +122,7 @@ const Profile = () => {
             .insert({
               id: currentUser.id,
               pseudo: "",
+              country: "",
               story: "",
               instagram_url: "",
               facebook_url: "",
@@ -130,7 +131,7 @@ const Profile = () => {
               youtube_url: "",
               linkedin_url: "",
             })
-            .select("id, pseudo, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
+            .select("id, pseudo, country, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
             .limit(1);
 
           if (insertError) {
@@ -142,6 +143,7 @@ const Profile = () => {
 
         setFormData({
           pseudo: profile?.pseudo || "",
+          country: profile?.country || "",
           story: profile?.story || "",
           email: currentUser.email || "",
           password: "",
@@ -302,7 +304,9 @@ const Profile = () => {
         [currentUrlKey]: "",
       }));
 
-     /* const signedUrl = await createSignedProfileMediaUrl(supabase, nextPath).catch(() => "");*/
+      const signedUrl = await createSignedProfileMediaUrl(supabase, nextPath).catch(
+        () => ""
+      );
 
       setMediaUrls((prev) => ({
         ...prev,
@@ -363,29 +367,14 @@ const Profile = () => {
   };
 
   const saveProfileRow = async (profilePayload) => {
-    const { data: updatedRows, error: updateError } = await supabase
-      .from("profiles")
-      .update(profilePayload)
-      .eq("id", user.id)
-      .select("id")
-      .limit(1);
-
-    if (updateError) {
-      console.error("Erreur mise a jour profil :", updateError);
-    }
-
-    if (updatedRows?.length) {
-      return null;
-    }
-
-    const { error: insertError } = await supabase.from("profiles").insert({
+    const { error } = await supabase.from("profiles").upsert({
       id: user.id,
       ...profilePayload,
     });
 
-    if (insertError) {
-      console.error("Erreur insertion profil :", insertError);
-      return insertError;
+    if (error) {
+      console.error("Erreur sauvegarde profil :", error);
+      return error;
     }
 
     return null;
@@ -417,6 +406,7 @@ const Profile = () => {
 
       const profileError = await saveProfileRow({
         pseudo: formData.pseudo,
+        country: formData.country,
         story: formData.story,
         instagram_url: sanitizedSocialLinks.instagram,
         facebook_url: sanitizedSocialLinks.facebook,
@@ -427,7 +417,7 @@ const Profile = () => {
       });
 
       if (profileError) {
-        toast.error("Impossible d'enregistrer le profil.");
+        toast.error(profileError.message || "Impossible d'enregistrer le profil.");
         return;
       }
 
@@ -509,6 +499,23 @@ const Profile = () => {
               onChange={handleChange}
               required
             />
+          </label>
+
+          <label>
+            Pays promu
+            <select
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Choisir un pays</option>
+              {COUNTRY_OPTIONS.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
           </label>
 
           <div className="profile-story-grid">

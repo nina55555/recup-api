@@ -89,6 +89,7 @@
 }
 
 .profile-form input,
+.profile-form select,
 .profile-form textarea {
   width: 100%;
   padding: 12px 14px;
