@@ -302,7 +302,7 @@ const Profile = () => {
         [currentUrlKey]: "",
       }));
 
-      const signedUrl = await createSignedProfileMediaUrl(supabase, nextPath).catch(() => "");
+     /* const signedUrl = await createSignedProfileMediaUrl(supabase, nextPath).catch(() => "");*/
 
       setMediaUrls((prev) => ({
         ...prev,

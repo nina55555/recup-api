@@ -20,15 +20,29 @@ const Collection = () => {
   // --- 1️⃣ Récupérer les modèles directement depuis Supabase ---
   useEffect(() => {
     async function fetchModels() {
-      const { data, error } = await supabase
-        .from("models")
-        .select("*")
-        .order("created_at", { ascending: false });  // Changed from "date" to "created_at"
+      try {
+        const { data, error } = await supabase
+          .from("models")
+          .select("*")
+          .order("created_at", { ascending: false });
 
-      if (error) {
-        console.error("Erreur récupération modèles:", error);
-      } else {
-        setImages(data || []);
+        if (error) {
+          console.error("Erreur récupération modèles:", error);
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          console.warn("Aucun modèle disponible");
+          setImages([]);
+          return;
+        }
+
+        // Si tu avais besoin de transformer des URLs via getPublicUrl, c’est ici
+        // data.forEach(m => m.image_url = supabase.storage.from("profile-media").getPublicUrl(m.image_url).data.publicUrl)
+
+        setImages(data);
+      } catch (err) {
+        console.error("Erreur inattendue fetchModels:", err);
       }
     }
     fetchModels();

@@ -50,7 +50,7 @@ insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 values (
   'profile-media',
   'profile-media',
-  false,
+  true,
   20971520,
   array[
     'image/jpeg',
@@ -71,11 +71,10 @@ drop policy if exists "profile media insert own" on storage.objects;
 drop policy if exists "profile media update own" on storage.objects;
 drop policy if exists "profile media delete own" on storage.objects;
 
-create policy "profile media select signed access"
+create policy "Public read profile-media" 
 on storage.objects
 for select
-to authenticated
-using (bucket_id = 'profile-media' and owner = auth.uid());
+using (bucket_id = 'profile-media');
 
 create policy "profile media insert own"
 on storage.objects

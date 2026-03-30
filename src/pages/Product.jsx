@@ -7,7 +7,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Product.css";
 import Enchere from "../components/Enchere.jsx";
-import { createSignedProfileMediaUrl } from "../lib/secureProfileMedia";
 
 const Product = () => {
   const { id } = useParams();
@@ -26,98 +25,116 @@ const Product = () => {
   const [bids, setBids] = useState([]);
   const [user, setUser] = useState(null);
 
+  // Fonction pour générer l'URL publique depuis profile-media
+  const getMediaUrl = (path) => {
+    if (!path) return "";
+    return supabase.storage.from("profile-media").getPublicUrl(path).data.publicUrl;
+  };
+
   const fetchBids = async () => {
     if (!id) return;
 
-    const { data: bidRows, error: bidError } = await supabase
-      .from("bids")
-      .select("amount, message, country, created_at, user_id")
-      .eq("product_id", id)
-      .order("amount", { ascending: false });
+    try {
+      // 1️⃣ Récupération des enchères
+      const { data: bidRows, error: bidError } = await supabase
+        .from("bids")
+        .select("amount, message, country, created_at, user_id")
+        .eq("product_id", id)
+        .order("amount", { ascending: false });
 
-    if (bidError) {
-      console.error("Erreur chargement des encheres :", bidError);
-      toast.error("Erreur chargement encheres");
-      return;
-    }
-
-    if (!bidRows?.length) {
-      setBids([]);
-      return;
-    }
-
-    const userIds = [...new Set(bidRows.map((bid) => bid.user_id).filter(Boolean))];
-    let profilesById = {};
-
-    if (userIds.length > 0) {
-      const { data: profileRows, error: profileError } = await supabase
-        .from("profiles")
-        .select(
-          "id, pseudo, story, avatar_url, story_image_url, story_video_url, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url"
-        )
-        .in("id", userIds);
-
-      if (profileError) {
-        console.error("Erreur chargement des profils lies aux encheres :", profileError);
-      } else {
-        profilesById = Object.fromEntries(
-          profileRows.map((profile) => [profile.id, profile])
-        );
+      if (bidError) {
+        console.error("Erreur chargement des encheres :", bidError);
+        toast.error("Erreur chargement enchères");
+        return;
       }
-    }
 
-    const formatted = await Promise.all(
-      bidRows.map(async (bid) => {
-        const profile = profilesById[bid.user_id];
+      if (!bidRows?.length) {
+        setBids([]);
+        return;
+      }
 
-        // Générer les URLs signées pour les médias
-        const storyImageUrl = profile?.story_image_url
-          ? await createSignedProfileMediaUrl(supabase, profile.story_image_url)
-          : "";
-        const storyVideoUrl = profile?.story_video_url
-          ? await createSignedProfileMediaUrl(supabase, profile.story_video_url)
-          : "";
+      // 2️⃣ Récupération des profils liés aux enchères
+      const userIds = [...new Set(bidRows.map((bid) => bid.user_id).filter(Boolean))];
+      let profilesById = {};
+      if (userIds.length > 0) {
+        const { data: profileRows, error: profileError } = await supabase
+          .from("profiles")
+          .select(
+            "id, pseudo, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url"
+          )
+          .in("id", userIds);
+
+        if (profileError) {
+          console.error("Erreur chargement des profils :", profileError);
+        } else {
+          profilesById = Object.fromEntries(profileRows.map((p) => [p.id, p]));
+        }
+      }
+
+      // 3️⃣ Récupération des médias depuis profile_media
+      const mediaRowsByUserId = {};
+      if (userIds.length > 0) {
+        const { data: mediaRows, error: mediaError } = await supabase
+          .from("profile_media")
+          .select("user_id, avatar_path, story_image_path, story_video_path")
+          .in("user_id", userIds);
+
+        if (mediaError) {
+          console.error("Erreur récupération medias :", mediaError);
+        }
+
+        mediaRows?.forEach((media) => {
+          mediaRowsByUserId[media.user_id] = {
+            avatar: getMediaUrl(media.avatar_path),
+            story_image: getMediaUrl(media.story_image_path),
+            story_video: getMediaUrl(media.story_video_path),
+          };
+        });
+      }
+
+      // 4️⃣ Format final
+      const formatted = bidRows.map((bid) => {
+        const profile = profilesById[bid.user_id] || {};
+        const media = mediaRowsByUserId[bid.user_id] || {};
 
         return {
           amount: bid.amount,
           message: bid.message,
           country: bid.country,
-          pseudo: profile?.pseudo || "Anonyme",
-          story: profile?.story || "",
-          avatarUrl: profile?.avatar_url || "",
-          storyImageUrl,
-          storyVideoUrl,
+          pseudo: profile.pseudo || "Anonyme",
+          story: profile.story || "",
+          avatarUrl: media.avatar || "",
+          storyImageUrl: media.story_image || "",
+          storyVideoUrl: media.story_video || "",
           socialLinks: {
-            instagram: profile?.instagram_url || "",
-            facebook: profile?.facebook_url || "",
-            tiktok: profile?.tiktok_url || "",
-            x: profile?.x_url || "",
-            youtube: profile?.youtube_url || "",
-            linkedin: profile?.linkedin_url || "",
+            instagram: profile.instagram_url || "",
+            facebook: profile.facebook_url || "",
+            tiktok: profile.tiktok_url || "",
+            x: profile.x_url || "",
+            youtube: profile.youtube_url || "",
+            linkedin: profile.linkedin_url || "",
           },
           user_id: bid.user_id,
           date: bid.created_at,
         };
-      })
-    );
+      });
 
-    setBids(formatted);
+      setBids(formatted);
+    } catch (err) {
+      console.error("Erreur fetchBids :", err);
+    }
   };
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const { data, error } = await supabase.auth.getUser();
-        if (error?.name === "AbortError") return;
-        if (error) {
-          console.error("Erreur recuperation user :", error);
-          return;
+        if (error?.name !== "AbortError" && error) {
+          console.error("Erreur récupération user :", error);
         }
         if (data?.user) setUser(data.user);
-      } catch (error) {
-        if (error?.name !== "AbortError") {
-          console.error("Erreur auth product :", error);
-        }
+      } catch (err) {
+        if (err?.name !== "AbortError") console.error("Erreur auth product :", err);
       }
     };
 
@@ -127,19 +144,12 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const { data, error } = await supabase
-          .from("models")
-          .select("*")
-          .eq("id", id)
-          .single();
-
+        const { data, error } = await supabase.from("models").select("*").eq("id", id).single();
         if (error) {
           console.error("Erreur récupération produit:", error);
           toast.error("Erreur chargement produit");
           setProduct(null);
-        } else {
-          setProduct(data);
-        }
+        } else setProduct(data);
       } catch (err) {
         console.error("Erreur inattendue:", err);
         toast.error("Erreur chargement produit");
@@ -161,7 +171,6 @@ const Product = () => {
       navigate("/signup");
       return;
     }
-
     setBidValue(value);
     setShowPopup(true);
   };
@@ -181,7 +190,7 @@ const Product = () => {
     });
 
     if (profileError) {
-      console.error("Erreur profil avant enchere :", profileError);
+      console.error("Erreur profil avant enchère :", profileError);
       toast.error("Impossible d'enregistrer le pseudo");
       return;
     }
@@ -197,20 +206,15 @@ const Product = () => {
     ]);
 
     if (error) {
-      console.error("Erreur insertion enchere :", error);
-      toast.error("Erreur enchere");
+      console.error("Erreur insertion enchère :", error);
+      toast.error("Erreur enchère");
       return;
     }
 
-    toast.success("Enchere envoyee !");
+    toast.success("Enchère envoyée ! 🔥");
     setShowPopup(false);
     await fetchBids();
-    setFormData({
-      pseudo: "",
-      story: "",
-      message: "",
-      country: "",
-    });
+    setFormData({ pseudo: "", story: "", message: "", country: "" });
   };
 
   if (loading) return <div>Chargement...</div>;
@@ -245,7 +249,7 @@ const Product = () => {
             >
               ×
             </button>
-            <h3>Ton enchere</h3>
+            <h3>Ton enchère</h3>
 
             <form onSubmit={handleFormSubmit}>
               <input
@@ -285,7 +289,7 @@ const Product = () => {
                 <option>Belgique</option>
               </select>
 
-              <button type="submit">Valider l'enchere</button>
+              <button type="submit">Valider l'enchère 🔥</button>
             </form>
           </div>
         </div>

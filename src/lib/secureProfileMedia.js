@@ -127,6 +127,27 @@ export const resolveSecureProfileRecord = ({ profile, media }) => {
 
 export const getProfileMediaBucket = () => PROFILE_MEDIA_BUCKET;
 
+/**
+ * Retourne URL publique si bucket public, sinon signed URL.
+ * Priorité performance : public > signed.
+ */
+export const getProfileMediaUrl = async (supabase, path) => {
+  if (!path) return "";
+  
+  // Test getpuPublicUrl d'abord (instantané si public)
+  const { data: publicData } = supabase.storage
+    .from(PROFILE_MEDIA_BUCKET)
+    .getPublicUrl(path);
+  
+  // Si publicUrl non vide, bucket public → utiliser
+  if (publicData?.publicUrl) {
+    return publicData.publicUrl;
+  }
+  
+  // Fallback signed URL (avec vérifications existantes)
+  return createSignedProfileMediaUrl(supabase, path);
+};
+
 export const createSignedProfileMediaUrl = async (supabase, path) => {
   if (!path) return "";
 

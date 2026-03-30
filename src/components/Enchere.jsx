@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/Enchere.css";
 import livreImage from "../assets/blankbook.jpg";
-import { createSignedProfileMediaUrl } from "../lib/secureProfileMedia";
 import { supabase } from "../lib/supabase";
 
 const Enchere = ({ onBidSubmit, bids }) => {
@@ -15,17 +14,14 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const listRef = useRef(null);
 
   const MIN_BID = 5555;
-  const lastBid =
-    bids.length > 0 ? Math.max(...bids.map((b) => b.amount)) : MIN_BID;
+  const lastBid = bids.length > 0 ? Math.max(...bids.map((b) => b.amount)) : MIN_BID;
 
   useEffect(() => {
     if (bids.length > 0) {
       setLastBidIndex(0);
       setTimeout(() => setLastBidIndex(null), 2000);
 
-      if (listRef.current) {
-        listRef.current.scrollTop = 0;
-      }
+      if (listRef.current) listRef.current.scrollTop = 0;
     }
   }, [bids]);
 
@@ -44,10 +40,15 @@ const Enchere = ({ onBidSubmit, bids }) => {
     if (e.key === "Enter") handleSubmit();
   };
 
+  const getPublicMediaUrl = (path) => {
+    if (!path) return "";
+    const { data } = supabase.storage.from("profile-media").getPublicUrl(path);
+    return data.publicUrl;
+  };
+
   const openBook = async (bid) => {
     setLoadingMedia(true);
 
-    // Récupérer le profil pour le texte et les liens sociaux
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select(
@@ -57,36 +58,23 @@ const Enchere = ({ onBidSubmit, bids }) => {
       .single();
 
     if (profileError) {
-      console.error("Erreur récupération profil pour popup :", profileError);
+      console.error("Erreur récupération profil :", profileError);
       setLoadingMedia(false);
       return;
     }
 
-    // Récupérer les chemins médias depuis profile_media
     const { data: mediaData, error: mediaError } = await supabase
       .from("profile_media")
-      .select("story_image_path, story_video_path")
+      .select("avatar_path, story_image_path, story_video_path")
       .eq("user_id", bid.user_id)
       .single();
 
-    if (mediaError) {
-      console.error("Erreur récupération médias pour popup :", mediaError);
-      setLoadingMedia(false);
-      return;
-    }
-
-    // Générer les URLs signées fraîches depuis les chemins de profile_media
-    const freshStoryImageUrl = mediaData?.story_image_path
-      ? await createSignedProfileMediaUrl(supabase, mediaData.story_image_path)
-      : "";
-    const freshStoryVideoUrl = mediaData?.story_video_path
-      ? await createSignedProfileMediaUrl(supabase, mediaData.story_video_path)
-      : "";
+    if (mediaError) console.error("Erreur récupération médias :", mediaError);
 
     const selected = {
       story: bid.story || profile?.story || "Aucune histoire",
-      storyImageUrl: freshStoryImageUrl,
-      storyVideoUrl: freshStoryVideoUrl,
+      storyImageUrl: getPublicMediaUrl(mediaData?.story_image_path),
+      storyVideoUrl: getPublicMediaUrl(mediaData?.story_video_path),
       pseudo: profile?.pseudo || "Anonyme",
       socialLinks: {
         instagram: profile?.instagram_url || "",
@@ -99,14 +87,13 @@ const Enchere = ({ onBidSubmit, bids }) => {
     };
 
     setSelectedStory(selected);
-    console.log("selectedStory:", selected);
     setShowBook(true);
     setLoadingMedia(false);
   };
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    return `${date.toLocaleDateString()} a ${date.toLocaleTimeString()}`;
+    return `${date.toLocaleDateString()} à ${date.toLocaleTimeString()}`;
   };
 
   return (
@@ -114,17 +101,17 @@ const Enchere = ({ onBidSubmit, bids }) => {
       <div className="bid-input-box">
         <input
           type="number"
-          placeholder="Entrez votre enchere ici ..."
+          placeholder="Entrez votre enchère ici ..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={handleSubmit}>OK</button>
+        <button onClick={handleSubmit}>🔥 OK</button>
       </div>
 
       {showError && (
         <div className="error-popup">
-          Allez un peu de nerf ! L'enchere doit etre superieure a la derniere.
+          Allez un peu de nerf ! L'enchère doit être supérieure à la dernière.
         </div>
       )}
 
@@ -155,21 +142,13 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
                 <div className="bid-row-right">
                   <div className="price">
-                    <p>{bid.amount}EUR</p>
+                    <p>{bid.amount}EUR 🔥</p>
                   </div>
 
                   <div className="icons-ench">
-                    <a href="#">🔥</a>
-                    <a
-                      href="#"
-                      title="lire son histoire"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        openBook(bid);
-                      }}
-                    >
+                    <button title="lire son histoire" onClick={() => openBook(bid)}>
                       📖
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -205,64 +184,19 @@ const Enchere = ({ onBidSubmit, bids }) => {
                     playsInline
                   />
                 ) : selectedStory?.storyImageUrl ? (
-                  <img
-                    className="book-media"
-                    src={selectedStory.storyImageUrl}
-                    alt="Illustration de story"
-                  />
+                  <img className="book-media" src={selectedStory.storyImageUrl} alt="Illustration de story" />
                 ) : (
-                  <div className="book-media-empty">Aucune image ajoutee</div>
+                  <div className="book-media-empty">Aucune image ajoutée</div>
                 )}
 
                 {selectedStory?.socialLinks &&
-                  Object.keys(selectedStory.socialLinks).length > 0 && (
-                    <div className="book-social-links">
-                      {selectedStory.socialLinks.facebook && (
-                        <a
-                          href={selectedStory.socialLinks.facebook}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Facebook
+                  Object.entries(selectedStory.socialLinks).map(
+                    ([key, url]) =>
+                      url && (
+                        <a key={key} href={url} target="_blank" rel="noopener noreferrer">
+                          {key.charAt(0).toUpperCase() + key.slice(1)}
                         </a>
-                      )}
-                      {selectedStory.socialLinks.twitter && (
-                        <a
-                          href={selectedStory.socialLinks.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Twitter
-                        </a>
-                      )}
-                      {selectedStory.socialLinks.instagram && (
-                        <a
-                          href={selectedStory.socialLinks.instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Instagram
-                        </a>
-                      )}
-                      {selectedStory.socialLinks.tiktok && (
-                        <a
-                          href={selectedStory.socialLinks.tiktok}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          TikTok
-                        </a>
-                      )}
-                      {selectedStory.socialLinks.linkedin && (
-                        <a
-                          href={selectedStory.socialLinks.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          LinkedIn
-                        </a>
-                      )}
-                    </div>
+                      )
                   )}
               </div>
 
