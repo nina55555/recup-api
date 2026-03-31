@@ -30,6 +30,7 @@ const Product = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showAuthPopup, setShowAuthPopup] = useState(false);
   const [authMode, setAuthMode] = useState("login");
+  const [recoveryType, setRecoveryType] = useState("password");
   const [pendingBidValue, setPendingBidValue] = useState(null);
   const [bidValue, setBidValue] = useState(null);
   const [formData, setFormData] = useState({
@@ -249,6 +250,56 @@ const Product = () => {
   const handleAuthSubmit = async (event) => {
     event.preventDefault();
 
+    if (authMode === "recover") {
+      if (recoveryType === "password") {
+        if (!authForm.email) {
+          toast.error("Renseignez votre email.");
+          return;
+        }
+
+        const { error } = await supabase.auth.resetPasswordForEmail(authForm.email, {
+          redirectTo: `${window.location.origin}/signin`,
+        });
+
+        if (error) {
+          toast.error(error.message);
+          return;
+        }
+
+        toast.success("Email de reinitialisation envoye.");
+        setAuthMode("login");
+        return;
+      }
+
+      const pseudoValue = authForm.pseudo.trim();
+      if (!pseudoValue || !authForm.country) {
+        toast.error("Renseignez pseudo et pays.");
+        return;
+      }
+
+      const { data: profileRows, error: profileLookupError } = await supabase
+        .from("profiles")
+        .select("id")
+        .ilike("pseudo", pseudoValue)
+        .eq("country", authForm.country)
+        .limit(3);
+
+      if (profileLookupError) {
+        toast.error(profileLookupError.message || "Erreur recherche compte.");
+        return;
+      }
+
+      if (!profileRows?.length) {
+        toast.error("Aucun compte correspondant trouve.");
+        return;
+      }
+
+      toast.info(
+        "Compte retrouve. Pour securite, l'email n'est pas affiche automatiquement. Utilisez la page Contact pour recuperer votre email."
+      );
+      return;
+    }
+
     if (authMode === "signup") {
       const { data, error } = await supabase.auth.signUp({
         email: authForm.email,
@@ -426,7 +477,13 @@ const Product = () => {
             >
               x
             </button>
-            <h3>{authMode === "signup" ? "Creer un compte" : "Se connecter"}</h3>
+            <h3>
+              {authMode === "signup"
+                ? "Creer un compte"
+                : authMode === "recover"
+                  ? "Recuperation compte"
+                  : "Se connecter"}
+            </h3>
 
             <form onSubmit={handleAuthSubmit}>
               {authMode === "signup" && (
@@ -461,38 +518,126 @@ const Product = () => {
                 </>
               )}
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={authForm.email}
-                onChange={handleAuthFormChange}
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Mot de passe"
-                value={authForm.password}
-                onChange={handleAuthFormChange}
-                required
-              />
+              {authMode === "recover" && (
+                <>
+                  <div className="auth-inline-links">
+                    <button
+                      type="button"
+                      className={`auth-inline-switch ${recoveryType === "password" ? "is-active" : ""}`}
+                      onClick={() => setRecoveryType("password")}
+                    >
+                      Mot de passe perdu
+                    </button>
+                    <button
+                      type="button"
+                      className={`auth-inline-switch ${recoveryType === "email" ? "is-active" : ""}`}
+                      onClick={() => setRecoveryType("email")}
+                    >
+                      Email perdu
+                    </button>
+                  </div>
+
+                  {recoveryType === "email" ? (
+                    <>
+                      <input
+                        type="text"
+                        name="pseudo"
+                        placeholder="Pseudo"
+                        value={authForm.pseudo}
+                        onChange={handleAuthFormChange}
+                        required
+                      />
+                      <select
+                        name="country"
+                        value={authForm.country}
+                        onChange={handleAuthFormChange}
+                        required
+                      >
+                        <option value="">Choisir un pays</option>
+                        {COUNTRY_OPTIONS.map((value) => (
+                          <option key={value} value={value}>
+                            {value}
+                          </option>
+                        ))}
+                      </select>
+                    </>
+                  ) : (
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={authForm.email}
+                      onChange={handleAuthFormChange}
+                      required
+                    />
+                  )}
+                </>
+              )}
+
+              {authMode !== "recover" && (
+                <>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={authForm.email}
+                    onChange={handleAuthFormChange}
+                    required
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Mot de passe"
+                    value={authForm.password}
+                    onChange={handleAuthFormChange}
+                    required
+                  />
+                </>
+              )}
 
               <button type="submit">
-                {authMode === "signup" ? "S'inscrire" : "Connexion"}
+                {authMode === "signup"
+                  ? "S'inscrire"
+                  : authMode === "recover"
+                    ? recoveryType === "password"
+                      ? "Envoyer le lien"
+                      : "Retrouver mon compte"
+                    : "Connexion"}
               </button>
 
-              <button
-                type="button"
-                className="auth-inline-switch"
-                onClick={() =>
-                  setAuthMode((prev) => (prev === "signup" ? "login" : "signup"))
-                }
-              >
-                {authMode === "signup"
-                  ? "Deja un compte ? Se connecter"
-                  : "Pas de compte ? S'inscrire"}
-              </button>
+              {authMode !== "recover" ? (
+                <>
+                  <button
+                    type="button"
+                    className="auth-inline-switch"
+                    onClick={() =>
+                      setAuthMode((prev) => (prev === "signup" ? "login" : "signup"))
+                    }
+                  >
+                    {authMode === "signup"
+                      ? "Deja un compte ? Se connecter"
+                      : "Pas de compte ? S'inscrire"}
+                  </button>
+                  <button
+                    type="button"
+                    className="auth-inline-link"
+                    onClick={() => {
+                      setRecoveryType("password");
+                      setAuthMode("recover");
+                    }}
+                  >
+                    Email ou mot de passe perdu ?
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  className="auth-inline-switch"
+                  onClick={() => setAuthMode("login")}
+                >
+                  Retour a la connexion
+                </button>
+              )}
             </form>
           </div>
         </div>
