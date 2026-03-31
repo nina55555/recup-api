@@ -82,6 +82,41 @@
   padding: 7px;
 }
 
+.podium-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(241,233,218,0.9) 100%);
+  color: #5f4a22;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.2);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.podium-nav-left {
+  left: 18px;
+}
+
+.podium-nav-right {
+  right: 18px;
+}
+
+.podium-nav-arrow:hover {
+  transform: translateY(-50%) scale(1.05);
+  background: linear-gradient(180deg, rgba(231,214,175,0.95) 0%, rgba(212,175,85,0.9) 100%);
+  color: #2f220c;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+}
 
 
 /*
@@ -356,6 +391,24 @@
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(245,245,250,1) 100%);
 }
 
+.auth-inline-switch {
+  width: 100%;
+  border: 1px solid rgba(120, 94, 40, 0.24);
+  background: rgba(255,255,255,0.84);
+  border-radius: 10px;
+  color: #6f5a2d;
+  font-size: 12px;
+  height: 38px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.auth-inline-switch:hover {
+  background: rgba(233, 220, 186, 0.86);
+  color: #3d2d0e;
+  border-color: rgba(146, 112, 43, 0.42);
+}
+
 /* POPUP ERREUR */
 .error-popup {
   position: fixed;
@@ -381,6 +434,20 @@
 
 /* RESPONSIVE POUR LE POPUP - MOBILE */
 @media (max-width: 750px) {
+  .podium-nav-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 24px;
+  }
+
+  .podium-nav-left {
+    left: 10px;
+  }
+
+  .podium-nav-right {
+    right: 10px;
+  }
+
   .popup-form {
     max-width: 280px;
     width: 75%;
@@ -435,6 +502,12 @@
 
 /* RESPONSIVE POUR LE POPUP - IPAD */
 @media (min-width: 751px) and (max-width: 1023px) {
+  .podium-nav-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+  }
+
   .popup-form {
     max-width: 340px;
     width: 80%;

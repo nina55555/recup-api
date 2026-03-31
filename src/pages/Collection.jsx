@@ -70,7 +70,14 @@ const Collection = () => {
     return () => clearInterval(interval);
   }, [currentIndex, images, total]);
 
-  if (images.length === 0) return <div className="loader">Aucune image disponible</div>;
+  if (images.length === 0) {
+    return (
+      <div className="collection-loader">
+        <div className="collection-loader-ring" />
+        <p>Chargement de la collection</p>
+      </div>
+    );
+  }
 
   const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
   const nextNextIndex = nextIndex === total - 1 ? 0 : nextIndex + 1;

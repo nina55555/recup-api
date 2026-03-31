@@ -163,7 +163,7 @@ export default function Navbar() {
                 key={link.id}
                 type="button"
                 onClick={() => goToSection(link.id)}
-                className="text-[12px] uppercase tracking-wider text-gray-600 hover:text-black transition"
+                className="text-[12px] uppercase tracking-wider text-gray-600 transition-all duration-300 hover:text-[#6d5520] hover:tracking-[0.2em]"
               >
                 {link.label}
               </button>
@@ -189,7 +189,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={goToProfile}
-                className="mr-6 text-[12px] uppercase tracking-wider text-gray-600 hover:text-black"
+                className="mr-6 text-[12px] uppercase tracking-wider text-gray-600 transition-all duration-300 hover:text-[#6d5520] hover:tracking-[0.2em]"
               >
                 Profile
               </button>
@@ -197,7 +197,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => goToSection("contact")}
-              className="text-[12px] uppercase tracking-wider text-gray-600 hover:text-black"
+              className="text-[12px] uppercase tracking-wider text-gray-600 transition-all duration-300 hover:text-[#6d5520] hover:tracking-[0.2em]"
             >
               Contact
             </button>
@@ -256,7 +256,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => (link.id === "profile" ? goToProfile() : goToSection(link.id))}
-                  className="text-2xl uppercase tracking-widest text-gray-800 hover:text-white hover:bg-violet-500 transition-colors duration-300"
+                  className="rounded-full border border-[#cdb27a]/55 bg-[#f4ecdc] px-6 py-2 text-2xl uppercase tracking-widest text-[#5a4620] transition-all duration-300 hover:bg-[#d8bc82] hover:text-[#2e220e]"
                 >
                   {link.label}
                 </button>

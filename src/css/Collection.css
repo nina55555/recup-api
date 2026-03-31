@@ -251,13 +251,40 @@ body {
 
 
 /* LOADER */
-.loader {
-  color: white;
-  font-size: 24px;
-  height: 100vh;
+.collection-loader {
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 16px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(212, 175, 85, 0.22), transparent 45%),
+    radial-gradient(circle at 70% 75%, rgba(244, 236, 219, 0.2), transparent 50%),
+    #151311;
+}
+
+.collection-loader-ring {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  border: 3px solid rgba(215, 188, 126, 0.25);
+  border-top-color: #d6b874;
+  animation: spinLoader 0.9s linear infinite;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+}
+
+.collection-loader p {
+  color: #f1e3c2;
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@keyframes spinLoader {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 768px) {
