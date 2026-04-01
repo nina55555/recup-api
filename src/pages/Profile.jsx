@@ -13,6 +13,7 @@ import {
   validateImageFile,
   validateVideoFile,
 } from "../lib/secureProfileMedia";
+import { issueSmsOtp, normalizePhoneNumber, verifySmsOtp } from "../lib/otpAuth";
 import "../css/Profile.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,6 +21,7 @@ const EMPTY_PROFILE = {
   pseudo: "",
   country: "",
   story: "",
+  phone: "",
   email: "",
   password: "",
 };
@@ -55,6 +57,14 @@ const Profile = () => {
   const [currentStory, setCurrentStory] = useState("");
   const [bidProducts, setBidProducts] = useState([]);
   const [secureProfile, setSecureProfile] = useState(createEmptySecureProfile());
+  const [registeredPhone, setRegisteredPhone] = useState("");
+  const [sensitiveOtp, setSensitiveOtp] = useState({
+    challengeId: "",
+    code: "",
+    pendingKey: "",
+    sending: false,
+    verifying: false,
+  });
   const [mediaUrls, setMediaUrls] = useState({
     avatarUrl: "",
     storyImageUrl: "",
@@ -105,7 +115,7 @@ const Profile = () => {
 
         const { data: rows, error } = await supabase
           .from("profiles")
-          .select("id, pseudo, country, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
+          .select("id, pseudo, country, story, phone, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
           .eq("id", currentUser.id)
           .limit(1);
 
@@ -124,6 +134,7 @@ const Profile = () => {
               pseudo: "",
               country: "",
               story: "",
+              phone: "",
               instagram_url: "",
               facebook_url: "",
               tiktok_url: "",
@@ -131,7 +142,7 @@ const Profile = () => {
               youtube_url: "",
               linkedin_url: "",
             })
-            .select("id, pseudo, country, story, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
+            .select("id, pseudo, country, story, phone, instagram_url, facebook_url, tiktok_url, x_url, youtube_url, linkedin_url")
             .limit(1);
 
           if (insertError) {
@@ -145,9 +156,11 @@ const Profile = () => {
           pseudo: profile?.pseudo || "",
           country: profile?.country || "",
           story: profile?.story || "",
+          phone: profile?.phone || "",
           email: currentUser.email || "",
           password: "",
         });
+        setRegisteredPhone(profile?.phone || "");
         setCurrentStory(profile?.story || "");
         const { data: mediaRows, error: mediaError } = await supabase
           .from("profile_media")
@@ -366,6 +379,64 @@ const Profile = () => {
     }
   };
 
+  const getAuthUpdatesFromForm = () => {
+    const updates = {};
+    if (formData.email && formData.email !== user?.email) {
+      updates.email = formData.email.trim().toLowerCase();
+    }
+    if (formData.password) {
+      updates.password = formData.password;
+    }
+    return updates;
+  };
+
+  const requestSensitiveOtp = async (forcedUpdates = null) => {
+    if (!user?.id) {
+      toast.error("Session introuvable.");
+      return null;
+    }
+
+    const authUpdates = forcedUpdates || getAuthUpdatesFromForm();
+    if (Object.keys(authUpdates).length === 0) {
+      toast.info("Aucun changement sensible a valider.");
+      return null;
+    }
+
+    const otpPhone = normalizePhoneNumber(registeredPhone || formData.phone);
+    if (!otpPhone) {
+      toast.error("Configurez un numero SMS valide avant de changer email/mot de passe.");
+      return null;
+    }
+
+    setSensitiveOtp((prev) => ({ ...prev, sending: true }));
+    try {
+      const otpData = await issueSmsOtp({
+        purpose: "profile_change",
+        phone: otpPhone,
+        userId: user.id,
+      });
+
+      if (otpData?.debugCode) {
+        toast.info(`OTP dev: ${otpData.debugCode}`);
+      }
+
+      setSensitiveOtp({
+        challengeId: otpData.challengeId || "",
+        code: "",
+        pendingKey: JSON.stringify(authUpdates),
+        sending: false,
+        verifying: false,
+      });
+
+      toast.success("Code OTP envoye par SMS.");
+      return otpData;
+    } catch (error) {
+      setSensitiveOtp((prev) => ({ ...prev, sending: false }));
+      toast.error(error.message || "Impossible d'envoyer l'OTP.");
+      return null;
+    }
+  };
+
   const saveProfileRow = async (profilePayload) => {
     const { error } = await supabase.from("profiles").upsert({
       id: user.id,
@@ -402,12 +473,49 @@ const Profile = () => {
     setSaving(true);
 
     try {
+      const normalizedFormPhone = normalizePhoneNumber(formData.phone);
+      if (!normalizedFormPhone) {
+        toast.error("Numero SMS invalide. Utilisez un format international, ex: +33612345678.");
+        return;
+      }
+
+      const authUpdates = getAuthUpdatesFromForm();
+      const authUpdatesKey = JSON.stringify(authUpdates);
+
+      if (Object.keys(authUpdates).length > 0) {
+        if (!sensitiveOtp.challengeId || sensitiveOtp.pendingKey !== authUpdatesKey) {
+          await requestSensitiveOtp(authUpdates);
+          toast.info("Validez le code OTP pour confirmer les changements sensibles.");
+          return;
+        }
+
+        if (!sensitiveOtp.code.trim()) {
+          toast.error("Entrez le code OTP recu par SMS.");
+          return;
+        }
+
+        setSensitiveOtp((prev) => ({ ...prev, verifying: true }));
+        const verifiedData = await verifySmsOtp({
+          challengeId: sensitiveOtp.challengeId,
+          code: sensitiveOtp.code.trim(),
+        }).catch((error) => {
+          toast.error(error.message || "Verification OTP impossible.");
+          return null;
+        });
+        setSensitiveOtp((prev) => ({ ...prev, verifying: false }));
+
+        if (!verifiedData?.verified) {
+          return;
+        }
+      }
+
       const sanitizedSocialLinks = sanitizeAllSocialLinks(secureProfile.socialLinks);
 
       const profileError = await saveProfileRow({
         pseudo: formData.pseudo,
         country: formData.country,
         story: formData.story,
+        phone: normalizedFormPhone,
         instagram_url: sanitizedSocialLinks.instagram,
         facebook_url: sanitizedSocialLinks.facebook,
         tiktok_url: sanitizedSocialLinks.tiktok,
@@ -432,16 +540,6 @@ const Profile = () => {
         return;
       }
 
-      const authUpdates = {};
-
-      if (formData.email && formData.email !== user.email) {
-        authUpdates.email = formData.email;
-      }
-
-      if (formData.password) {
-        authUpdates.password = formData.password;
-      }
-
       if (Object.keys(authUpdates).length > 0) {
         const { data, error: authError } = await supabase.auth.updateUser(authUpdates);
 
@@ -454,11 +552,20 @@ const Profile = () => {
         if (data?.user) { setUser(data.user); }
       }
 
+      setRegisteredPhone(normalizedFormPhone);
       setFormData((prev) => ({
         ...prev,
+        phone: normalizedFormPhone,
         password: "",
       }));
       setCurrentStory(formData.story);
+      setSensitiveOtp({
+        challengeId: "",
+        code: "",
+        pendingKey: "",
+        sending: false,
+        verifying: false,
+      });
 
       toast.success("Profil mis a jour.");
     } catch (error) {
@@ -697,6 +804,18 @@ const Profile = () => {
           </div>
 
           <label>
+            Telephone SMS
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="+33612345678"
+              required
+            />
+          </label>
+
+          <label>
             Email
             <input
               type="email"
@@ -717,6 +836,34 @@ const Profile = () => {
               placeholder="Laisser vide pour ne pas changer"
             />
           </label>
+
+          <div className="profile-otp-block">
+            <p>
+              OTP requis pour changer votre email ou votre mot de passe.
+            </p>
+            <div className="profile-otp-row">
+              <input
+                type="text"
+                value={sensitiveOtp.code}
+                onChange={(event) =>
+                  setSensitiveOtp((prev) => ({
+                    ...prev,
+                    code: event.target.value.replace(/[^\d]/g, ""),
+                  }))
+                }
+                maxLength={6}
+                placeholder="Code OTP"
+              />
+              <button
+                type="button"
+                className="profile-secondary profile-otp-send"
+                onClick={() => requestSensitiveOtp()}
+                disabled={saving || sensitiveOtp.sending || sensitiveOtp.verifying}
+              >
+                {sensitiveOtp.sending ? "Envoi..." : "Envoyer OTP"}
+              </button>
+            </div>
+          </div>
 
           <div className="profile-actions">
             <button type="submit" disabled={saving}>

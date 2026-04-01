@@ -7,6 +7,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Product.css";
 import Enchere from "../components/Enchere.jsx";
+import {
+  issueSmsOtp,
+  maskPhoneNumber,
+  normalizePhoneNumber,
+  verifySmsOtp,
+} from "../lib/otpAuth";
 
 const COUNTRY_OPTIONS = [
   "France",
@@ -31,6 +37,8 @@ const Product = () => {
   const [showAuthPopup, setShowAuthPopup] = useState(false);
   const [authMode, setAuthMode] = useState("login");
   const [recoveryType, setRecoveryType] = useState("password");
+  const [otpCode, setOtpCode] = useState("");
+  const [otpContext, setOtpContext] = useState(null);
   const [pendingBidValue, setPendingBidValue] = useState(null);
   const [bidValue, setBidValue] = useState(null);
   const [formData, setFormData] = useState({
@@ -42,6 +50,7 @@ const Product = () => {
     story: "",
     email: "",
     password: "",
+    phone: "",
   });
   const [bids, setBids] = useState([]);
   const [user, setUser] = useState(null);
@@ -56,7 +65,7 @@ const Product = () => {
     if (!userId) return null;
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("id, pseudo, country, story")
+      .select("id, pseudo, country, story, phone")
       .eq("id", userId)
       .single();
 
@@ -247,18 +256,45 @@ const Product = () => {
     setAuthForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const startOtpFlow = async (payload) => {
+    const otpData = await issueSmsOtp(payload);
+    if (otpData?.debugCode) {
+      toast.info(`OTP dev: ${otpData.debugCode}`);
+    }
+    return otpData;
+  };
+
   const handleAuthSubmit = async (event) => {
     event.preventDefault();
 
-    if (authMode === "recover") {
-      if (recoveryType === "password") {
-        if (!authForm.email) {
-          toast.error("Renseignez votre email.");
-          return;
-        }
+    if (authMode === "otp") {
+      if (!otpContext?.challengeId) {
+        toast.error("Session OTP invalide.");
+        setAuthMode("login");
+        return;
+      }
 
-        const { error } = await supabase.auth.resetPasswordForEmail(authForm.email, {
-          redirectTo: `${window.location.origin}/signin`,
+      if (!otpCode.trim()) {
+        toast.error("Renseignez le code OTP recu par SMS.");
+        return;
+      }
+
+      const verifiedData = await verifySmsOtp({
+        challengeId: otpContext.challengeId,
+        code: otpCode.trim(),
+      }).catch((error) => {
+        toast.error(error.message || "Verification OTP impossible.");
+        return null;
+      });
+
+      if (!verifiedData?.verified) {
+        return;
+      }
+
+      if (otpContext.purpose === "login") {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: otpContext.email,
+          password: otpContext.password,
         });
 
         if (error) {
@@ -266,41 +302,140 @@ const Product = () => {
           return;
         }
 
-        toast.success("Email de reinitialisation envoye.");
+        if (data?.user) {
+          setUser(data.user);
+          await loadProfileForUser(data.user.id);
+          setShowAuthPopup(false);
+          setOtpContext(null);
+          setOtpCode("");
+
+          if (pendingBidValue) {
+            setBidValue(pendingBidValue);
+            setPendingBidValue(null);
+            setShowPopup(true);
+          }
+        }
+
+        return;
+      }
+
+      if (otpContext.purpose === "recover_password") {
+        const { error } = await supabase.auth.resetPasswordForEmail(
+          otpContext.email,
+          {
+            redirectTo: `${window.location.origin}/signin`,
+          }
+        );
+
+        if (error) {
+          toast.error(error.message);
+          return;
+        }
+
+        toast.success("Lien de reinitialisation envoye par email.");
         setAuthMode("login");
+        setOtpContext(null);
+        setOtpCode("");
+        return;
+      }
+
+      if (otpContext.purpose === "recover_email") {
+        if (verifiedData?.recoveredEmail) {
+          toast.success(`Email retrouve: ${verifiedData.recoveredEmail}`);
+        } else {
+          toast.success("Compte verifie. Contactez le support pour recuperer l'email.");
+        }
+
+        setAuthMode("login");
+        setOtpContext(null);
+        setOtpCode("");
+      }
+
+      return;
+    }
+
+    if (authMode === "recover") {
+      if (recoveryType === "password") {
+        if (!authForm.email || !authForm.phone) {
+          toast.error("Renseignez email et telephone.");
+          return;
+        }
+
+        const phone = normalizePhoneNumber(authForm.phone);
+        if (!phone) {
+          toast.error("Numero de telephone invalide.");
+          return;
+        }
+
+        const otpData = await startOtpFlow({
+          purpose: "recover_password",
+          phone,
+          targetEmail: authForm.email.trim().toLowerCase(),
+        }).catch((error) => {
+          toast.error(error.message || "Envoi OTP impossible.");
+          return null;
+        });
+
+        if (!otpData?.challengeId) {
+          return;
+        }
+
+        setOtpCode("");
+        setOtpContext({
+          purpose: "recover_password",
+          challengeId: otpData.challengeId,
+          phone,
+          email: authForm.email.trim().toLowerCase(),
+        });
+        setAuthMode("otp");
+        toast.success(`Code OTP envoye au ${otpData.maskedPhone || maskPhoneNumber(phone)}.`);
         return;
       }
 
       const pseudoValue = authForm.pseudo.trim();
-      if (!pseudoValue || !authForm.country) {
-        toast.error("Renseignez pseudo et pays.");
+      if (!pseudoValue || !authForm.country || !authForm.phone) {
+        toast.error("Renseignez pseudo, pays et telephone.");
         return;
       }
 
-      const { data: profileRows, error: profileLookupError } = await supabase
-        .from("profiles")
-        .select("id")
-        .ilike("pseudo", pseudoValue)
-        .eq("country", authForm.country)
-        .limit(3);
-
-      if (profileLookupError) {
-        toast.error(profileLookupError.message || "Erreur recherche compte.");
+      const phone = normalizePhoneNumber(authForm.phone);
+      if (!phone) {
+        toast.error("Numero de telephone invalide.");
         return;
       }
 
-      if (!profileRows?.length) {
-        toast.error("Aucun compte correspondant trouve.");
+      const otpData = await startOtpFlow({
+        purpose: "recover_email",
+        phone,
+        pseudo: pseudoValue,
+        country: authForm.country,
+      }).catch((error) => {
+        toast.error(error.message || "Envoi OTP impossible.");
+        return null;
+      });
+
+      if (!otpData?.challengeId) {
         return;
       }
 
-      toast.info(
-        "Compte retrouve. Pour securite, l'email n'est pas affiche automatiquement. Utilisez la page Contact pour recuperer votre email."
-      );
+      setOtpCode("");
+      setOtpContext({
+        purpose: "recover_email",
+        challengeId: otpData.challengeId,
+        phone,
+      });
+      setAuthMode("otp");
+      toast.success(`Code OTP envoye au ${otpData.maskedPhone || maskPhoneNumber(phone)}.`);
       return;
     }
 
     if (authMode === "signup") {
+      const normalizedSignupPhone = normalizePhoneNumber(authForm.phone);
+      if (!normalizedSignupPhone) {
+        toast.error("Numero de telephone invalide.");
+        return;
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email: authForm.email,
         password: authForm.password,
@@ -320,6 +455,7 @@ const Product = () => {
           pseudo: authForm.pseudo,
           country: authForm.country,
           story: authForm.story || "",
+          phone: normalizedSignupPhone,
         });
 
         if (profileError) {
@@ -334,8 +470,9 @@ const Product = () => {
       return;
     }
 
+    const loginEmail = authForm.email.trim().toLowerCase();
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: authForm.email,
+      email: loginEmail,
       password: authForm.password,
     });
 
@@ -345,15 +482,37 @@ const Product = () => {
     }
 
     if (data?.user) {
-      setUser(data.user);
-      await loadProfileForUser(data.user.id);
-      setShowAuthPopup(false);
-
-      if (pendingBidValue) {
-        setBidValue(pendingBidValue);
-        setPendingBidValue(null);
-        setShowPopup(true);
+      const profile = await loadProfileForUser(data.user.id);
+      const profilePhone = normalizePhoneNumber(profile?.phone || "");
+      if (!profilePhone) {
+        await supabase.auth.signOut();
+        toast.error("Ajoutez un numero SMS dans votre profil pour activer l'OTP.");
+        return;
       }
+
+      const otpData = await startOtpFlow({
+        purpose: "login",
+        phone: profilePhone,
+        userId: data.user.id,
+      }).catch(async (otpError) => {
+        await supabase.auth.signOut();
+        toast.error(otpError.message || "OTP indisponible.");
+        return null;
+      });
+
+      if (!otpData?.challengeId) return;
+
+      await supabase.auth.signOut();
+      setOtpContext({
+        purpose: "login",
+        challengeId: otpData.challengeId,
+        phone: profilePhone,
+        email: loginEmail,
+        password: authForm.password,
+      });
+      setOtpCode("");
+      setAuthMode("otp");
+      toast.success(`Code OTP envoye au ${otpData.maskedPhone || maskPhoneNumber(profilePhone)}.`);
     }
   };
 
@@ -472,7 +631,12 @@ const Product = () => {
             <button
               type="button"
               className="product-popup-close"
-              onClick={() => setShowAuthPopup(false)}
+              onClick={() => {
+                setShowAuthPopup(false);
+                setAuthMode("login");
+                setOtpContext(null);
+                setOtpCode("");
+              }}
               aria-label="Fermer"
             >
               x
@@ -480,6 +644,8 @@ const Product = () => {
             <h3>
               {authMode === "signup"
                 ? "Creer un compte"
+                : authMode === "otp"
+                  ? "Verification SMS"
                 : authMode === "recover"
                   ? "Recuperation compte"
                   : "Se connecter"}
@@ -514,6 +680,14 @@ const Product = () => {
                     placeholder="Votre histoire (optionnel)"
                     value={authForm.story}
                     onChange={handleAuthFormChange}
+                  />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Telephone (+33...)"
+                    value={authForm.phone}
+                    onChange={handleAuthFormChange}
+                    required
                   />
                 </>
               )}
@@ -560,21 +734,56 @@ const Product = () => {
                           </option>
                         ))}
                       </select>
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Telephone (+33...)"
+                        value={authForm.phone}
+                        onChange={handleAuthFormChange}
+                        required
+                      />
                     </>
                   ) : (
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      value={authForm.email}
-                      onChange={handleAuthFormChange}
-                      required
-                    />
+                    <>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={authForm.email}
+                        onChange={handleAuthFormChange}
+                        required
+                      />
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Telephone (+33...)"
+                        value={authForm.phone}
+                        onChange={handleAuthFormChange}
+                        required
+                      />
+                    </>
                   )}
                 </>
               )}
 
-              {authMode !== "recover" && (
+              {authMode === "otp" && (
+                <>
+                  <p className="auth-otp-hint">
+                    Entrez le code recu par SMS {otpContext?.phone ? `(${maskPhoneNumber(otpContext.phone)})` : ""}.
+                  </p>
+                  <input
+                    type="text"
+                    name="otp"
+                    placeholder="Code OTP (6 chiffres)"
+                    value={otpCode}
+                    onChange={(event) => setOtpCode(event.target.value.replace(/[^\d]/g, ""))}
+                    maxLength={6}
+                    required
+                  />
+                </>
+              )}
+
+              {(authMode === "login" || authMode === "signup") && (
                 <>
                   <input
                     type="email"
@@ -598,14 +807,28 @@ const Product = () => {
               <button type="submit">
                 {authMode === "signup"
                   ? "S'inscrire"
+                  : authMode === "otp"
+                    ? "Valider le code"
                   : authMode === "recover"
                     ? recoveryType === "password"
-                      ? "Envoyer le lien"
-                      : "Retrouver mon compte"
+                      ? "Envoyer OTP"
+                      : "Lancer verification"
                     : "Connexion"}
               </button>
 
-              {authMode !== "recover" ? (
+              {authMode === "otp" ? (
+                <button
+                  type="button"
+                  className="auth-inline-switch"
+                  onClick={() => {
+                    setAuthMode("login");
+                    setOtpContext(null);
+                    setOtpCode("");
+                  }}
+                >
+                  Retour a la connexion
+                </button>
+              ) : authMode !== "recover" ? (
                 <>
                   <button
                     type="button"

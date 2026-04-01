@@ -1,9 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { supabase } from "../lib/supabase";
+import {
+  issueSmsOtp,
+  maskPhoneNumber,
+  normalizePhoneNumber,
+  verifySmsOtp,
+} from "../lib/otpAuth";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Auth.css";
+
+const COUNTRY_OPTIONS = [
+  "France",
+  "Italie",
+  "Espagne",
+  "Allemagne",
+  "Belgique",
+  "Suisse",
+  "Canada",
+  "USA",
+  "Japon",
+];
 
 const Signup = ({ initialMode = "signup" }) => {
   const navigate = useNavigate();
@@ -13,91 +31,251 @@ const Signup = ({ initialMode = "signup" }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState("");
+  const [phone, setPhone] = useState("");
   const [story, setStory] = useState("");
   const [storyMode, setStoryMode] = useState("later");
+  const [resetPassword, setResetPassword] = useState("");
+  const [isRecoveryFlow, setIsRecoveryFlow] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [otpContext, setOtpContext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const COUNTRY_OPTIONS = [
-    "France",
-    "Italie",
-    "Espagne",
-    "Allemagne",
-    "Belgique",
-    "Suisse",
-    "Canada",
-    "USA",
-    "Japon",
-  ];
 
   useEffect(() => {
     setMode(initialMode);
+    setOtpContext(null);
+    setOtpCode("");
   }, [initialMode]);
 
-  const handleAuth = async (e) => {
-    e.preventDefault();
+  const handleSignup = async () => {
+    const normalizedPhone = normalizePhoneNumber(phone);
+    if (!normalizedPhone) {
+      setErrorMessage("Numero de telephone invalide.");
+      toast.error("Numero de telephone invalide.");
+      return;
+    }
+
+    const { data, error: signupError } = await supabase.auth.signUp({
+      email: email.trim().toLowerCase(),
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/signin`,
+      },
+    });
+
+    if (signupError) {
+      setErrorMessage(signupError.message);
+      toast.error(signupError.message);
+      return;
+    }
+
+    if (data?.user) {
+      const { error: profileError } = await supabase.from("profiles").insert([
+        {
+          id: data.user.id,
+          pseudo,
+          country,
+          story: story || "",
+          phone: normalizedPhone,
+        },
+      ]);
+
+      if (profileError) {
+        console.error(profileError);
+        setErrorMessage("Erreur creation profil");
+        toast.error("Erreur creation profil");
+        return;
+      }
+
+      toast.success("Compte cree. Verifiez votre email.");
+    }
+  };
+
+  const startLoginOtp = async () => {
+    const loginEmail = email.trim().toLowerCase();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: loginEmail,
+      password,
+    });
+
+    if (error) {
+      setErrorMessage(error.message);
+      toast.error(error.message);
+      return;
+    }
+
+    if (!data?.user) {
+      return;
+    }
+
+    const { data: profileData, error: profileError } = await supabase
+      .from("profiles")
+      .select("phone")
+      .eq("id", data.user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      await supabase.auth.signOut();
+      setErrorMessage("Impossible de recuperer le numero OTP.");
+      toast.error("Impossible de recuperer le numero OTP.");
+      return;
+    }
+
+    const otpPhone = normalizePhoneNumber(profileData?.phone || "");
+    if (!otpPhone) {
+      await supabase.auth.signOut();
+      setErrorMessage("Aucun numero SMS configure sur ce compte.");
+      toast.error("Aucun numero SMS configure sur ce compte.");
+      return;
+    }
+
+    const otpData = await issueSmsOtp({
+      purpose: "login",
+      phone: otpPhone,
+      userId: data.user.id,
+    }).catch(async (otpError) => {
+      await supabase.auth.signOut();
+      setErrorMessage(otpError.message || "Envoi OTP impossible.");
+      toast.error(otpError.message || "Envoi OTP impossible.");
+      return null;
+    });
+
+    if (!otpData?.challengeId) {
+      return;
+    }
+
+    if (otpData?.debugCode) {
+      toast.info(`OTP dev: ${otpData.debugCode}`);
+    }
+
+    await supabase.auth.signOut();
+    setOtpContext({
+      challengeId: otpData.challengeId,
+      phone: otpPhone,
+      email: loginEmail,
+      password,
+    });
+    setOtpCode("");
+    toast.success(
+      `Code OTP envoye au ${otpData.maskedPhone || maskPhoneNumber(otpPhone)}.`
+    );
+  };
+
+  const verifyLoginOtp = async () => {
+    if (!otpContext?.challengeId) {
+      setErrorMessage("Session OTP invalide.");
+      toast.error("Session OTP invalide.");
+      return;
+    }
+
+    if (!otpCode.trim()) {
+      setErrorMessage("Entrez le code OTP.");
+      toast.error("Entrez le code OTP.");
+      return;
+    }
+
+    const verifiedData = await verifySmsOtp({
+      challengeId: otpContext.challengeId,
+      code: otpCode.trim(),
+    }).catch((verifyError) => {
+      setErrorMessage(verifyError.message || "Code OTP invalide.");
+      toast.error(verifyError.message || "Code OTP invalide.");
+      return null;
+    });
+
+    if (!verifiedData?.verified) {
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: otpContext.email,
+      password: otpContext.password,
+    });
+
+    if (error) {
+      setErrorMessage(error.message);
+      toast.error(error.message);
+      return;
+    }
+
+    if (data?.user && data?.session) {
+      setOtpContext(null);
+      setOtpCode("");
+      toast.success("Connexion reussie.");
+      navigate("/");
+    }
+  };
+
+  const handleAuth = async (event) => {
+    event.preventDefault();
     setLoading(true);
     setErrorMessage("");
 
     try {
-      if (mode === "signup") {
-        const { data, error: signupError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: "http://localhost:5173",
-          },
-        });
-
-        if (signupError) {
-          setErrorMessage(signupError.message);
-          toast.error(signupError.message);
+      if (mode === "reset") {
+        if (!resetPassword || resetPassword.length < 6) {
+          setErrorMessage("Le mot de passe doit contenir au moins 6 caracteres.");
+          toast.error("Le mot de passe doit contenir au moins 6 caracteres.");
           return;
         }
 
-        if (data?.user) {
-          const { error: profileError } = await supabase.from("profiles").insert([
-            {
-              id: data.user.id,
-              pseudo,
-              country,
-              story: story || "",
-            },
-          ]);
-
-          if (profileError) {
-            console.error(profileError);
-            setErrorMessage("Erreur création profil");
-            toast.error("Erreur création profil");
-            return;
-          }
-
-          toast.success("Compte créé ! Vérifie ton email.");
-        }
-      } else {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
+        const { error } = await supabase.auth.updateUser({
+          password: resetPassword,
         });
 
         if (error) {
-          setErrorMessage(error.message);
-          toast.error(error.message);
+          setErrorMessage(error.message || "Impossible de changer le mot de passe.");
+          toast.error(error.message || "Impossible de changer le mot de passe.");
           return;
         }
 
-        if (data?.user && data?.session) {
-          toast.success("Connexion réussie !");
-          navigate("/");
-        }
+        setResetPassword("");
+        setIsRecoveryFlow(false);
+        setMode("login");
+        toast.success("Mot de passe mis a jour. Connectez-vous.");
+        return;
       }
+
+      if (mode === "signup") {
+        await handleSignup();
+        return;
+      }
+
+      if (otpContext) {
+        await verifyLoginOtp();
+        return;
+      }
+
+      await startLoginOtp();
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    const hash = window.location.hash || "";
+    const search = window.location.search || "";
+    const isRecoveryLink = hash.includes("type=recovery") || search.includes("type=recovery");
+
+    if (isRecoveryLink) {
+      setIsRecoveryFlow(true);
+      setMode("reset");
+      setOtpContext(null);
+      setOtpCode("");
+      toast.info("Lien valide. Choisissez un nouveau mot de passe.");
+    }
+
     const { data: listener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") {
+        setIsRecoveryFlow(true);
+        setMode("reset");
+        setOtpContext(null);
+        setOtpCode("");
+        return;
+      }
+
       if (event === "SIGNED_IN") {
+        if (isRecoveryFlow) return;
         navigate("/");
       }
     });
@@ -105,11 +283,17 @@ const Signup = ({ initialMode = "signup" }) => {
     return () => {
       listener?.subscription?.unsubscribe();
     };
-  }, [navigate]);
+  }, [isRecoveryFlow, navigate]);
 
   return (
     <div className="auth-container">
-      <h2>{mode === "signup" ? "Créer un compte" : "Se connecter"}</h2>
+      <h2>
+        {mode === "signup"
+          ? "Creer un compte"
+          : mode === "reset"
+            ? "Nouveau mot de passe"
+            : "Se connecter"}
+      </h2>
 
       <form onSubmit={handleAuth} className="auth-form">
         {mode === "signup" && (
@@ -118,13 +302,13 @@ const Signup = ({ initialMode = "signup" }) => {
               type="text"
               placeholder="Pseudo"
               value={pseudo}
-              onChange={(e) => setPseudo(e.target.value)}
+              onChange={(event) => setPseudo(event.target.value)}
               required
             />
 
             <select
               value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              onChange={(event) => setCountry(event.target.value)}
               required
             >
               <option value="">Choisir un pays</option>
@@ -134,24 +318,59 @@ const Signup = ({ initialMode = "signup" }) => {
                 </option>
               ))}
             </select>
+
+            <input
+              type="tel"
+              placeholder="Telephone (+33...)"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+              required
+            />
           </>
         )}
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        {!otpContext && (
+          <>
+            {mode !== "reset" ? (
+              <>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
 
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+                <input
+                  type="password"
+                  placeholder="Mot de passe"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                />
+              </>
+            ) : (
+              <input
+                type="password"
+                placeholder="Nouveau mot de passe"
+                value={resetPassword}
+                onChange={(event) => setResetPassword(event.target.value)}
+                required
+              />
+            )}
+          </>
+        )}
+
+        {mode === "login" && otpContext && (
+          <input
+            type="text"
+            placeholder={`Code OTP (${maskPhoneNumber(otpContext.phone)})`}
+            value={otpCode}
+            onChange={(event) => setOtpCode(event.target.value.replace(/[^\d]/g, ""))}
+            maxLength={6}
+            required
+          />
+        )}
 
         {mode === "signup" && (
           <div className="story-section">
@@ -183,7 +402,7 @@ const Signup = ({ initialMode = "signup" }) => {
               <textarea
                 placeholder="Ton histoire..."
                 value={story}
-                onChange={(e) => setStory(e.target.value)}
+                onChange={(event) => setStory(event.target.value)}
               />
             )}
           </div>
@@ -192,27 +411,64 @@ const Signup = ({ initialMode = "signup" }) => {
         <button type="submit" disabled={loading}>
           {loading
             ? mode === "signup"
-              ? "Création..."
-              : "Connexion..."
+              ? "Creation..."
+              : mode === "reset"
+                ? "Mise a jour..."
+                : "Connexion..."
             : mode === "signup"
-              ? "Créer le compte"
-              : "Se connecter"}
+              ? "Creer le compte"
+              : mode === "reset"
+                ? "Enregistrer le nouveau mot de passe"
+              : otpContext
+                ? "Valider OTP"
+                : "Se connecter"}
         </button>
 
         {errorMessage && <p className="auth-error">{errorMessage}</p>}
 
-        <button
-          type="button"
-          className="auth-toggle"
-          onClick={() => {
-            setErrorMessage("");
-            setMode((prevMode) => (prevMode === "signup" ? "login" : "signup"));
-          }}
-        >
-          {mode === "signup"
-            ? "Déjà un compte ? Se connecter"
-            : "Pas de compte ? S’inscrire"}
-        </button>
+        {mode !== "reset" && (
+          <button
+            type="button"
+            className="auth-toggle"
+            onClick={() => {
+              setErrorMessage("");
+              setOtpContext(null);
+              setOtpCode("");
+              setMode((prevMode) => (prevMode === "signup" ? "login" : "signup"));
+            }}
+          >
+            {mode === "signup"
+              ? "Deja un compte ? Se connecter"
+              : "Pas de compte ? S'inscrire"}
+          </button>
+        )}
+
+        {mode === "reset" && (
+          <button
+            type="button"
+            className="auth-toggle"
+            onClick={() => {
+              setIsRecoveryFlow(false);
+              setResetPassword("");
+              setMode("login");
+            }}
+          >
+            Retour a la connexion
+          </button>
+        )}
+
+        {mode === "login" && otpContext && (
+          <button
+            type="button"
+            className="auth-toggle"
+            onClick={() => {
+              setOtpContext(null);
+              setOtpCode("");
+            }}
+          >
+            Retour a la connexion
+          </button>
+        )}
       </form>
 
       <ToastContainer />

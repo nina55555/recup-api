@@ -307,6 +307,44 @@
   background: #ece7d8;
 }
 
+.profile-otp-block {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px dashed rgba(0, 0, 0, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.profile-otp-block p {
+  margin: 0;
+  font-size: 12px;
+  color: #5f594f;
+}
+
+.profile-otp-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.profile-otp-send {
+  min-width: 130px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #ece7d8;
+  color: #1f1b16;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-otp-send:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
   .profile-shell {
     padding: 100px 16px 32px;
@@ -331,6 +369,10 @@
 
   .profile-actions {
     flex-direction: column;
+  }
+
+  .profile-otp-row {
+    grid-template-columns: 1fr;
   }
 
   .profile-story-grid {

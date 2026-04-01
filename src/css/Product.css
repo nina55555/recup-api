@@ -435,6 +435,13 @@
   color: #3d2d0e;
 }
 
+.auth-otp-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #5f5131;
+  line-height: 1.4;
+}
+
 /* POPUP ERREUR */
 .error-popup {
   position: fixed;
