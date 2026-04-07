@@ -677,6 +677,44 @@
 
 }
 
+.stripe-consent-text{
+  margin:0;
+  width:100%;
+  font-size:13px;
+  line-height:1.5;
+  color:#3f3b2f;
+  text-align:left;
+}
+
+.stripe-consent-checkbox{
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  color:#35322b;
+  font-size:12px;
+}
+
+.stripe-consent-checkbox input{
+  margin-top:3px;
+}
+
+.stripe-card-wrapper{
+  width:100%;
+  border:1px solid #d9d5c6;
+  border-radius:8px;
+  padding:12px;
+  background:#fcfbf8;
+}
+
+.stripe-error{
+  margin:0;
+  width:100%;
+  color:#bf2f2f;
+  font-size:12px;
+  text-align:left;
+}
+
 .fake-card{
 
   width:100%;

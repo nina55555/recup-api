@@ -7,12 +7,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Product.css";
 import Enchere from "../components/Enchere.jsx";
+import StripePayment from "../components/StripePayment";
 import {
   issueSmsOtp,
   maskPhoneNumber,
   normalizePhoneNumber,
   verifySmsOtp,
 } from "../lib/otpAuth";
+import { getBidderPaymentStatus, saveBidderConsent } from "../lib/stripePayments";
 
 const COUNTRY_OPTIONS = [
   "France",
@@ -34,6 +36,9 @@ const Product = () => {
   const [productIds, setProductIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
+  const [showStripePopup, setShowStripePopup] = useState(false);
+  const [stripeStatus, setStripeStatus] = useState(null);
+  const [stripeLoading, setStripeLoading] = useState(false);
   const [showAuthPopup, setShowAuthPopup] = useState(false);
   const [authMode, setAuthMode] = useState("login");
   const [recoveryType, setRecoveryType] = useState("password");
@@ -41,6 +46,7 @@ const Product = () => {
   const [otpContext, setOtpContext] = useState(null);
   const [pendingBidValue, setPendingBidValue] = useState(null);
   const [bidValue, setBidValue] = useState(null);
+  const [resetPassword, setResetPassword] = useState("");
   const [formData, setFormData] = useState({
     message: "",
   });
@@ -55,6 +61,30 @@ const Product = () => {
   const [bids, setBids] = useState([]);
   const [user, setUser] = useState(null);
   const [bidderProfile, setBidderProfile] = useState(null);
+  const [countdownDone, setCountdownDone] = useState(false);
+  const [didShowSessionToast, setDidShowSessionToast] = useState(false);
+
+  const clearRecoveryParamsFromUrl = () => {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
+
+  const ensureActiveSession = async () => {
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    if (sessionError) {
+      console.error("Erreur session Supabase :", sessionError);
+      return null;
+    }
+
+    if (!session?.access_token) {
+      return null;
+    }
+
+    return session;
+  };
 
   const getMediaUrl = (path) => {
     if (!path) return "";
@@ -174,7 +204,7 @@ const Product = () => {
     const getUser = async () => {
       try {
         const { data, error } = await supabase.auth.getUser();
-        if (error?.name !== "AbortError" && error) {
+        if (error?.name !== "AbortError" && error?.name !== "AuthSessionMissingError" && error) {
           console.error("Erreur recuperation user :", error);
         }
 
@@ -235,15 +265,135 @@ const Product = () => {
     fetchBids();
   }, [id]);
 
-  const handleBidSubmit = (value) => {
-    if (!user) {
+  useEffect(() => {
+    setCountdownDone(false);
+  }, [id, product?.auction_end_at]);
+
+  useEffect(() => {
+    const detectRecoveryLink = async () => {
+      const hash = window.location.hash || "";
+      const search = window.location.search || "";
+      const searchParams = new URLSearchParams(search);
+      const isRecoveryLink =
+        hash.includes("type=recovery") ||
+        search.includes("type=recovery") ||
+        searchParams.get("type") === "recovery" ||
+        searchParams.has("token_hash");
+      const code = searchParams.get("code");
+
+      if (code) {
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (error) {
+          toast.error("Lien de reinitialisation invalide ou expire.");
+          return;
+        }
+      }
+
+      if (isRecoveryLink || code) {
+        setShowAuthPopup(true);
+        setAuthMode("reset");
+        setOtpContext(null);
+        setOtpCode("");
+        setResetPassword("");
+        toast.info("Choisissez un nouveau mot de passe pour finaliser la recuperation.");
+      }
+    };
+
+    detectRecoveryLink();
+  }, []);
+
+  const isAuctionExpired = () => {
+    const endAt = product?.auction_end_at;
+    if (!endAt) return false;
+    const target = new Date(endAt).getTime();
+    if (Number.isNaN(target)) return false;
+    return Date.now() >= target;
+  };
+
+  const startBidMessageFlow = (value) => {
+    setBidValue(value);
+    setShowPopup(true);
+  };
+
+  const prepareStripeForBid = async (value) => {
+    setStripeLoading(true);
+    try {
+      const status = await getBidderPaymentStatus({ productId: id });
+      if (status?.hasPaymentMethod && status?.hasAcceptedTerms) {
+        startBidMessageFlow(value);
+        return;
+      }
+
+      setPendingBidValue(value);
+      setStripeStatus(status || null);
+      setShowStripePopup(true);
+    } catch (error) {
+      const message = error.message || "Impossible de preparer Stripe.";
+      const isEdgeUnavailable =
+        message.includes("Edge Function injoignable") ||
+        message.toLowerCase().includes("failed to send a request to the edge function");
+
+      if (isEdgeUnavailable) {
+        toast.warning(
+          "Service Stripe temporairement injoignable: enchere autorisee sans pre-enregistrement carte."
+        );
+        startBidMessageFlow(value);
+        return;
+      }
+
+      toast.error(message);
+    } finally {
+      setStripeLoading(false);
+    }
+  };
+
+  const handleBidSubmit = async (value) => {
+    if (isAuctionExpired() || countdownDone) {
+      toast.error("Cette enchere est terminee.");
+      return;
+    }
+
+    const activeSession = await ensureActiveSession();
+    if (!user || !activeSession) {
+      setUser(null);
       setPendingBidValue(value);
       setAuthMode("login");
       setShowAuthPopup(true);
+      if (!didShowSessionToast) {
+        toast.info("Session expiree. Reconnectez-vous pour encherir.");
+        setDidShowSessionToast(true);
+      }
       return;
     }
-    setBidValue(value);
-    setShowPopup(true);
+
+    setDidShowSessionToast(false);
+
+    await prepareStripeForBid(value);
+  };
+
+  const handleStripeCompleted = async ({ setupIntentId, acceptedTermsText }) => {
+    const bidAmount = pendingBidValue;
+    if (!bidAmount) {
+      toast.error("Montant d'enchere introuvable. Reessayez.");
+      return;
+    }
+
+    try {
+      await saveBidderConsent({
+        productId: id,
+        bidAmount,
+        statementText: acceptedTermsText,
+        setupIntentId: setupIntentId || null,
+      });
+
+      setShowStripePopup(false);
+      setStripeStatus(null);
+      setPendingBidValue(null);
+      startBidMessageFlow(bidAmount);
+      toast.success("Moyen de paiement valide. Vous pouvez confirmer votre enchere.");
+    } catch (error) {
+      toast.error(error.message || "Consentement Stripe impossible.");
+    }
   };
 
   const handleChange = (event) => {
@@ -266,6 +416,32 @@ const Product = () => {
 
   const handleAuthSubmit = async (event) => {
     event.preventDefault();
+
+    if (authMode === "reset") {
+      if (!resetPassword || resetPassword.length < 6) {
+        toast.error("Le mot de passe doit contenir au moins 6 caracteres.");
+        return;
+      }
+
+      const { error } = await supabase.auth.updateUser({
+        password: resetPassword,
+      });
+
+      if (error) {
+        const message =
+          error.message?.toLowerCase().includes("jwt")
+            ? "Lien de reinitialisation invalide ou expire. Demandez un nouveau lien."
+            : error.message || "Impossible de changer le mot de passe.";
+        toast.error(message);
+        return;
+      }
+
+      clearRecoveryParamsFromUrl();
+      setResetPassword("");
+      setAuthMode("login");
+      toast.success("Mot de passe mis a jour. Vous pouvez vous reconnecter.");
+      return;
+    }
 
     if (authMode === "otp") {
       if (!otpContext?.challengeId) {
@@ -303,16 +479,18 @@ const Product = () => {
         }
 
         if (data?.user) {
+          await supabase.auth.refreshSession().catch(() => null);
           setUser(data.user);
           await loadProfileForUser(data.user.id);
+          setDidShowSessionToast(false);
           setShowAuthPopup(false);
           setOtpContext(null);
           setOtpCode("");
 
           if (pendingBidValue) {
-            setBidValue(pendingBidValue);
+            const queuedBid = pendingBidValue;
             setPendingBidValue(null);
-            setShowPopup(true);
+            await prepareStripeForBid(queuedBid);
           }
         }
 
@@ -323,7 +501,7 @@ const Product = () => {
         const { error } = await supabase.auth.resetPasswordForEmail(
           otpContext.email,
           {
-            redirectTo: `${window.location.origin}/signin`,
+            redirectTo: `${window.location.origin}${window.location.pathname}`,
           }
         );
 
@@ -483,10 +661,17 @@ const Product = () => {
 
     if (data?.user) {
       const profile = await loadProfileForUser(data.user.id);
+      setDidShowSessionToast(false);
       const profilePhone = normalizePhoneNumber(profile?.phone || "");
       if (!profilePhone) {
-        await supabase.auth.signOut();
-        toast.error("Ajoutez un numero SMS dans votre profil pour activer l'OTP.");
+        setUser(data.user);
+        setShowAuthPopup(false);
+        toast.info("Connexion effectuee. Ajoutez un numero SMS dans votre profil pour activer l'OTP.");
+        if (pendingBidValue) {
+          const queuedBid = pendingBidValue;
+          setPendingBidValue(null);
+          await prepareStripeForBid(queuedBid);
+        }
         return;
       }
 
@@ -519,6 +704,20 @@ const Product = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    const activeSession = await ensureActiveSession();
+    if (!activeSession) {
+      setShowPopup(false);
+      setAuthMode("login");
+      setShowAuthPopup(true);
+      toast.info("Session expiree. Reconnectez-vous pour valider l'enchere.");
+      return;
+    }
+
+    if (bidValue === null || bidValue === undefined) {
+      toast.error("Montant d'enchere manquant.");
+      return;
+    }
+
     if (!bidderProfile?.pseudo || !bidderProfile?.country) {
       toast.error("Renseignez pseudo et pays promu dans votre profil.");
       return;
@@ -531,6 +730,8 @@ const Product = () => {
         country: bidderProfile.country,
         user_id: user.id,
         product_id: id,
+        accepted_auto_debit_terms: true,
+        auto_debit_percentage: 50,
       },
     ]);
 
@@ -544,6 +745,7 @@ const Product = () => {
     setShowPopup(false);
     await fetchBids();
     setFormData({ message: "" });
+    setBidValue(null);
   };
 
   const currentIndex = productIds.findIndex((productId) => productId === id);
@@ -559,7 +761,12 @@ const Product = () => {
 
   return (
     <div className="main--box">
-      <Countdown />
+      <Countdown
+        endAt={product.auction_end_at}
+        onComplete={() => {
+          setCountdownDone(true);
+        }}
+      />
 
       <div className="big--box">
         <div className="images--box">
@@ -597,6 +804,29 @@ const Product = () => {
       <Enchere onBidSubmit={handleBidSubmit} bids={bids} />
 
       <Icons />
+      {stripeLoading ? <p className="auth-otp-hint">Preparation du paiement securise...</p> : null}
+
+      {showStripePopup && (
+        <div className="popup-overlay">
+          <div className="stripe-popup">
+            <h2>Verification paiement</h2>
+            <StripePayment
+              requiresCard={!stripeStatus?.hasPaymentMethod}
+              setupIntentClientSecret={stripeStatus?.setupIntentClientSecret || ""}
+              consentText={
+                stripeStatus?.consentText ||
+                "En encherissant vous acceptez d'etre debite automatiquement de 50% du montant de votre mise si vous remportez l'enchere. Les 50% restants seront a regler en direct lors du rendez-vous essayage."
+              }
+              userEmail={user?.email || ""}
+              onCompleted={handleStripeCompleted}
+              onCancel={() => {
+                setShowStripePopup(false);
+                setStripeStatus(null);
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {showPopup && (
         <div className="popup-overlay">
@@ -633,9 +863,11 @@ const Product = () => {
               className="product-popup-close"
               onClick={() => {
                 setShowAuthPopup(false);
+                clearRecoveryParamsFromUrl();
                 setAuthMode("login");
                 setOtpContext(null);
                 setOtpCode("");
+                setResetPassword("");
               }}
               aria-label="Fermer"
             >
@@ -644,6 +876,8 @@ const Product = () => {
             <h3>
               {authMode === "signup"
                 ? "Creer un compte"
+                : authMode === "reset"
+                  ? "Nouveau mot de passe"
                 : authMode === "otp"
                   ? "Verification SMS"
                 : authMode === "recover"
@@ -783,6 +1017,17 @@ const Product = () => {
                 </>
               )}
 
+              {authMode === "reset" && (
+                <input
+                  type="password"
+                  name="resetPassword"
+                  placeholder="Nouveau mot de passe"
+                  value={resetPassword}
+                  onChange={(event) => setResetPassword(event.target.value)}
+                  required
+                />
+              )}
+
               {(authMode === "login" || authMode === "signup") && (
                 <>
                   <input
@@ -807,6 +1052,8 @@ const Product = () => {
               <button type="submit">
                 {authMode === "signup"
                   ? "S'inscrire"
+                  : authMode === "reset"
+                    ? "Enregistrer le nouveau mot de passe"
                   : authMode === "otp"
                     ? "Valider le code"
                   : authMode === "recover"
@@ -824,6 +1071,18 @@ const Product = () => {
                     setAuthMode("login");
                     setOtpContext(null);
                     setOtpCode("");
+                  }}
+                >
+                  Retour a la connexion
+                </button>
+              ) : authMode === "reset" ? (
+                <button
+                  type="button"
+                  className="auth-inline-switch"
+                  onClick={() => {
+                    clearRecoveryParamsFromUrl();
+                    setResetPassword("");
+                    setAuthMode("login");
                   }}
                 >
                   Retour a la connexion

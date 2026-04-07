@@ -3,6 +3,15 @@ import { supabase } from "./supabase";
 const parseFunctionError = async (error, fallbackMessage) => {
   if (!error) return fallbackMessage;
 
+  const rawMessage = String(error?.message || "");
+  if (
+    rawMessage.includes("FunctionsHttpError") ||
+    rawMessage.includes("401") ||
+    rawMessage.toLowerCase().includes("unauthorized")
+  ) {
+    return "OTP indisponible (401). Verifiez que la fonction sms-otp est deployee avec --no-verify-jwt.";
+  }
+
   try {
     const response = error.context;
     if (!response || typeof response.clone !== "function") {

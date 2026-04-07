@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { supabase } from "../lib/supabase";
@@ -40,12 +40,17 @@ const Signup = ({ initialMode = "signup" }) => {
   const [otpContext, setOtpContext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const recoveryFlowRef = useRef(false);
 
   useEffect(() => {
     setMode(initialMode);
     setOtpContext(null);
     setOtpCode("");
   }, [initialMode]);
+
+  useEffect(() => {
+    recoveryFlowRef.current = isRecoveryFlow;
+  }, [isRecoveryFlow]);
 
   const handleSignup = async () => {
     const normalizedPhone = normalizePhoneNumber(phone);
@@ -123,9 +128,10 @@ const Signup = ({ initialMode = "signup" }) => {
 
     const otpPhone = normalizePhoneNumber(profileData?.phone || "");
     if (!otpPhone) {
-      await supabase.auth.signOut();
-      setErrorMessage("Aucun numero SMS configure sur ce compte.");
-      toast.error("Aucun numero SMS configure sur ce compte.");
+      setOtpContext(null);
+      setOtpCode("");
+      toast.info("Connexion effectuee. Ajoutez un numero SMS dans votre profil pour activer l'OTP.");
+      navigate("/");
       return;
     }
 
@@ -224,13 +230,19 @@ const Signup = ({ initialMode = "signup" }) => {
         });
 
         if (error) {
-          setErrorMessage(error.message || "Impossible de changer le mot de passe.");
-          toast.error(error.message || "Impossible de changer le mot de passe.");
+          const message =
+            error.message?.toLowerCase().includes("jwt")
+              ? "Lien de reinitialisation invalide ou expire. Demandez un nouveau lien."
+              : error.message || "Impossible de changer le mot de passe.";
+          setErrorMessage(message);
+          toast.error(message);
           return;
         }
 
         setResetPassword("");
         setIsRecoveryFlow(false);
+        recoveryFlowRef.current = false;
+        window.history.replaceState({}, document.title, window.location.pathname);
         setMode("login");
         toast.success("Mot de passe mis a jour. Connectez-vous.");
         return;
@@ -253,21 +265,41 @@ const Signup = ({ initialMode = "signup" }) => {
   };
 
   useEffect(() => {
-    const hash = window.location.hash || "";
-    const search = window.location.search || "";
-    const isRecoveryLink = hash.includes("type=recovery") || search.includes("type=recovery");
+    const detectRecoveryFromUrl = async () => {
+      const hash = window.location.hash || "";
+      const search = window.location.search || "";
+      const searchParams = new URLSearchParams(search);
+      const hasRecoveryCode = Boolean(searchParams.get("code"));
+      const isRecoveryLink =
+        hash.includes("type=recovery") ||
+        search.includes("type=recovery") ||
+        searchParams.get("type") === "recovery" ||
+        searchParams.has("token_hash");
 
-    if (isRecoveryLink) {
-      setIsRecoveryFlow(true);
-      setMode("reset");
-      setOtpContext(null);
-      setOtpCode("");
-      toast.info("Lien valide. Choisissez un nouveau mot de passe.");
-    }
+      if (hasRecoveryCode) {
+        const { error } = await supabase.auth.exchangeCodeForSession(searchParams.get("code"));
+        if (error) {
+          toast.error("Lien de recuperation invalide ou expire.");
+          return;
+        }
+      }
+
+      if (isRecoveryLink || hasRecoveryCode) {
+        setIsRecoveryFlow(true);
+        recoveryFlowRef.current = true;
+        setMode("reset");
+        setOtpContext(null);
+        setOtpCode("");
+        toast.info("Lien valide. Choisissez un nouveau mot de passe.");
+      }
+    };
+
+    detectRecoveryFromUrl();
 
     const { data: listener } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
         setIsRecoveryFlow(true);
+        recoveryFlowRef.current = true;
         setMode("reset");
         setOtpContext(null);
         setOtpCode("");
@@ -275,7 +307,7 @@ const Signup = ({ initialMode = "signup" }) => {
       }
 
       if (event === "SIGNED_IN") {
-        if (isRecoveryFlow) return;
+        if (recoveryFlowRef.current) return;
         navigate("/");
       }
     });
@@ -283,7 +315,7 @@ const Signup = ({ initialMode = "signup" }) => {
     return () => {
       listener?.subscription?.unsubscribe();
     };
-  }, [isRecoveryFlow, navigate]);
+  }, [navigate]);
 
   return (
     <div className="auth-container">
@@ -449,7 +481,9 @@ const Signup = ({ initialMode = "signup" }) => {
             className="auth-toggle"
             onClick={() => {
               setIsRecoveryFlow(false);
+              recoveryFlowRef.current = false;
               setResetPassword("");
+              window.history.replaceState({}, document.title, window.location.pathname);
               setMode("login");
             }}
           >
