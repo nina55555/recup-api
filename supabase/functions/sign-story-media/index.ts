@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
         if (row.story_image_path) {
           const { data } = await adminClient.storage
             .from(bucket)
-            .createSignedUrl(row.story_image_path, 60 * 60);
+            .createSignedUrl(row.story_image_path, 60 * 60 * 24);
 
           result.storyImageUrl = data?.signedUrl || "";
         }
@@ -74,7 +74,7 @@ Deno.serve(async (req) => {
         if (row.story_video_path) {
           const { data } = await adminClient.storage
             .from(bucket)
-            .createSignedUrl(row.story_video_path, 60 * 60);
+            .createSignedUrl(row.story_video_path, 60 * 60 * 24);
 
           result.storyVideoUrl = data?.signedUrl || "";
         }

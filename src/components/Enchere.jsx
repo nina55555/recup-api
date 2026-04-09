@@ -15,6 +15,39 @@ const Enchere = ({ onBidSubmit, bids }) => {
   const lastBid = bids.length > 0 ? Math.max(...bids.map((b) => b.amount)) : MIN_BID;
 
   useEffect(() => {
+    const preloadBook = new Image();
+    preloadBook.fetchPriority = "high";
+    preloadBook.decoding = "async";
+    preloadBook.src = livreImage;
+
+    const existing = document.querySelector(`link[data-book-preload="${livreImage}"]`);
+    if (!existing) {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = livreImage;
+      link.setAttribute("data-book-preload", livreImage);
+      document.head.appendChild(link);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!selectedStory) return;
+
+    if (selectedStory.storyImageUrl) {
+      const preloadImage = new Image();
+      preloadImage.decoding = "async";
+      preloadImage.src = selectedStory.storyImageUrl;
+    }
+
+    if (selectedStory.storyVideoUrl) {
+      const preloadVideo = document.createElement("video");
+      preloadVideo.preload = "metadata";
+      preloadVideo.src = selectedStory.storyVideoUrl;
+    }
+  }, [selectedStory]);
+
+  useEffect(() => {
     if (bids.length > 0) {
       setLastBidIndex(0);
       setTimeout(() => setLastBidIndex(null), 2000);
@@ -79,6 +112,15 @@ const Enchere = ({ onBidSubmit, bids }) => {
 
   return (
     <div className="enchere-container">
+      <img
+        src={livreImage}
+        alt=""
+        aria-hidden="true"
+        className="book-image-preload"
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+      />
       <div className="bid-input-box">
         <input
           type="number"
@@ -171,12 +213,16 @@ const Enchere = ({ onBidSubmit, bids }) => {
                     src={selectedStory.storyVideoUrl}
                     controls
                     playsInline
+                    preload="metadata"
                   />
                 ) : selectedStory?.storyImageUrl ? (
                   <img
                     className="book-media"
                     src={selectedStory.storyImageUrl}
                     alt="Illustration de story"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                   />
                 ) : (
                   <div className="book-media-empty">Aucun media ajoute</div>

@@ -12,6 +12,14 @@
     margin: 2px auto;
 }
 
+.book-image-preload{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
 .bid-input-box{
     /*background-color: #e45fdd;*/
     display:flex;
