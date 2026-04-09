@@ -51,6 +51,27 @@ const Enchere = ({ onBidSubmit, bids }) => {
     setShowBook(true);
   };
 
+  const socialEntries = selectedStory?.socialLinks
+    ? Object.entries(selectedStory.socialLinks).filter(([, url]) => Boolean(url))
+    : [];
+
+  const formatSocialDisplay = (platform, url) => {
+    try {
+      const parsed = new URL(url);
+      const rawPath = parsed.pathname.replace(/^\/+|\/+$/g, "");
+      const handle = rawPath.split("/")[0];
+      if (handle && !["share", "p", "reel", "reels", "in"].includes(handle.toLowerCase())) {
+        return `@${handle}`;
+      }
+      return platform === "x" ? "@x" : `@${platform}`;
+    } catch (_error) {
+      const trimmed = String(url || "").trim();
+      if (trimmed.startsWith("@")) return trimmed;
+      if (!trimmed) return `@${platform}`;
+      return `@${trimmed}`;
+    }
+  };
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return `${date.toLocaleDateString()} à ${date.toLocaleTimeString()}`;
@@ -161,15 +182,15 @@ const Enchere = ({ onBidSubmit, bids }) => {
                   <div className="book-media-empty">Aucun media ajoute</div>
                 )}
 
-                {selectedStory?.socialLinks &&
-                  Object.entries(selectedStory.socialLinks).map(
-                    ([key, url]) =>
-                      url && (
-                        <a key={key} href={url} target="_blank" rel="noopener noreferrer">
-                          {key.charAt(0).toUpperCase() + key.slice(1)}
-                        </a>
-                      )
-                  )}
+                {socialEntries.length > 0 && (
+                  <div className="book-social-links">
+                    {socialEntries.map(([key, url]) => (
+                      <a key={key} href={url} target="_blank" rel="noopener noreferrer">
+                        {formatSocialDisplay(key, url)}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="book-layer book-layer-right">
