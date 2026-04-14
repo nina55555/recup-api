@@ -12,16 +12,21 @@
 
 .containBox{
     /*background-color: darksalmon;*/
+    background-color: rgb(255, 255, 253);
     padding: 0px;
     width: 100%;
     max-width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     position: relative;
     overflow-x: hidden;
     padding-top: 80px;
+    box-sizing: border-box;
 }
 
 
@@ -49,12 +54,13 @@
     max-height: 100%;
     */
     /*width: auto;*/
-    height: calc(100vh - 80px);
+    height: 100%;
     /*
     margin: 5px;
     padding: 5px;
     */
     border: 1px solid black;
+    border-bottom: 0;
     /*animation: transitionIn 8.5s;*/
     position: relative;
     overflow: hidden;
@@ -62,15 +68,16 @@
 
 .welcome-video-bg{
     position: absolute;
-    top: 30px;
+    top: 0;
     left: 0;
     right: 0;
-    bottom: 25px;
+    bottom: 0;
     height: auto;
     z-index: 0;
     pointer-events: none;
     opacity: 0.2;
     transition: opacity 1.2s ease;
+    background: rgb(255, 255, 253);
 }
 
 .welcome-video-bg video{
@@ -100,7 +107,7 @@
 .welcome-cta{
     position: absolute;
     left: 50%;
-    bottom: 25px;
+    bottom: calc(var(--social-footer-height, 50px) + 5px);
     transform: translateX(-50%);
     z-index: 0;
     display: flex;
@@ -133,8 +140,7 @@
 }
 
 .btn-decouvrezz.welcome-discover-btn{
-   
-    width: 40px;
+    width: min(100%, 90%);
 }
 
 .welcome-cta-text{
@@ -166,13 +172,13 @@
     box-shadow: 10px 20px 20px ;
     /*margin: 15px;
     padding: 35px;*/
-    z-index: 1;
+    z-index: 10;
     /*z-index: 0;*/
-    width: 100%;
+    width: auto;
     border-radius: 5px;
     /*height: auto;*/
-    height: calc(100% - 12px);
-    margin: 0 auto;
+    height: auto;
+    margin: 0;
     /*display: none;*/
     padding: 18px 15px 12px;
     flex-direction: column;
@@ -185,7 +191,14 @@
     /*
     animation: transitionScale 2s;
     */
-    position: relative;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--social-footer-height, 50px) + 5px);
+    display: flex;
+    gap: 8px;
+    overflow: hidden;
 }
 
 .welcome-close{
@@ -224,9 +237,13 @@
     line-height: 1.7;
     letter-spacing: 0.03em;
     font-family: var(--font-body);
-    width: 90%;
-    height: 64%;
-        margin: 58px auto 0 auto;
+    width: 92%;
+    height: auto;
+    margin: 40px auto 0 auto;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     /*animation: transitionScalet 2s;*/
 }
@@ -258,9 +275,14 @@
 
 
 .welcometextt h1{
-    
-    margin-top: 25px;
+    margin-top: 12px;
+    margin-bottom: 10px;
     font-size: 20px;
+}
+
+.textbox > .bigg-box{
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 
@@ -268,7 +290,7 @@
 .welcometextt h1::before{
     content: "";
     position: absolute;
-    top: 425px;
+    top: 370px;
     left: 50%;
     transform: translateX(-50%);
     width: 78px;
@@ -278,7 +300,16 @@
 
 .marbreG{
     /*display: flex;*/
-    animation: transitionSlideg 10s;  
+    animation: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1000001;
+    pointer-events: none;
+    background-image: url(src/assets/Capture-marbre2.PNG);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transform: translateX(0);
 }
 
 
@@ -286,7 +317,24 @@
 .marbreD{
     /*display: flex;*/
     /*transition: 3s;*/
-    animation: transitionSlided 10s;
+    animation: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1000001;
+    pointer-events: none;
+    background-image: url(src/assets/Capture-marbre2.PNG);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transform: translateX(0);
+}
+
+.marbreG.animate{
+    animation: transitionSlideg 10s forwards;
+}
+
+.marbreD.animate{
+    animation: transitionSlided 10s forwards;
 }
 
 
@@ -298,24 +346,13 @@
 
 @keyframes transitionSlided {
     from{ 
-        grid-row: 1/3;
-        grid-column: 1/2;
-        justify-content: center;
-        align-items: center;
-        padding: 0px;
-        width: 1000px;
-        height: 100vh ;
-        position: relative;
-        background-image: url(src/assets/Capture-marbre2.PNG) ;
-        /*top: 50%;*/
-        top: -50px;
-        left: 150px;
-        z-index: 3;
-        /*transition: 3s;*/
+        transform: translateX(0);
+        opacity: 1;
     }
     to{
-        transform: translateX(400%);
-        display: none;
+        transform: translateX(100%);
+        opacity: 0;
+        visibility: hidden;
     }
 }
 
@@ -325,26 +362,13 @@
 
 @keyframes transitionSlideg {
     from{ 
-        grid-row: 1/3;
-        grid-column: 1/2;
-        justify-content: center;
-        align-items: center;
-        padding: 0px;
-        /*width: 50vw;*/
-        width: 1000px;
-        height: 100vh ;
-        position: relative;
-        background-image: url(src/assets/Capture-marbre2.PNG) ;
-        /*top: 50%;*/
-        top: -50px;
-        /*left: -200%;*/
-        right: 800px;
-        z-index: 2;
-        transition: 3s;
+        transform: translateX(0);
+        opacity: 1;
     }
     to{
-        transform: translateX(-400%);
-        display: none;
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
     }
 }
 
@@ -379,15 +403,15 @@
 }
 
 .welcome-video-bg{
-    top: 30px;
-    bottom: 25px;
+    top: 0;
+    bottom: 0;
     height: auto;
 }
 
 .welcome-cta{
     /*background-color: pink;*/
     height: 118px;
-    bottom: 25px;
+    bottom: calc(var(--social-footer-height, 50px) + 5px);
     gap: 3px;
 }
 
@@ -425,12 +449,12 @@
 .welcometextt{
 
 
-    margin: 58px auto 0 auto;
+    margin: 34px auto 0 auto;
     padding: 5px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 60%;
+    height: auto;
     font-size: 12px;
     line-height: 1.55;
 }
@@ -478,7 +502,8 @@
 
 
 .welcometextt h1{
-    margin-top: 85px;
+    margin-top: 14px;
+    margin-bottom: 8px;
     font-size: 17px;
 }
 
@@ -488,7 +513,7 @@
     content: "";
     position: absolute;
     /*top: 115px;*/
-    top: 375px;
+    top: 330px;
     left: 50%;
     transform: translateX(-50%);
     width: 78px;

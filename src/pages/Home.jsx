@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import videoShow from "../assets/vid-home2.mp4";
 import { X } from "lucide-react";
 import Collectiontype from '../components/Collectiontype'
+import Icons from '../components/Icons';
 import '../css/Home.css'
 
 
 const Home = () => {
     const [isTextboxOpen, setIsTextboxOpen] = useState(true);
+    const [isVideoReady, setIsVideoReady] = useState(false);
 
     return (
         <div className="containBox">
@@ -15,9 +17,18 @@ const Home = () => {
             <div className='mainBoxx-welcome'>
                         <h2 className="welcome-video-title">Vous l'avez fait !</h2>
                         <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
-                            <video src={videoShow} autoPlay muted loop playsInline preload="auto" />
+                            <video
+                                src={videoShow}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                preload="auto"
+                                onLoadedData={() => setIsVideoReady(true)}
+                                onCanPlay={() => setIsVideoReady(true)}
+                            />
                         </div>
-                        <div className='marbreG' >
+                        <div className={`marbreG ${isVideoReady ? "animate" : ""}`} >
                             {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
                         </div>
                         
@@ -52,11 +63,12 @@ const Home = () => {
                                 <Link to="/Collection">Découvrez la collection</Link>
                             </button>
                         </div>
-                        <div className='marbreD'>
+                        <div className={`marbreD ${isVideoReady ? "animate" : ""}`}>
                             {/*<img src='src/assets/Capture marbre 2.PNG'></img>*/}
                         </div> 
             </div>
 
+            <Icons />
         </div>
       
     );

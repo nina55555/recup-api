@@ -1,23 +1,32 @@
-/* Container principal des icônes */
+/* Container principal des icones */
+:root {
+  --social-footer-height: 50px;
+  --social-footer-text-offset: 20px;
+  --social-footer-total-space: calc(var(--social-footer-height) + var(--social-footer-text-offset) + 2px);
+}
+
 .icons {
   background-color: white;
   border-top: 1px solid black;
   width: 100%;
-  height: 50px; /* hauteur fixe pour bien centrer les icônes */
-  position: fixed; /* reste en bas de l'écran */
+  height: var(--social-footer-height); /* hauteur fixe pour bien centrer les icones */
+  position: fixed; /* reste en bas de l'ecran */
   bottom: 0;
   left: 0;
   z-index: 100;
   display: flex;
   justify-content: center; /* centre horizontalement */
-  align-items: center;     /* centre verticalement */
+  align-items: center; /* centre verticalement */
   font-size: 14px;
+  contain: layout paint;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-/* Texte au-dessus des icônes */
+/* Texte au-dessus des icones */
 .icons .text-icon {
   position: absolute;
-  top: -20px; /* légèrement au-dessus des icônes */
+  top: calc(-1 * var(--social-footer-text-offset)); /* legerement au-dessus des icones */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -25,7 +34,7 @@
   color: #000;
 }
 
-/* Liste des icônes */
+/* Liste des icones */
 .icon-items {
   display: flex;
   justify-content: center;
@@ -38,13 +47,13 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 150px; /* largeur totale du groupe d'icônes */
+  width: 150px; /* largeur totale du groupe d'icones */
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Styles pour chaque icône <li> */
+/* Styles pour chaque icone <li> */
 .icon-items ul li {
   display: flex;
   justify-content: center;
@@ -59,19 +68,31 @@
   transform: scale(1.2);
 }
 
-/* Lien autour de l'icône */
+/* Lien autour de l'icone */
 .icon-items ul li a {
   color: inherit;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-items ul li svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 /* Media queries pour mobile */
 @media (max-width: 750px) {
+  :root {
+    --social-footer-height: 55px;
+    --social-footer-text-offset: 18px;
+  }
+
   .icons {
-    height: 55px;
     font-size: 12px;
   }
 
@@ -85,6 +106,5 @@
 
   .icons .text-icon {
     font-size: 12px;
-    top: -18px;
   }
 }

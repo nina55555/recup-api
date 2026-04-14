@@ -5,8 +5,7 @@
   box-sizing: border-box;
 }
 
-body {
-  background: #111;
+.slider-container {
   font-family: Arial, Helvetica, sans-serif;
 }
 

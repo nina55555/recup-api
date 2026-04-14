@@ -48,6 +48,7 @@ html{
 
 body{
   /*background-color: aquamarine;*/
+  background-color: #fff;
   width: 100%;
   min-height: 100%;
 }
@@ -57,7 +58,7 @@ body{
 
 #root{
   /*background-color: brown;*/
-  
+  background-color: #fff;
   width: 100%;
   min-height: 100%;
 
@@ -76,6 +77,7 @@ body{
 /*****/
 
 .App{
+  background-color: #fff;
   width: 100%;
   min-height: 100vh;
 }

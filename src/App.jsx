@@ -47,25 +47,32 @@ function scrollToSectionId(id) {
 }
 
 function LandingPage() {
+  const sectionStyle = {
+    minHeight: "100vh",
+    position: "relative",
+    width: "100%",
+    overflowX: "hidden",
+  };
+
   return (
     <main style={{ width: "100%", overflowX: "hidden" }}>
-      <section id="home" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
+      <section id="home" style={sectionStyle}>
         <Home />
       </section>
 
-      <section id="collection" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
+      <section id="collection" style={sectionStyle}>
         <Collection />
       </section>
 
-      <section id="book" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
+      <section id="book" style={sectionStyle}>
         <Book />
       </section>
 
-      <section id="about" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
+      <section id="about" style={sectionStyle}>
         <About />
       </section>
 
-      <section id="contact" style={{ minHeight: "100vh", position: "relative", width: "100%", overflowX: "hidden" }}>
+      <section id="contact" style={sectionStyle}>
         <Contact />
       </section>
     </main>
