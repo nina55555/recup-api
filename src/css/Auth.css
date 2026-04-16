@@ -115,3 +115,13 @@ cursor:pointer;
 text-decoration:underline;
 
 }
+
+.auth-legal {
+font-size:12px;
+color:#d6d6d6;
+}
+
+.auth-legal a {
+color:#f0c76a;
+text-decoration:underline;
+}

@@ -35,6 +35,9 @@ function Icons() {
       <div className="text-icon">
         <p>Follow us and be part of the experience </p>
       </div>
+      <div className="legal-link">
+        <a href="/cgv">CGV</a>
+      </div>
       <div className="icon-items">
         <ul>
           <li>

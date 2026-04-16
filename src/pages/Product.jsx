@@ -824,6 +824,9 @@ const Product = () => {
                 setStripeStatus(null);
               }}
             />
+            <p className="auth-otp-hint">
+              Voir les conditions: <a href="/cgv">CGV</a>
+            </p>
           </div>
         </div>
       )}
@@ -848,6 +851,10 @@ const Product = () => {
                 value={formData.message}
                 onChange={handleChange}
               />
+
+              <p className="bid-legal-link">
+                En confirmant votre enchere, vous acceptez les <a href="/cgv">CGV</a>.
+              </p>
 
               <button type="submit">Valider l'enchere</button>
             </form>

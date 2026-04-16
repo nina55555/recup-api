@@ -440,6 +440,10 @@ const Signup = ({ initialMode = "signup" }) => {
           </div>
         )}
 
+        <p className="auth-legal">
+          En continuant, vous acceptez les <a href="/cgv">CGV</a>.
+        </p>
+
         <button type="submit" disabled={loading}>
           {loading
             ? mode === "signup"

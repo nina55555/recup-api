@@ -34,6 +34,18 @@
   color: #000;
 }
 
+.icons .legal-link {
+  position: absolute;
+  right: 14px;
+  top: calc(-1 * var(--social-footer-text-offset));
+  font-size: 12px;
+}
+
+.icons .legal-link a {
+  color: #111;
+  text-decoration: underline;
+}
+
 /* Liste des icones */
 .icon-items {
   display: flex;
@@ -106,5 +118,10 @@
 
   .icons .text-icon {
     font-size: 12px;
+  }
+
+  .icons .legal-link {
+    right: 10px;
+    font-size: 11px;
   }
 }

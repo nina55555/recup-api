@@ -15,6 +15,7 @@ import Product from "./pages/Product";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import Cgv from "./pages/Cgv";
 
 const queryClient = new QueryClient();
 
@@ -118,6 +119,7 @@ function AppContent() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/cgv" element={<Cgv />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/collectionShow" element={<CollectionShow />} />
         <Route path="/book" element={<Book />} />

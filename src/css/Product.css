@@ -442,6 +442,23 @@
   line-height: 1.4;
 }
 
+.auth-otp-hint a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.bid-legal-link {
+  margin: 4px 0 10px;
+  font-size: 12px;
+  color: #5f5131;
+  line-height: 1.4;
+}
+
+.bid-legal-link a {
+  color: inherit;
+  text-decoration: underline;
+}
+ 
 /* POPUP ERREUR */
 .error-popup {
   position: fixed;

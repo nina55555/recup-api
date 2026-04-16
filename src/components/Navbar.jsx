@@ -136,6 +136,11 @@ export default function Navbar() {
     navigate("/profile");
   };
 
+  const goToCgv = () => {
+    setMenuOpen(false);
+    navigate("/cgv");
+  };
+
   return (
     <>
       <nav
@@ -201,6 +206,13 @@ export default function Navbar() {
             >
               Contact
             </button>
+            <button
+              type="button"
+              onClick={goToCgv}
+              className="ml-4 text-[12px] uppercase tracking-wider text-gray-600 transition-all duration-300 hover:text-[#6d5520] hover:tracking-[0.2em]"
+            >
+              CGV
+            </button>
           </div>
 
           <button
@@ -221,7 +233,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-white flex flex-col items-center justify-center gap-10 z-40"
+            className="fixed inset-0 bg-white flex flex-col items-center justify-center gap-6 px-4 z-40"
             style={{ zIndex: 1000002 }}
           >
             <button
@@ -246,7 +258,7 @@ export default function Navbar() {
               </motion.div>
             )}
 
-            {[...navLinks, ...(user ? [{ label: "Profile", id: "profile" }] : []), { label: "Contact", id: "contact" }].map((link, i) => (
+            {[...navLinks, ...(user ? [{ label: "Profile", id: "profile" }] : []), { label: "Contact", id: "contact" }, { label: "CGV", id: "cgv" }].map((link, i) => (
               <motion.div
                 key={link.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -255,8 +267,14 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  onClick={() => (link.id === "profile" ? goToProfile() : goToSection(link.id))}
-                  className="rounded-full border border-[#cdb27a]/55 bg-[#f4ecdc] px-6 py-2 text-2xl uppercase tracking-widest text-[#5a4620] transition-all duration-300 hover:bg-[#d8bc82] hover:text-[#2e220e]"
+                  onClick={() =>
+                    link.id === "profile"
+                      ? goToProfile()
+                      : link.id === "cgv"
+                        ? goToCgv()
+                        : goToSection(link.id)
+                  }
+                  className="w-[min(88vw,320px)] rounded-full border border-[#cdb27a]/55 bg-[#f4ecdc] px-4 py-2 text-center text-[clamp(14px,5vw,22px)] uppercase tracking-[0.12em] text-[#5a4620] leading-tight transition-all duration-300 hover:bg-[#d8bc82] hover:text-[#2e220e]"
                 >
                   {link.label}
                 </button>
