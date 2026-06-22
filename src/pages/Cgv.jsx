@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Cgv = () => {
+  const [accepted, setAccepted] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const returnTo = useMemo(() => {
+    const params = new URLSearchParams(location.search || "");
+    const raw = params.get("returnTo") || "/";
+    try {
+      if (raw.startsWith("/")) return raw;
+    } catch (_) {
+      // no-op
+    }
+    return "/";
+  }, [location.search]);
+
   return (
     <main style={{ width: "100%", minHeight: "100vh", padding: "120px 24px 90px" }}>
       <section style={{ maxWidth: "980px", margin: "0 auto", color: "#111", lineHeight: 1.7 }}>
@@ -43,6 +59,51 @@ const Cgv = () => {
           En cas de litige, le client peut d&apos;abord contacter le support. A defaut de resolution amiable, il peut saisir le
           mediateur de la consommation designe par le vendeur.
         </p>
+
+        <div
+          style={{
+            marginTop: "32px",
+            padding: "16px",
+            border: "1px solid rgba(0,0,0,0.15)",
+            borderRadius: "12px",
+            background: "rgba(255,255,255,0.9)",
+          }}
+        >
+          <label
+            style={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "flex-start",
+              fontSize: "14px",
+              lineHeight: 1.5,
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={accepted}
+              onChange={(event) => setAccepted(event.target.checked)}
+              style={{ marginTop: "2px" }}
+            />
+            <span>J&apos;ai lu et j&apos;accepte les CGV.</span>
+          </label>
+
+          <button
+            type="button"
+            disabled={!accepted}
+            onClick={() => navigate(returnTo)}
+            style={{
+              marginTop: "14px",
+              padding: "10px 16px",
+              borderRadius: "999px",
+              border: "1px solid rgba(95,81,49,0.45)",
+              background: accepted ? "linear-gradient(135deg, #f4ecdc 0%, #d8bc82 100%)" : "#eee",
+              color: "#2f281d",
+              cursor: accepted ? "pointer" : "not-allowed",
+            }}
+          >
+            Retourner a la page precedente
+          </button>
+        </div>
       </section>
     </main>
   );

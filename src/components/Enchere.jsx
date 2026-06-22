@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../css/Enchere.css";
 import livreImage from "../assets/blankbook.jpg";
 
-const Enchere = ({ onBidSubmit, bids }) => {
+const Enchere = ({ onBidSubmit, bids, initialBidValue = null }) => {
   const [value, setValue] = useState("");
   const [showError, setShowError] = useState(false);
   const [lastBidIndex, setLastBidIndex] = useState(null);
@@ -55,6 +55,12 @@ const Enchere = ({ onBidSubmit, bids }) => {
       if (listRef.current) listRef.current.scrollTop = 0;
     }
   }, [bids]);
+
+  useEffect(() => {
+    if (Number.isFinite(Number(initialBidValue)) && Number(initialBidValue) > 0) {
+      setValue(String(Number(initialBidValue)));
+    }
+  }, [initialBidValue]);
 
   const handleSubmit = () => {
     const numericValue = Number(value);

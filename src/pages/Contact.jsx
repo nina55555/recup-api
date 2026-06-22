@@ -1,7 +1,18 @@
 
 import { useMemo, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../css/Contact.css";
+
+const SUBJECT_OPTIONS = [
+  "Support enchere",
+  "Paiement Stripe",
+  "Probleme de compte / OTP",
+  "Rendez-vous essayage",
+  "Partenariat / Collaboration",
+  "Autre demande",
+];
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -11,7 +22,6 @@ export default function Contact() {
     message: "",
   });
   const [sending, setSending] = useState(false);
-  const [feedback, setFeedback] = useState("");
 
   const canSubmit = useMemo(() => {
     return (
@@ -32,7 +42,6 @@ export default function Contact() {
     if (!canSubmit || sending) return;
 
     setSending(true);
-    setFeedback("");
 
     const payload = {
       name: formData.name.trim(),
@@ -43,7 +52,7 @@ export default function Contact() {
 
     const { error } = await supabase.from("contact_messages").insert([payload]);
     if (error) {
-      setFeedback("Envoi impossible pour le moment. Reessayez.");
+      toast.error("Envoi impossible pour le moment. Reessayez.");
       setSending(false);
       return;
     }
@@ -54,7 +63,7 @@ export default function Contact() {
       subject: "",
       message: "",
     });
-    setFeedback("Message enregistre avec succes.");
+    toast.success("Message envoye avec succes.");
     setSending(false);
   };
 
@@ -92,14 +101,21 @@ export default function Contact() {
 
           <label className="contact-field">
             <span>Sujet</span>
-            <input
-              type="text"
+            <select
               name="subject"
-              placeholder="Sujet de votre demande"
               value={formData.subject}
               onChange={handleChange}
               required
-            />
+            >
+              <option value="" disabled>
+                Selectionnez un sujet
+              </option>
+              {SUBJECT_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </label>
 
           <label className="contact-field">
@@ -117,10 +133,9 @@ export default function Contact() {
           <button type="submit" className="contact-submit" disabled={!canSubmit || sending}>
             {sending ? "Envoi..." : "Envoyer"}
           </button>
-
-          {feedback ? <p className="contact-feedback">{feedback}</p> : null}
         </form>
       </div>
+      <ToastContainer />
     </section>
   );
 }

@@ -611,3 +611,32 @@
     line-height: 1.5;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 350px){
+
+
+
+.mainBoxx-welcome{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.textbox{
+    width: 220px;
+    margin: 0 auto;
+  
+}
+}

@@ -40,6 +40,7 @@ const Signup = ({ initialMode = "signup" }) => {
   const [otpContext, setOtpContext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showWaitingPopup, setShowWaitingPopup] = useState(false);
   const recoveryFlowRef = useRef(false);
 
   useEffect(() => {
@@ -60,8 +61,24 @@ const Signup = ({ initialMode = "signup" }) => {
       return;
     }
 
+    const waitingEmail = email.trim().toLowerCase();
+    const addToWaitingList = async () => {
+      await supabase.from("waiting_list").upsert(
+        [
+          {
+            email: waitingEmail,
+            source: "signup_submit",
+          },
+        ],
+        {
+          onConflict: "email",
+          ignoreDuplicates: false,
+        }
+      );
+    };
+
     const { data, error: signupError } = await supabase.auth.signUp({
-      email: email.trim().toLowerCase(),
+      email: waitingEmail,
       password,
       options: {
         emailRedirectTo: `${window.location.origin}/signin`,
@@ -69,6 +86,19 @@ const Signup = ({ initialMode = "signup" }) => {
     });
 
     if (signupError) {
+      const message = (signupError.message || "").toLowerCase();
+      const isEmailRateExceeded =
+        message.includes("email rate limit exceeded") ||
+        message.includes("email rate exceeded") ||
+        message.includes("over_email_send_rate_limit");
+
+      if (isEmailRateExceeded) {
+        await addToWaitingList();
+        setShowWaitingPopup(true);
+        toast.info("Inscription a la waiting list confirmee.");
+        return;
+      }
+
       setErrorMessage(signupError.message);
       toast.error(signupError.message);
       return;
@@ -92,6 +122,9 @@ const Signup = ({ initialMode = "signup" }) => {
         return;
       }
 
+      await addToWaitingList();
+
+      setShowWaitingPopup(true);
       toast.success("Compte cree. Verifiez votre email.");
     }
   };
@@ -319,6 +352,33 @@ const Signup = ({ initialMode = "signup" }) => {
 
   return (
     <div className="auth-container">
+      {showWaitingPopup && mode === "signup" && (
+        <div className="waiting-popup-overlay">
+          <div className="waiting-popup-card">
+            <button
+              type="button"
+              className="waiting-popup-close"
+              onClick={() => {
+                setShowWaitingPopup(false);
+              }}
+            >
+              x
+            </button>
+            <h3>Waiting list</h3>
+            <p>
+              Votre compte est cree, vous etes sur la liste en attente du lancement des encheres.
+            </p>
+            <button
+              type="button"
+              className="waiting-popup-ack"
+              onClick={() => setShowWaitingPopup(false)}
+            >
+              Compris
+            </button>
+          </div>
+        </div>
+      )}
+
       <h2>
         {mode === "signup"
           ? "Creer un compte"

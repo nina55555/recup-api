@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Countdown from "../components/Countdown";
 import Icons from "../components/Icons";
 import { supabase } from "../lib/supabase";
@@ -31,11 +31,13 @@ const COUNTRY_OPTIONS = [
 const Product = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [product, setProduct] = useState(null);
   const [productIds, setProductIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
+  const [showWaitingPopup, setShowWaitingPopup] = useState(false);
   const [showStripePopup, setShowStripePopup] = useState(false);
   const [stripeStatus, setStripeStatus] = useState(null);
   const [stripeLoading, setStripeLoading] = useState(false);
@@ -63,6 +65,19 @@ const Product = () => {
   const [bidderProfile, setBidderProfile] = useState(null);
   const [countdownDone, setCountdownDone] = useState(false);
   const [didShowSessionToast, setDidShowSessionToast] = useState(false);
+  const [restoredBidValue, setRestoredBidValue] = useState(null);
+
+  const draftBidValue = pendingBidValue ?? bidValue ?? restoredBidValue;
+  const cgvPath = useMemo(() => {
+    const params = new URLSearchParams(location.search || "");
+    if (Number.isFinite(Number(draftBidValue)) && Number(draftBidValue) > 0) {
+      params.set("bidDraft", String(Number(draftBidValue)));
+    }
+
+    const search = params.toString();
+    const returnTo = `${location.pathname}${search ? `?${search}` : ""}${location.hash}`;
+    return `/cgv?returnTo=${encodeURIComponent(returnTo)}`;
+  }, [draftBidValue, location.hash, location.pathname, location.search]);
 
   const clearRecoveryParamsFromUrl = () => {
     window.history.replaceState({}, document.title, window.location.pathname);
@@ -301,6 +316,20 @@ const Product = () => {
 
     detectRecoveryLink();
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search || "");
+    const rawDraft = params.get("bidDraft");
+    if (!rawDraft) {
+      setRestoredBidValue(null);
+      return;
+    }
+
+    const parsed = Number(rawDraft);
+    if (Number.isFinite(parsed) && parsed > 0) {
+      setRestoredBidValue(parsed);
+    }
+  }, [location.search]);
 
   const isAuctionExpired = () => {
     const endAt = product?.auction_end_at;
@@ -614,8 +643,24 @@ const Product = () => {
         return;
       }
 
+      const waitingEmail = authForm.email.trim().toLowerCase();
+      const addToWaitingList = async () => {
+        await supabase.from("waiting_list").upsert(
+          [
+            {
+              email: waitingEmail,
+              source: "product_signup_popup",
+            },
+          ],
+          {
+            onConflict: "email",
+            ignoreDuplicates: false,
+          }
+        );
+      };
+
       const { data, error } = await supabase.auth.signUp({
-        email: authForm.email,
+        email: waitingEmail,
         password: authForm.password,
         options: {
           emailRedirectTo: "http://localhost:5173",
@@ -623,6 +668,20 @@ const Product = () => {
       });
 
       if (error) {
+        const message = (error.message || "").toLowerCase();
+        const isEmailRateExceeded =
+          message.includes("email rate limit exceeded") ||
+          message.includes("email rate exceeded") ||
+          message.includes("over_email_send_rate_limit");
+
+        if (isEmailRateExceeded) {
+          await addToWaitingList();
+          setShowWaitingPopup(true);
+          toast.info("Inscription a la waiting list confirmee.");
+          setAuthMode("login");
+          return;
+        }
+
         toast.error(error.message);
         return;
       }
@@ -641,7 +700,10 @@ const Product = () => {
           return;
         }
 
+        await addToWaitingList();
+
         toast.success("Compte cree. Verifiez votre email puis connectez-vous.");
+        setShowWaitingPopup(true);
         setAuthMode("login");
       }
 
@@ -801,7 +863,11 @@ const Product = () => {
         </div>
       </div>
 
-      <Enchere onBidSubmit={handleBidSubmit} bids={bids} />
+      <Enchere
+        onBidSubmit={handleBidSubmit}
+        bids={bids}
+        initialBidValue={restoredBidValue}
+      />
 
       <Icons />
       {stripeLoading ? <p className="auth-otp-hint">Preparation du paiement securise...</p> : null}
@@ -825,7 +891,7 @@ const Product = () => {
               }}
             />
             <p className="auth-otp-hint">
-              Voir les conditions: <a href="/cgv">CGV</a>
+              Voir les conditions: <Link to={cgvPath}>CGV</Link>
             </p>
           </div>
         </div>
@@ -853,10 +919,34 @@ const Product = () => {
               />
 
               <p className="bid-legal-link">
-                En confirmant votre enchere, vous acceptez les <a href="/cgv">CGV</a>.
+                En confirmant votre enchere, vous acceptez les <Link to={cgvPath}>CGV</Link>.
               </p>
 
               <button type="submit">Valider l'enchere</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showWaitingPopup && (
+        <div className="popup-overlay">
+          <div className="popup-form popup-auth-form">
+            <button
+              type="button"
+              className="product-popup-close"
+              onClick={() => setShowWaitingPopup(false)}
+              aria-label="Fermer"
+            >
+              x
+            </button>
+            <h3>Waiting list</h3>
+            <form>
+              <p className="auth-otp-hint">
+                Votre compte est cree, vous etes sur la liste en attente du lancement des encheres.
+              </p>
+              <button type="button" onClick={() => setShowWaitingPopup(false)}>
+                Compris
+              </button>
             </form>
           </div>
         </div>

@@ -1,77 +1,79 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import videoShow from "../assets/vid-home2.mp4";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { X } from "lucide-react";
-import Collectiontype from '../components/Collectiontype'
-import Icons from '../components/Icons';
-import '../css/Home.css'
-
+import videoShow from "../assets/vid-home2.mp4";
+import Collectiontype from "../components/Collectiontype";
+import Icons from "../components/Icons";
+import "../css/Home.css";
 
 const Home = () => {
-    const [isTextboxOpen, setIsTextboxOpen] = useState(true);
-    const [isVideoReady, setIsVideoReady] = useState(false);
+  const [isTextboxOpen, setIsTextboxOpen] = useState(true);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
-    return (
-        <div className="containBox">
-
-            <div className='mainBoxx-welcome'>
-                        <h2 className="welcome-video-title">Vous l'avez fait !</h2>
-                        <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
-                            <video
-                                src={videoShow}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                preload="auto"
-                                onLoadedData={() => setIsVideoReady(true)}
-                                onCanPlay={() => setIsVideoReady(true)}
-                            />
-                        </div>
-                        <div className={`marbreG ${isVideoReady ? "animate" : ""}`} >
-                            {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
-                        </div>
-                        
-                        {isTextboxOpen && (
-                        <div className='textbox'>
-                            <button
-                                type="button"
-                                className="welcome-close"
-                                aria-label="Fermer le popup"
-                                onClick={() => setIsTextboxOpen(false)}
-                            >
-                                <X size={18} strokeWidth={1.75} />
-                            </button>
-                            <div className='welcometextt'>
-                                <h2>WELCOME</h2>
-                                    <br/>
-                                    <br/>
-
-                                <p>Si vous êtes arrivé jusqu'à cette page, c'est sans doute parce que nous avons reperé votre charisme et votre aura pour impacter le monde.
-                                <br/>
-                                Entrons ensemble dans cette belle experience stylistique pour une aventure hors du commun.
-                                <br/></p>
-                                <br/>
-                                <h1 className='sign'>IT V</h1>
-                            </div >
-                            <Collectiontype />
-                        </div>
-                        )}
-
-                        <div className="welcome-cta">
-                            <button className="btn-decouvrezz btn-welcomezz welcome-discover-btn">
-                                <Link to="/Collection">Découvrez la collection</Link>
-                            </button>
-                        </div>
-                        <div className={`marbreD ${isVideoReady ? "animate" : ""}`}>
-                            {/*<img src='src/assets/Capture marbre 2.PNG'></img>*/}
-                        </div> 
-            </div>
-
-            <Icons />
+  return (
+    <div className="containBox">
+      <div className="mainBoxx-welcome">
+        <h2 className="welcome-video-title">Vous l'avez fait !</h2>
+        <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
+          <video
+            src={videoShow}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onLoadedData={() => setIsVideoReady(true)}
+            onCanPlay={() => setIsVideoReady(true)}
+          />
         </div>
-      
-    );
+        <div className={`marbreG ${isVideoReady ? "animate" : ""}`}>
+          {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
+        </div>
+
+        {isTextboxOpen && (
+          <div className="textbox">
+            <button
+              type="button"
+              className="welcome-close"
+              aria-label="Fermer le popup"
+              onClick={() => setIsTextboxOpen(false)}
+            >
+              <X size={18} strokeWidth={1.75} />
+            </button>
+            <div className="welcometextt">
+              <h2>WELCOME</h2>
+              <br />
+              <br />
+
+              <p>
+                Si vous etes arrive jusqu'a cette page, c'est sans doute parce que nous
+                avons repere votre charisme et votre aura pour impacter le monde.
+                <br />
+                Entrons ensemble dans cette belle experience stylistique pour une aventure
+                hors du commun.
+                <br />
+              </p>
+              <br />
+              <h1 className="sign">IT V</h1>
+            </div>
+            <Collectiontype />
+          </div>
+        )}
+
+        <div className="welcome-cta">
+          <button className="btn-decouvrezz btn-welcomezz welcome-discover-btn">
+            <Link to="/Collection">Decouvrez la collection</Link>
+          </button>
+        </div>
+
+        <div className={`marbreD ${isVideoReady ? "animate" : ""}`}>
+          {/*<img src='src/assets/Capture marbre 2.PNG'></img>*/}
+        </div>
+      </div>
+
+      <Icons />
+    </div>
+  );
 };
 
 export default Home;

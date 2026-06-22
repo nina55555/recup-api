@@ -1,0 +1,100 @@
+@media (max-width: 250px){
+  /* A partir de 250px: mêmes dimensions que la zone media de droite */
+  .book-text-panel{
+    height:48%;
+    min-height:132px;
+    max-height:190px;
+    overflow-y: auto;
+  }}
+
+
+  
+@media  (min-width: 250px)and(max-width: 350px){
+  .book-text-panel{
+    /* moins haut mais toujours dans la hauteur du livre + scroll */
+    max-height: 48%;
+    overflow-y: auto;
+  }
+
+  .book-layer-right{
+    /* Same height as book-media for small screens */
+    height: 25%;
+    min-height: 70px;
+    max-height: 90px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+}
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  .book-layer{
+    position:absolute;
+    top:10%;
+    bottom:10%;
+  }
+
+  .book-layer-left{
+    left:0;
+    width:50%;
+    padding:0;
+    position:absolute;
+  }
+
+  .book-layer-right{
+    right:0;
+    width:50%;
+    top:50%;
+    bottom:auto;
+    transform:translateY(-50%);
+    padding:0;
+  }
+
+  .book-media,
+  .book-media-empty{
+    width:48%;
+    min-height:70px;
+    height:25%;
+    max-height:90px;
+    position:absolute;
+    left:auto;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+    border-radius:12px;
+  }
+
+  .book-text-panel{
+    width:42%;
+    min-height:128px;
+    height:56%;
+    max-height:210px;
+    margin-left:12px;
+    padding:8px 8px 10px;
+    overflow:hidden;
+  }

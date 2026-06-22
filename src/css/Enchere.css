@@ -185,22 +185,163 @@
 .price p{ font-size:16px; }
 .icons-ench a{ font-size:11px; }
 .pays-promu p{ font-size:13px; }
+
+.book-social-links {
+  top:calc(50% + 70px);
+  right:16px;
+  width:40%;
+  max-height:112px;
+  z-index:3;
+  overflow:auto;
+  gap:5px;
 }
 
+.book-social-links a {
+  max-width:100%;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  font-size:10px;
+  line-height:1.2;
+}
+}
+
+
 /* ========================= */
-/* RESPONSIVE MOBILE */
-@media (max-width: 750px){
+/* RESPONSIVE small MOBILE */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 550px){
 .enchere-container{ /*border:1px solid #e45fdd;*/ height: 225px; }
+/* iPad Mini / petits écrans : laisser la zone bid-infos assez haute pour voir les icônes */
+
+
 .bid-list{ /*border:1px solid #0bec61;*/ height: 225px; }
 .bid-infos{ border:1px solid #110d0d; background:rgb(240, 240, 240); max-height:95px; width:100%; padding:5px 7px; }
 .bid-row-left{ flex-wrap:wrap; gap:4px; }
 .bid-row-right{ gap:4px; }
 .bid-row p{ font-size:11px; line-height:1.1; }
-.price p{ font-size:13px; }
+.price p{ font-size:29px; }
 /* Décaler les icônes d'1px */
 .icons-ench a{ font-size:11px; position: relative; top:0px; }
 .pays-promu p{ font-size:12px; min-width:100%; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================= */
+/* ========================= */
+/* RESPONSIVE MOBILE */
+@media (max-width: 750px) and (min-width: 200px){
+.enchere-container{ /*border:1px solid #e45fdd;*/ height: 225px; }
+/* iPad Mini / petits écrans : laisser la zone bid-infos assez haute pour voir les icônes */
+.bid-infos{ max-height:115px; padding-bottom:8px; }
+
+/* éviter que les icônes soient coupées par un layout trop serré */
+.bid-row-right{ min-height:32px; padding-right:2px; margin-left:-18px; }
+
+/* réduire la largeur de la colonne gauche pour libérer de l’espace */
+.bid-row-left{ max-width:calc(100% - 120px); }
+
+
+/* déplacer le montant plus à gauche pour laisser de la place aux icônes */
+.bid-row-right .price{ min-width:40px; }
+
+/* à partir de 750px on réduit un peu la taille du montant */
+@media (min-width: 751px){
+  .bid-row-right .price p{ font-size:16px; }
+}
+
+
+
+
+.bid-list{ /*border:1px solid #0bec61;*/ height: 225px; }
+
+
+
+.bid-infos{ border:1px solid #110d0d; background:rgb(240, 240, 240); max-height:95px; width:100%; padding:5px 7px; }
+.bid-row-left{ flex-wrap:wrap; gap:4px; }
+.bid-row-right{ gap:4px; }
+.bid-row p{ font-size:11px; line-height:1.1; }
+.price p{ font-size:13px; }
+
+/* Icônes (📖 etc.) : forcer une taille stable pour les petits écrans */
+.icons-ench{
+  gap:3px;
+}
+.icons-ench button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  min-width:28px;
+  padding:0;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,0.15);
+  background:rgba(255,255,255,0.55);
+  font-size:14px;
+  line-height:1;
+  flex-shrink:0;
+}
+.icons-ench button:hover{
+  transform: scale(1.05);
+}
+
+/* Décaler les icônes d'1px (règle existante) */
+.icons-ench a{ font-size:11px; position: relative; top:0px; }
+.pays-promu p{ font-size:12px; min-width:100%; }
+}
+
 
 /* ========================= */
 /* POPUP LIVRE */
@@ -214,26 +355,31 @@
     display:flex;
     justify-content:center;
     align-items:center;
+    padding:clamp(10px, 3vw, 24px);
+    box-sizing:border-box;
     z-index:1000;
+    overflow:auto;
 }
 
 .book-popup{
     background:transparent;
     padding:20px;
     border-radius:10px;
-    width:min(92vw, 920px);
-    max-height:90vh;
+    width:min(82vw, 780px);
+    max-width:calc(100vw - 24px);
+    max-height:calc(100dvh - 24px);
     overflow:auto;
     position:relative;
+    box-sizing:border-box;
 }
 
 .book-close{
     position:absolute;
-    top:18px;
-    right:18px;
+    top:clamp(10px, 2vw, 18px);
+    right:clamp(10px, 2vw, 18px);
     cursor:pointer;
     font-size:15px;
-    z-index:3;
+    z-index:10;
     width:42px;
     height:42px;
     border-radius:999px;
@@ -258,7 +404,7 @@
 .book-visual{
     position:relative;
     width:100%;
-    max-width:860px;
+    max-width:740px;
     margin:0 auto;
     overflow:hidden;
     border-radius:26px;
@@ -294,9 +440,10 @@
 .book-layer-right{
     right:0;
     width:50%;
-    top:50%;
-    bottom:auto;
-    transform:translateY(-50%);
+    /* Aligner la "page droite" avec la page gauche */
+    top:10%;
+    bottom:11%;
+    transform:none;
     padding:0;
     gap:16px;
     overflow:hidden;
@@ -305,16 +452,23 @@
 
 .book-text-panel{
     width:50%;
-    height:116%;
-    min-height:264px;
-    max-height:460px;
+    /* Mêmes dimensions que book-media (référence visuelle pour la hauteur) */
+    height:48%;
+    min-height:132px;
+    max-height:190px;
     margin-left:10px;
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
     gap:12px;
     background:#f4ead7;
+
+    /* Scroll si le texte dépasse */
+    overflow:hidden;
 }
+
+
+
 
 .book-avatar{
     width:72px;
@@ -328,6 +482,7 @@
 .book-media,
 .book-media-empty{
     width:50%;
+    /* IMPORTANT: dimensions utilisées comme référence pour la hauteur du texte */
     height:48%;
     min-height:132px;
     max-height:190px;
@@ -343,6 +498,7 @@
     background:rgba(236,230,214,0.92);
     box-shadow:0 12px 30px rgba(0,0,0,0.1);
 }
+
 
 .book-media-empty{
     display:flex;
@@ -376,6 +532,8 @@
     padding-right:6px;
 }
 
+
+
 .book-social-links {
   position:absolute;
   top:calc(50% + 116px);
@@ -388,6 +546,8 @@
   gap:6px;
   text-align:center;
   z-index:2;
+  /* important iPad: éviter que la zone média passe au dessus */
+  pointer-events:auto;
 }
 
 .book-social-links a {
@@ -411,33 +571,63 @@
   background:rgba(244, 234, 215, 1);
 }
 
+@media (min-width: 1021px){
+  .book-popup{
+    width:min(74vw, 680px);
+  }
+
+  .book-visual{
+    max-width:640px;
+  }
+}
+
+@media (min-width: 750px)and (max-width: 1021px){
+  .book-popup{
+    width:min(74vw, 680px);
+  }
+}
+
+
 @media (max-width: 750px){
+
+
+
+
   .book-social-links {
-    top:calc(50% + 76px);
-    right:8px;
-    width:48%;
-    gap:4px;
+    top:calc(50% + 56px);
+    right:18px;
+    width:36%;
+    max-height:72px;
+    gap:3px;
+    overflow:auto;
   }
 
   .book-social-links a {
+    max-width:100%;
     font-size:9px;
     padding:3px 8px;
+    line-height:1.2;
+    white-space:normal;
+    overflow-wrap:anywhere;
   }
 }
 
 @media (max-width: 750px){
   .book-popup{
-    width:88vw;
-    padding:8px;
+    width:min(86vw, 390px);
+    max-width:calc(100vw - 32px);
+    max-height:calc(100dvh - 48px);
+    padding:18px 10px 10px;
+    overflow:auto;
   }
 
   .book-close{
-    top:1px;
+    top:58px;
     bottom:auto;
-    right:1px;
-    width:42px;
-    height:42px;
-    font-size:15px;
+    right:10px;
+    width:34px;
+    height:34px;
+    font-size:14px;
     color:#4f3b23;
     background:linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(240,232,217,0.94) 100%);
     border:1px solid rgba(135,105,65,0.22);
@@ -455,57 +645,134 @@
   .book-image{
     display:block;
     width:100%;
-    min-height:420px;
+    min-height:360px;
+    max-height:calc(100dvh - 86px);
     object-fit:contain;
     object-position:center;
     transform:none;
   }
 
-  .book-layer{
-    position:absolute;
-    top:10%;
-    bottom:10%;
-  }
 
-  .book-layer-left{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*correction hauteur medias petits mobile*/
+
+
+.book-layer{
+    position:absolute;
+    top:0%;
+    bottom:0%;
+    width:32%;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+}
+
+.book-layer-left{
     left:0;
+    top:25%;
+    bottom: 10%;
     width:50%;
-    padding:0;
+    height: 50%;
+    gap:14px;
+    align-items:center;
     position:absolute;
-  }
+}
 
-  .book-layer-right{
+.book-layer-right{
     right:0;
     width:50%;
-    top:50%;
-    bottom:auto;
-    transform:translateY(-50%);
+    height: 50%;
+    /* Aligner la "page droite" avec la page gauche */
+    top:25%;
+    bottom:10%;
+    transform:none;
     padding:0;
-  }
-
-  .book-media,
-  .book-media-empty{
-    width:48%;
-    min-height:90px;
-    height:31%;
-    max-height:126px;
-    position:absolute;
-    left:auto;
-    right:8px;
-    top:50%;
-    transform:translateY(-50%);
-    border-radius:12px;
-  }
-
-  .book-text-panel{
-    width:48%;
-    min-height:160px;
-    height:68%;
-    max-height:248px;
-    margin-left:8px;
-    padding:10px 10px 12px;
+    gap:16px;
     overflow:hidden;
-  }
+    justify-content:center;
+}
+
+.book-text-panel{
+    width:50%;
+    /* Mêmes dimensions que book-media (référence visuelle pour la hauteur) */
+    height:48%;
+
+    min-height:105px;
+
+    max-height:190px;
+    margin-left:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    gap:12px;
+    background:#f4ead7;
+
+    /* Scroll si le texte dépasse */
+    overflow:hidden;
+}
+
+video.book-media{
+  width:50%;
+    /* Mêmes dimensions que book-media (référence visuelle pour la hauteur) */
+    height:48%;
+
+    min-height:105px;
+
+    max-height:190px;
+    margin-left:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    gap:12px;
+    background:#f4ead7;
+
+    /* Scroll si le texte dépasse */
+    overflow:hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   .book-avatar{
     width:52px;
@@ -519,8 +786,221 @@
   }
 
   .book-text{
-    font-size:10px;
-    line-height:1.5;
+    font-size:9px;
+    line-height:1.42;
     padding-right:2px;
+    overflow:auto;
   }
 }
+
+
+
+@media (max-width: 430px){
+
+
+  .book-popup{
+    top: -30px;
+    width:min(86vw, 390px);
+    max-width:calc(100vw - 32px);
+    max-height:calc(100dvh - 48px);
+    padding:18px 10px 10px;
+    overflow:auto;
+  }
+
+  .book-close{
+    top:80px;
+    bottom:auto;
+    right:10px;
+    width:34px;
+    height:34px;
+    font-size:14px;
+    color:#4f3b23;
+    background:linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(240,232,217,0.94) 100%);
+    border:1px solid rgba(135,105,65,0.22);
+    box-shadow:0 5px 0 rgba(58,58,58,0.38), 0 8px 20px rgba(55,40,20,0.14);
+    backdrop-filter:blur(10px);
+  }
+
+  .book-visual{
+    min-height:auto;
+    border-radius:20px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.24);
+    overflow:hidden;
+  }
+
+  .book-image{
+    display:block;
+    width:100%;
+    min-height:360px;
+    max-height:calc(100dvh - 86px);
+    object-fit:contain;
+    object-position:center;
+    transform:none;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*correction hauteur medias petits mobile*/
+
+
+.book-layer{
+  /*background-color: red;*/
+    position:absolute;
+    top:0%;
+    bottom:0%;
+    width:42%;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+}
+
+.book-layer a{
+width: 80px;
+height: 25px;
+}
+
+.book-layer-left{
+    left:0;
+    top:25%;
+    bottom: 10%;
+    width:50%;
+    height: 50%;
+    gap:14px;
+    align-items:center;
+    position:absolute;
+}
+
+.book-layer-right{
+    right:0;
+    width:50%;
+    height: 50%;
+    /* Aligner la "page droite" avec la page gauche */
+    top:25%;
+    bottom:10%;
+    transform:none;
+    padding:0;
+    gap:16px;
+    overflow:hidden;
+    justify-content:center;
+}
+
+.book-text-panel{
+    width:50%;
+    /* Mêmes dimensions que book-media (référence visuelle pour la hauteur) */
+    height:48%;
+
+    min-height:85px;
+
+    max-height:190px;
+    margin-left:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    gap:12px;
+    background:#f4ead7;
+
+    /* Scroll si le texte dépasse */
+    overflow:hidden;
+}
+
+video.book-media{
+  width:50%;
+    /* Mêmes dimensions que book-media (référence visuelle pour la hauteur) */
+    height:48%;
+
+    min-height:85px;
+
+    max-height:190px;
+    margin-left:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    gap:12px;
+    background:#f4ead7;
+
+    /* Scroll si le texte dépasse */
+    overflow:hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .book-avatar{
+    width:52px;
+    height:52px;
+  }
+
+  .book-author{
+    font-size:7px;
+    letter-spacing:0.04em;
+    white-space:nowrap;
+  }
+
+  .book-text{
+    font-size:9px;
+    line-height:1.42;
+    padding-right:2px;
+    overflow:auto;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

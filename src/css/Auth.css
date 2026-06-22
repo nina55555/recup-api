@@ -125,3 +125,93 @@ color:#d6d6d6;
 color:#f0c76a;
 text-decoration:underline;
 }
+
+.waiting-popup-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.72);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:1000006;
+}
+
+.waiting-popup-card{
+position:relative;
+width:min(92%,360px);
+background:#1c1c1c;
+border:1px solid rgba(212,175,55,0.45);
+border-radius:12px;
+padding:18px 16px;
+display:flex;
+flex-direction:column;
+gap:10px;
+box-shadow:0 16px 44px rgba(0,0,0,0.4);
+}
+
+.waiting-popup-card h3{
+margin:0;
+font-size:19px;
+}
+
+.waiting-popup-card p{
+margin:0;
+font-size:13px;
+color:#dfdfdf;
+}
+
+.waiting-popup-card form{
+display:flex;
+flex-direction:column;
+gap:9px;
+}
+
+.waiting-popup-card input{
+padding:10px;
+border:none;
+border-radius:6px;
+font-size:14px;
+}
+
+.waiting-popup-card button[type="submit"]{
+padding:11px;
+background:#d4af37;
+border:none;
+color:black;
+font-weight:bold;
+border-radius:6px;
+cursor:pointer;
+}
+
+.waiting-popup-card button[type="submit"]:disabled{
+opacity:0.6;
+cursor:not-allowed;
+}
+
+.waiting-popup-close{
+position:absolute;
+top:8px;
+right:8px;
+width:28px;
+height:28px;
+border-radius:50%;
+border:1px solid rgba(255,255,255,0.25);
+background:transparent;
+color:white;
+cursor:pointer;
+}
+
+.waiting-popup-message{
+font-size:12px;
+color:#f4d98d;
+}
+
+.waiting-popup-ack{
+padding:11px;
+background:#d4af37;
+border:none;
+color:black;
+font-weight:bold;
+border-radius:6px;
+cursor:pointer;
+}
