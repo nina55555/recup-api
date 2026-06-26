@@ -309,7 +309,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    transform: translateX(0);
+    transform: translateX(50%);
 }
 
 
@@ -326,7 +326,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    transform: translateX(0);
+    transform: translateX(-50%);
 }
 
 .marbreG.animate{
@@ -346,7 +346,7 @@
 
 @keyframes transitionSlided {
     from{ 
-        transform: translateX(0);
+        transform: translateX(50%);
         opacity: 1;
     }
     to{
@@ -362,7 +362,7 @@
 
 @keyframes transitionSlideg {
     from{ 
-        transform: translateX(0);
+        transform: translateX(-50%);
         opacity: 1;
     }
     to{
