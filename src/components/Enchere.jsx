@@ -193,7 +193,7 @@ const Enchere = ({ onBidSubmit, bids, initialBidValue = null }) => {
               </div>
 
               <div className="pays-promu">
-                <p>PAYS PROMU: {bid.country || "-"}</p>
+                <p title={`Affaire de : ${bid.country || "-"}`}>PAYS PROMU: {bid.country || "-"}</p>
               </div>
             </div>
           );
@@ -210,7 +210,7 @@ const Enchere = ({ onBidSubmit, bids, initialBidValue = null }) => {
             <div className="book-visual">
               <img className="book-image" src={livreImage} alt="Livre ouvert" />
 
-              <div className="book-layer book-layer-left">
+              <div className="book-layer book-layer-left" style={{ zIndex: 5 }}>
                 {selectedStory?.storyVideoUrl ? (
                   <video
                     autoPlay
