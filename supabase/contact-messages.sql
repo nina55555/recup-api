@@ -14,16 +14,30 @@ create index if not exists contact_messages_created_at_idx
 
 alter table public.contact_messages enable row level security;
 
+alter table public.profiles
+  add column if not exists is_admin boolean not null default false;
+
+alter table public.contact_messages
+  add column if not exists user_id uuid references auth.users(id);
+
 drop policy if exists "contact messages insert public" on public.contact_messages;
-create policy "contact messages insert public"
+create policy "contact messages insert authenticated"
 on public.contact_messages
 for insert
-to anon, authenticated
-with check (true);
+to authenticated
+with check (user_id = auth.uid());
 
 drop policy if exists "contact messages read all" on public.contact_messages;
-create policy "contact messages read all"
+create policy "contact messages read owner_or_admin"
 on public.contact_messages
 for select
-to anon, authenticated
-using (true);
+to authenticated
+using (
+  user_id = auth.uid()
+  or exists (
+    select 1
+    from public.profiles p
+    where p.id = auth.uid()
+      and coalesce(p.is_admin, false)
+  )
+);

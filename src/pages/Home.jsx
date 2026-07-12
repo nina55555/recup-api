@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { X } from "lucide-react";
-import videoShow from "../assets/vid-home2.mp4";
+/*import videoShow from "../assets/vid-home2.mp4";*/
+
+
+
+import videoShow from "../assets/new.mp4";
+
 import Collectiontype from "../components/Collectiontype";
 import Icons from "../components/Icons";
 import "../css/Home.css";
@@ -9,6 +14,39 @@ import "../css/Home.css";
 const Home = () => {
   const [isTextboxOpen, setIsTextboxOpen] = useState(true);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const textboxRef = useRef(null);
+  const btnRef = useRef(null);
+
+  useEffect(() => {
+    const textbox = textboxRef.current;
+    const button = btnRef.current;
+    if (!button) return;
+
+    const update = () => {
+      if (!textbox) {
+        const parent = button.parentElement || document.body;
+        const pw = parent.getBoundingClientRect().width;
+        button.style.maxWidth = `${Math.max(0, pw * 0.8)}px`;
+        return;
+      }
+      const inner = textbox.querySelector(".welcometextt") || textbox;
+      const style = getComputedStyle(inner);
+      const rect = inner.getBoundingClientRect();
+      const paddingLeft = parseFloat(style.paddingLeft) || 0;
+      const paddingRight = parseFloat(style.paddingRight) || 0;
+      const available = Math.max(0, rect.width - paddingLeft - paddingRight - 24);
+      button.style.maxWidth = `${available}px`;
+    };
+
+    update();
+    const ro = textbox ? new ResizeObserver(update) : null;
+    if (ro && textbox) ro.observe(textbox);
+    window.addEventListener("resize", update);
+    return () => {
+      if (ro) ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, [isTextboxOpen]);
 
   return (
     <div className="containBox">
@@ -31,7 +69,7 @@ const Home = () => {
         </div>
 
         {isTextboxOpen && (
-          <div className="textbox">
+          <div className="textbox" ref={textboxRef}>
             <button
               type="button"
               className="welcome-close"
@@ -61,7 +99,7 @@ const Home = () => {
         )}
 
         <div className="welcome-cta">
-          <button className="btn-decouvrezz btn-welcomezz welcome-discover-btn">
+          <button ref={btnRef} className="btn-decouvrezz btn-welcomezz welcome-discover-btn">
             <Link to="/Collection">Decouvrez la collection</Link>
           </button>
         </div>
