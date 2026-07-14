@@ -29,11 +29,7 @@
 
 
 .mainBoxx-welcome{
-    /*background-color: rgb(107, 109, 99);*/
     background-color: rgb(255, 255, 253);
-
-
-    /*display: flex;*/
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: 100px 100px 100px;
@@ -41,44 +37,41 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    /*width: 100px;*/
     width: 100%;
-   /* min-width: 100vw;
-    max-width: 100vw;
-   margin: 0 auto;
-    min-height: 100%;
-    max-height: 100%;
-    */
-    /*width: auto;*/
-    height: 100%;
-    /*
-    margin: 5px;
-    padding: 5px;
-    */
     border: 1px solid black;
     border-bottom: 0;
-    /*animation: transitionIn 8.5s;*/
-    position: relative;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--social-footer-height, 50px));
     overflow: hidden;
+    min-height: 0;
 }
 
 .welcome-video-bg{
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 0;
     pointer-events: none;
     opacity: 0.2;
     transition: opacity 1.2s ease;
     background: rgb(255, 255, 253);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .welcome-video-bg video{
     width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     object-position: center;
     display: block;
 }
@@ -101,20 +94,57 @@
     opacity: 1;
 }
 
+.welcome-video-overlay{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.welcome-video-overlay.visible{
+    opacity: 1;
+}
+
+.welcome-video-overlay span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    line-height: 1;
+    font-weight: 700;
+    color: #ff0000;
+    font-family: var(--font-display);
+    font-size: 75px;
+    text-align: center;
+    user-select: none;
+    padding: 0 16px;
+}
+
+.welcome-cta,
+.welcome-discover-btn,
+.welcome-discover-btn a {
+    box-sizing: border-box;
+}
+
 .welcome-cta{
     position: absolute;
     left: 50%;
     bottom: calc(var(--social-footer-height, 50px) + 5px);
     transform: translateX(-50%);
     z-index: 0;
-    width: 100%;
-    max-width: 420px;
+    width: 25%;
+    max-width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 3px;
-    height: 118px;
-    width: min(90%, 420px);
+    height: 50px;
+    padding-bottom: 5px;
 }
 
 .welcome-discover-btn{
@@ -123,39 +153,74 @@
     padding: 8px 12px;
     border-radius: 10px;
     backdrop-filter: blur(10px);
-
-
-
-
-    /*
-    width: min(100%, 90%);
-    max-width: 90%;
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
-    */
-
-    width: 30%;
-    height: 45px;
+    height: 100%;
+    margin: 0;
 }
 
 .welcome-discover-btn a{
     text-decoration: none;
     color: #111;
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size: clamp(9px, 1.8vh, 11px);
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    line-height: 1.1;
 }
 
-
-/*
-.btn-decouvrezz.welcome-discover-btn{
-    width: min(100%, 90%);
+.btn-decouvrezz a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: #111;
+    font-family: var(--font-body);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: normal;
+    overflow: visible;
 }
 
-*/
+.btn-decouvrezz,
+.btn-decouvrezz.welcome-discover-btn {
+    border-radius: 10px !important;
+}
 
+.btn-decouvrezz.welcome-discover-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 42px !important;
+    padding: 0 10px !important;
+    overflow: visible;
+}
 
-
+.btn-decouvrezz:hover,
+.btn-decouvrezz.welcome-discover-btn:hover {
+    background: rgba(216, 188, 128, 0.32);
+    border-color: rgba(172, 135, 63, 0.52);
+}
 
 .welcome-cta-text{
     margin: 0;
@@ -415,6 +480,39 @@
 
 @media (max-width:750px)  {
 
+.mainBoxx-welcome{
+    top: 72px;
+    bottom: calc(var(--social-footer-height, 55px) + 6px);
+}
+
+.welcome-cta{
+    width: 50%;
+    max-width: 50%;
+    height: 50px;
+    bottom: calc(var(--social-footer-height, 50px) + 5px);
+    gap: 3px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.welcome-discover-btn{
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 100%;
+}
+
+.welcome-discover-btn a{
+    font-size: clamp(9px, 1.8vh, 11px);
+}
+
+.btn-decouvrezz.welcome-discover-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: 45px !important;
+}
+
 .welcome-video-title{
     top: 2px;
     font-size: 24px;
@@ -434,21 +532,6 @@
 
 .welcome-video-bg.video-full{
     opacity: 1;
-}
-
-.welcome-cta{
-    /*background-color: pink;*/
-    height: 118px;
-    bottom: calc(var(--social-footer-height, 50px) + 5px);
-    gap: 3px;
-    max-width: 100% !important;
-}
-
-.welcome-discover-btn{
-    padding: 8px 10px ;
-    width: 100% !important;
-    max-width: 100% !important;
-    /*height: 15px;*/
 }
 
 
@@ -620,26 +703,6 @@
     backdrop-filter: blur(10px);
 }
 
-.btn-decouvrezz a{
-    display: inline-block;
-    text-decoration: none;
-    color: #111;
-    font-family: var(--font-body);
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-}
-.btn-decouvrezz,
-.btn-decouvrezz.welcome-discover-btn {
-    border-radius: 10px !important;
-}
-
-.btn-decouvrezz:hover,
-.btn-decouvrezz.welcome-discover-btn:hover {
-    background: rgba(216, 188, 128, 0.32);
-    border-color: rgba(172, 135, 63, 0.52);
-}
-
 .welcometextt > p{
     display: block !important;
     width: 100%;
@@ -660,16 +723,6 @@
     font-size: 12px;
     line-height: 1.5;
   }
-
-
-
-
-  
-.btn-decouvrezz{
-    width: 200px;
-}
-
-
 }
 
 

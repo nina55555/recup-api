@@ -14,8 +14,37 @@ import "../css/Home.css";
 const Home = () => {
   const [isTextboxOpen, setIsTextboxOpen] = useState(true);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const [isVideoTextVisible, setIsVideoTextVisible] = useState(false);
   const textboxRef = useRef(null);
   const btnRef = useRef(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const showTimer = window.setTimeout(() => setIsVideoTextVisible(true), 2000);
+    const hideTimer = window.setTimeout(() => setIsVideoTextVisible(false), 7000);
+
+    return () => {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isTextboxOpen) {
+      video.pause();
+      return;
+    }
+
+    if (!isVideoReady) return;
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
+    }
+  }, [isTextboxOpen, isVideoReady]);
 
   useEffect(() => {
     const textbox = textboxRef.current;
@@ -54,8 +83,8 @@ const Home = () => {
         <h2 className="welcome-video-title">Vous l'avez fait !</h2>
         <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
           <video
+            ref={videoRef}
             src={videoShow}
-            autoPlay
             muted
             loop
             playsInline
@@ -63,6 +92,9 @@ const Home = () => {
             onLoadedData={() => setIsVideoReady(true)}
             onCanPlay={() => setIsVideoReady(true)}
           />
+          <div className={`welcome-video-overlay ${isVideoTextVisible ? "visible" : ""}`}>
+            <span>Se depasser</span>
+          </div>
         </div>
         <div className={`marbreG ${isVideoReady ? "animate" : ""}`}>
           {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
