@@ -1,10 +1,7 @@
-*{
+﻿*{
     margin: 0;
     padding: 0;
 }
-
-
-
 
 .containBox{
     /*background-color: darksalmon;*/
@@ -24,9 +21,6 @@
     padding-top: 80px;
     box-sizing: border-box;
 }
-
-
-
 
 .mainBoxx-welcome{
     background-color: rgb(255, 255, 253);
@@ -66,6 +60,10 @@
     justify-content: center;
 }
 
+.welcome-video-bg.video-full{
+    opacity: 1;
+}
+
 .welcome-video-bg video{
     width: 100%;
     height: auto;
@@ -88,10 +86,6 @@
     font-family: var(--font-display);
     font-size: 25px;
     letter-spacing: 0.04em;
-}
-
-.welcome-video-bg.video-full{
-    opacity: 1;
 }
 
 .welcome-video-overlay{
@@ -222,6 +216,27 @@
     border-color: rgba(172, 135, 63, 0.52);
 }
 
+.btn-decouvrezz{
+    /*min-width: 280px;*/
+    width: 150px;
+    padding: 11px 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 15, 15, 0.14);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(10px);
+}
+
+.welcome-discover-btn:hover{
+    background-color: rgba(216, 188, 128, 0.35);
+    border-color: rgba(172, 135, 63, 0.5);
+}
+
+.welcome-discover-btn a{
+    font-size: 11px;
+    letter-spacing: 0.12em;
+}
+
 .welcome-cta-text{
     margin: 0;
     top: 15px;
@@ -233,10 +248,6 @@
     letter-spacing: 0.04em;
     z-index: 100000;
 }
-
-
-
-
 
 .textbox{
     /*background-color: rgb(167, 156, 10);*/
@@ -303,9 +314,6 @@
     background: rgba(255, 255, 255, 0.98);
 }
 
-
-
-
 .welcometextt{
     /*background-color: coral;*/
     /*background-color: rgb(255, 255, 255);*/
@@ -323,19 +331,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     /*animation: transitionScalet 2s;*/
 }
 
-
-
 .welcometextt h2{
-    
     font-size: 14px;
 }
-
-
-
 
 .welcometextt p{
     padding: 5px;
@@ -351,8 +352,6 @@
     position: relative;
 }
 
-
-
 .welcometextt h1{
     margin-top: 12px;
     margin-bottom: 10px;
@@ -363,8 +362,6 @@
     margin-top: auto;
     flex-shrink: 0;
 }
-
-
 
 .welcometextt h1::before{
     content: "";
@@ -391,9 +388,6 @@
     transform: translateX(50%);
 }
 
-
-
-
 .marbreD{
     /*display: flex;*/
     /*transition: 3s;*/
@@ -409,8 +403,6 @@
     transform: translateX(-50%);
 }
 
-
-
 .marbreG.animate{
     animation: transitionSlideg 10s forwards;
     opacity: 1;
@@ -420,12 +412,8 @@
     animation: transitionSlided 10s forwards;
 }
 
-
-
 /*******************/
 /**keyframes***/
-
-
 
 @keyframes transitionSlided {
     from{ 
@@ -439,10 +427,6 @@
     }
 }
 
-
-
-
-
 @keyframes transitionSlideg {
     from{ 
         transform: translateX(-50%);
@@ -455,257 +439,165 @@
     }
 }
 
-
-
-/*
-
-@keyframes transitionScale {
-    from{ 
-    }
-    to{
-        grid-row: 1/3;
-        grid-column: 1/2;
-        display: none;
-    }
-}
-
-*/
-
-
-
-
-
-
-
-
 @media (max-width:750px)  {
 
-.mainBoxx-welcome{
-    top: 72px;
-    bottom: calc(var(--social-footer-height, 55px) + 6px);
+    .mainBoxx-welcome{
+        top: 72px;
+        bottom: calc(var(--social-footer-height, 55px) + 6px);
+    }
+
+    .welcome-cta{
+        width: 50%;
+        max-width: 50%;
+        height: 50px;
+        bottom: calc(var(--social-footer-height, 50px) + 5px);
+        gap: 3px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .welcome-discover-btn{
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        height: 100%;
+    }
+
+    .welcome-discover-btn a{
+        font-size: clamp(9px, 1.8vh, 11px);
+    }
+
+    .btn-decouvrezz.welcome-discover-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        height: 45px !important;
+    }
+
+    .welcome-video-title{
+        top: 22px; /* push title below the black top strip */
+        font-size: 24px;
+    }
+
+    .welcome-video-bg{
+        /* match desktop spacing on mobile: create top/bottom margins and show black frame */
+        top: 60px;
+        bottom: calc(var(--social-footer-height, 50px) + 90px);
+        left: 0;
+        right: 0;
+        height: auto;
+        background: #000; /* black frame */
+        padding-top: 12px; /* visible strip above the video */
+        padding-bottom: 12px; /* visible strip below the video */
+        box-sizing: border-box;
+    }
+
+    .welcome-video-bg video{
+        width: calc(100% - 24px); /* leave 12px black inset left/right */
+        margin: 0 12px;
+        height: auto;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .welcome-video-overlay{
+        top: 60px;
+        bottom: calc(var(--social-footer-height, 50px) + 90px);
+        left: 0;
+        right: 0;
+    }
+
+    .welcome-video-bg.video-full{
+        opacity: 1;
+    }
+
+    .welcome-discover-btn:hover{
+        background-color: rgba(216, 188, 128, 0.35);
+        border-color: rgba(172, 135, 63, 0.5);
+    }
+
+    .welcome-discover-btn a{
+        font-size: 11px;
+        letter-spacing: 0.12em;
+    }
+
+    .welcome-cta-text{
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .welcometextt{
+        margin: 34px auto 0 auto;
+        padding: 5px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        font-size: 12px;
+        line-height: 1.55;
+    }
+
+    .welcometextt h2{
+        font-size: 17px;
+    }
+
+    .welcometextt p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        /*top: 30px;*/
+        font-family: var(--font-display);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        height: 22%;
+        position: relative;
+        padding-top: 20px;
+    }
+
+    .welcometextt h1{
+        margin-top: 14px;
+        margin-bottom: 8px;
+        font-size: 17px;
+    }
+
+    .welcometextt h1::before{
+        content: "";
+        position: absolute;
+        /*top: 115px;*/
+        top: 330px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 78px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.72) 50%, rgba(0,0,0,0.12) 100%);
+    }
+
+    .welcometextt > p{
+        font-size: 12px;
+        line-height: 1.5;
+    }
 }
 
-.welcome-cta{
-    width: 50%;
-    max-width: 50%;
-    height: 50px;
-    bottom: calc(var(--social-footer-height, 50px) + 5px);
-    gap: 3px;
-    padding-left: 0;
-    padding-right: 0;
+@media (max-width: 350px){
+    .mainBoxx-welcome{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .textbox{
+        width: 220px;
+        margin: 0 auto;
+    }
+
+    .btn-decouvrezz{
+        width: 170px;
+    }
 }
-
-.welcome-discover-btn{
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    height: 100%;
-}
-
-.welcome-discover-btn a{
-    font-size: clamp(9px, 1.8vh, 11px);
-}
-
-.btn-decouvrezz.welcome-discover-btn {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    height: 45px !important;
-}
-
-.welcome-video-title{
-    top: 22px; /* push title below the black top strip */
-    font-size: 24px;
-}
-
-.welcome-video-bg{
-    /* match desktop spacing on mobile: create top/bottom margins and show black frame */
-    top: 60px;
-    bottom: calc(var(--social-footer-height, 50px) + 90px);
-    left: 0;
-    right: 0;
-    height: auto;
-    background: #000; /* black frame */
-    padding-top: 12px; /* visible strip above the video */
-    padding-bottom: 12px; /* visible strip below the video */
-    box-sizing: border-box;
-}
-
-.welcome-video-bg video{
-    width: calc(100% - 24px); /* leave 12px black inset left/right */
-    margin: 0 12px;
-    height: auto;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-}
-
-.welcome-video-overlay{
-    top: 60px;
-    bottom: calc(var(--social-footer-height, 50px) + 90px);
-    left: 0;
-    right: 0;
-}
-
-.welcome-video-bg.video-full{
-    opacity: 1;
-}
-
-
-.welcome-discover-btn:hover{
-    background-color: rgba(216, 188, 128, 0.35);
-    border-color: rgba(172, 135, 63, 0.5);
-}
-
-.welcome-discover-btn a{
-    font-size: 11px;
-    letter-spacing: 0.12em;
-}
-
-.welcome-cta-text{
-    font-size: 12px;
-    line-height: 1.7;
-}
-
-
-    
-
-
-
-
-
-
-.welcometextt{
-
-
-    margin: 34px auto 0 auto;
-    padding: 5px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    font-size: 12px;
-    line-height: 1.55;
-}
-
-
-
-
-/*
-.welcometextt p{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10%;
-    font-size: 20px;
-}
-
-
-*/
-
-
-
-
-
-.welcometextt h2{
-    font-size: 17px;
-}
-
-
-
-
-.welcometextt p{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    /*top: 30px;*/
-    font-family: var(--font-display);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    height: 22%;
-    position: relative;
-    padding-top: 20px;
-}
-
-
-
-.welcometextt h1{
-    margin-top: 14px;
-    margin-bottom: 8px;
-    font-size: 17px;
-}
-
-
-
-.welcometextt h1::before{
-    content: "";
-    position: absolute;
-    /*top: 115px;*/
-    top: 330px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 78px;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.72) 50%, rgba(0,0,0,0.12) 100%);
-}
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-/*
-@media (min-width:750px)  {
-
-    
-.textbox{
-}
-
-}
-*/
 
 @media (min-width:1020px)  {
-
-    /*
-  .btn-decouvrezz{
-
-
-
-
-    min-width:340px;
-
-
-
-
-
-    padding: 13px 34px;
-    border-radius: 999px;
-    border: 1px solid rgba(15, 15, 15, 0.12);
-    background: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.14);
-  }
-  */
-
-  /*
-  .btn-decouvrezz a{
-    font-size: 12px;
-    letter-spacing: 0.22em;
-  }
-
-  */
-}
-/* Desktop: add top/bottom spacing around the video like iPad view */
-@media (min-width:1020px) {
     .welcome-video-bg{
         /* move the video inward to create margins above and below */
         top: 60px;
@@ -720,7 +612,6 @@
         object-position: center;
     }
 
-    /* make the overlay match the video area so overlay text centers on the video */
     .welcome-video-overlay{
         top: 60px;
         bottom: calc(var(--social-footer-height, 50px) + 90px);
@@ -732,83 +623,7 @@
         justify-content: center;
     }
 
-    /* ensure the welcome CTA remains positioned below the video */
     .welcome-cta{
         bottom: calc(var(--social-footer-height, 50px) + 10px);
     }
-}
-.btn-decouvrezz{
-    /*min-width: 280px;*/
-    width: 150px;
-
-
-
-
-
-    padding: 11px 28px;
-    border-radius: 999px;
-    border: 1px solid rgba(15, 15, 15, 0.14);
-    background: rgba(255, 255, 255, 0.82);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
-    backdrop-filter: blur(10px);
-}
-
-.welcometextt > p{
-    display: block !important;
-    width: 100%;
-    height: auto !important;
-    margin: 0 auto;
-    overflow: visible;
-    text-align: center;
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.65;
-    letter-spacing: 0.01em;
-    text-transform: none;
-    position: static;
-}
-
-@media (max-width:750px)  {
-  .welcometextt > p{
-    font-size: 12px;
-    line-height: 1.5;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 350px){
-
-
-
-.mainBoxx-welcome{
- display: flex;
- justify-content: center;
- align-items: center;
-}
-.textbox{
-    width: 220px;
-    margin: 0 auto;
-  
-}
-
-
-  
-.btn-decouvrezz{
-    width: 170px;
-}
-
-
-
 }
