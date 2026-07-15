@@ -12,6 +12,7 @@ const Enchere = ({ onBidSubmit, bids, initialBidValue = null }) => {
   const listRef = useRef(null);
 
   const MIN_BID = 5555;
+  const START_BID = 4999; // message shown when no bids yet
   const lastBid = bids.length > 0 ? Math.max(...bids.map((b) => b.amount)) : MIN_BID;
 
   useEffect(() => {
@@ -137,6 +138,13 @@ const Enchere = ({ onBidSubmit, bids, initialBidValue = null }) => {
         />
         <button onClick={handleSubmit}> OK</button>
       </div>
+
+      {/* If no bids yet, show a small info popup under the input */}
+      {bids.length === 0 && (
+        <div className="start-popup">
+          L'enchère débute à {START_BID}€
+        </div>
+      )}
 
       {showError && (
         <div className="error-popup">

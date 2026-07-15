@@ -73,6 +73,17 @@
     font-weight:bold;
 }
 
+.start-popup{
+  text-align:center;
+  background:linear-gradient(180deg,#111, #333);
+  color:#fff;
+  padding:8px 12px;
+  margin:0 0 10px 0;
+  border-radius:6px;
+  font-weight:600;
+  font-size:14px;
+}
+
 .bid-list{
     position: absolute;
     bottom: 2px;
