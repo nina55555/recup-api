@@ -514,20 +514,37 @@
 }
 
 .welcome-video-title{
-    top: 2px;
+    top: 22px; /* push title below the black top strip */
     font-size: 24px;
 }
 
 .welcome-video-bg{
-    inset: 0;
-    height: 100%;
+    /* match desktop spacing on mobile: create top/bottom margins and show black frame */
+    top: 60px;
+    bottom: calc(var(--social-footer-height, 50px) + 90px);
+    left: 0;
+    right: 0;
+    height: auto;
+    background: #000; /* black frame */
+    padding-top: 12px; /* visible strip above the video */
+    padding-bottom: 12px; /* visible strip below the video */
+    box-sizing: border-box;
 }
 
 .welcome-video-bg video{
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 24px); /* leave 12px black inset left/right */
+    margin: 0 12px;
+    height: auto;
     object-fit: cover;
     object-position: center;
+    display: block;
+}
+
+.welcome-video-overlay{
+    top: 60px;
+    bottom: calc(var(--social-footer-height, 50px) + 90px);
+    left: 0;
+    right: 0;
 }
 
 .welcome-video-bg.video-full{
@@ -686,6 +703,39 @@
   }
 
   */
+}
+/* Desktop: add top/bottom spacing around the video like iPad view */
+@media (min-width:1020px) {
+    .welcome-video-bg{
+        /* move the video inward to create margins above and below */
+        top: 60px;
+        bottom: calc(var(--social-footer-height, 50px) + 90px);
+        inset-inline: 0;
+    }
+
+    .welcome-video-bg video{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* make the overlay match the video area so overlay text centers on the video */
+    .welcome-video-overlay{
+        top: 60px;
+        bottom: calc(var(--social-footer-height, 50px) + 90px);
+        left: 0;
+        right: 0;
+        inset-inline: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* ensure the welcome CTA remains positioned below the video */
+    .welcome-cta{
+        bottom: calc(var(--social-footer-height, 50px) + 10px);
+    }
 }
 .btn-decouvrezz{
     /*min-width: 280px;*/
