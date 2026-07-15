@@ -439,11 +439,113 @@
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*media queries***************************************************
+******************************************************
+******************************************************/
+
+
+
+/*small devices*/
+
+
+@media (max-width: 350px){
+    .mainBoxx-welcome{
+        display: flex;
+        
+    justify-content: center;
+    align-items: center;
+
+    }
+
+    .textbox{
+        width: 220px;
+        margin: 0 auto;
+    }
+
+    .btn-decouvrezz{
+        width: 170px;
+    }
+}
+
+
+
+/*****************************************/
+/*mobile*/
+
 @media (max-width:750px)  {
 
     .mainBoxx-welcome{
-        top: 72px;
-        bottom: calc(var(--social-footer-height, 55px) + 6px);
+
+
+/*cadre noir video en mobile version*/
+
+ background-color: rgb(255, 255, 253);
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 100px 100px 100px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+    border-bottom: 0;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--social-footer-height, 50px));
+    overflow: hidden;
+    min-height: 0;
+
+
+
+
     }
 
     .welcome-cta{
@@ -479,18 +581,23 @@
         font-size: 24px;
     }
 
+
+    
+    /*match desktop spacing on mobile: create top/bottom margins and show black frame
     .welcome-video-bg{
-        /* match desktop spacing on mobile: create top/bottom margins and show black frame */
         top: 60px;
         bottom: calc(var(--social-footer-height, 50px) + 90px);
         left: 0;
         right: 0;
         height: auto;
-        background: #000; /* black frame */
-        padding-top: 12px; /* visible strip above the video */
-        padding-bottom: 12px; /* visible strip below the video */
+        background: #000; 
+        padding-top: 12px; 
+        padding-bottom: 12px; 
         box-sizing: border-box;
     }
+    */
+
+
 
     .welcome-video-bg video{
         width: calc(100% - 24px); /* leave 12px black inset left/right */
@@ -580,22 +687,15 @@
     }
 }
 
-@media (max-width: 350px){
-    .mainBoxx-welcome{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
-    .textbox{
-        width: 220px;
-        margin: 0 auto;
-    }
 
-    .btn-decouvrezz{
-        width: 170px;
-    }
-}
+/******************************************/
+/*ipad*/
+
+
+
+/******************************************/
+/*desktop*/
 
 @media (min-width:1020px)  {
     .welcome-video-bg{
@@ -627,3 +727,12 @@
         bottom: calc(var(--social-footer-height, 50px) + 10px);
     }
 }
+
+
+
+/********************************************/
+
+
+
+
+

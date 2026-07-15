@@ -5,7 +5,11 @@ import { X } from "lucide-react";
 
 
 
-import videoShow from "../assets/new.mp4";
+/*import videoShow from "../assets/new.mp4";*/
+/*import videoShow from "../assets/newwhite.mp4";*/
+/*import videoShow from "../assets/newblack.mp4";*/
+import videoShow from "../assets/newtransp.mp4";
+
 
 import Collectiontype from "../components/Collectiontype";
 import Icons from "../components/Icons";
