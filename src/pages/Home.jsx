@@ -18,20 +18,55 @@ import "../css/Home.css";
 const Home = () => {
   const [isTextboxOpen, setIsTextboxOpen] = useState(true);
   const [isVideoReady, setIsVideoReady] = useState(false);
-  const [isVideoTextVisible, setIsVideoTextVisible] = useState(false);
+  const [videoText, setVideoText] = useState("");
+  const [isMuted, setIsMuted] = useState(true);
   const textboxRef = useRef(null);
   const btnRef = useRef(null);
   const videoRef = useRef(null);
 
   useEffect(() => {
-    const showTimer = window.setTimeout(() => setIsVideoTextVisible(true), 2000);
-    const hideTimer = window.setTimeout(() => setIsVideoTextVisible(false), 7000);
+    const textSequence = [
+      { text: "Aimer les défis", startMs: 300, durationMs: 5000 },
+      { text: "Conquérir et impacter", startMs: 8000, durationMs: 7000 },
+      { text: "Refuser les limites", startMs: 15000, durationMs: 5000 },
+      { text: "Scaler", startMs: 19000, durationMs: 6000 },
+      { text: "Attirer et satisfaire sa clientele", startMs: 26000, durationMs: 3000 },
+      { text: "Accomplir", startMs: 30000, durationMs: 2000 },
+      { text: "Engager la bonne energie", startMs: 33000, durationMs: 2000 },
+    ];
+
+    const getTextForTime = (timeMs) => {
+      const entry = textSequence.find(
+        ({ startMs, durationMs }) =>
+          timeMs >= startMs && timeMs < startMs + durationMs
+      );
+      return entry ? entry.text : "";
+    };
+
+    const video = videoRef.current;
+    if (!video || isTextboxOpen || !isVideoReady) {
+      setVideoText("");
+      return;
+    }
+
+    const updateText = () => {
+      const currentMs = video.currentTime * 1000;
+      const nextText = getTextForTime(currentMs);
+      setVideoText((currentText) =>
+        currentText === nextText ? currentText : nextText
+      );
+    };
+
+    updateText();
+    const intervalId = window.setInterval(updateText, 250);
 
     return () => {
-      window.clearTimeout(showTimer);
-      window.clearTimeout(hideTimer);
+      window.clearInterval(intervalId);
+      setVideoText("");
     };
-  }, []);
+  }, [isTextboxOpen, isVideoReady]);
+
+  const toggleMute = () => setIsMuted((prev) => !prev);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -89,16 +124,21 @@ const Home = () => {
           <video
             ref={videoRef}
             src={videoShow}
-            muted
+            muted={isMuted}
             loop
             playsInline
             preload="auto"
             onLoadedData={() => setIsVideoReady(true)}
             onCanPlay={() => setIsVideoReady(true)}
           />
-          <div className={`welcome-video-overlay ${isVideoTextVisible ? "visible" : ""}`}>
-            <span>Se depasser</span>
+          <div className={`welcome-video-overlay ${videoText ? "visible" : ""}`}>
+            <span>{videoText}</span>
           </div>
+        </div>
+        <div className="sound-control">
+          <button type="button" className="sound-toggle" onClick={toggleMute}>
+            {isMuted ? "Activer le son" : "Désactiver le son"}
+          </button>
         </div>
         <div className={`marbreG ${isVideoReady ? "animate" : ""}`}>
           {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
