@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState, useRef, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./css/App.css";
@@ -47,6 +47,36 @@ function scrollToSectionId(id) {
   return true;
 }
 
+// --- Composant section lazy avec IntersectionObserver ---
+function LazySection({ id, children, style }) {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect(); // ne plus observer une fois chargé
+        }
+      },
+      { rootMargin: "200px" } // commence à charger 200px avant d'arriver
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id={id} ref={ref} style={style}>
+      {visible ? children : <div style={{ minHeight: "100vh" }} />}
+    </section>
+  );
+}
+
 function LandingPage() {
   const sectionStyle = {
     minHeight: "100vh",
@@ -61,21 +91,21 @@ function LandingPage() {
         <Home />
       </section>
 
-      <section id="collection" style={sectionStyle}>
+      <LazySection id="collection" style={sectionStyle}>
         <Collection />
-      </section>
+      </LazySection>
 
-      <section id="book" style={sectionStyle}>
+      <LazySection id="book" style={sectionStyle}>
         <Book />
-      </section>
+      </LazySection>
 
-      <section id="about" style={sectionStyle}>
+      <LazySection id="about" style={sectionStyle}>
         <About />
-      </section>
+      </LazySection>
 
-      <section id="contact" style={sectionStyle}>
+      <LazySection id="contact" style={sectionStyle}>
         <Contact />
-      </section>
+      </LazySection>
     </main>
   );
 }
@@ -142,3 +172,4 @@ function App() {
 }
 
 export default App;
+

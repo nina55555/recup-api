@@ -29,8 +29,8 @@ const Home = () => {
       { text: "Aimer les défis", startMs: 300, durationMs: 5000 },
       { text: "Conquérir et impacter", startMs: 8000, durationMs: 7000 },
       { text: "Refuser les limites", startMs: 15000, durationMs: 5000 },
-      { text: "Scaler", startMs: 19000, durationMs: 6000 },
-      { text: "Attirer et satisfaire sa clientele", startMs: 26000, durationMs: 3000 },
+      { text: "Scaler", startMs: 20000, durationMs: 4000 },
+      { text: "Attirer et satisfaire sa clientele", startMs: 27000, durationMs: 2000 },
       { text: "Accomplir", startMs: 30000, durationMs: 2000 },
       { text: "Engager la bonne energie", startMs: 33000, durationMs: 2000 },
     ];
@@ -134,11 +134,12 @@ const Home = () => {
           <div className={`welcome-video-overlay ${videoText ? "visible" : ""}`}>
             <span>{videoText}</span>
           </div>
-        </div>
         <div className="sound-control">
           <button type="button" className="sound-toggle" onClick={toggleMute}>
             {isMuted ? "Activer le son" : "Désactiver le son"}
           </button>
+        </div>
+
         </div>
         <div className={`marbreG ${isVideoReady ? "animate" : ""}`}>
           {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
@@ -183,9 +184,11 @@ const Home = () => {
         <div className={`marbreD ${isVideoReady ? "animate" : ""}`}>
           {/*<img src='src/assets/Capture marbre 2.PNG'></img>*/}
         </div>
+
       </div>
 
       <Icons />
+
     </div>
   );
 };

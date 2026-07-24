@@ -69,7 +69,7 @@
     height: 100%;
     max-width: 100%;
     max-height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     display: block;
 }
@@ -364,6 +364,12 @@
     font-size: 14px;
 }
 
+.welcometextt h2,
+.welcometextt p,
+.welcometextt h1{
+    flex-shrink: 0;
+}
+
 .welcometextt p{
     padding: 5px;
     display: flex;
@@ -374,7 +380,8 @@
     font-family: var(--font-display);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    height: 22%;
+    height: auto;
+    min-height: auto;
     position: relative;
 }
 
@@ -382,6 +389,7 @@
     margin-top: 12px;
     margin-bottom: 10px;
     font-size: 20px;
+    position: relative;
 }
 
 .textbox > .bigg-box{
@@ -392,7 +400,7 @@
 .welcometextt h1::before{
     content: "";
     position: absolute;
-    top: 370px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
     width: 78px;
@@ -658,7 +666,7 @@
         width: calc(100% - 24px); /* leave 12px black inset left/right */
         margin: 0 12px;
         height: auto;
-        object-fit: cover;
+        object-fit: contain;
         object-position: center;
         display: block;
     }
@@ -668,44 +676,38 @@
         bottom: calc(var(--social-footer-height, 50px) + 90px);
         left: 0;
         right: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        padding: 0 16px;
+        text-align: center;
     }
 
-.welcome-video-overlay{
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    padding: 0 16px;
-    text-align: center;
-}
-
-
-
-
-
     .welcome-video-overlay span{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /*height: 70px;*/
-    height: 55px;
-    line-height: 1;
-    /*font-weight: 700;*/
-    font-weight: 400;
-    /*color: #ff0000;*/
-    color: #ffffff;
-    font-family: var(--font-display);
-    font-size: 45px;
-    text-align: center;
-    user-select: none;
-    /*padding: 0 16px;*/
-    padding: 0 auto;
-}
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        min-height: auto;
+        line-height: 1.2;
+        font-weight: 400;
+        color: #ffffff;
+        font-family: var(--font-display);
+        font-size: clamp(22px, 6.5vw, 45px);
+        text-align: center;
+        user-select: none;
+        padding: 8px 12px;
+        max-width: 95%;
+        width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        box-sizing: border-box;
+    }
 
 
 
@@ -754,7 +756,8 @@
         font-family: var(--font-display);
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        height: 22%;
+        height: auto;
+        min-height: auto;
         position: relative;
         padding-top: 20px;
     }
@@ -768,8 +771,7 @@
     .welcometextt h1::before{
         content: "";
         position: absolute;
-        /*top: 115px;*/
-        top: 330px;
+        bottom: -8px;
         left: 50%;
         transform: translateX(-50%);
         width: 78px;
@@ -794,31 +796,58 @@
 
 
 /******************************************/
-/*ipad*/
+/* iPad — 751px to 1019px */
 
-
-
-/******************************************/
-/*desktop*/
-
-@media (min-width:1020px)  {
+@media (min-width:751px) and (max-width:1019px) {
     .welcome-video-bg{
-        /* move the video inward to create margins above and below */
-        top: 60px;
-        bottom: calc(var(--social-footer-height, 50px) + 90px);
+        top: 0;
+        bottom: 0;
         inset-inline: 0;
     }
 
     .welcome-video-bg video{
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         object-position: center;
     }
 
     .welcome-video-overlay{
-        top: 60px;
-        bottom: calc(var(--social-footer-height, 50px) + 90px);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        inset-inline: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .welcome-cta{
+        bottom: calc(var(--social-footer-height, 50px) + 10px);
+    }
+}
+
+/******************************************/
+/*desktop*/
+
+@media (min-width:1020px)  {
+    .welcome-video-bg{
+        top: 0;
+        bottom: 0;
+        inset-inline: 0;
+    }
+
+    .welcome-video-bg video{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .welcome-video-overlay{
+        top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
         inset-inline: 0;

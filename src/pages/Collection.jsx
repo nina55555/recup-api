@@ -1,6 +1,13 @@
 // Collection.jsx
-import React, { useState, useEffect } from "react";
-import { supabase } from "../lib/supabase"; // client Supabase
+import React, { useState, useEffect, useCallback, useRef } from "react";
+/* ============================================================
+   MEDIAS SUPABASE MOMENTANÉMENT INDISPONIBLES
+   ============================================================
+   L'import ci-dessous est commenté car les médias hébergés
+   sur Supabase (images/vidéos) ne sont pas accessibles pour
+   le moment. Décommente quand le stockage est de nouveau OK.
+*/
+// import { supabase } from "../lib/supabase"; // client Supabase
 import { useNavigate } from "react-router-dom";
 import "../css/Collection.css";
 import Icons from "../components/Icons";
@@ -8,17 +15,56 @@ import "../css/Icons.css";
 
 /*import Navbar from "../components/Navbar.jsx";*/
 
+const AUTO_SLIDE_DELAY_MS = 30000; // 30 secondes avant le slide suivant
+
 const Collection = () => {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(null);
   const [direction, setDirection] = useState("next");
   const [ticketVisible, setTicketVisible] = useState(false);
+  const [slideReady, setSlideReady] = useState(false);
 
   const navigate = useNavigate();
   const [loadError, setLoadError] = useState(null);
+  const slideTimeoutRef = useRef(null);
+  const isVisibleRef = useRef(true);
 
-  // --- 1️⃣ Récupérer les modèles directement depuis Supabase ---
+  // --- Fonction pour passer au slide suivant ---
+  const goToNext = useCallback(() => {
+    setDirection("next");
+    setPreviousIndex(currentIndex);
+    setCurrentIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
+    setTicketVisible(false);
+    setSlideReady(false);
+    setTimeout(() => setTicketVisible(true), 10);
+  }, [currentIndex, images.length]);
+
+  // --- Planifier le prochain slide après délai ---
+  const scheduleNext = useCallback(() => {
+    if (slideTimeoutRef.current) {
+      clearTimeout(slideTimeoutRef.current);
+      slideTimeoutRef.current = null;
+    }
+    if (!isVisibleRef.current) return; // onglet caché → ne pas planifier
+
+    slideTimeoutRef.current = setTimeout(() => {
+      goToNext();
+    }, AUTO_SLIDE_DELAY_MS);
+  }, [goToNext]);
+
+  // --- Quand le média (vidéo ou image) est chargé et prêt ---
+  const onMediaReady = useCallback(() => {
+    setSlideReady(true);
+  }, []);
+
+  /* ============================================================
+     MEDIAS SUPABASE MOMENTANÉMENT INDISPONIBLES
+     ============================================================
+     Le fetch des modèles depuis Supabase est commenté car
+     les médias ne sont pas accessibles pour le moment.
+  */
+  /*
   useEffect(() => {
     async function fetchModels() {
       try {
@@ -45,6 +91,7 @@ const Collection = () => {
     }
     fetchModels();
   }, []);
+  */
 
   // Global error handlers to capture runtime errors and show a visible message
   useEffect(() => {
@@ -67,25 +114,51 @@ const Collection = () => {
   }, []);
 
   const total = images.length;
+
   // Déclenchement du ticket dès le chargement des images
   useEffect(() => {
     if (images.length > 0) setTicketVisible(true);
   }, [images]);
 
-  // Slide automatique toutes les 5 secondes
+  // --- Auto-slide intelligent : démarre quand le média est prêt ---
   useEffect(() => {
     if (images.length === 0) return;
 
-    const interval = setInterval(() => {
-      setDirection("next");
-      setPreviousIndex(currentIndex);
-      setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
-      setTicketVisible(false);
-      setTimeout(() => setTicketVisible(true), 10);
-    }, 5000);
+    if (slideReady) {
+      scheduleNext();
+    }
 
-    return () => clearInterval(interval);
-  }, [currentIndex, images, total]);
+    return () => {
+      if (slideTimeoutRef.current) {
+        clearTimeout(slideTimeoutRef.current);
+        slideTimeoutRef.current = null;
+      }
+    };
+  }, [slideReady, currentIndex, images.length, scheduleNext]);
+
+  // --- Page Visibility API : pause le timer si l'onglet est caché ---
+  useEffect(() => {
+    const handleVisibility = () => {
+      isVisibleRef.current = !document.hidden;
+      if (document.hidden) {
+        // Onglet caché → on annule le timer
+        if (slideTimeoutRef.current) {
+          clearTimeout(slideTimeoutRef.current);
+          slideTimeoutRef.current = null;
+        }
+      } else {
+        // Onglet visible à nouveau → on relance si le média est prêt
+        if (slideReady) {
+          scheduleNext();
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [slideReady, scheduleNext]);
 
   const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
   const nextNextIndex = nextIndex === total - 1 ? 0 : nextIndex + 1;
@@ -93,21 +166,12 @@ const Collection = () => {
 
   const activeSlide = images[currentIndex];
 
-  useEffect(() => {
-    const url = activeSlide?.video_url;
-    if (!url) return;
-
-    fetch(url, { method: 'HEAD' })
-      .then(r => {
-        console.log('video HEAD status', r.status);
-        console.log('content-type', r.headers.get('content-type'));
-        console.log('accept-ranges', r.headers.get('accept-ranges'));
-        console.log('content-length', r.headers.get('content-length'));
-        if (!r.ok) console.warn('Video HEAD returned non-OK status', r.status);
-      })
-      .catch(err => console.error('Video HEAD fetch error', err));
-  }, [activeSlide?.video_url]);
-
+  /* ============================================================
+     MEDIAS SUPABASE MOMENTANÉMENT INDISPONIBLES
+     ============================================================
+     Le fetch des modèles depuis Supabase étant désactivé,
+     images.length reste à 0, donc ce bloc s'affiche toujours.
+  */
   if (images.length === 0) {
     return (
       <>
@@ -120,7 +184,7 @@ const Collection = () => {
         ) : (
           <div className="collection-loader">
             <div className="collection-loader-ring" />
-            <p>Chargement de la collection</p>
+            <p>MEDIAS SUPABASE MOMENTANÉMENT INDISPONIBLES</p>
           </div>
         )}
       </>
@@ -128,18 +192,30 @@ const Collection = () => {
   }
 
   const prevSlide = () => {
+    // Annuler le timer en cours
+    if (slideTimeoutRef.current) {
+      clearTimeout(slideTimeoutRef.current);
+      slideTimeoutRef.current = null;
+    }
     setDirection("prev");
     setPreviousIndex(currentIndex);
     setCurrentIndex(prev => (prev === 0 ? total - 1 : prev - 1));
     setTicketVisible(false);
+    setSlideReady(false);
     setTimeout(() => setTicketVisible(true), 10);
   };
 
   const nextSlide = () => {
+    // Annuler le timer en cours
+    if (slideTimeoutRef.current) {
+      clearTimeout(slideTimeoutRef.current);
+      slideTimeoutRef.current = null;
+    }
     setDirection("next");
     setPreviousIndex(currentIndex);
     setCurrentIndex(prev => (prev === total - 1 ? 0 : prev + 1));
     setTicketVisible(false);
+    setSlideReady(false);
     setTimeout(() => setTicketVisible(true), 10);
   };
 
@@ -149,15 +225,26 @@ const Collection = () => {
         className="slider-container"
         style={activeSlide?.video_url ? {} : { backgroundImage: `url(${activeSlide?.image_url})` }}
       >
-        {activeSlide?.video_url && (
+        {activeSlide?.video_url ? (
           <video
+            key={activeSlide.video_url}
             className="collection-bg-video"
             src={activeSlide.video_url}
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="none"
+            onCanPlay={onMediaReady}
+          />
+        ) : (
+          /* Image cachée pour détecter le chargement */
+          <img
+            key={activeSlide.image_url}
+            src={activeSlide.image_url}
+            alt=""
+            onLoad={onMediaReady}
+            style={{ display: "none" }}
           />
         )}
         <div className="slider-3d">
@@ -204,3 +291,4 @@ const Collection = () => {
 };
 
 export default Collection;
+

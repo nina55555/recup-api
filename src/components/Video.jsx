@@ -1,5 +1,9 @@
 import React from "react";
-import videoShow from "../assets/vid-home2.mp4";
+/*import videoShow from "../assets/vid-home2.mp4";*/
+/*import videoShow from "../assets/vid-home1.mp4";*/
+
+import videoShow from "../assets/newtransp.mp4";
+
 import "../css/Video.css";
 
 function Video() {
