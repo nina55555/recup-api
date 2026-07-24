@@ -30,7 +30,7 @@ const Home = () => {
       { text: "Conquérir et impacter", startMs: 8000, durationMs: 7000 },
       { text: "Refuser les limites", startMs: 15000, durationMs: 5000 },
       { text: "Scaler", startMs: 20000, durationMs: 4000 },
-      { text: "Attirer et satisfaire sa clientele", startMs: 27000, durationMs: 2000 },
+      { text: "Attirer et satisfaire sa clientele ou son publique", startMs: 27000, durationMs: 2000 },
       { text: "Accomplir", startMs: 30000, durationMs: 2000 },
       { text: "Engager la bonne energie", startMs: 33000, durationMs: 2000 },
     ];
