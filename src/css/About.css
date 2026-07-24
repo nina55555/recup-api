@@ -44,3 +44,9 @@ html{
     height: 100vh;
     
 }
+
+.picMe img{
+    height: 90vh;
+    width: auto;
+    object-fit: contain;
+}
