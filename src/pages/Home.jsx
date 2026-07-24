@@ -120,26 +120,32 @@ const Home = () => {
     <div className="containBox">
       <div className="mainBoxx-welcome">
         <h2 className="welcome-video-title">Vous l'avez fait !</h2>
-        <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
-          <video
-            ref={videoRef}
-            src={videoShow}
-            muted={isMuted}
-            loop
-            playsInline
-            preload="auto"
-            onLoadedData={() => setIsVideoReady(true)}
-            onCanPlay={() => setIsVideoReady(true)}
-          />
-          <div className={`welcome-video-overlay ${videoText ? "visible" : ""}`}>
-            <span>{videoText}</span>
+        <div className="welcome-video-section">
+          <div className={`welcome-video-bg ${isTextboxOpen ? "" : "video-full"}`}>
+            <video
+              ref={videoRef}
+              src={videoShow}
+              muted={isMuted}
+              loop
+              playsInline
+              preload="auto"
+              onLoadedData={() => setIsVideoReady(true)}
+              onCanPlay={() => setIsVideoReady(true)}
+            />
+            <div className={`welcome-video-overlay ${videoText ? "visible" : ""}`}>
+              <span>{videoText}</span>
+            </div>
+            <div className="sound-control">
+              <button type="button" className="sound-toggle" onClick={toggleMute}>
+                {isMuted ? "Activer le son" : "Désactiver le son"}
+              </button>
+            </div>
           </div>
-        <div className="sound-control">
-          <button type="button" className="sound-toggle" onClick={toggleMute}>
-            {isMuted ? "Activer le son" : "Désactiver le son"}
-          </button>
-        </div>
-
+          <div className="welcome-cta">
+            <button ref={btnRef} className="btn-decouvrezz btn-welcomezz welcome-discover-btn">
+              <Link to="/Collection">Decouvrez la collection</Link>
+            </button>
+          </div>
         </div>
         <div className={`marbreG ${isVideoReady ? "animate" : ""}`}>
           {/*<img src='src/assets/Capture-marbre2.PNG'></img>*/}
@@ -175,11 +181,6 @@ const Home = () => {
           </div>
         )}
 
-        <div className="welcome-cta">
-          <button ref={btnRef} className="btn-decouvrezz btn-welcomezz welcome-discover-btn">
-            <Link to="/Collection">Decouvrez la collection</Link>
-          </button>
-        </div>
 
         <div className={`marbreD ${isVideoReady ? "animate" : ""}`}>
           {/*<img src='src/assets/Capture marbre 2.PNG'></img>*/}

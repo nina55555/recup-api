@@ -44,11 +44,9 @@
 }
 
 .welcome-video-bg{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
     z-index: 0;
     pointer-events: none;
     opacity: 0.2;
@@ -58,6 +56,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .welcome-video-bg.video-full{
@@ -127,12 +126,24 @@
     box-sizing: border-box;
 }
 
-.welcome-cta{
+.welcome-video-section{
     position: absolute;
-    left: 50%;
-    bottom: calc(var(--social-footer-height, 50px) + 5px);
-    transform: translateX(-50%);
-    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 45px;    /* espace pour le titre "Vous l'avez fait !" */
+    padding-bottom: 5px;
+    box-sizing: border-box;
+}
+
+.welcome-cta{
+    flex-shrink: 0;
     width: 25%;
     max-width: 25%;
     display: flex;
@@ -140,7 +151,7 @@
     align-items: center;
     gap: 3px;
     height: 50px;
-    padding-bottom: 5px;
+    margin-top: 17px;     /* 17px sous la vidéo */
 }
 
 .welcome-discover-btn{
@@ -318,9 +329,10 @@
 
 .sound-control{
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 5%;
+    left: 12px;
     z-index: 3;
+    pointer-events: auto;
 }
 
 .sound-toggle{
@@ -594,11 +606,34 @@
 
     }
 
+    .welcome-video-section{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+    .welcome-video-bg{
+        position: absolute;
+        top: 50px;          /* espace pour le titre "Vous l'avez fait !" */
+        left: 0;
+        right: 0;
+        bottom: 70px;       /* espace pour le bouton en bas */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .welcome-cta{
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
         width: 50%;
         max-width: 50%;
         height: 50px;
-        bottom: calc(var(--social-footer-height, 50px) + 5px);
         gap: 3px;
         padding-left: 0;
         padding-right: 0;
@@ -662,6 +697,11 @@
 
 
 
+    .sound-control{
+        top: 12%;
+        left: 12px;
+    }
+
     .welcome-video-bg video{
         width: calc(100% - 24px); /* leave 12px black inset left/right */
         margin: 0 12px;
@@ -672,10 +712,8 @@
     }
 
     .welcome-video-overlay{
-        top: 60px;
-        bottom: calc(var(--social-footer-height, 50px) + 90px);
-        left: 0;
-        right: 0;
+        position: absolute;
+        inset: 0;
         z-index: 1;
         display: flex;
         align-items: center;
@@ -799,10 +837,18 @@
 /* iPad — 751px to 1019px */
 
 @media (min-width:751px) and (max-width:1019px) {
+    .welcome-video-section{
+        padding-top: 55px;
+        padding-bottom: 0;
+    }
+
     .welcome-video-bg{
         top: 0;
         bottom: 0;
         inset-inline: 0;
+        flex: 1;
+        width: 100%;
+        min-height: 0;
     }
 
     .welcome-video-bg video{
@@ -812,7 +858,7 @@
         object-position: center;
     }
 
-    .welcome-video-overlay{
+.welcome-video-overlay{
         top: 0;
         bottom: 0;
         left: 0;
@@ -823,8 +869,15 @@
         justify-content: center;
     }
 
+    .sound-control{
+        left: 12px;
+    }
+
     .welcome-cta{
-        bottom: calc(var(--social-footer-height, 50px) + 10px);
+        width: 35%;
+        max-width: 35%;
+        height: 48px;
+        margin-top: 17px;
     }
 }
 
@@ -832,10 +885,18 @@
 /*desktop*/
 
 @media (min-width:1020px)  {
+    .welcome-video-section{
+        padding-top: 55px;
+        padding-bottom: 0;
+    }
+
     .welcome-video-bg{
         top: 0;
         bottom: 0;
         inset-inline: 0;
+        flex: 1;
+        width: 100%;
+        min-height: 0;
     }
 
     .welcome-video-bg video{
@@ -857,7 +918,10 @@
     }
 
     .welcome-cta{
-        bottom: calc(var(--social-footer-height, 50px) + 10px);
+        width: 25%;
+        max-width: 25%;
+        height: 48px;
+        margin-top: 17px;
     }
 }
 
